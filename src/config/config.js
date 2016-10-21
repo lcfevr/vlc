@@ -4,6 +4,7 @@
 import Env from './env';
 
 let config = {
-    env: Env
+    env: Env,
+    link:'http://daka.jifen.com/index.php'
 };
 export default config;

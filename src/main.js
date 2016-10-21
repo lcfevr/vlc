@@ -6,8 +6,18 @@ import VueRouter from 'vue-router';
 import App from 'components/app.vue';
 import Routers from './router';
 import Env from './config/env';
+import vueResource from 'vue-resource';
 
 Vue.use(VueRouter);
+Vue.use(vueResource);
+
+
+
+Vue.http.options.xhr = {withCredentials: true}
+
+// post的时候会把JSON对象转成formdata
+Vue.http.options.emulateJSON=true;
+Vue.http.options.emulateHTTP = true;
 
 // 开启debug模式
 Vue.config.debug = true;

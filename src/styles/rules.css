@@ -1,0 +1,85 @@
+.rules{
+    width:calc(100% - 20px);
+    padding:10px;
+    background: #ffffff;
+}
+
+.rules .ruleContainer{
+    position: relative;
+    width:100%;
+    height:40px;
+    margin-bottom:17px;
+}
+
+.rules .ruleContainer .rule_title{
+    width:75px;
+    background: #ffffff;
+    text-align: center;
+    margin-left:50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.rules .ruleContainer:before{
+    content: '';
+    position: absolute;
+    left:0;
+    top:50%;
+    -webkit-transform: translateY(-50%) scale(.5) translateX(-50%);
+    -moz-transform: translateY(-50%) scale(.5) translateX(-50%);
+    -ms-transform: translateY(-50%) scale(.5) translateX(-50%);
+    -o-transform: translateY(-50%) scale(.5) translateX(-50%);
+    transform: translateY(-50%) scale(.5) translateX(-50%);
+    width:200%;
+    height:0;
+    border-top:1px solid  #55acee;
+
+}
+
+.rules .ruleContainer .rule_title i,.rules .ruleContainer .rule_title span{
+    width:100%;
+    display: inline-block;
+    color: #55acee;
+    font-size:15px;
+}
+
+.rules .rule_item{
+    width:calc(100% - 30px);
+    padding:0 15px;
+}
+
+.rules .rule_item p{
+    position: relative;
+    line-height:22px;
+    font-size:13px;
+    color: #666666;
+
+}
+
+.rules .rule_item p i:before{
+    content: '\e60e';
+    color: #55acee;
+    font-size:12px;
+    position: absolute;
+    left:-15px;
+    top:0;
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    -ms-transform: scale(.5);
+    -o-transform: scale(.5);
+    transform: scale(.5);
+}
+
+.rules .rule_item ul{
+    width:100%;
+}
+
+.rules .rule_item ul li{
+    color: #55acee;
+    font-size:13px;
+    width:100%;
+    line-height: 25px;
+}
