@@ -83,6 +83,10 @@ select, option{
     *zoom:1;
 }
 
+#app{
+    overflow-x:hidden;
+    width:100%;
+}
 
 @font-face {font-family: 'iconfont';
     src: url('./iconfont/iconfont.eot'); /* IE9*/

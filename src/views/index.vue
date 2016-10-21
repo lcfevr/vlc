@@ -18,6 +18,9 @@
         width:135px;
         height:30px;
         border-radius:30px;
+        text-align: center;
+        line-height: 30px;
+        display: block;
         border:0;
         color: #ffffff;
         font-size:14px;
@@ -183,7 +186,7 @@
 
             <div class="d_btnContainer" v-if="loginStatus==1">
                 <button class="btn start" v-link="{path:'/card'}"><i class="iconfont">&#xe60a;</i><span>个人中心</span></button>
-                <button class="btn yellow" v-link="{path:'/rank'}"><i class="iconfont">&#xe60c;</i><span>积分商城</span></button>
+                <a class="btn yellow" href='http://jifen.cmohurd.com/mall/index'><i class="iconfont">&#xe60c;</i><span>积分商城</span></a>
             </div>
 
             <div class="rules" v-else>
@@ -258,7 +261,7 @@
                 <template v-if="loginStatus==1">
                     <template v-if="isLazy==0">
                         <div class="normalBtn">
-                            <button><i class="iconfont whiteColor">&#xe612;</i>&nbsp;重新开始</button>
+                            <button @click="tipRestart"><i class="iconfont whiteColor">&#xe612;</i>&nbsp;重新开始&nbsp;<i class="iconfont whiteColor">&#xe609;</i></button>
                         </div>
                     </template>
                     <template v-else>
@@ -342,7 +345,10 @@
 
         },
         methods: {
-
+            tipRestart(){
+                this.isPop=1;
+                this.msg='当前无法重新开始';
+            },
             getSignList(){
                 var self=this;
                 this.$http.post(config.link+'/join/signList',

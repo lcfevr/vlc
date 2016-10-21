@@ -281,7 +281,7 @@
                 <button class="start" @click="getLuckPic"><i class="iconfont">&#xe615;</i>生成早起卡</button>
             </template>
             <template v-else>
-                <button ><i class="iconfont">&#xe615;</i>生成早起卡</button>
+                <button @click="tipWake"><i class="iconfont">&#xe615;</i>生成早起卡</button>
             </template>
             <!--<button class="start">熬一碗鸡汤</button>-->
         </div>
@@ -315,13 +315,18 @@
         </template>
     </div>
 
-    <section class="carrousel " v-show="isLargeModel">
+    <section class="carrousel " v-if="isLargeModel">
         <p>偷懒的人那么多，早起的就你一个<br>长按图片保存到手机，带动朋友们早起吧～</p>
         <div class="wrapper">
-            <img src="http://daka.jifen.com/index.php/join/getLuckPic">
+            <img :src="largeImg">
             <span class="close" @click="isLargeModel=!isLargeModel"></span>
         </div>
     </section>
+    <pop v-if="isPop==1" transition="popup">
+        <p>{{msg}}</p>
+
+
+    </pop>
     <pop v-if="isPop==2" transition="popup">
         <p>您已经生成早起卡,可以到卡包查看。</p>
 
@@ -362,10 +367,12 @@
                 isCurrent:0,
                 num:0, //生成早起卡点击次数
                 isPop:0,  //弹窗   0 弹窗关闭 1 弹窗msg 2 弹窗自定义
+                msg:'',
                 listData:{}, //显示的排行数据
                 friendList:{}, //好友排行
                 energyList:{}, //正能量排行
-                totalList:{} //总排行
+                totalList:{}, //总排行
+                largeImg:config.link+'/join/getLuckPic'
 
             }
         },
@@ -381,6 +388,10 @@
 
         },
         methods: {
+            tipWake(){
+                this.isPop=1;
+                this.msg='您还未打卡，无法生成早起卡。'
+            },
             getLuckPic(){
                 var self=this;
                 if(this.num!=0){

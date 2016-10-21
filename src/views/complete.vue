@@ -46,10 +46,10 @@
                         <button class="yellow"><i class="iconfont">&#xe610;</i>我要打卡</button>
                     </template>
                     <template v-if="new Date().getHours()<6">
-                        <button><i class="iconfont">&#xe607;</i>未到时间</button>
+                        <button @click="tipWait"><i class="iconfont">&#xe607;</i>未到时间&nbsp;<i class="iconfont">&#xe607;</i></button>
                     </template>
                     <template v-if="new Date().getHours()>8">
-                        <button><i class="iconfont">&#xe611;</i>已错过</button>
+                        <button @click="tipMiss"><i class="iconfont">&#xe611;</i>已错过&nbsp;<i class="iconfont">&#xe607;</i></button>
                     </template>
 
                 </template>
@@ -113,6 +113,15 @@
 
         },
         methods: {
+            tipWait(){
+                this.isPop=1;
+                this.msg='未到打卡时间'
+            },
+
+            tipMiss(){
+                this.isPop=1;
+                this.msg='已错过打卡时间'
+            },
             getJoinStatus(){
                 var self=this;
                 this.$http.post(config.link+'/join/isJoin',
