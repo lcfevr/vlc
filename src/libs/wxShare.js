@@ -68,18 +68,18 @@ import config from '../config/config'
                     _this.shareConf.imgUrl=resovle.imageurl;
                     _this.updateShare();
                 })
-                .catch(function(rej65ect){
-                    console.log(reject)
+                .catch(function(reject){
+                    callback && callback(reject)
                 }) 
         },
         updateShare:function(conf){
             var setings = "onMenuShareTimeline onMenuShareAppMessage onMenuShareQQ onMenuShareWeibo onMenuShareQZone",
                 thisConf = this.shareConf,
                 obj = {},
-                conf = conf || {};
+                Conf = conf || {};
             for (var k in thisConf) {
-                if (conf.hasOwnProperty(k)) {
-                    obj[k] = conf[k];
+                if (Conf.hasOwnProperty(k)) {
+                    obj[k] = Conf[k];
                 } else {
                     obj[k] = thisConf[k];
                 }
@@ -112,8 +112,8 @@ import config from '../config/config'
         },
         staticstical:function(alias_event, action) {  //cnzz方法
         // console.log(alias_event);
-        var action = action || 'onclick';
-        _czc.push(["_trackEvent",alias_event,action,"Reading","sign","1"]);
+        var Action = action || 'onclick';
+        _czc.push(["_trackEvent",alias_event,Action,"Reading","sign","1"]);
 
         }
 };

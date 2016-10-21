@@ -31,7 +31,7 @@ body {
     max-height: 470px;
     font-size: inherit;
     color: #636f74;
-    background: url("./images/user_bg.jpg") center 0 / cover;
+    background: url("../images/index_01.png") center 0 / cover;
     position: relative;
 }
 .link_to_back {
