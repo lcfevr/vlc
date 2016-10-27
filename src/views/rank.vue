@@ -315,22 +315,18 @@
     </div>
 
     <section class="carrousel " v-if="isLargeModel">
-        <p>偷懒的人那么多，早起的就你一个<br>长按图片保存到手机，带动朋友们早起吧～</p>
+        <p>偷懒的人那么多，早起的就你一个<br>长按图片保存到手机并分享，带动朋友们早起吧～</p>
         <div class="wrapper">
-            <img :src="largeImg">
+             <img :src="largeImg">
             <span class="close" @click="isLargeModel=!isLargeModel"></span>
         </div>
     </section>
     <pop v-if="isPop==1" transition="popup">
         <p>{{msg}}</p>
-
-
     </pop>
     <pop v-if="isPop==2" transition="popup">
         <p>{{msg}}</p>
-
         <a class="whiteColor yellow invite-btn" v-link="{path:'/card'}">确认</a>
-
     </pop>
 </template>
 <script>

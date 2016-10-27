@@ -528,9 +528,6 @@
     <!-- usr信息 -->
 
     <section class="user_info center">
-        <div class="link_to_back" v-link="{path:'/'}">
-            <div class="back"></div>
-        </div>
         <div class="user_head center"><img id="user_head_src" :src="userInfo.logo"></div>
         <p id="nickname" class="nickname center">{{userInfo.nickname}}</p>
         <ul class="user_info_ul">
@@ -618,7 +615,7 @@
     <!-- 大图 -->
 
     <section class="carrousel " v-show="isLargeModel">
-        <p>偷懒的人那么多，早起的就你一个<br>长按图片保存到手机，带动朋友们早起吧～</p>
+        <p>偷懒的人那么多，早起的就你一个<br>长按图片保存到手机并分享，带动朋友们早起吧～</p>
         <div class="wrapper">
             <img :src="largeImg">
             <span class="close" @click="isLargeModel=!isLargeModel"></span>
