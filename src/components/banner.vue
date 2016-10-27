@@ -98,13 +98,13 @@
 </style>
 <template>
     <div class="d_header">
-        <img src="../images/index_01.png" />
+        <img src="../images/banner.jpg" />
         <div class="header_title">
             <p>
                 <span>{{countDay}}</span>天
             </p>
             <div>
-                <p>“在长沙”21天早起计划</p>
+                <p>“湖南头条”21天早起计划</p>
                 <span>{{addDay}}</span>开始
             </div>
         </div>
@@ -128,7 +128,8 @@
                 items:[],
                 clockInNumber:0,
                 addDay:'',
-                countDay:0
+                countDay:0,
+                uid:0
 
             }
         },
@@ -155,11 +156,11 @@
                         })
                         .then(function(resovle){
                             console.log(resovle)
-                            self.$nextTick(function(){
-                                self.items=resovle.data.logoData;
-                                self.uid=resovle.data.uid;
-                                self.clockInNumber=resovle.data.clockInNumber;
-                            })
+
+                            self.items=resovle.data.logoData;
+                            self.uid=resovle.data.uid;
+                            self.clockInNumber=resovle.data.clockInNumber;
+
 
 
                         })
@@ -178,10 +179,10 @@
                         })
                         .then(function(resovle){
                             console.log(resovle)
-                            self.$nextTick(function(){
+
                                 self.countDay=resovle.data.countDay;
                                 self.addDay=resovle.data.addDay
-                            })
+
 
 
                         })

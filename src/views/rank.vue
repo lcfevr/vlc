@@ -201,7 +201,7 @@
     }
     .carrousel .wrapper > img {
         width: 80%;
-        height: 80%;
+        height: auto;
         object-fit: cover;
         position: absolute;
         left: 10%;
@@ -281,9 +281,8 @@
                 <button class="start" @click="getLuckPic"><i class="iconfont">&#xe615;</i>生成早起卡</button>
             </template>
             <template v-else>
-                <button @click="tipWake"><i class="iconfont">&#xe615;</i>生成早起卡</button>
+                <button class="grey" @click="tipWake"><i class="iconfont">&#xe615;</i>生成早起卡</button>
             </template>
-            <!--<button class="start">熬一碗鸡汤</button>-->
         </div>
         <ul class="flexRank">
 
@@ -328,7 +327,7 @@
 
     </pop>
     <pop v-if="isPop==2" transition="popup">
-        <p>您已经生成早起卡,可以到卡包查看。</p>
+        <p>{{msg}}</p>
 
         <a class="whiteColor yellow invite-btn" v-link="{path:'/card'}">确认</a>
 
@@ -365,14 +364,14 @@
                 ],
                 isLargeModel:false,
                 isCurrent:0,
-                num:0, //生成早起卡点击次数
                 isPop:0,  //弹窗   0 弹窗关闭 1 弹窗msg 2 弹窗自定义
                 msg:'',
                 listData:{}, //显示的排行数据
                 friendList:{}, //好友排行
                 energyList:{}, //正能量排行
                 totalList:{}, //总排行
-                largeImg:config.link+'/join/getLuckPic'
+                largeImg:config.link+'/join/getLuckPic',
+                loginStatus:0
 
             }
         },
@@ -380,6 +379,7 @@
             this.getFriendRank();
             this.getTotalRank();
             this.getEnergyRank();
+            this.getisJoin();
         },
         ready: function () {
             this.isIn=true;
@@ -394,17 +394,31 @@
             },
             getLuckPic(){
                 var self=this;
-                if(this.num!=0){
-                    this.isPop=2;
-                    return false;
-                }
-                this.isLargeModel=true;
-                this.num++;
+                this.$http.post(config.link+'/join/isGetCard',
+                        { "Access-Control-Allow-Origin":'*',"Access-Control-Allow-Headers":'Origin, X-Requested-With, Content-Type, Accept'})
+                        .then(function(res){
+                            if(res.ok){
+                                return res.body
+                            }
+                        })
+                        .then(function(resovle){
+                            console.log(resovle);
+                            if(resovle.status==200){
+                                self.isLargeModel=true;
+                            }else{
+                                self.isPop=2;
 
+                                self.msg=resovle.msg;
+
+                            }
+                        })
+                        .catch(function(reject){
+                            console.log(reject)
+                        })
             },
-            getSignList(){
+            getisJoin(){
                 var self=this;
-                this.$http.post(config.link+'/join/signList',
+                this.$http.post(config.link+'/join/isJoin',
                         { "Access-Control-Allow-Origin":'*',"Access-Control-Allow-Headers":'Origin, X-Requested-With, Content-Type, Accept'})
                         .then(function(res){
                             if(res.ok){
@@ -413,9 +427,12 @@
                         })
                         .then(function(resovle){
                             console.log(resovle)
-                            self.$nextTick(function(){
-                               self.isCurrent=resovle.data.current
-                            })
+
+                                self.loginStatus=resovle.data.isJoin;
+                                if(self.loginStatus==1){
+                                    self.isCurrent=resovle.data.current
+                                }
+
                         })
                         .catch(function(reject){
                             console.log(reject)
@@ -431,11 +448,11 @@
                             }
                         })
                         .then(function(resovle){
-                            self.$nextTick(function(){
+
                                 self.friendList=Object.assign({}, self.friendList, resovle);
                                 self.listData= Object.assign({}, self.friendList, resovle);
                                 console.log(self.listData)
-                            })
+
 
                         })
                         .catch(function(reject){
@@ -444,7 +461,7 @@
             },
             getTotalRank(){
                 var self=this;
-                this.$http.post(config.link+'/index/top?rank=2',
+                this.$http.post(config.link+'/index/top',{ranking:2},
                         { "Access-Control-Allow-Origin":'*',"Access-Control-Allow-Headers":'Origin, X-Requested-With, Content-Type, Accept'})
                         .then(function(res){
                             if(res.ok){
@@ -452,11 +469,11 @@
                             }
                         })
                         .then(function(resovle){
-                            self.$nextTick(function(){
+
                                 self.totalList=Object.assign({}, self.totalList, resovle);
 
 
-                            })
+
 
                         })
                         .catch(function(reject){
@@ -465,7 +482,8 @@
             },
             getEnergyRank(){
                 var self=this;
-                this.$http.post(config.link+'/index/top?rank=3',
+                this.$http.post(config.link+'/index/top',{ranking:3},
+
                         { "Access-Control-Allow-Origin":'*',"Access-Control-Allow-Headers":'Origin, X-Requested-With, Content-Type, Accept'})
                         .then(function(res){
                             if(res.ok){
@@ -473,10 +491,8 @@
                             }
                         })
                         .then(function(resovle){
-                            self.$nextTick(function(){
-                                self.energyList=Object.assign({}, self.energyList, resovle);
 
-                            })
+                            self.energyList=Object.assign({}, self.energyList, resovle);
 
                         })
                         .catch(function(reject){

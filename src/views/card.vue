@@ -32,7 +32,7 @@
         max-height: 470px;
         font-size: inherit;
         color: #636f74;
-        background: url("../images/index_01.png") center 0 / cover;
+        background: url("../images/banner.jpg") center 0 / cover;
         position: relative;
     }
     .link_to_back {
@@ -198,6 +198,7 @@
 
     .overdue {
         border-radius: 16px;
+        padding:0 3px;
         color: #ffffff;
         background: #ffa538;
         position: absolute;
@@ -369,12 +370,9 @@
         opacity: 1;
     }
     .swiper-slide img {
-        height: 100%;
         width: 100%;
         object-fit: cover;
         position: relative;
-        border: 4px solid #2b665e;
-        box-sizing: border-box;
     }
 
     .swiper-slide p {
@@ -384,6 +382,7 @@
         background: #ef440f;
         width: 26px;
         height: 26px;
+
         overflow: hidden;
         border-radius: 50%;
         color: #fff;
@@ -426,13 +425,12 @@
     }
     .carrousel .wrapper > img {
         width: 80%;
-        height: 80%;
+        height: auto;
         object-fit: cover;
         position: absolute;
         left: 10%;
         top: calc(10% - 20px);
-        border: 4px solid #2b665e;
-        box-sizing: border-box;
+
     }
 
     .carrousel .close {
@@ -558,19 +556,18 @@
 
                 <a  @click="tabA">积分记录</a>
 
-                <div class="overdue" v-if="signListLength>0">
+                <div class="overdue" v-if="signListLength>0&&touch_1==1">
                     <p><span>{{signListLength}}</span></p>
                 </div>
             </li>
             <li :class="['tap_bar_item','myCard',{current:isB}]">
                 <a  @click="tabB">我的卡片</a>
-                <div class="overdue">
+                <div class="overdue" v-if="card.length>0&&touch_2==1">
                     <p><span>{{cardCount}}</span></p>
                 </div>
             </li>
         </ul>
     </section>
-
 
     <!-- 卡片 -->
 
@@ -583,6 +580,7 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
+
     </section>
 
 
@@ -626,17 +624,34 @@
             <span class="close" @click="isLargeModel=!isLargeModel"></span>
         </div>
     </section>
+
+    <div class="fixBtn" >
+        <a v-if="card.length==14" href="http://jifen.cmohurd.com/mall/index" class="start"><i class="iconfont">&#xe60d;</i>集卡抽奖</a>
+        <button v-else class="grey" @click="isPop=1"><i class="iconfont">&#xe611;</i>尚未集齐<i class="iconfont">&#xe609;</i> </button>
+    </div>
+    <pop v-if="isPop==1">
+        <p>&nbsp;</p>
+        <p>豪礼100%，集齐14张早起卡，就可以激活按钮兑奖啦～</p>
+        <p>&nbsp;</p>
+        <a class="whiteColor yellow invite-btn" @click="isPop=0">明白了</a>
+
+    </pop>
 </template>
 <script>
     import Swiper from '../libs/swiper.min'
     import config from '../config/config'
     import datesplite from '../filters/datesplite'
     import daysplite from '../filters/daysplite'
+    import pop from '../components/popSlot.vue'
 
     module.exports = {
         filters:{
             datesplit:datesplite,
             daysplit:daysplite
+        },
+        components:{
+            pop:pop
+
         },
         data () {
             return {
@@ -651,6 +666,9 @@
                 signListLength:0,
                 card:[], //卡片集合
                 cardCount:0,
+                touch_1:1,
+                touch_2:1,
+                isPop:0
             }
         },
         compiled(){
@@ -669,14 +687,16 @@
             tabA(){
                 this.isA=true;
                 this.isB=false;
+                this.touch_1=0;
 //                if(!!this.mySwiper) this.mySwiper.destroy(true,true);
             },
 
             tabB(){
                 this.isB=true;
                 this.isA=false;
-
+                this.touch_2=0;
             },
+
             largeShow(e){
                 this.isLargeModel=true;
                 this.largeImg=config.link+'/join/getLuckPic?pid='+e.target.id;
@@ -692,9 +712,9 @@
                         })
                         .then(function(resovle){
                             console.log(resovle.data)
-                            self.$nextTick(function(){
+
                                 self.userInfo = Object.assign({}, self.userInfo, resovle.data)
-                            })
+
 
                         })
                         .catch(function(reject){
@@ -712,14 +732,14 @@
                         })
                         .then(function(resovle){
                             console.log(resovle)
-                            self.$nextTick(function(){
-                                self.signList=Object.assign({}, self.signList, resovle.data.list)
+                            self.signList=Object.assign({}, self.signList, resovle.data.list)
+
                                 for(var i=0;i<resovle.data.list.length;i++){
                                     if(resovle.data.list[i].state==1){
                                         self.signListLength++;
                                     }
                                 }
-                            })
+
                         })
                         .catch(function(reject){
                             console.log(reject)
@@ -735,8 +755,6 @@
                             }
                         })
                         .then(function(resovle){
-                            console.log(resovle)
-                            self.$nextTick(function(){
                                 self.card=resovle.data.list;
                                 self.cardCount=resovle.data.count;
                                 self.mySwiper = new Swiper('.swiper-container', {
@@ -745,21 +763,23 @@
                                     preloadImages: true,
                                     pagination: '.swiper-pagination',
                                     slidesPerView: 1.4,
-                                    centeredSlides: true,
+                                    observer:true,
                                     paginationClickable: true,
                                     spaceBetween: 0,
+                                    centeredSlides:true,
+                                    slideToClickedSlide:true
                                 });
 
-                            })
-
-
-                            setTimeout(function(){
-                                self.mySwiper.update()
-                            },1000)
                         })
                         .catch(function(reject){
                             console.log(reject)
                         })
+            }
+        },
+        events:{
+            'closePop':function(res){
+                if(this.isPop==3) return;
+                this.isPop=res
             }
         }
     }

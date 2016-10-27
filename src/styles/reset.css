@@ -122,7 +122,7 @@ select, option{
     bottom:0;
     width:100%;
     height:50px;
-
+    z-index:9999;
 }
 
 .fixBtn>button{
@@ -135,6 +135,21 @@ select, option{
 }
 
 .fixBtn>button>.iconfont{
+    font-size:18px;
+}
+
+.fixBtn>a{
+    display: inline-block;
+    width:100%;
+    height:100%;
+    line-height:50px;
+    text-align: center;
+    font-size:18px;
+    font-family: "Microsoft YaHei UI";
+    color: #ffffff;
+}
+
+.fixBtn>a>.iconfont{
     font-size:18px;
 }
 
@@ -155,8 +170,6 @@ select, option{
 .normalBtn>button>.iconfont{
     font-size:18px;
 }
-
-
 
 .start{
     background:#55acee;
@@ -229,8 +242,6 @@ select, option{
     opacity:0;
 }
 
-
-
 .e616:before{
     content:'\e616';
 }
@@ -243,16 +254,14 @@ select, option{
     content:'\e618';
 }
 
-
 .popup-box .rule-swap .invite-btn {
     display: block;
     height: 30px;
     width: 80%;
     border-radius: 15px;
     text-align: center;
-    position: absolute;
-    bottom: 22px;
-    left:50%;
+    margin-top:5px;
+    margin-left:50%;
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
@@ -265,13 +274,11 @@ select, option{
     -webkit-transition: background 0.5s ease;
 }
 
-
 .popup-box .rule-swap .tip p {
     font-size: 14px;
     line-height:25px;
     padding:0 10px;
 }
-
 
 .popup-transition{
     transition: all 0.5s ease;
@@ -282,9 +289,3 @@ select, option{
 
     opacity: 0;
 }
-
-
-
-
-
-
