@@ -278,8 +278,7 @@
                             <div v-if="data.state==1" class="d_status"><i class="iconfont status_success"></i> </div>
 
 
-                            <div v-if="data.state==2" class="d_status status
-                            _timeTip">
+                            <div v-if="data.state==2" class="d_status status_timeTip">
 
                                 <template v-if="loginStatus==1">
 
