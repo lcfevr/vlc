@@ -3,7 +3,7 @@
  */
 import config from '../config/config'
   var shareWx={
-        signatureInterface:'/Type/share',
+        signatureInterface:'/index/getwxconf',
         confInterface:'/Type/shareData',
         shareConf: {
           title: "我已参加早起打卡活动，拥抱清晨，坚持21天！",
@@ -41,7 +41,8 @@ import config from '../config/config'
                     wx.ready(function() {
                         // self.updateShare();
                         // callback && callback();
-                        _this.getConf(vm,callback);
+                        // _this.getConf(vm,callback);
+                        _this.updateShare(_this.shareConf);
                     });
                     wx.error(function(res) {
                         // alert("微信验证失败\n" + JSON.stringify(res));
