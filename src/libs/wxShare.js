@@ -6,12 +6,12 @@ import config from '../config/config'
         signatureInterface:'/Type/share',
         confInterface:'/Type/shareData',
         shareConf: {
-          title: "dushu",
-          desc: "dushu",
+          title: "我已参加早起打卡活动，拥抱清晨，坚持21天！",
+          desc: "我已参加早起打卡活动，拥抱清晨，坚持21天！",
           link: (function(){
-              return window.location.origin + window.location.pathname;
+              return window.location.origin +'/index';
           })(),
-          imgUrl: "",
+          imgUrl: "https://img.alicdn.com/imgextra/i2/1724390189/TB2_qQvaSOI.eBjSspmXXatOVXa_!!1724390189.jpg",
           success: function() {
               
           },
@@ -111,9 +111,8 @@ import config from '../config/config'
             });
         },
         staticstical:function(alias_event, action) {  //cnzz方法
-        // console.log(alias_event);
-        var Action = action || 'onclick';
-        _czc.push(["_trackEvent",alias_event,Action,"Reading","sign","1"]);
+        var Action = action || 'onMenuShareTimeline';
+        _czc.push(["_trackEvent",alias_event,Action,"daka","sign",config.link]);
 
         }
 };

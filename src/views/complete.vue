@@ -141,6 +141,7 @@
     import banner from '../components/banner.vue'
     import pop from '../components/popSlot.vue'
     import config from '../config/config'
+    import shareWx from '../libs/wxShare'
     module.exports = {
         components:{
             banner:banner,
@@ -162,6 +163,21 @@
         ready() {
             this.isIn=true;
             this.getJoinStatus();
+            var _this=this;
+            var shareConf={
+                title: "我已参加早起打卡活动，拥抱清晨，坚持21天！",
+                desc: "我已参加早起打卡活动，拥抱清晨，坚持21天！",
+                link: (function(){
+                    return window.location.origin + '/index';
+                })(),
+                imgUrl: "https://img.alicdn.com/imgextra/i2/1724390189/TB2_qQvaSOI.eBjSspmXXatOVXa_!!1724390189.jpg",
+                success: function() {
+                    shareWx.staticstical('分享朋友圈成功','share');
+                },
+                cancel: function() {}
+            };
+            shareWx.shareConf=shareConf;
+            shareWx.init(_this);
         },
         beforeDestroy: function () {
 

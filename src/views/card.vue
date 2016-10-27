@@ -640,6 +640,7 @@
     import datesplite from '../filters/datesplite'
     import daysplite from '../filters/daysplite'
     import pop from '../components/popSlot.vue'
+    import shareWx from '../libs/wxShare'
 
     module.exports = {
         filters:{
@@ -674,7 +675,22 @@
             this.getCard();
         },
         ready() {
+            var _this=this;
 
+            var shareConf={
+                title:"我已参加早起打卡活动，拥抱清晨，坚持21天！",
+                desc:"我已参加早起打卡活动，拥抱清晨，坚持21天！",
+                link: (function(){
+                    return window.location.origin + '/index';
+                })(),
+                imgUrl: "https://img.alicdn.com/imgextra/i2/1724390189/TB2_qQvaSOI.eBjSspmXXatOVXa_!!1724390189.jpg",
+                success: function() {
+                    shareWx.staticstical('分享朋友圈成功','share');
+                },
+                cancel: function() {}
+            };
+            shareWx.shareConf=shareConf;
+            shareWx.init(_this);
 
         },
         beforeDestroy () {
@@ -708,7 +724,7 @@
                             }
                         })
                         .then(function(resovle){
-                            console.log(resovle.data)
+                            console.log(resovle)
 
                                 self.userInfo = Object.assign({}, self.userInfo, resovle.data)
 

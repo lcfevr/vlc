@@ -274,7 +274,7 @@
 </style>
 <template>
     <div class="main" v-if="isIn" transition="route">
-        <banner ></banner>
+        <banner v-ref:banner></banner>
 
         <div class="timeToGo">
             <template v-if="isCurrent==1">
@@ -333,6 +333,7 @@
     import banner from '../components/banner.vue'
     import pop from '../components/popSlot.vue'
     import config from '../config/config'
+    import shareWx from '../libs/wxShare'
     module.exports = {
         components:{
           banner:banner,
@@ -367,7 +368,8 @@
                 energyList:{}, //正能量排行
                 totalList:{}, //总排行
                 largeImg:config.link+'/join/getLuckPic',
-                loginStatus:0
+                loginStatus:0,
+                countDay:0
 
             }
         },
@@ -376,14 +378,50 @@
             this.getTotalRank();
             this.getEnergyRank();
             this.getisJoin();
+            this.getPrivateData();
         },
         ready: function () {
             this.isIn=true;
+            var _this=this;
+
+            var shareConf={
+                title: "我已连续早起"+_this.countDay+"天！生活愈忙碌，愈要活清爽！",
+                desc: "我已连续早起"+_this.countDay+"天！生活愈忙碌，愈要活清爽！",
+                link: (function(){
+                    return window.location.origin + '/index';
+                })(),
+                imgUrl: _this.listData.myTop.logo,
+                success: function() {
+                    shareWx.staticstical('分享朋友圈成功','share');
+                },
+                cancel: function() {}
+            };
+            shareWx.shareConf=shareConf;
+            shareWx.init(_this);
         },
         beforeDestroy: function () {
 
         },
         methods: {
+            getPrivateData(){
+                var self=this;
+                this.$http.post(config.link+'/index/privateData',
+                        { "Access-Control-Allow-Origin":'*',"Access-Control-Allow-Headers":'Origin, X-Requested-With, Content-Type, Accept'})
+                        .then(function(res){
+                            if(res.ok){
+                                return res.body
+                            }
+                        })
+                        .then(function(resovle){
+                            console.log(resovle)
+
+                            self.countDay=resovle.data.countDay;
+
+                        })
+                        .catch(function(reject){
+                            console.log(reject)
+                        })
+            },
             tipWake(){
                 this.isPop=1;
                 this.msg='您还未打卡，无法生成早起卡。'
