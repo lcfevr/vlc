@@ -30,19 +30,20 @@ import config from '../config/config'
                     }
                 })
                 .then(function(resovle){
+                    var res=JSON.parse(resovle)
                     wx.config({
                         debug: 0,
-                        appId: resovle.appId,
-                        timestamp: parseInt(resovle.timestamp),
-                        nonceStr: resovle.nonceStr,
-                        signature: resovle.signature,
+                        appId: res.appId,
+                        timestamp: res.timestamp,
+                        nonceStr: res.nonceStr,
+                        signature: res.signature,
                         jsApiList: setings.split(" ")
                     });
                     wx.ready(function() {
                         // self.updateShare();
                         // callback && callback();
                         // _this.getConf(vm,callback);
-                        _this.updateShare(_this.shareConf);
+                        wx.hideOptionMenu();
                     });
                     wx.error(function(res) {
                         // alert("微信验证失败\n" + JSON.stringify(res));

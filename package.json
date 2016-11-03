@@ -15,7 +15,7 @@
   "author": "Aresn",
   "license": "MIT",
   "dependencies": {
-    "vue": "^1.0.26",
+    "vue": "^1.0.25",
     "vue-router": "^0.7.13"
   },
   "devDependencies": {
@@ -32,13 +32,10 @@
     "html-loader": "^0.3.0",
     "html-webpack-plugin": "^2.22.0",
     "style-loader": "^0.13.1",
-    "swiper": "^3.4.0",
     "url-loader": "^0.5.7",
-    "vue": "^1.0.26",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.2.0",
     "vue-loader": "^7.2.0",
-    "vue-resource": "^1.0.3",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.13.1"
   },
