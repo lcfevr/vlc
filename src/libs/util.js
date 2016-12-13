@@ -16,8 +16,42 @@ export default {
     merge(target,...sources){
         return Object.assign(target,...sources);
     },
+    strLength(str){
+        var oLength=0;
+        for(let ch of str){
+            if(ch.codePointAt(0)>0xFFF){
+                oLength+=4
+            }else{
+                oLength+=2
+            }
+        }
+        return oLength;
+    },
+    getLength(str){
+       return  [...str].length;
+    },
 
+    getMultiArr(arr,...newArr){
+        arr.push(...newArr);
+        return arr;
+    },
+    pushArr(arr,newArr){
+        arr.push(...newArr)
+        return arr;
+    },
+    baseImg(imgObj,callback){
+        var  reader=new FileReader();
+        reader.onload=callback()
+        reader.readAsDataURL(imgObj)
+    },
+    objToArr(obj){
+        var arr=[];
+        Object.keys(obj).forEach(function(item){
+            arr.push(obj[item])
+        })
 
+        return arr;
+    }
 
 
 }
