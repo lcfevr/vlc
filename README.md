@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## vue-vueRouter-webpack
 
 入口文件
@@ -70,3 +71,6 @@ router.map({
 ```
 
 
+=======
+#QA-element
+>>>>>>> ebfa0fe5a12b5f0db827172ebe0ae198ff601e3a
