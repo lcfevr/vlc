@@ -1,0 +1,147 @@
+<template>
+    <div class="v-lc-modal-mask animated" v-show="visible" transition="forward" @click="mask"></div>
+    <div class="v-lc-modal " :style="getWrapperStyle" v-show="visible" transition="scale">
+        <div class="v-lc-modal-header" v-if="showHead"><slot name="header"><div class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
+        <div class="v-lc-modal-body"><slot name="body">{{body}}</slot></div>
+        <div class="v-lc-modal-footer" v-if="!footerHide">
+            <slot name="footer">
+                <button class="v-lc-modal-button v-lc-modal-button-sure" @click="ok">{{okText}}</button>
+                <button class=" v-lc-modal-button v-lc-modal-button-cancle" @click="close">{{cancleText}}</button>
+            </slot>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props:{
+            visible: {
+                type: Boolean,
+                default: false
+            },
+            closable: {
+                type: Boolean,
+                default: true
+            },
+            maskClosable: {
+                type: Boolean,
+                default: true
+            },
+            title: {
+                type: String
+            },
+            width: {
+                type: String,
+                default: '2.2rem'
+            },
+            okText: {
+                type: String,
+                default () {
+                    return '确定';
+                }
+            },
+            cancleText: {
+                type: String,
+                default () {
+                    return '取消';
+                }
+            },
+            loading: {
+                type: Boolean,
+                default: false
+            },
+            style: {
+                type: Object
+            },
+            className: {
+                type: String
+            },
+
+            footerHide: {
+                type: Boolean,
+                default: false
+            },
+            scrollable: {
+                type: Boolean,
+                default: false
+            },
+            body:String
+        },
+        data(){
+            return {
+                showHead:true
+
+            }
+        },
+        components:{
+
+        },
+        computed:{
+            getWrapperStyle(){
+
+                let style = {};
+
+                let styleWidth = {
+
+                    width: `${this.width}`
+                }
+
+                let customStyle = this.style ? this.style:{}
+
+                Object.assign(style, styleWidth, customStyle);
+
+                return style;
+
+            },
+
+        },
+        methods:{
+            close(){
+                console.log('asdad')
+                this.visible = false;
+                this.$emit('on-cancle')
+
+            },
+            mask(){
+                if (!this.maskClosable) {
+                    this.close()
+                }
+
+            },
+            ok(){
+
+                if (this.loading) {
+
+                    this.buttonLoading = true;
+                } else {
+
+                    this.visible = false;
+                }
+
+                this.$emit('on-ok')
+
+            },
+            EscClose (e) {
+                if (this.visible && this.closable) {
+                    if (e.keyCode === 27) {
+                        this.close();
+                    }
+                }
+            },
+        },
+        transitions:{
+            'forward':{
+                enterClass:'fadeIn',
+                leaveClass:'fadeOut'
+            }
+        },
+        ready(){
+
+
+            document.addEventListener('keydown',this.EscClose)
+        },
+        beforeDestroy(){
+            document.addEventListener('keydown',this.EscClose)
+        }
+    }
+</script>

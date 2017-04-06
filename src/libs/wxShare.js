@@ -2,7 +2,8 @@
  * Created by Sherry on 2016/9/27.
  */
 import config from '../config/config'
-  var shareWx={
+
+  let shareWx={
         signatureInterface:'/index/getwxconf',
         confInterface:'/Type/shareData',
         shareConf: {
@@ -11,26 +12,27 @@ import config from '../config/config'
           link: (function(){
               return window.location.origin +'/index';
           })(),
-          imgUrl: "https://img.alicdn.com/imgextra/i2/1724390189/TB2_qQvaSOI.eBjSspmXXatOVXa_!!1724390189.jpg",
+          imgUrl: "",
           success: function() {
               
           },
           cancel: function() {}
         },
-        init:function(vm,callback){
-            var _this=this,
-                setings = "onMenuShareTimeline onMenuShareAppMessage onMenuShareQQ onMenuShareWeibo onMenuShareQZone startRecord stopRecord onVoiceRecordEnd playVoice pauseVoice stopVoice onVoicePlayEnd uploadVoice downloadVoice chooseImage previewImage uploadImage downloadImage translateVoice getNetworkType openLocation getLocation hideOptionMenu showOptionMenu hideMenuItems showMenuItems hideAllNonBaseMenuItem showAllNonBaseMenuItem closeWindow scanQRCode chooseWXPay openProductSpecificView addCard chooseCard openCard";
-            vm.$http.post(config.link+this.signatureInterface,{'url':encodeURIComponent(location.href.replace(/#.*$/, ""))},
+        init(callback){
+
+              let  setings = "onMenuShareTimeline onMenuShareAppMessage onMenuShareQQ onMenuShareWeibo onMenuShareQZone startRecord stopRecord onVoiceRecordEnd playVoice pauseVoice stopVoice onVoicePlayEnd uploadVoice downloadVoice chooseImage previewImage uploadImage downloadImage translateVoice getNetworkType openLocation getLocation hideOptionMenu showOptionMenu hideMenuItems showMenuItems hideAllNonBaseMenuItem showAllNonBaseMenuItem closeWindow scanQRCode chooseWXPay openProductSpecificView addCard chooseCard openCard";
+            this.$http.post(config.link+this.signatureInterface,{'url':encodeURIComponent(location.href.replace(/#.*$/, ""))},
                 { "Access-Control-Allow-Origin":'*',"Access-Control-Allow-Headers":'Origin, X-Requested-With, Content-Type, Accept'})
-                .then(function(res){
+                .then(res =>{
                     if(res.ok){
                         return res.body
                     }else{
                         alert('签名请求错误')
                     }
                 })
-                .then(function(resovle){
-                    var res=JSON.parse(resovle)
+                .then(resovle => {
+                    let _this =this,
+                        res=JSON.parse(resovle);
                     wx.config({
                         debug: 0,
                         appId: res.appId,
@@ -42,7 +44,7 @@ import config from '../config/config'
                     wx.ready(function() {
                         // self.updateShare();
                         // callback && callback();
-                        _this.getConf(vm,callback);
+                        _this.getConf(callback);
                         // wx.hideOptionMenu();
                     });
                     wx.error(function(res) {
@@ -54,32 +56,31 @@ import config from '../config/config'
                     console.log(reject)
                 })
         },
-        getConf:function(vm,callback){
-            var _this=this;
-            vm.$http.post(config.link+this.confInterface,{'url':encodeURIComponent(location.href.replace(/#.*$/, ""))},
+        getConf(callback){
+            this.$http.post(config.link+this.confInterface,{'url':encodeURIComponent(location.href.replace(/#.*$/, ""))},
                 { "Access-Control-Allow-Origin":'*',"Access-Control-Allow-Headers":'Origin, X-Requested-With, Content-Type, Accept'})
-                .then(function(res){
+                .then(res =>{
                     if(res.ok){
                         return res.body
                     }
                 })
-                .then(function(resovle){
-                    console.log(resovle)
-                    _this.shareConf.title=resovle.title;
-                    _this.shareConf.desc=resovle.desc;
-                    _this.shareConf.imgUrl=resovle.imageurl;
-                    _this.updateShare();
+                .then(resovle =>{
+                    console.log(resovle);
+                    this.shareConf.title=resovle.title;
+                    this.shareConf.desc=resovle.desc;
+                    this.shareConf.imgUrl=resovle.imageurl;
+                    this.updateShare();
                 })
-                .catch(function(reject){
+                .catch(reject => {
                     callback && callback(reject)
                 }) 
         },
-        updateShare:function(conf){
-            var setings = "onMenuShareTimeline onMenuShareAppMessage onMenuShareQQ onMenuShareWeibo onMenuShareQZone",
+        updateShare(conf){
+            let setings = "onMenuShareTimeline onMenuShareAppMessage onMenuShareQQ onMenuShareWeibo onMenuShareQZone",
                 thisConf = this.shareConf,
                 obj = {},
                 Conf = conf || {};
-            for (var k in thisConf) {
+            for (let k in thisConf) {
                 if (Conf.hasOwnProperty(k)) {
                     obj[k] = Conf[k];
                 } else {
@@ -112,11 +113,7 @@ import config from '../config/config'
                 }
             });
         },
-        staticstical:function(alias_event, action) {  //cnzz方法
-        var Action = action || 'onMenuShareTimeline';
-        _czc.push(["_trackEvent",alias_event,Action,"daka","sign",config.link]);
 
-        }
 };
 
 export default shareWx;

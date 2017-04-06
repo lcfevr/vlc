@@ -41,8 +41,8 @@
     "vue-html-loader": "^1.2.0",
     "vue-loader": "^7.2.0",
     "vue-style-loader": "^1.0.0",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.16.2"
   },
-
   "homepage": "https://github.com/lcfevr/vue-vueRouter-webpack#readme"
 }
