@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## vue-vueRouter-webpack
 
 入口文件
@@ -74,3 +75,6 @@ router.map({
 =======
 #QA-element
 >>>>>>> ebfa0fe5a12b5f0db827172ebe0ae198ff601e3a
+=======
+#hellobi-h5
+>>>>>>> 7f383a85205be2415253c4c800f0895b99e4968f
