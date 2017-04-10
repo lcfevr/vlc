@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## vue-vueRouter-webpack
 
 入口文件
@@ -78,3 +79,7 @@ router.map({
 =======
 #hellobi-h5
 >>>>>>> 7f383a85205be2415253c4c800f0895b99e4968f
+=======
+# vlc
+组件库
+>>>>>>> 7edba6fe24d24dbffb0fd9a7574a5caf61dc8f6a
