@@ -9,12 +9,6 @@ const routers = {
         title:'首页',
         depth:10
     },
-    '/cart': {
-        component (resolve) {
-            require(['./views/cart.vue'], resolve);
-        },
-        title:'首页',
-        depth:10
-    }
+
 };
 export default routers;

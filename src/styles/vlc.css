@@ -76,5 +76,48 @@
 
 
 
-/*alert*/
+/*notice*/
 
+.v-lc-notifaction{
+    width:2.2rem;
+    margin-right:.24rem;
+    position: fixed;
+    z-index:1000;
+}
+
+.v-lc-notice {
+    width:100%;
+    position: relative;
+    line-height:.25rem;
+    padding:.1rem;
+}
+
+.v-lc-notice .v-lc-notice-close{
+
+    display: block;
+    position: relative;
+    right:0;
+    top:.1rem;
+    width:.1rem;
+    height:.1rem;
+}
+
+.v-lc-notice .v-lc-notice-close:before{
+    content: '';
+    position: absolute;
+    left:0;
+    right:0;
+    width:.1rem;
+    height:.01rem;
+    transform: rotate(-45deg);
+}
+
+.v-lc-notice .v-lc-notice-close:after{
+    content: '';
+    position: absolute;
+    left:0;
+    right:0;
+    width:.1rem;
+    height:.01rem;
+    transform: rotate(45deg);
+}

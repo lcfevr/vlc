@@ -10,6 +10,7 @@ import Config from './config/config'
 import {setPageTitle} from './utils/util'
 import Cache from './utils/cache'
 import Modal from './components/modal/index'
+import Notice from './components/notice/index'
 
 
 Vue.use(VueRouter);
@@ -18,7 +19,8 @@ Vue.use(VueRouter);
 Vue.config.debug = Env != 'production';
 
 
-Vue.prototype.$Modal = Modal
+Vue.prototype.$Modal = Modal;
+Vue.prototype.$Notice = Notice;
 
 // 路由配置
 let router = new VueRouter({
