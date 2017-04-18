@@ -19,17 +19,16 @@ function getNoticeInstance (){
                 right:0
             },
     })
-    
+
     return noticeInstance;
 }
 
 function  notice(type,options) {
     const desc = options.desc || '';
-    const noticeKey = options.name || `v_notifaction_${name}`;
-    console.warn(noticeKey)
+    const noticeKey = options.key || `v_notifaction_${name}`;
     const onClose = options.onClose || function(){};
     const duration = (options.duration === 0) ? 0 : options.duration || defaultDuration;
-
+    const styles = options.styles
     name++;
 
     let instance = getNoticeInstance();
@@ -43,9 +42,9 @@ function  notice(type,options) {
     }
 
     instance.notice({
-        name: noticeKey.toString(),
+        key: noticeKey.toString(),
         duration: duration,
-        styles: {right:'50%'},
+        styles: styles,
         transitionName: 'scale',
         content: content,
         onClose: onClose,

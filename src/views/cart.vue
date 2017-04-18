@@ -2,27 +2,23 @@
 
 </style>
 <template>
-
     <div>
         <h1>111111111111</h1>
         <tab keep-alive >
 
         </tab>
-        <p>{{address}}</p>
         <button @click="newTip">queding</button>
     </div>
     <!--<modal :mask-closable="maskCloseble" width="2.5rem" :visible.sync="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">-->
-        <!--<p slot="header">111</p>-->
+    <!--<p slot="header">111</p>-->
     <!--</modal>-->
 
-<picker  @sure="pickerSure" @cancle="pickerCancle" :visible.sync="true"></picker>
 </template>
 <script>
 
     import Tab from '../components/tab/tab'
     import tabItem from '../components/tab/tabItem'
     import Modal from '../components/modal/modal'
-    import Picker from '../components/picker/picker'
 
     export default {
         filters: {
@@ -30,13 +26,11 @@
         },
         directives: {
 
-
         },
         components:{
             Tab,
             tabItem,
-            Modal,
-            Picker
+            Modal
         },
         data () {
             return {
@@ -48,7 +42,6 @@
                 },{
                     name:"商品",
                     icon:"&#xe665;",
-
                     iconCur:"&#xe667;",
                     path:"/list"
                 },{
@@ -63,23 +56,18 @@
                     path:"/cart"
                 },{
                     name:"我",
-
                     icon:"&#xe661;",
                     iconCur:"&#xe669;",
                     path:"/user"
                 }],
                 visible:true,
-                maskCloseble:false,
-                address:''
+                maskCloseble:false
             }
         },
         ready () {
 //            this.$Modal.confirm({title:'aaa',content:'aaaaasd',onOk:this.ok,onCancle:function(){}})
             this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
-            console.log(this.$Request)
-
-
-
+            console.log('asdasd')
         },
         beforeDestroy () {
 
@@ -93,20 +81,7 @@
             },
             newTip(){
                 this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,styles:{right:'0'}})
-            },
-
-
-//            change(province,city,district){
-//                this.address = `${province} ${city} ${district}`
-//            },
-            pickerSure(province,city,district){
-                this.address = `${province} ${city} ${district}`
-            },
-            pickerCancle(){
-                console.log('111')
             }
-
-        },
-
+        }
     }
 </script>

@@ -31,9 +31,12 @@
             },
             transitionName:String,
             onClose:{
-                type:Function
+                type:Function,
+                default:function(){}
             },
             key:{
+                type:String,
+
                 required:true
             }
         },
@@ -47,12 +50,12 @@
         },
         methods:{
             close(){
-
                 this.clearCloseTimer();
                 this.onClose();
-                this.$parent.remove(this.key)
+                this.$parent.close(this.key)
 
             },
+
             clearCloseTimer(){
 
                 if (this.closeTimer) {

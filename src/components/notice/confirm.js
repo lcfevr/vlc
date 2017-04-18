@@ -2,20 +2,23 @@
  * Created by admin on 2017/4/7.
  */
 
-import Notifaction from './notification'
+import notifaction from './notification'
 import Vue from 'vue'
 import { camelcaseToHyphen } from '../../utils/util'
 
-Notifaction.newInstance = properties => {
+notifaction.newInstance = properties => {
 
     let _props = properties || {}
 
     let props = '';
 
-    Object.keys(props).forEach( prop =>{
+    Object.keys(_props).forEach( prop =>{
 
         props += ' :'+camelcaseToHyphen(prop) + '=' + prop
     })
+
+
+
 
     let div = document.createElement('div');
 
@@ -25,7 +28,7 @@ Notifaction.newInstance = properties => {
 
     const noticaction = new Vue({
         data:_props,
-        components:{Notifaction},
+        components:{notifaction},
         el:div
     }).$children[0];
 
@@ -38,7 +41,7 @@ Notifaction.newInstance = properties => {
         remove(name){
             noticaction.close(name)
         },
-
+        component: notifaction,
         destroy(){
             document.body.removeChild(div)
         }
@@ -46,4 +49,4 @@ Notifaction.newInstance = properties => {
 }
 
 
-export  default  Notifaction
+export  default  notifaction

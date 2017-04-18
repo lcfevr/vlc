@@ -1,6 +1,7 @@
 /**
  * Created by admin on 2017/3/27.
  */
+import Vue from 'vue'
 export default {
     post(url,{data={},body={ "Access-Control-Allow-Origin":'*',"Access-Control-Allow-Headers":'Origin, X-Requested-With, Content-Type, Accept'}}={}){
         return new Promise((rs,rj)=>{
@@ -56,6 +57,4 @@ export default {
         })
 
     }
-
-
 }

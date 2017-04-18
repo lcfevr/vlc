@@ -11,9 +11,15 @@ import {setPageTitle} from './utils/util'
 import Cache from './utils/cache'
 import Modal from './components/modal/index'
 import Notice from './components/notice/index'
+import VueTouch from 'vue-touch'
+import Request from './utils/request'
+import VueResource from 'vue-resource'
+
 
 
 Vue.use(VueRouter);
+Vue.use(VueTouch);
+Vue.use(VueResource)
 
 // 开启debug模式
 Vue.config.debug = Env != 'production';
@@ -21,6 +27,8 @@ Vue.config.debug = Env != 'production';
 
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Notice = Notice;
+Vue.prototype.$Config = Config;
+Vue.prototype.$Request = Request;
 
 // 路由配置
 let router = new VueRouter({

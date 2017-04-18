@@ -1,14 +1,14 @@
 <template>
     <div class="v-lc-notifaction" :style="styles">
-        <notice
-                 :key="notice.name"
+        <notice v-for="notice in notices"
+                 :key="notice.key"
                  :styles="notice.styles"
                 :content="notice.content"
                 :duration="notice.duration"
                 :closable="notice.closable"
                 :transition-name="notice.transitionName"
                 :on-close="notice.onClose"
-                v-for="notice in notices"></notice>
+                ></notice>
     </div>
 </template>
 
@@ -18,10 +18,10 @@
     function getUuid(){
         return 'v_notifaction_'+now+'_'+(seed++)
     }
-    import Notice from './notice.vue'
+    import notice from './notice.vue'
     export default {
         components:{
-            Notice
+            notice
         },
         props:{
             styles:{
@@ -50,28 +50,28 @@
         methods:{
             add(notice){
 
-                const name = notice.name || getUuid();
-
+                const name = notice.key || getUuid();
                 let _notice = Object.assign({
                     styles:{
                         right:'50%'
                     },
                     content:'',
                     duration:1.5,
-                    name:name,
+                    key:name,
                     closable:false,
                 },notice);
 
                 this.notices.push(_notice);
                 console.log(this.notices)
             },
-            remove(name){
+            close(name){
 
                 const notices = this.notices;
 
                 for (let i = 0;i<notices.length;i++) {
 
-                    if(notices[i].name === name) {
+                    if(notices[i].key === name) {
+
                         this.notices.splice(i,1);
                         break;
                     }

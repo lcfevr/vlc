@@ -6,7 +6,9 @@
   "scripts": {
     "init": "webpack --progress --config webpack.dev.config.js",
     "dev": "webpack-dev-server --inline --hot --compress --history-api-fallback --config webpack.dev.config.js",
-    "build": "webpack --progress --hide-modules --config webpack.prod.config.js"
+    "build": "webpack --progress --hide-modules --config webpack.prod.config.js",
+    "write": "node writeFile.js",
+    "test-build": "npm-run-all build write"
   },
   "repository": {
     "type": "git",
@@ -15,8 +17,11 @@
   "author": "lcfevr",
   "license": "MIT",
   "dependencies": {
+    "china-area-data": "^3.0.0",
     "vue": "^1.0.25",
-    "vue-router": "^0.7.13"
+    "vue-resource": "^1.3.1",
+    "vue-router": "^0.7.13",
+    "vue-touch": "^1.1.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
@@ -34,6 +39,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "node-sass": "^3.10.1",
+    "npm-run-all": "^4.0.2",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
@@ -41,6 +47,7 @@
     "vue-html-loader": "^1.2.0",
     "vue-loader": "^7.2.0",
     "vue-style-loader": "^1.0.0",
+    "vue-touch": "^1.1.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.16.2"
   },
