@@ -28,86 +28,86 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
     </div>
+    <Slide-bar></Slide-bar>
+    <!--<Editor :theme="theme" :mode="mode" value="<script>-->
 
-    <Editor :theme="theme" :mode="mode" value="<script>
+    <!--require('ace-builds/src-min-noconflict/ace');-->
 
-    require('ace-builds/src-min-noconflict/ace');
+    <!--export default {-->
+        <!--data(){-->
+            <!--return {-->
 
-    export default {
-        data(){
-            return {
+            <!--}-->
+        <!--},-->
+        <!--props:{-->
+            <!--theme:{-->
+                <!--type:String,-->
+                <!--default:'twilight'-->
+            <!--},-->
+            <!--width:{-->
+                <!--type:String,-->
+                <!--default:'2rem'-->
+            <!--},-->
+            <!--height:{-->
+                <!--type:String,-->
+                <!--default:'3rem'-->
+            <!--},-->
+            <!--mode:{-->
+                <!--type:String,-->
+                <!--default:'javascript'-->
+            <!--},-->
+            <!--value:{-->
+                <!--type:String,-->
+                <!--default:''-->
+            <!--},-->
+            <!--readOnly:{-->
+                <!--type:Boolean,-->
+                <!--default:true-->
+            <!--},-->
+            <!--styles:{-->
+                <!--type:Object,-->
+                <!--default:()=>{}-->
+            <!--}-->
+        <!--},-->
+        <!--methods:{-->
 
-            }
-        },
-        props:{
-            theme:{
-                type:String,
-                default:'twilight'
-            },
-            width:{
-                type:String,
-                default:'2rem'
-            },
-            height:{
-                type:String,
-                default:'3rem'
-            },
-            mode:{
-                type:String,
-                default:'javascript'
-            },
-            value:{
-                type:String,
-                default:''
-            },
-            readOnly:{
-                type:Boolean,
-                default:true
-            },
-            styles:{
-                type:Object,
-                default:()=>{}
-            }
-        },
-        methods:{
+        <!--},-->
+        <!--computed:{-->
+            <!--getStyles(){-->
 
-        },
-        computed:{
-            getStyles(){
+                <!--let style = this.styles;-->
+                <!--let customStyleWidth = this.width;-->
+                <!--let customStyleHeight = this.height;-->
+                <!--return Object.assign({},{-->
+                    <!--width:customStyleWidth,-->
+                    <!--height:customStyleHeight-->
+                <!--},style)-->
+            <!--}-->
+        <!--},-->
+        <!--ready(){-->
+            <!--let editor = ace.edit(this.$els.editor);-->
+            <!--editor.$blockScrolling = Infinity;-->
+            <!--editor.setFontSize(16);-->
 
-                let style = this.styles;
-                let customStyleWidth = this.width;
-                let customStyleHeight = this.height;
-                return Object.assign({},{
-                    width:customStyleWidth,
-                    height:customStyleHeight
-                },style)
-            }
-        },
-        ready(){
-            let editor = ace.edit(this.$els.editor);
-            editor.$blockScrolling = Infinity;
-            editor.setFontSize(16);
-
-            editor.setOptions({
-                enableBasicAutocompletion: true,
-                enableSnippets: true,
-                enableLiveAutocompletion: true
-            });
-            editor.setTheme(ace.require('ace/theme/twilight'));
-            if (this.theme) editor.session.setMode(ace.require(`ace/mode/${this.mode}`));
-            if (this.value) editor.setValue(this.value);
-            if (this.readOnly) editor.setReadOnly(true);
-            editor.setHighlightActiveLine(false);
-            editor.setShowPrintMargin(false);
-            editor.resize();
-        },
-        watch:{
+            <!--editor.setOptions({-->
+                <!--enableBasicAutocompletion: true,-->
+                <!--enableSnippets: true,-->
+                <!--enableLiveAutocompletion: true-->
+            <!--});-->
+            <!--editor.setTheme(ace.require('ace/theme/twilight'));-->
+            <!--if (this.theme) editor.session.setMode(ace.require(`ace/mode/${this.mode}`));-->
+            <!--if (this.value) editor.setValue(this.value);-->
+            <!--if (this.readOnly) editor.setReadOnly(true);-->
+            <!--editor.setHighlightActiveLine(false);-->
+            <!--editor.setShowPrintMargin(false);-->
+            <!--editor.resize();-->
+        <!--},-->
+        <!--watch:{-->
 
 
-        }
-    }
-</script>" ></Editor>
+        <!--}-->
+    <!--}-->
+<!--</script>" ></Editor>-->
     <!--<modal :mask-closable="maskCloseble" width="2.5rem" :visible.sync="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">-->
         <!--<p slot="header">111</p>-->
     <!--</modal>-->
@@ -122,6 +122,7 @@
     import Checkbox from '../components/checkBox/index'
     import Radiobox from '../components/radioBox/index'
     import Editor from '../components/editor/index'
+    import SlideBar from '../components/slideBar/index'
     export default {
         filters: {
 
@@ -139,7 +140,8 @@
             CheckboxGroup:Checkbox.group,
             Radiobox,
             RadioboxGroup:Radiobox.group,
-            Editor
+            Editor,
+            SlideBar
         },
         data () {
             return {

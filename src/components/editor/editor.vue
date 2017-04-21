@@ -116,6 +116,9 @@
                 }
             }
 
+        },
+        beforeDestroy(){
+            this.editor.destroy();
         }
     }
 </script>

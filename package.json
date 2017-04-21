@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "ace-builds": "^1.2.6",
-    "ace-code-editor": "^1.2.3",
+
     "china-area-data": "^3.0.0",
     "less-loader": "^2.2.3",
     "vue": "^1.0.25",
