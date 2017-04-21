@@ -7,10 +7,10 @@
             <li v-for="item in list"  :class="{'current':$index == current.index,
                                                 'level_1_1':$index - current.index == 1,
                                                 'level_2_1':$index - current.index == 2,
-                                                'level_3_1':$index - current.index == 3,
+                                                'level_3_1':$index - current.index >= 3,
                                                 'level_1':$index - current.index == -1,
                                                 'level_2':$index - current.index == -2,
-                                                'level_3':$index - current.index == -3}"
+                                                'level_3':$index - current.index <= -3}"
                 :style="{textAlign:align,height:height+'px'}">{{item.value}}</li>
             <li :style="{height:height+'px'}"></li>
             <li :style="{height:height+'px'}"></li>
@@ -114,7 +114,6 @@
             _onTouchMove(e){
 
                 this.translateY = e.deltaY+this.currentTranslateY;
-
 
             },
             _onTouchEnd(e){

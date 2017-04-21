@@ -1,6 +1,6 @@
 <template>
 
-    <div class="v-lc-picker" v-show="visible">
+    <div class="v-lc-picker animated" v-show="visible" transition="fade">
         <div class="v-lc-picker-click">
             <a class="cancle" @click="cancle">cancle</a>
             <a class="sure" @click="sure">sure</a>
@@ -115,17 +115,25 @@
         },
         ready(){
 
+        },
+        transitions:{
+            'fade':{
+                enterClass:'fadeInUpBig',
+                leaveClass:'fadeOutDownBig'
+            }
         }
 
     }
 </script>
 <style lang="less" scoped>
     .v-lc-picker {
+        font-size:12px;
         width: 100%;
         position: fixed;
         left: 0;
+        bottom:0;
         height: 200px;
-        background: linear-gradient(top, #555555 0, #ffffff 40%, #ffffff 60%, #555555 100%);
+        background: linear-gradient(top, #555555 0, #ffffff 45%, #ffffff 55%, #555555 100%);
 
     }
 

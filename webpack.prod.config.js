@@ -19,8 +19,6 @@ config.vue = {
             "css-loader",
             {
                 publicPath: "../dist/"
-                // 特别提醒,如果这里的publicPath是以http://xxx.xxx这样以http://开头的,要写成
-                // publicPath: "http:\\xxx.xxx",否则会编译为"http:/xxx.xxx"
             }
         ),
         less: ExtractTextPlugin.extract(

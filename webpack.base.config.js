@@ -21,6 +21,7 @@ module.exports = {
             { test: /\.vue$/, loader: 'vue' },
             { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
             { test: /\.css$/, loader: 'style!css!autoprefixer'},
+            { test: /\.less$/, loader: 'style!css!less?sourceMap'},
             { test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
             { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=8192'},
             { test: /\.(html|tpl)$/, loader: 'html-loader' }

@@ -1,5 +1,6 @@
-<style scoped>
+<style lang="less">
     @import '../styles/common.css';
+
 
     .page{
         position: absolute;
@@ -11,7 +12,7 @@
 </style>
 <template>
     <div>
-        <router-view   :transition="direction" class="animated page"></router-view>
+        <router-view  :transition="direction" class="animated page"></router-view>
     </div>
 </template>
 <script>

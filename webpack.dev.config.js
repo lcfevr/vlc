@@ -16,7 +16,7 @@ config.output.chunkFilename = '[name].chunk.js';            // 路由js命名
 config.vue = {
     loaders: {
         css: ExtractTextPlugin.extract(
-            "style-loader",
+            "vue-style-loader",
             "css-loader?sourceMap",
             {
                 publicPath: "/dist/"
@@ -24,7 +24,7 @@ config.vue = {
         ),
         less: ExtractTextPlugin.extract(
             'vue-style-loader',
-            'css-loader!less-loader'
+            'css-loader!less-loader?sourceMap'
         ),
         sass: ExtractTextPlugin.extract(
             'vue-style-loader',
