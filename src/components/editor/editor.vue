@@ -1,5 +1,5 @@
 <template>
-    <pre v-el:editor   :style="getStyles" v-html="value"></pre>
+    <pre ref="editor"   :style="getStyles" v-html="value"></pre>
 </template>
 
 <script>
@@ -71,8 +71,8 @@
                 },style)
             }
         },
-        ready(){
-            this.editor = ace.edit(this.$els.editor);
+        mounted(){
+            this.editor = ace.edit(this.$refs.editor);
             this.editor.$blockScrolling = Infinity;
             this.editor.setFontSize(12);
 

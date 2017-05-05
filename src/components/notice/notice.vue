@@ -1,8 +1,12 @@
 <template>
-    <div class="v-lc-notice"  :transition="transitionName" :style="styles">
-        <div class="" v-html="content"></div>
-        <a class="v-lc-notice-close" v-if="closable" @click="close"></a>
-    </div>
+    <span>
+    <transition :name="transitionName">
+        <div class="v-lc-notice"  :style="styles">
+            <div class="" v-html="content"></div>
+            <a class="v-lc-notice-close" v-if="closable" @click="close"></a>
+        </div>
+    </transition>
+    </span>
 </template>
 
 <script>
@@ -65,7 +69,7 @@
                 }
             }
         },
-        ready(){
+        mounted(){
 
             this.clearCloseTimer();
 

@@ -1,16 +1,16 @@
 <template>
-    <div class="v-lc-picker_slot" :style="styles">
-        <ul :class="{'dragging':dragging}" :style="{transform:`translate3d(0,${translateY}px,0)`}" v-touch:panstart="_onTouchStart"  v-touch:panmove="_onTouchMove" v-touch:panend="_onTouchEnd">
+    <div :class="classes" :style="styles">
+        <ul :class="draggingClass" :style="{transform:`translate3d(0,${translateY}px,0)`}" @touchstart="_onTouchStart"  @touchmove="_onTouchMove" @touchend="_onTouchEnd">
 
             <li :style="{height:height+'px'}"></li>
             <li :style="{height:height+'px'}"></li>
-            <li v-for="item in list"  :class="{'current':$index == current.index,
-                                                'level_1_1':$index - current.index == 1,
-                                                'level_2_1':$index - current.index == 2,
-                                                'level_3_1':$index - current.index >= 3,
-                                                'level_1':$index - current.index == -1,
-                                                'level_2':$index - current.index == -2,
-                                                'level_3':$index - current.index <= -3}"
+            <li v-for="(item,index) in list"  :class="{'current':index == current.index,
+                                                'level_1_1':index - current.index == 1,
+                                                'level_2_1':index - current.index == 2,
+                                                'level_3_1':index - current.index >= 3,
+                                                'level_1':index - current.index == -1,
+                                                'level_2':index - current.index == -2,
+                                                'level_3':index - current.index <= -3}"
                 :style="{textAlign:align,height:height+'px'}">{{item.value}}</li>
             <li :style="{height:height+'px'}"></li>
             <li :style="{height:height+'px'}"></li>
@@ -19,8 +19,7 @@
 </template>
 
 <script>
-
-
+    const prefixCls = 'v-lc-picker_slot';
     export default {
         data(){
             return {
@@ -29,7 +28,11 @@
                 current:{},
                 translateY:0,
                 currentTranslateY:0,
-                dragging:false
+                dragging:false,
+                startX:0,
+                startY:0,
+                delta:{x:0,y:0},
+
             }
         },
         watch:{
@@ -39,7 +42,7 @@
             initItem(value){
                 if(!value) {
                     this.current = Object.assign({},this.current,{code:'',target:this.target,index:'',value:''});
-                    this.$parent.$emit('change',this.target,this.current)
+                    this.$emit('change',this.target,this.current)
                 } else {
                     this.scrollToItem(value)
                 }
@@ -47,10 +50,12 @@
             }
 
         },
-        ready(){
+        mounted(){
+
             if(!this.initItem) {
                 this.current = Object.assign({},this.current,{code:'',target:this.target,index:'',value:''});
-                this.$parent.$emit('change',this.target,this.current)
+
+                this.$emit('change',this.target,this.current)
             } else {
                 this.scrollToItem(this.initItem)
             }
@@ -87,6 +92,19 @@
             }
         },
         computed:{
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
+            draggingClass(){
+                return [
+                    {
+                        [`${prefixCls}-dragging`]:this.dragging
+                    }
+
+                ]
+            },
             wrapperHeight:{
                 get(){
                     return this.count * this.height;
@@ -106,14 +124,18 @@
         methods:{
 
             _onTouchStart(e){
-
+                console.log(e.touches[0].pageY);
                 this.currentTranslateY = this.translateY;
+                this.startX = e.touches[0].pageX
+                this.startY = e.touches[0].pageY
                 this.dragging = true;
             },
 
             _onTouchMove(e){
 
-                this.translateY = e.deltaY+this.currentTranslateY;
+                this.delta.x = e.touches[0].pageX - this.startX;
+                this.delta.y = e.touches[0].pageY - this.startY;
+                this.translateY = this.delta.y+this.currentTranslateY;
 
             },
             _onTouchEnd(e){
@@ -122,7 +144,7 @@
                 this.currentTranslateY = this.translateY;
 
                 let index = this.getSelectedIndex();
-
+                console.log(index)
                 this.setSelectedItem(index);
 
             },
@@ -140,7 +162,7 @@
             setSelectedItem(index){
                 this.translateY = this.currentTranslateY = -index * this.height;
                 this.current = Object.assign({},this.current,{code:this.list[index].code,value:this.list[index].value,target:this.list[index].target,index:index});
-                this.$parent.$emit('change',this.target,this.current);
+                this.$emit('change',this.target,this.current);
             },
             scrollToItem (code){
                 let initItem = this.initItem;
@@ -176,7 +198,7 @@
         transition:all .2s ease-in;
     }
 
-    .v-lc-picker_slot .dragging {
+    .v-lc-picker_slot .v-lc-picker_slot-dragging {
         transition:none
     }
 

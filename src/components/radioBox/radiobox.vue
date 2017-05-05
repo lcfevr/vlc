@@ -10,7 +10,7 @@
                        class="v-lc-radiobox-input"/>
             </span>
         </span>
-        <slot v-show="show"><span v-el:slot>{{value}}</span></slot>
+        <slot v-show="show"><span ref="slot">{{model}}</span></slot>
     </label>
 </template>
 
@@ -35,10 +35,11 @@
             return {
                 select:false,
                 isGroup:false,
-                show:true
+                show:true,
+                model:this.value
             }
         },
-        ready(){
+        mounted(){
             if (this.$parent && this.$parent.$options.name == 'radioBoxGroup') {
 
                 this.isGroup = true;
@@ -61,11 +62,11 @@
                 this.checked = this.select;
 
                 if (this.isGroup && this.checked) {
-                    this.$parent.change({value:this.value,checked:this.checked})
+                    this.$parent.change({model:this.model,checked:this.checked})
                 }
 
                 if (!this.isGroup) {
-                    this.$dispatch('on-form-change',this.checked)
+                    EventBus.$dispatch('on-form-change',this.checked)
                 }
             }
 
@@ -74,6 +75,9 @@
         watch:{
             checked(){
                this.updateModel()
+            },
+            value(val){
+                this.model = val
             }
         }
     }

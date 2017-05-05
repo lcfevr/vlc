@@ -4,7 +4,7 @@
 <template>
     <div>
         <h1>111111111111</h1>
-        <tab keep-alive >
+        <tab  >
 
         </tab>
         <button @click="newTip">queding</button>
@@ -64,7 +64,7 @@
                 maskCloseble:false
             }
         },
-        ready () {
+        mounted () {
 //            this.$Modal.confirm({title:'aaa',content:'aaaaasd',onOk:this.ok,onCancle:function(){}})
             this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
             console.log('asdasd')

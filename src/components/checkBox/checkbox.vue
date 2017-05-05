@@ -1,39 +1,66 @@
 <template>
-    <label class="v-lc-checkbox">
-        <span :class="['v-lc-checkbox-wrapper',select?'v-lc-checkbox-checked':'',disable?'v-lc-checkbox-disable':'']">
-            <span :class="['v-lc-checkbox-inner']"></span>
-              <input type="checkbox" v-if="!isGroup" :disabled="disable" :value="value" v-model="checked"  @change="change"  class="v-lc-checkbox-input noselect "/>
-              <input type="checkbox"  v-else :disabled="disable" :value="value" v-model="model" @change="change"   class="v-lc-checkbox-input noselect "/>
+    <label :class="classes">
+        <span :class="wrapperClasses">
+            <span :class="innerClasses"></span>
+              <input type="checkbox" v-if="!isGroup" :disabled="disable"  :checked="currentValue"  @change="change"  class="v-lc-checkbox-input noselect "/>
+              <input type="checkbox"  v-else :disabled="disable" :value="label" v-model="model" @change="change"   class="v-lc-checkbox-input noselect "/>
         </span>
-        <slot v-if="show"><span v-el:slot>{{value}}</span></slot>
+        <slot v-if="show"><span ref="slot">{{label}}</span></slot>
     </label>
 
 </template>
 
 
 <script>
-
-
+    import {findComponentUpward} from '../../utils/util'
+    import Emitter from '../../mixin/emitter'
+    const prefixCls = 'v-lc-checkbox';
     export default {
         name:'checkBox',
         data(){
             return {
-                select:false,
+
                 model:[],
                 isGroup:false,
-                show:true
+                show:true,
+                currentValue:this.value,
+                parent:findComponentUpward(this,'checkBoxGroup'),
+
             }
         },
-        ready(){
-            if (this.$parent && this.$parent.$options.name == 'checkBoxGroup') {
+        mixins:[Emitter],
+        mounted(){
+            this.parent = findComponentUpward(this, 'checkBoxGroup');
+            if (this.parent) {
                 this.isGroup = true;
             }
 
             if (!this.isGroup) {
-                this.select = this.checked;
-                if (this.$els.slot && this.$els.slot.innerHtml == '') {
+                this.currentValue = this.value;
+                if (this.$refs.slot && this.$refs.slot.innerHtml == '') {
                     this.show = false
                 }
+            }
+        },
+        computed:{
+            classes(){
+                return  [
+                    `${prefixCls}`
+                ]
+            },
+            wrapperClasses(){
+                return [
+                    `${prefixCls}-wrapper`,
+                    {
+                        [`${prefixCls}-checked`]:this.currentValue,
+                        [`${prefixCls}-disable`]:this.disable
+                    }
+                ]
+            },
+            innerClasses(){
+                return [
+                    `${prefixCls}-inner`
+                ]
             }
         },
         props:{
@@ -43,31 +70,35 @@
                 default:false
             },
             value:{
-                type:[Boolean,String,Number],
-            },
-            checked:{
                 type:Boolean,
                 default:false
             },
+            label:{
+                type:[String,Number,Boolean],
+
+            },
+
         },
         methods:{
             change(e){
                 if (this.disable)  return;
-                this.select = e.target.checked;
+                const checked = e.target.checked;
+                this.currentValue = checked;
+                this.$emit('input',checked);
                 if (this.isGroup) {
-                    this.$parent.change(this.model)
+
+                    this.parent.change(this.model)
                 } else {
-                    this.$emit('on-change',this.checked);
-                    this.$dispatch('on-form-change',this.checked)
+                    this.$emit('on-change',checked);
+                    this.dispatch('on-form-change',checked)
                 }
             }
         },
-        computed:{
 
-        },
         watch:{
-            checked(){
-                this.select = this.checked
+
+            value(val){
+                this.currentValue = val
             }
         }
     }

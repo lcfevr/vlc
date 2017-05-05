@@ -1,10 +1,10 @@
 <template>
     <li :class="['tab-item-'+index]"  >
         <template v-if="!!item">
-            <a v-link="{path:item.path}">
+            <router-link :to="{path:item.path}">
                 <i v-html="item.icon" class="ifont"></i>
                 <span>{{item.name}}</span>
-            </a>
+            </router-link>
         </template>
         <template v-else>
             <slot></slot>
@@ -37,14 +37,11 @@
         components:{
 
         },
-        ready(){
-
-        }
     }
 </script>
 <style lang="less">
 
-    .v-lc-tab .v-link-active {
+    .v-lc-tab .router-link-active {
         color: #db3652;
 
     }

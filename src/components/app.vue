@@ -12,7 +12,14 @@
 </style>
 <template>
     <div>
-        <router-view  :transition="direction" class="animated page"></router-view>
+        <transition :name="direction"
+                    enter-active-class="animated fadeInLeft"
+                    leave-active-class="animated fadeOutRight">
+            <keep-alive>
+                <router-view   class="page"></router-view>
+            </keep-alive>
+        </transition>
+
     </div>
 </template>
 <script>
@@ -22,23 +29,23 @@
                 direction:'forward'
             }
         },
-        ready () {
+        mounted () {
 
-            this.$router.beforeEach(t => {
-
-                var fd = t.from.depth || 0;
-                var td = t.to.depth || 0;
-
-                if (!t.from.path || fd === td) {
-                    this.$root.$data.direction = 'flip';
-                } else if (fd < td) {
-                    this.$root.$data.direction = 'forward';
-                } else if (fd > td) {
-                    this.$root.$data.direction = 'back';
-                }
-
-                this.$nextTick(() => t.next());
-            });
+//            this.$router.beforeEach(t => {
+//
+//                var fd = t.from.depth || 0;
+//                var td = t.to.depth || 0;
+//
+//                if (!t.from.path || fd === td) {
+//                    this.$root.$data.direction = 'flip';
+//                } else if (fd < td) {
+//                    this.$root.$data.direction = 'forward';
+//                } else if (fd > td) {
+//                    this.$root.$data.direction = 'back';
+//                }
+//
+//                this.$nextTick(() => t.next());
+//            });
 
         },
         beforeDestroy () {
@@ -47,19 +54,19 @@
         methods: {
 
         },
-        transitions:{
-            'forward':{
-                enterClass:'fadeInLeft',
-                leaveClass:'fadeOutRight'
-            },
-            'back':{
-                enterClass:'fadeInRight',
-                leaveClass:'fadeOutLeft'
-            },
-            'flip':{
-                enterClass:'fadeIn',
-                leaveClass:'fadeOut'
-            }
-        }
+//        transitions:{
+//            'forward':{
+//                enterClass:'fadeInLeft',
+//                leaveClass:'fadeOutRight'
+//            },
+//            'back':{
+//                enterClass:'fadeInRight',
+//                leaveClass:'fadeOutLeft'
+//            },
+//            'flip':{
+//                enterClass:'fadeIn',
+//                leaveClass:'fadeOut'
+//            }
+//        }
     }
 </script>

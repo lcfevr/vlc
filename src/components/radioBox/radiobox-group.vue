@@ -10,7 +10,7 @@
     export default {
         name:'radioBoxGroup',
         props:{
-            model:{
+            value:{
                 type:[String,Boolean,Number]
             },
             vertical:{
@@ -18,8 +18,13 @@
                 default:false
             }
         },
-        compiled(){
+        mounted(){
             this.updateModel()
+        },
+        data(){
+            return {
+                model:this.value
+            }
         },
         methods:{
             change(data){
@@ -29,9 +34,9 @@
                 this.$emit('on-form-change',data.value)
             },
             updateModel(){
-                let model = this.model;
+                let model = this.value;
                 this.$children.forEach((child)=>{
-                    child.select = model == child.value;
+                    child.select = model == child.model;
                     child.isGroup = true;
 
                 })

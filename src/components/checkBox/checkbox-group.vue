@@ -1,17 +1,20 @@
 <template>
-    <div :class="['v-lc-checkBoxGroup',vertical?'v-lc-checkBoxGroup-vertical':'']">
+    <div :class="['v-lc-checkBoxGroup',vertical?'v-lc-checkBoxGroup-vertical':'']" >
         <slot></slot>
     </div>
 </template>
 
 <script>
 
-
+    import {findComponentsDownward} from '../../utils/util'
+    import Emitter from '../../mixin/emitter'
     export default {
         name:'checkBoxGroup',
+        mixins:[Emitter],
         props:{
-            model:{
-                type:Array
+            value:{
+                type:Array,
+                default:()=>[]
             },
             single:{
                 type:Boolean,
@@ -23,24 +26,36 @@
             }
 
         },
+        data(){
+          return {
+              currentValue:this.value,
+              childrens:[]
+          }
+        },
         methods:{
             change(data){
-
-                this.model = data;
+                console.log(data)
+                this.currentValue = data;
+                this.$emit('input', data);
                 this.$emit('on-change',data);
-                this.$dispatch('on-form-change',data)
+                this.dispatch('on-form-change',data)
             },
             updateModel(){
-                let model = this.model;
-                this.$children.forEach((child)=>{
-                    child.model = model;
-                    child.select = model.indexOf(child.value) >= 0;
-                    child.isGroup = true;
+                let model = this.value;
+                this.childrens = findComponentsDownward(this,'checkBox');
+                if(this.childrens) {
+                    this.childrens.forEach((child)=>{
 
-                })
+                        child.model = model;
+                        child.currentValue = model.indexOf(child.label) >= 0;
+                        child.isGroup = true;
+                    })
+                }
+
             }
         },
-        compiled(){
+        mounted(){
+
           this.updateModel()
         },
         watch:{

@@ -6,7 +6,7 @@
             </template>
             <template v-else>
 
-                <tab-item :item="item" :index="$index" v-for="item in items"></tab-item>
+                <tab-item :item="item" :index="index" v-for="(item,index) in items"></tab-item>
 
             </template>
 
@@ -33,27 +33,27 @@
                     name:"首页",
                     icon:"&#xe662;",
                     iconCur:"&#xe663;",
-                    path:"/index"
+                    path:"guide"
                 },{
                     name:"商品",
                     icon:"&#xe665;",
                     iconCur:"&#xe667;",
-                    path:"/list"
+                    path:"list"
                 },{
                     name:"晒单",
                     icon:"&#xe666;",
                     iconCur:"&#xe668;",
-                    path:"/shareOrder"
+                    path:"shareOrder"
                 },{
                     name:"购物车",
                     icon:"&#xe664;",
                     iconCur:"&#xe66a;",
-                    path:"/cart"
+                    path:"cart"
                 },{
                     name:"我",
                     icon:"&#xe661;",
                     iconCur:"&#xe669;",
-                    path:"/user"
+                    path:"user"
                 }]
             },
             color:{

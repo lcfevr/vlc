@@ -18,11 +18,11 @@ import VueResource from 'vue-resource'
 
 
 Vue.use(VueRouter);
-Vue.use(VueTouch);
+// Vue.use(VueTouch);
 Vue.use(VueResource)
 
 // 开启debug模式
-Vue.config.debug = Env != 'production';
+
 
 
 Vue.prototype.$Modal = Modal;
@@ -33,16 +33,14 @@ Vue.prototype.$Request = Request;
 // 路由配置
 let router = new VueRouter({
 
-    history: Env != 'production'
-
+    history: Env != 'production',
+    routes:Routers
 });
 
 
-router.map(Routers);
-
-router.beforeEach(({to,next}) => {
-    let title = to.title || Config.doc_title;
-    setPageTitle(title);
+router.beforeEach((to,from,next) => {
+    // let title = to.meta.title || Config.doc_title;
+    // setPageTitle(title);
 
     window.scrollTo(0, 0);
     next();
@@ -52,7 +50,10 @@ router.afterEach(() => {
 
 });
 
-router.redirect({
-    '*': "/index"
-});
-router.start(App, '#app');
+window.EventBus = new Vue();
+
+new Vue({
+    el: '#app',
+    router: router,
+    render: h => h('router-view')
+})

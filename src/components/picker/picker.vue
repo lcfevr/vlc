@@ -1,26 +1,35 @@
 <template>
 
-    <div class="v-lc-picker animated" v-show="visible" transition="fade">
-        <div class="v-lc-picker-click">
-            <a class="cancle" @click="cancle">cancle</a>
-            <a class="sure" @click="sure">sure</a>
+    <transition name="fade"
+                enter-active-class="animated fadeInUpBig"
+                leave-active-class="animated fadeOutDownBig">
+        <div :class="classes" v-show="visible" >
+            <div class="v-lc-picker-click">
+                <a class="cancle" @click="cancle">cancle</a>
+                <a class="sure" @click="sure">sure</a>
+            </div>
+            <div class="v-lc-picker-main">
+
+                <picker-slot :list="provinces" :init-item="province" :target="'province'" @change="change"></picker-slot>
+
+                <picker-slot :list="citys" :init-item="city" :target="'city'" @change="change"></picker-slot>
+
+                <picker-slot :list="districts" :init-item="district" :target="'district'" @change="change"></picker-slot>
+
+
+            </div>
         </div>
-        <div class="v-lc-picker-main">
+    </transition>
 
-            <picker-slot :list="provinces" :init-item="province" :target="'province'"></picker-slot>
-
-            <picker-slot :list="citys" :init-item="city" :target="'city'"></picker-slot>
-
-            <picker-slot :list="districts" :init-item="district" :target="'district'"></picker-slot>
-
-        </div>
-    </div>
 </template>
 
 <script>
     import CHINA_AREA from 'china-area-data'
     import pickerSlot from './picker-slot'
+
+    const prefixCls = 'v-lc-picker';
     export default {
+        name:'Picker',
         props: {
 
             styles: {
@@ -31,7 +40,7 @@
             rootCode: {
                 default: () => '86'
             },
-            visible:{
+            value:{
                 type:Boolean,
                 default:false
             }
@@ -46,6 +55,7 @@
                 cityName: '市辖区',
                 district: '110101',
                 districtName: '东城区',
+                visible:this.value
             }
         },
         methods: {
@@ -71,26 +81,8 @@
 
                 return result;
             },
-
-        },
-        computed: {
-            provinces(){
-                return this._filter(this.rootCode, 'province')
-            },
-            citys(){
-                return this._filter(this.province, 'city')
-            },
-            districts(){
-                return this._filter(this.city, 'district')
-            }
-
-        },
-
-        components: {
-            pickerSlot
-        },
-        events: {
             change(target, current){
+                console.log('asdasd')
                 switch (target) {
                     case 'province' :
                         this.province = current.code;
@@ -109,17 +101,40 @@
 
                 this.$emit('parentchange', this.provinceName, this.cityName, this.districtName)
             },
+
+        },
+        computed: {
+            classes(){
+                return [
+                    `${prefixCls}`,
+                ]
+            },
+
+            provinces(){
+                return this._filter(this.rootCode, 'province')
+            },
+            citys(){
+                return this._filter(this.province, 'city')
+            },
+            districts(){
+                return this._filter(this.city, 'district')
+            }
+
+        },
+
+        components: {
+            pickerSlot
+        },
+        events: {
+
             test(value){
                 console.log(value)
             }
         },
-        ready(){
 
-        },
-        transitions:{
-            'fade':{
-                enterClass:'fadeInUpBig',
-                leaveClass:'fadeOutDownBig'
+        watch:{
+            value(val){
+                this.visible = val
             }
         }
 

@@ -3,9 +3,10 @@
  */
 import Modal from './modal.vue'
 import Vue from 'vue'
+import Locale from '../../mixin/locale';
 import { camelcaseToHyphen } from '../../utils/util'
 
-// const prefixCls = 'v-modal-confirm';
+const prefixCls = 'v-lc-modal';
 
 Modal.newInstance = properties =>{
 
@@ -21,25 +22,26 @@ Modal.newInstance = properties =>{
 
     const div = document.createElement('div');
 
-    div.innerHTML = `<Modal ${props} :visible="visible" :width="width" >
+    div.innerHTML = `<Modal ${props} v-model="visible" :width="width" >
                         
-                        <div class="v-lc-modal-header-inner ellipse-fir" v-html="title" slot="header"></div>
-                        <div class="v-lc-modal-body-inner" v-html="body" slot="body"></div>
+                        <div class="${prefixCls}-header-inner ellipse-fir" v-html="title" slot="header"></div>
+                        <div class="${prefixCls}-body-inner" v-html="body" slot="body"></div>
                         <template slot="footer">
-                             <button class="v-lc-modal-button v-lc-modal-button-sure"  @click="ok">{{okText}}</button>
-                             <button class=" v-lc-modal-button v-lc-modal-button-cancle" v-if="showCancle" @click="cancle">{{cancleText}}</button>
+                             <button class="${prefixCls}-button ${prefixCls}-button-sure"  @click="ok">{{okText}}</button>
+                             <button class=" ${prefixCls}-button ${prefixCls}-button-cancle" v-if="showCancle" @click="cancle">{{cancleText}}</button>
                         </template>
 
                     </Modal>`;
 
 
     document.body.appendChild(div);
-    const modal =new Vue({
+    const modal = new Vue({
         el:div,
+        mixins:[Locale],
         data:Object.assign(_props,{
 
             visible:false,
-            width:'2.2rem',
+            width:'220px',
             body:'',
             title:'',
             okText:'确定',
@@ -73,7 +75,7 @@ Modal.newInstance = properties =>{
             },
             destroy(){
                 this.$destroy();
-                document.body.removeChild(div);
+                document.body.removeChild(this.$el);
                 this.onRemove()
             },
             onOk(){},
@@ -83,10 +85,8 @@ Modal.newInstance = properties =>{
         components:{
             Modal
         }
-
-
     }).$children[0];
-
+    console.log(modal)
     return {
 
         show(props){

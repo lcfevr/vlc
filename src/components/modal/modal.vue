@@ -1,21 +1,39 @@
 <template>
-    <div class="v-lc-modal-mask animated" v-show="visible" transition="forward" @click="mask"></div>
-    <div class="v-lc-modal " :style="getWrapperStyle" v-show="visible" transition="scale">
-        <div class="v-lc-modal-header" v-if="showHead"><slot name="header"><div class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
-        <div class="v-lc-modal-body"><slot name="body">{{body}}</slot></div>
-        <div class="v-lc-modal-footer" v-if="!footerHide">
-            <slot name="footer">
-                <button class="v-lc-modal-button v-lc-modal-button-sure" @click="ok">{{okText}}</button>
-                <button class=" v-lc-modal-button v-lc-modal-button-cancle" @click="close">{{cancleText}}</button>
-            </slot>
+    <div v-transfer-dom>
+    <transition name="forward"
+                enter-active-class="animated fadeIn"
+                leave-active-class="animated fadeOut">
+        <div class="v-lc-modal-mask" v-show="visible"  @click="mask"></div>
+    </transition>
+
+    <span>
+    <transition name="scale">
+        <div class="v-lc-modal " :style="getWrapperStyle" v-show="visible" >
+            <div class="v-lc-modal-header" v-if="showHead"><slot name="header"><div class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
+            <div class="v-lc-modal-body"><slot name="body">{{body}}</slot></div>
+            <div class="v-lc-modal-footer" v-if="!footerHide">
+                <slot name="footer">
+                    <button class="v-lc-modal-button v-lc-modal-button-sure" @click="ok">{{okText}}</button>
+                    <button class=" v-lc-modal-button v-lc-modal-button-cancle" @click="close">{{cancleText}}</button>
+                </slot>
+            </div>
         </div>
+    </transition>
+        </span>
     </div>
 </template>
 
 <script>
+    import Emitter from '../../mixin/emitter'
+    import Locale from '../../mixin/locale';
+    import TransferDom from '../../directives/tranferDom'
     export default {
+        mixins:[Emitter,Locale],
+        directives:{
+            TransferDom
+        },
         props:{
-            visible: {
+            value: {
                 type: Boolean,
                 default: false
             },
@@ -69,8 +87,8 @@
         },
         data(){
             return {
-                showHead:true
-
+                showHead:true,
+                visible:this.value
             }
         },
         components:{
@@ -100,7 +118,6 @@
                 console.log('asdad')
                 this.visible = false;
                 this.$emit('on-cancle')
-
             },
             mask(){
                 if (!this.maskClosable) {
@@ -129,13 +146,14 @@
                 }
             },
         },
-        transitions:{
-            'forward':{
-                enterClass:'fadeIn',
-                leaveClass:'fadeOut'
-            }
+        watch:{
+            value(val) {
+                this.visible = val
+            },
+
         },
-        ready(){
+
+        mounted(){
 
 
             document.addEventListener('keydown',this.EscClose)
