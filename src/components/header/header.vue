@@ -1,32 +1,32 @@
 <template>
-    <header :class="classes">
-        <div class="v-lc-header-button left">
-            <slot name="left">
-                返回
-            </slot>
-        </div>
-        <div class="title ellipse-fir">{{title}}</div>
-        <div class="v-lc-header-button right">
-            <slot name="right">分享</slot>
-        </div>
-    </header>
+    <div :class="classes">
+        <header>
+            <div class="left" @click="back">
+                <slot name="left"><div>返回</div></slot>
+            </div>
+            <div class="title vlc-nowrap">{{title}}</div>
+            <div class="right">
+                <slot name="right"><div>分享</div></slot>
+            </div>
+        </header>
+        <div class="header-place" v-if="fixed"></div>
+    </div>
 </template>
 
 <script>
-    const prefixCls = 'v-lc-header';
+    const prefixCls = 'vlc-header';
 
     export default {
-        name:'header',
-        props:{
-            fixed:{
-                type:Boolean,
-                default:true
+        name: 'header',
+        props: {
+            fixed: {
+                type: Boolean,
+                default: true
             },
-            title:String
-
+            title: String
         },
-        computed:{
-            classes () {
+        computed: {
+            classes() {
                 return [
                     `${prefixCls}`,
                     {
@@ -34,50 +34,11 @@
                     }
                 ]
             }
+        },
+        methods: {
+            back() {
+                window.history.back();
+            }
         }
-
-
     }
 </script>
-
-<style  lang="less">
-    .v-lc-header {
-        display:flex;
-        align-items: center;
-        white-space: nowrap;
-        text-align: center;
-        padding:0 10px;
-        color: #ffffff;
-        height:45px;
-        line-height:1;
-        background: #39f;
-        position: relative;
-    }
-
-    .v-lc-header.v-lc-header-fixed {
-        position: fixed;
-        top:0;
-        left:0;
-        right:0;
-        z-index:1;
-    }
-
-    .v-lc-header .title {
-        flex:1;
-        font-size:inherit;
-        font-weight:400;
-    }
-
-    .v-lc-header .v-lc-header-button {
-        flex:.5;
-        line-height: 1;
-    }
-
-    .v-lc-header .left {
-        text-align: left;
-    }
-
-    .v-lc-header .right {
-        text-align: right;
-    }
-</style>

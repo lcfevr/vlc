@@ -1,0 +1,32 @@
+[class*="vlc-icono-"] {
+  display: inline-block;
+  position: relative;
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    -ms-transform-origin: right;
+    -webkit-transform-origin: right;
+  }
+}
+
+.vlc-icono- {
+  &back {
+    transform: rotate(180deg);
+    &, &:before, &:after {
+      width: 14px;
+      height: 28px;
+    }
+
+    &:before, &:after {
+      height: 2px;
+      box-shadow: inset 0 0 0 2px;
+
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+}
