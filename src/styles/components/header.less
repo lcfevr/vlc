@@ -1,0 +1,41 @@
+.vlc-header {
+    & > header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: @HeaderHeight;
+        background: @HeaderBgColor;
+        color: @HeaderTxtColor;
+    }
+
+    .left, .right {
+        width: @HeaderIconWidth;
+        height: 100%;
+        font-size: @FontSizeSmall;
+        display: flex;
+        align-items: center;
+    }
+    .left {
+        padding-left: @SpaceHor;
+    }
+    .right {
+        padding-right: @SpaceHor;
+    }
+
+    .title {
+        flex: 1;
+        font-size: @HeaderTitleSize;
+        padding: 0 @SpaceHor;
+    }
+
+    &.vlc-header-fixed > header {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+
+    .header-place{
+        height: @HeaderHeight;
+    }
+}

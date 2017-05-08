@@ -1,15 +1,17 @@
-<style scoped lang="less">
-
-</style>
 <template>
-
     <div>
+        <vlc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></vlc-header>
+        <div></div>
+        <div style="height: 50px;"></div>
+        <div style="min-height: 50px; background: pink; padding: 0 10px;">
+
+            <div> <i class="vlc-icono-back"></i></div>
+
+        </div>
+        <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
+
         <h1>111111111111</h1>
-        <tab >
-
-
-        </tab>
-
+        <tab ></tab>
 
         <p>{{address}}</p>
         <button @click="newTip">asdasssssdaaaaaasdadd</button>
@@ -28,26 +30,22 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
         <Slide-bar ></Slide-bar>
-        <v-lc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></v-lc-header>
-        <Picker  @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
         <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">
         <p slot="header">111</p>
         </modal>
     </div>
-
-
 </template>
-<script>
 
+<script>
+    import vlcHeader from '../components/header/index'
+    import Picker from '../components/picker/index'
 
     import Tab from '../components/tab/tab'
     import tabItem from '../components/tab/tabItem'
-    import Picker from '../components/picker/index'
     import Checkbox from '../components/checkBox/index'
     import Radiobox from '../components/radioBox/index'
     import Editor from '../components/editor/index'
     import SlideBar from '../components/slideBar/index'
-    import VLcHeader from '../components/header/index'
     import Modal from '../components/modal/modal.vue'
     export default {
         filters: {
@@ -56,8 +54,6 @@
         directives: {
 
         },
-
-
         components:{
             Tab,
             tabItem,
@@ -69,43 +65,44 @@
             RadioboxGroup:Radiobox.group,
             Editor,
             SlideBar,
-            VLcHeader
+            vlcHeader
         },
         data () {
             return {
-                items:[{
-                    name:"首页",
-                    icon:"&#xe662;",
-                    iconCur:"&#xe663;",
-                    path:"/index"
-                },{
-                    name:"商品",
-                    icon:"&#xe665;",
+                items: [
+                    {
+                        name:"首页",
+                        icon:"&#xe662;",
+                        iconCur:"&#xe663;",
+                        path:"/index"
+                    },{
+                        name:"商品",
+                        icon:"&#xe665;",
 
-                    iconCur:"&#xe667;",
-                    path:"/list"
-                },{
-                    name:"晒单",
-                    icon:"&#xe666;",
-                    iconCur:"&#xe668;",
-                    path:"/shareOrder"
-                },{
-                    name:"购物车",
-                    icon:"&#xe664;",
-                    iconCur:"&#xe66a;",
-                    path:"/cart"
+                        iconCur:"&#xe667;",
+                        path:"/list"
+                    },{
+                        name:"晒单",
+                        icon:"&#xe666;",
+                        iconCur:"&#xe668;",
+                        path:"/shareOrder"
+                    },{
+                        name:"购物车",
+                        icon:"&#xe664;",
+                        iconCur:"&#xe66a;",
+                        path:"/cart"
 
-                },{
-                    name:"我",
-                    icon:"&#xe661;",
-                    iconCur:"&#xe669;",
-                    path:"/user"
-                }],
-                visible:true,
+                    },{
+                        name:"我",
+                        icon:"&#xe661;",
+                        iconCur:"&#xe669;",
+                        path:"/user"
+                    }
+                ],
+                visible: true,
                 maskCloseble:false,
                 address:'',
                 data:[],
-
                 checked:true,
                 radio:'1111',
                 theme:'twilight',
@@ -142,12 +139,6 @@
             pickerCancle(){
                 console.log('111')
             }
-
-
-
-
-
-        },
-
+        }
     }
 </script>

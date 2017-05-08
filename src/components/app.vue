@@ -1,6 +1,6 @@
-<style lang="less">
-    @import '../styles/common.css';
-
+<style rel="stylesheet/less" lang="less">
+    // @import '../styles/common.css';
+    @import '../styles/index';
 
     .page{
         position: absolute;
@@ -19,7 +19,6 @@
                 <router-view   class="page"></router-view>
             </keep-alive>
         </transition>
-
     </div>
 </template>
 <script>

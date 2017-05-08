@@ -34,7 +34,6 @@
     width:100%;
 }
 
-
 .v-lc-modal .v-lc-modal-body{
     width:calc(100%  - .4rem);
     min-height:.5rem;

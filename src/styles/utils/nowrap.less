@@ -1,0 +1,18 @@
+.vlc-nowrap {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.vlc-nowrap(@n, @i: 1) when (@i <= @n) {
+  .vlc-nowrap-@{i} {
+    .vlc-nowrap;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @i;
+  }
+  .vlc-nowrap(@n, (@i+1));
+}
+
+.vlc-nowrap(5);
