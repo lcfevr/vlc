@@ -16,7 +16,7 @@
 
 <script>
 
-
+    const prefixCls = 'v-lc-radiobox';
     export default {
         props:{
             disable:{
@@ -29,6 +29,17 @@
             checked:{
                 type:Boolean,
                 default:false
+            }
+        },
+        computed:{
+            classes(){
+                return [
+                    `${prefixCls}`,
+                    `${prefixCls}-wrapper`,
+                    {
+                        [`${prefixCls}-checked`]:select
+                    }
+                ]
             }
         },
         data(){

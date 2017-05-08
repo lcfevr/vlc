@@ -141,3 +141,15 @@ export function findComponentsDownward (content, componentName, components = [])
     }
     return components;
 }
+
+export function random_str() {
+    let len = 32;
+    let chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    let max = chars.length;
+
+    let str = '';
+    for (let i = 0; i < len; i++) {
+        str += chars.charAt(Math.floor(Math.random() * max));
+    }
+    return str;
+}

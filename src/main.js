@@ -14,6 +14,7 @@ import Notice from './components/notice/index'
 import VueTouch from 'vue-touch'
 import Request from './utils/request'
 import VueResource from 'vue-resource'
+import Message from './components/message/index'
 
 
 
@@ -29,6 +30,7 @@ Vue.prototype.$Modal = Modal;
 Vue.prototype.$Notice = Notice;
 Vue.prototype.$Config = Config;
 Vue.prototype.$Request = Request;
+Vue.prototype.$Message = Message
 
 // 路由配置
 let router = new VueRouter({

@@ -25,10 +25,11 @@
 
 <script>
     import Emitter from '../../mixin/emitter'
-    import Locale from '../../mixin/locale';
+
     import TransferDom from '../../directives/tranferDom'
     export default {
-        mixins:[Emitter,Locale],
+        name:'Modal',
+        mixins:[Emitter],
         directives:{
             TransferDom
         },
@@ -68,7 +69,7 @@
                 type: Boolean,
                 default: false
             },
-            style: {
+            styles: {
                 type: Object
             },
             className: {
@@ -104,7 +105,7 @@
                     width: `${this.width}`
                 }
 
-                let customStyle = this.style ? this.style:{}
+                let customStyle = this.styles ? this.styles:{}
 
                 Object.assign(style, styleWidth, customStyle);
 
@@ -115,7 +116,7 @@
         },
         methods:{
             close(){
-                console.log('asdad')
+
                 this.visible = false;
                 this.$emit('on-cancle')
             },

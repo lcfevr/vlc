@@ -38,7 +38,9 @@ module.exports = {
         // 别名，可以直接使用别名来代表设定的路径以及其他
         alias: {
             filter: path.join(__dirname, './src/filters'),
-            components: path.join(__dirname, './src/components')
+            components: path.join(__dirname, './src/components'),
+            vue$: 'vue/dist/vue.js',
+            src: path.resolve(__dirname, '../src'),
         }
     },
     plugins: [

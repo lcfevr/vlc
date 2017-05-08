@@ -1,7 +1,5 @@
 <style lang="less">
     @import '../styles/common.css';
-
-
     .page{
         position: absolute;
         top: 0;

@@ -3,7 +3,7 @@
  */
 import Modal from './modal.vue'
 import Vue from 'vue'
-import Locale from '../../mixin/locale';
+
 import { camelcaseToHyphen } from '../../utils/util'
 
 const prefixCls = 'v-lc-modal';
@@ -22,7 +22,14 @@ Modal.newInstance = properties =>{
 
     const div = document.createElement('div');
 
-    div.innerHTML = `<Modal ${props} v-model="visible" :width="width" >
+
+
+
+    document.body.appendChild(div);
+
+    const modal = new Vue({
+        el:div,
+        template:`<Modal ${props} v-model="visible" :width="width" >
                         
                         <div class="${prefixCls}-header-inner ellipse-fir" v-html="title" slot="header"></div>
                         <div class="${prefixCls}-body-inner" v-html="body" slot="body"></div>
@@ -31,13 +38,10 @@ Modal.newInstance = properties =>{
                              <button class=" ${prefixCls}-button ${prefixCls}-button-cancle" v-if="showCancle" @click="cancle">{{cancleText}}</button>
                         </template>
 
-                    </Modal>`;
-
-
-    document.body.appendChild(div);
-    const modal = new Vue({
-        el:div,
-        mixins:[Locale],
+                    </Modal>`,
+        components:{
+            Modal
+        },
         data:Object.assign(_props,{
 
             visible:false,
@@ -81,15 +85,17 @@ Modal.newInstance = properties =>{
             onOk(){},
             onCancle(){},
             onRemove(){}
+
         },
-        components:{
-            Modal
-        }
+
     }).$children[0];
-    console.log(modal)
+
+
+
     return {
 
         show(props){
+
             modal.$parent.showCancle = props.showCancle;
             modal.$parent.onRemove = props.onRemove;
             modal.visible = true;
