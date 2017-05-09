@@ -17,4 +17,15 @@
             transform: translate3d(0, 100%, 0);
         }
     }
+
+    &-scale {
+        &-enter-active, &-leave-active {
+            will-change: transform;
+            transition: all .3s ease-in;
+        }
+        &-enter, &-leave-active {
+            transform: translate3d(-50%,-50%,0) scale(.9);
+            opacity: .2;
+        }
+    }
 }

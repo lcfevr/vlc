@@ -1,5 +1,5 @@
 <template>
-    <transition name="scale">
+    <transition name="vlc-ani-scale">
         <div>
             <div :class="classes">
                 <div class="vlc-message-left" v-if="showLeft"><slot name="message-left"><span>☺</span></slot></div>
@@ -8,7 +8,6 @@
             </div>
         </div>
     </transition>
-
 </template>
 
 <script>
@@ -122,31 +121,3 @@
 
     }
 </script>
-
-<style lang="less">
-
-    .vlc-message {
-        width:100%;
-        position: absolute;
-        top:0;
-        left:0;
-        transform: translate3d(-50%,-50%,0);
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        white-space: normal;
-        border-radius:.1rem;
-        background: rgba(0,0,0,.7);
-        overflow-y: scroll;
-    }
-
-    .vlc-message .vlc-message-text {
-        width:calc(100% - 30px);
-        padding:  0 15px;
-        line-height: 25px;
-        color: #ffffff;
-        font-size: 13px;
-        white-space: normal;
-    }
-</style>

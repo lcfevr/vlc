@@ -8,7 +8,7 @@
 
         <tab :items="items"></tab>
 
-        <!--
+
                 <button @click="newTip">asdasssssdaaaaaasdadd</button>
                 <Checkbox-group v-model="data" :vertical="visible">
                     <Checkbox label="aaa" :disable="visible"></Checkbox>
@@ -30,7 +30,7 @@
                 <p slot="header">111</p>
 
                 </modal>
-                <Message v-model="visible" :text="text"></Message>-->
+                <Message v-model="visible" :text="text"></Message>
     </div>
 </template>
 
@@ -39,18 +39,22 @@
     import Picker from '../components/picker/index'
     import Tab from '../components/tab/tab'
 
+    import Message from '../components/message/index'
+
+
     import Checkbox from '../components/checkBox/index'
     import Radiobox from '../components/radioBox/index'
     import Editor from '../components/editor/index'
     import SlideBar from '../components/slideBar/index'
     import Modal from '../components/modal/modal.vue'
-    import Message from '../components/message/index'
 
     export default {
         components:{
             vlcHeader,
             Picker,
             Tab,
+            Message,
+
 
             Checkbox,
             Modal,
@@ -58,8 +62,7 @@
             Radiobox,
             RadioboxGroup: Radiobox.group,
             Editor,
-            SlideBar,
-            Message
+            SlideBar
         },
         data () {
             return {
@@ -91,7 +94,6 @@
                 mode:'javascript'
             }
         },
-
         mounted () {
             this.$Modal.confirm({
                 title: 'aaa', content: 'aaaaasd', onOk: this.ok, onCancle: function () {
@@ -99,19 +101,11 @@
             });
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
-
-
             let remove = this.$Message.loading({text: 'asdasdasd'});
 
             setTimeout(()=>{
-                //remove();
+                remove();
             },3000)
-
-
-
-        },
-        beforeDestroy () {
-
         },
         methods: {
             pickerSure(province, city, district){
@@ -120,7 +114,6 @@
             pickerCancle(){
                 console.log('您取消了选择')
             },
-
             ok(){
                 console.log('avc')
             },
@@ -129,13 +122,7 @@
             },
             newTip(){
                 //this.$Notice.open({desc: 'asdasd', onClose: this.close, duration: 4, styles: {right: '0'}})
-            },
-
-
-//            change(province,city,district){
-//                this.address = `${province} ${city} ${district}`
-//            },
+            }
         }
-
     }
 </script>
