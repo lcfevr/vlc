@@ -7,13 +7,13 @@
         <div style="min-height: 50px; background: pink; padding: 0 10px;">
 
 
-            <div> <i class="vlc-icono-back"></i></div>
+            <div><i class="vlc-icono-back"></i></div>
 
         </div>
         <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
 
         <h1>111111111111</h1>
-        <tab ></tab>
+        <tab></tab>
 
         <p>{{address}}</p>
         <button @click="newTip">asdasssssdaaaaaasdadd</button>
@@ -32,12 +32,17 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar ></Slide-bar>
-        <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">
-        <p slot="header">111</p>
+        <Slide-bar></Slide-bar>
+        <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible"
+               title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的"
+               @on-ok="ok">
+            <p slot="header">111</p>
 
         </modal>
         <Message v-model="visible" :text="text"></Message>
+        <PullDown>
+
+        </PullDown>
     </div>
 </template>
 
@@ -53,15 +58,12 @@
     import SlideBar from '../components/slideBar/index'
     import Modal from '../components/modal/modal.vue'
     import Message from '../components/message/index'
+    import PullDown from '../components/pullDown/index'
     export default {
 
-        filters: {
-
-        },
-        directives: {
-
-        },
-        components:{
+        filters: {},
+        directives: {},
+        components: {
 
             Tab,
             tabItem,
@@ -73,50 +75,50 @@
             RadioboxGroup: Radiobox.group,
             Editor,
             SlideBar,
-
-            VLcHeader,
+            vlcHeader,
+            PullDown,
             Message
         },
         data () {
             return {
                 items: [
                     {
-                        name:"首页",
-                        icon:"&#xe662;",
-                        iconCur:"&#xe663;",
-                        path:"/index"
-                    },{
-                        name:"商品",
-                        icon:"&#xe665;",
+                        name: "首页",
+                        icon: "&#xe662;",
+                        iconCur: "&#xe663;",
+                        path: "/index"
+                    }, {
+                        name: "商品",
+                        icon: "&#xe665;",
 
-                        iconCur:"&#xe667;",
-                        path:"/list"
-                    },{
-                        name:"晒单",
-                        icon:"&#xe666;",
-                        iconCur:"&#xe668;",
-                        path:"/shareOrder"
-                    },{
-                        name:"购物车",
-                        icon:"&#xe664;",
-                        iconCur:"&#xe66a;",
-                        path:"/cart"
+                        iconCur: "&#xe667;",
+                        path: "/list"
+                    }, {
+                        name: "晒单",
+                        icon: "&#xe666;",
+                        iconCur: "&#xe668;",
+                        path: "/shareOrder"
+                    }, {
+                        name: "购物车",
+                        icon: "&#xe664;",
+                        iconCur: "&#xe66a;",
+                        path: "/cart"
 
-                    },{
-                        name:"我",
-                        icon:"&#xe661;",
-                        iconCur:"&#xe669;",
-                        path:"/user"
+                    }, {
+                        name: "我",
+                        icon: "&#xe661;",
+                        iconCur: "&#xe669;",
+                        path: "/user"
                     }
                 ],
                 visible: true,
-                maskCloseble:false,
-                address:'',
-                data:[],
-                checked:true,
-                radio:'1111',
-                theme:'twilight',
-                mode:'javascript'
+                maskCloseble: false,
+                address: '',
+                data: [],
+                checked: true,
+                radio: '1111',
+                theme: 'twilight',
+                mode: 'javascript'
 
             }
         },
@@ -129,13 +131,11 @@
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
 
-
             let remove = this.$Message.loading({text: 'asdasdasd'});
 
-            setTimeout(()=>{
+            setTimeout(() => {
                 remove();
-            },3000)
-
+            }, 3000)
 
 
         },
