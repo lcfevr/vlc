@@ -3,7 +3,6 @@
     // @import '../styles/common.css';
     @import '../styles/index';
 
-
     .page{
         position: absolute;
         top: 0;

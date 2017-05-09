@@ -1,21 +1,12 @@
 <template>
-    <div>
+    <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #fff;">
 
         <vlc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></vlc-header>
-        <div></div>
-        <div style="height: 50px;"></div>
-        <div style="min-height: 50px; background: pink; padding: 0 10px;">
+        <p @click="showAddressPicker = true">选择地址：{{address}}</p>
+        <Picker @sure="pickerSure" @cancle="pickerCancle" :show="showAddressPicker"></Picker>
 
+        <!--<tab ></tab>
 
-            <div> <i class="vlc-icono-back"></i></div>
-
-        </div>
-        <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
-
-        <h1>111111111111</h1>
-        <tab ></tab>
-
-        <p>{{address}}</p>
         <button @click="newTip">asdasssssdaaaaaasdadd</button>
         <Checkbox-group v-model="data" :vertical="visible">
             <Checkbox label="aaa" :disable="visible"></Checkbox>
@@ -37,7 +28,7 @@
         <p slot="header">111</p>
 
         </modal>
-        <Message v-model="visible" :text="text"></Message>
+        <Message v-model="visible" :text="text"></Message>-->
     </div>
 </template>
 
@@ -53,6 +44,7 @@
     import SlideBar from '../components/slideBar/index'
     import Modal from '../components/modal/modal.vue'
     import Message from '../components/message/index'
+
     export default {
 
         filters: {
@@ -62,10 +54,11 @@
 
         },
         components:{
+            vlcHeader,
+            Picker,
 
             Tab,
             tabItem,
-            Picker,
             Checkbox,
             Modal,
             CheckboxGroup: Checkbox.group,
@@ -73,12 +66,13 @@
             RadioboxGroup: Radiobox.group,
             Editor,
             SlideBar,
-
-            VLcHeader,
             Message
         },
         data () {
             return {
+                address:'',
+                showAddressPicker: false,
+
                 items: [
                     {
                         name:"首页",
@@ -111,13 +105,11 @@
                 ],
                 visible: true,
                 maskCloseble:false,
-                address:'',
                 data:[],
                 checked:true,
                 radio:'1111',
                 theme:'twilight',
                 mode:'javascript'
-
             }
         },
 
@@ -125,7 +117,7 @@
             this.$Modal.confirm({
                 title: 'aaa', content: 'aaaaasd', onOk: this.ok, onCancle: function () {
                 }
-            })
+            });
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
 
@@ -143,6 +135,13 @@
 
         },
         methods: {
+            pickerSure(province, city, district){
+                this.address = `${province} ${city} ${district}`
+            },
+            pickerCancle(){
+                console.log('您取消了选择')
+            },
+
             ok(){
                 console.log('avc')
             },
@@ -150,22 +149,13 @@
                 console.log('asdasdasd')
             },
             newTip(){
-                this.$Notice.open({desc: 'asdasd', onClose: this.close, duration: 4, styles: {right: '0'}})
+                //this.$Notice.open({desc: 'asdasd', onClose: this.close, duration: 4, styles: {right: '0'}})
             },
 
 
 //            change(province,city,district){
 //                this.address = `${province} ${city} ${district}`
 //            },
-
-
-            pickerSure(province, city, district){
-                this.address = `${province} ${city} ${district}`
-            },
-            pickerCancle(){
-                console.log('111')
-            }
-
         }
 
     }

@@ -10,7 +10,7 @@ import Config from './config/config'
 import {setPageTitle} from './utils/util'
 import Cache from './utils/cache'
 import Modal from './components/modal/index'
-import Notice from './components/notice/index'
+//import Notice from './components/notice/index'
 import VueTouch from 'vue-touch'
 import Request from './utils/request'
 import VueResource from 'vue-resource'
@@ -27,7 +27,7 @@ Vue.use(VueResource)
 
 
 Vue.prototype.$Modal = Modal;
-Vue.prototype.$Notice = Notice;
+//Vue.prototype.$Notice = Notice;
 Vue.prototype.$Config = Config;
 Vue.prototype.$Request = Request;
 Vue.prototype.$Message = Message

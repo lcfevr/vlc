@@ -1,25 +1,29 @@
 <template>
 
-    <transition name="fade"
-                enter-active-class="animated fadeInUpBig"
-                leave-active-class="animated fadeOutDownBig">
-        <div :class="classes" v-show="visible" >
-            <div class="v-lc-picker-click">
-                <a class="cancle" @click="cancle">cancle</a>
-                <a class="sure" @click="sure">sure</a>
+    <div class="vlc-picker-wrapper">
+        <transition name="vlc-ani-fade">
+            <div class="vlc-mask" v-show="visible" @click="visible=false"></div>
+        </transition>
+
+        <transition name="vlc-ani-bottom">
+            <div :class="classes" v-show="visible">
+                <div class="header">
+                    <div class="left" @click="cancle">取消</div>
+                    <div class="right" @click="sure">确定</div>
+                </div>
+
+                <div class="main">
+
+                    <picker-slot :list="provinces" :init-item="province" :target="'province'" @change="change"></picker-slot>
+
+                    <picker-slot :list="citys" :init-item="city" :target="'city'" @change="change"></picker-slot>
+
+                    <picker-slot :list="districts" :init-item="district" :target="'district'" @change="change"></picker-slot>
+
+                </div>
             </div>
-            <div class="v-lc-picker-main">
-
-                <picker-slot :list="provinces" :init-item="province" :target="'province'" @change="change"></picker-slot>
-
-                <picker-slot :list="citys" :init-item="city" :target="'city'" @change="change"></picker-slot>
-
-                <picker-slot :list="districts" :init-item="district" :target="'district'" @change="change"></picker-slot>
-
-
-            </div>
-        </div>
-    </transition>
+        </transition>
+    </div>
 
 </template>
 
@@ -27,11 +31,10 @@
     import CHINA_AREA from 'china-area-data'
     import pickerSlot from './picker-slot'
 
-    const prefixCls = 'v-lc-picker';
+    const prefixCls = 'vlc-picker';
     export default {
         name:'Picker',
         props: {
-
             styles: {
                 type: Object,
                 default: () => {
@@ -40,13 +43,8 @@
             rootCode: {
                 default: () => '86'
             },
-            value:{
-                type:Boolean,
-                default:false
-            }
+            show: Boolean
         },
-
-
         data(){
             return {
                 province: '110000',
@@ -55,19 +53,17 @@
                 cityName: '市辖区',
                 district: '110101',
                 districtName: '东城区',
-                visible:this.value
+                visible: this.show
             }
         },
         methods: {
             sure(){
-
                 this.visible = false;
                 this.$emit('sure',this.provinceName,this.cityName,this.districtName)
             },
-
             cancle(){
                 this.visible = false;
-                this.$emit('cancle')
+                this.$emit('cancle');
             },
             _filter(id, target){
 
@@ -82,7 +78,6 @@
                 return result;
             },
             change(target, current){
-                console.log('asdasd')
                 switch (target) {
                     case 'province' :
                         this.province = current.code;
@@ -100,8 +95,7 @@
                 }
 
                 this.$emit('parentchange', this.provinceName, this.cityName, this.districtName)
-            },
-
+            }
         },
         computed: {
             classes(){
@@ -109,7 +103,6 @@
                     `${prefixCls}`,
                 ]
             },
-
             provinces(){
                 return this._filter(this.rootCode, 'province')
             },
@@ -119,57 +112,18 @@
             districts(){
                 return this._filter(this.city, 'district')
             }
-
         },
-
         components: {
             pickerSlot
         },
-        events: {
-
-            test(value){
-                console.log(value)
-            }
-        },
-
         watch:{
-            value(val){
-                this.visible = val
+            show(v){
+                console.log(v);
+
+               if (this.visible !== v) {
+                   this.visible = v;
+               }
             }
         }
-
     }
 </script>
-<style lang="less" scoped>
-    .v-lc-picker {
-        font-size:12px;
-        width: 100%;
-        position: fixed;
-        left: 0;
-        bottom:0;
-        height: 200px;
-        background: linear-gradient(top, #555555 0, #ffffff 45%, #ffffff 55%, #555555 100%);
-
-    }
-
-    .v-lc-picker .v-lc-picker-click {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        color: #555;
-    }
-
-    .v-lc-picker-main {
-
-        width: 100%;
-        height: 160px;
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        align-items: center;
-    }
-
-
-</style>

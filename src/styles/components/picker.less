@@ -1,0 +1,114 @@
+.vlc-picker-wrapper {
+
+  .vlc-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: @MaskColor;
+  }
+
+  .vlc-picker {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      background: @PickerHeaderBgColor;
+      color: @ThemeColor;
+
+      .left, .right {
+        width: 44px;
+        height: @PickerHeaderHeight;
+        line-height: @PickerHeaderHeight;
+        font-size: @PickerTxtSize;
+      }
+      .left {
+        padding-left: @SpaceHor;
+      }
+      .right {
+        padding-right: @SpaceHor;
+        font-weight: bold;
+      }
+    }
+
+    .main {
+      background: linear-gradient(0deg, rgba(95, 95, 95, 0.1) 0, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 0.4) 70%, rgba(80, 80, 80, 0.1) 100%);
+      height: @PickerHeight;
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .vlc-picker-slot {
+      flex:1;
+      position: relative;
+      height:100%;
+      overflow: hidden;
+
+      ul {
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        transition:all .2s ease-in;
+
+        li {
+          width:100%;
+          height:35px;
+          line-height: 35px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          color: @PickerTxtColor;
+
+          &.level_1 {
+            transform: rotateY(3deg);
+            font-size: @PickerTxtSize - 2;
+            opacity: .7;
+          }
+          &.level_1_1 {
+            transform: rotateY(-3deg);
+            font-size: @PickerTxtSize - 2;
+            opacity: .7;
+          }
+          &.level_2 {
+            transform: rotateY(5deg);
+            font-size: @PickerTxtSize - 3;
+            opacity: .5;
+          }
+          &.level_2_1 {
+            transform: rotateY(-5deg);
+            font-size: @PickerTxtSize - 3;
+            opacity: .5;
+          }
+          &.level_3 {
+            transform: rotateY(7deg);
+            font-size: @PickerTxtSize - 4;
+            opacity: .3;
+          }
+          &.level_3_1 {
+            transform: rotateY(-7deg);
+            font-size: @PickerTxtSize - 4;
+            opacity: .3;
+          }
+          &.current {
+            font-size: @PickerTxtSize;
+            font-weight: bold;
+          }
+        }
+      }
+
+      &-dragging {
+        transition:none
+      }
+    }
+  }
+
+}

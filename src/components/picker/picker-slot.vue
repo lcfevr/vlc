@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    const prefixCls = 'v-lc-picker_slot';
+    const prefixCls = 'vlc-picker-slot';
     export default {
         data(){
             return {
@@ -32,7 +32,6 @@
                 startX:0,
                 startY:0,
                 delta:{x:0,y:0},
-
             }
         },
         watch:{
@@ -46,12 +45,9 @@
                 } else {
                     this.scrollToItem(value)
                 }
-
             }
-
         },
         mounted(){
-
             if(!this.initItem) {
                 this.current = Object.assign({},this.current,{code:'',target:this.target,index:'',value:''});
 
@@ -59,21 +55,9 @@
             } else {
                 this.scrollToItem(this.initItem)
             }
-
-
         },
         props:{
-            styles:{
-                type:Object,
-
-                default:()=>{
-                    return{
-                        color:'#000'
-                    }
-
-                }
-            },
-
+            styles: Object,
             list:{
                 type:Array,
                 default:()=>[]
@@ -102,7 +86,6 @@
                     {
                         [`${prefixCls}-dragging`]:this.dragging
                     }
-
                 ]
             },
             wrapperHeight:{
@@ -122,39 +105,28 @@
             }
         },
         methods:{
-
             _onTouchStart(e){
-                console.log(e.touches[0].pageY);
                 this.currentTranslateY = this.translateY;
-                this.startX = e.touches[0].pageX
-                this.startY = e.touches[0].pageY
+                this.startX = e.touches[0].pageX;
+                this.startY = e.touches[0].pageY;
                 this.dragging = true;
             },
 
             _onTouchMove(e){
-
                 this.delta.x = e.touches[0].pageX - this.startX;
                 this.delta.y = e.touches[0].pageY - this.startY;
                 this.translateY = this.delta.y+this.currentTranslateY;
-
             },
             _onTouchEnd(e){
                 this.dragging = false;
-
                 this.currentTranslateY = this.translateY;
-
                 let index = this.getSelectedIndex();
-                console.log(index)
                 this.setSelectedItem(index);
-
             },
             getSelectedIndex(){
-
                 let height = this.height;
                 let maxIndex = this.list.length - 1;
-
                 let index = -Math.round(this.currentTranslateY / height);
-
                 index = Math.max(index,0);
                 index = Math.min(index,maxIndex);
                 return index;
@@ -169,74 +141,11 @@
                 this.list.forEach((item)=>{
                     if(item.code == initItem){
                         this.currentTranslateY = this.translateY;
-
                         let index = this.getSelectedIndex();
-
                         this.setSelectedItem(index)
                     }
                 })
             }
-
-        },
-
+        }
     }
 </script>
-
-<style scoped lang="less">
-    .v-lc-picker_slot {
-        flex:1;
-        position: relative;
-        height:100%;
-        overflow: hidden;
-    }
-
-    .v-lc-picker_slot ul {
-        position: absolute;
-        top:0;
-        left:0;
-        width:100%;
-        transition:all .2s ease-in;
-    }
-
-    .v-lc-picker_slot .v-lc-picker_slot-dragging {
-        transition:none
-    }
-
-   .v-lc-picker_slot ul li{
-        width:100%;
-        height:35px;
-       line-height: 35px;
-    }
-
-
-    .v-lc-picker_slot ul li.level_1 {
-        transform: scale(.8)  rotateY(3deg);
-    }
-
-    .v-lc-picker_slot ul li.level_1_1 {
-        transform: scale(.8)  rotateY(-3deg);
-    }
-
-
-
-    .v-lc-picker_slot ul li.level_2 {
-        transform: scale(.7) rotateY(5deg);
-    }
-
-    .v-lc-picker_slot ul li.level_2_1 {
-        transform: scale(.7) rotateY(-5deg);
-    }
-
-    .v-lc-picker_slot ul li.level_3 {
-        transform: scale(.6)  rotateY(7deg);
-    }
-
-    .v-lc-picker_slot ul li.level_3_1 {
-        transform: scale(.7) rotateY(-7deg);
-    }
-
-    .v-lc-picker_slot ul li.current {
-        transform: scale(1.1) ;
-        font-weight: bold;
-    }
-</style>
