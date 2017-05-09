@@ -1,0 +1,31 @@
+.vlc-ani {
+    &-fade {
+        &-enter-active, &-leave-active {
+            opacity: 1;
+            transition: opacity .3s ease;
+        }
+        &-enter, &-leave-active {
+            opacity: 0;
+        }
+    }
+
+    &-bottom {
+        &-enter-active, &-leave-active {
+            transition: transform .3s ease-out 100ms;
+        }
+        &-enter, &-leave-active {
+            transform: translate3d(0, 100%, 0);
+        }
+    }
+
+    &-scale {
+        &-enter-active, &-leave-active {
+            will-change: transform;
+            transition: all .3s ease-in;
+        }
+        &-enter, &-leave-active {
+            transform: translate3d(-50%,-50%,0) scale(.9);
+            opacity: .2;
+        }
+    }
+}

@@ -10,6 +10,7 @@ import Config from './config/config'
 import {setPageTitle} from './utils/util'
 import Cache from './utils/cache'
 import Modal from './components/modal/index'
+
 import VueTouch from 'vue-touch'
 import Request from './utils/request'
 import VueResource from 'vue-resource'

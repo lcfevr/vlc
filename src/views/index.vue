@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #fff;">
 
         <vlc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></vlc-header>
+
         <div></div>
         <div style="height: 50px;"></div>
         <div style="min-height: 50px; background: pink; padding: 0 10px;">
@@ -43,20 +44,24 @@
         <PullDown>
 
         </PullDown>
+
     </div>
 </template>
 
 <script>
     import vlcHeader from '../components/header/index'
     import Picker from '../components/picker/index'
-
     import Tab from '../components/tab/tab'
-    import tabItem from '../components/tab/tabItem'
+
+    import Message from '../components/message/index'
+
+
     import Checkbox from '../components/checkBox/index'
     import Radiobox from '../components/radioBox/index'
     import Editor from '../components/editor/index'
     import SlideBar from '../components/slideBar/index'
     import Modal from '../components/modal/modal.vue'
+
     import Message from '../components/message/index'
     import PullDown from '../components/pullDown/index'
     export default {
@@ -67,22 +72,32 @@
 
             Tab,
             tabItem,
+
             Picker,
+            Tab,
+            Message,
+
+
             Checkbox,
             Modal,
             CheckboxGroup: Checkbox.group,
             Radiobox,
             RadioboxGroup: Radiobox.group,
             Editor,
+
             SlideBar,
             vlcHeader,
             PullDown,
             Message
+
         },
         data () {
             return {
+                address:'',
+                showAddressPicker: false,
                 items: [
                     {
+
                         name: "首页",
                         icon: "&#xe662;",
                         iconCur: "&#xe663;",
@@ -109,9 +124,15 @@
                         icon: "&#xe661;",
                         iconCur: "&#xe669;",
                         path: "/user"
+
                     }
                 ],
+
+
+
+
                 visible: true,
+
                 maskCloseble: false,
                 address: '',
                 data: [],
@@ -120,14 +141,14 @@
                 theme: 'twilight',
                 mode: 'javascript'
 
+
             }
         },
-
         mounted () {
             this.$Modal.confirm({
                 title: 'aaa', content: 'aaaaasd', onOk: this.ok, onCancle: function () {
                 }
-            })
+            });
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
 
@@ -135,14 +156,22 @@
 
             setTimeout(() => {
                 remove();
+
             }, 3000)
 
 
         },
         beforeDestroy () {
 
+
         },
         methods: {
+            pickerSure(province, city, district){
+                this.address = `${province} ${city} ${district}`
+            },
+            pickerCancle(){
+                console.log('您取消了选择')
+            },
             ok(){
                 console.log('avc')
             },
@@ -150,23 +179,8 @@
                 console.log('asdasdasd')
             },
             newTip(){
-                this.$Notice.open({desc: 'asdasd', onClose: this.close, duration: 4, styles: {right: '0'}})
-            },
-
-
-//            change(province,city,district){
-//                this.address = `${province} ${city} ${district}`
-//            },
-
-
-            pickerSure(province, city, district){
-                this.address = `${province} ${city} ${district}`
-            },
-            pickerCancle(){
-                console.log('111')
+                //this.$Notice.open({desc: 'asdasd', onClose: this.close, duration: 4, styles: {right: '0'}})
             }
-
         }
-
     }
 </script>

@@ -21,7 +21,7 @@
 const routers = [
     {
         path:'/',
-        redirect:'/cart'
+        redirect:'/guide'
     },
     {
         path:'/cart',
