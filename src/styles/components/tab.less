@@ -1,0 +1,28 @@
+.vlc-tab {
+  background: @TabBgColor;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-color: @TabBorderColor;
+  border-style: solid;
+
+  ul {
+    height: @TabHeight;
+    display: flex;
+
+    li {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: @TabTxtColor;
+      font-size: @TabTxtSize;
+
+      &.cur {
+        color: @TabTxtColorCur;
+      }
+    }
+  }
+}

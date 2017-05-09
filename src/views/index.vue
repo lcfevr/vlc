@@ -2,42 +2,43 @@
     <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #fff;">
 
         <vlc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></vlc-header>
+
         <p @click="showAddressPicker = true">选择地址：{{address}}</p>
         <Picker @sure="pickerSure" @cancle="pickerCancle" :show="showAddressPicker"></Picker>
 
-        <!--<tab ></tab>
+        <tab :items="items"></tab>
 
-        <button @click="newTip">asdasssssdaaaaaasdadd</button>
-        <Checkbox-group v-model="data" :vertical="visible">
-            <Checkbox label="aaa" :disable="visible"></Checkbox>
-            <Checkbox label="bbb"></Checkbox>
-            <Checkbox label="ccc"></Checkbox>
-        </Checkbox-group>
-        <Checkbox label="ddd" :checked="checked"></Checkbox>
-        <Radiobox value="1111" :checked="checked"></Radiobox>
-        <Radiobox-group v-model="radio" :vertical="visible">
-            <Radiobox :disable="visible" value="1111"></Radiobox>
-            <Radiobox value="222"></Radiobox>
-            <Radiobox value="333"></Radiobox>
-        </Radiobox-group>
-        <span>{{data}}</span>
-        <span>{{radio}}</span>
+        <!--
+                <button @click="newTip">asdasssssdaaaaaasdadd</button>
+                <Checkbox-group v-model="data" :vertical="visible">
+                    <Checkbox label="aaa" :disable="visible"></Checkbox>
+                    <Checkbox label="bbb"></Checkbox>
+                    <Checkbox label="ccc"></Checkbox>
+                </Checkbox-group>
+                <Checkbox label="ddd" :checked="checked"></Checkbox>
+                <Radiobox value="1111" :checked="checked"></Radiobox>
+                <Radiobox-group v-model="radio" :vertical="visible">
+                    <Radiobox :disable="visible" value="1111"></Radiobox>
+                    <Radiobox value="222"></Radiobox>
+                    <Radiobox value="333"></Radiobox>
+                </Radiobox-group>
+                <span>{{data}}</span>
+                <span>{{radio}}</span>
 
-        <Slide-bar ></Slide-bar>
-        <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">
-        <p slot="header">111</p>
+                <Slide-bar ></Slide-bar>
+                <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">
+                <p slot="header">111</p>
 
-        </modal>
-        <Message v-model="visible" :text="text"></Message>-->
+                </modal>
+                <Message v-model="visible" :text="text"></Message>-->
     </div>
 </template>
 
 <script>
     import vlcHeader from '../components/header/index'
     import Picker from '../components/picker/index'
-
     import Tab from '../components/tab/tab'
-    import tabItem from '../components/tab/tabItem'
+
     import Checkbox from '../components/checkBox/index'
     import Radiobox from '../components/radioBox/index'
     import Editor from '../components/editor/index'
@@ -46,19 +47,11 @@
     import Message from '../components/message/index'
 
     export default {
-
-        filters: {
-
-        },
-        directives: {
-
-        },
         components:{
             vlcHeader,
             Picker,
-
             Tab,
-            tabItem,
+
             Checkbox,
             Modal,
             CheckboxGroup: Checkbox.group,
@@ -72,37 +65,23 @@
             return {
                 address:'',
                 showAddressPicker: false,
-
                 items: [
                     {
                         name:"首页",
-                        icon:"&#xe662;",
-                        iconCur:"&#xe663;",
-                        path:"/index"
-                    },{
-                        name:"商品",
-                        icon:"&#xe665;",
-
-                        iconCur:"&#xe667;",
-                        path:"/list"
-                    },{
-                        name:"晒单",
-                        icon:"&#xe666;",
-                        iconCur:"&#xe668;",
-                        path:"/shareOrder"
-                    },{
+                        icon:"<i style='font-size: 20px;'>&clubs;</i>",
+                        iconCur:"<i style='font-size: 20px;'>&clubs;</i>",
+                        path:"/guide"
+                    },
+                    {
                         name:"购物车",
-                        icon:"&#xe664;",
-                        iconCur:"&#xe66a;",
+                        icon:"<i style='font-size: 20px;'>&hearts;</i>",
                         path:"/cart"
-
-                    },{
-                        name:"我",
-                        icon:"&#xe661;",
-                        iconCur:"&#xe669;",
-                        path:"/user"
                     }
                 ],
+
+
+
+
                 visible: true,
                 maskCloseble:false,
                 data:[],
@@ -125,7 +104,7 @@
             let remove = this.$Message.loading({text: 'asdasdasd'});
 
             setTimeout(()=>{
-                remove();
+                //remove();
             },3000)
 
 
