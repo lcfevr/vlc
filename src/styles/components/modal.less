@@ -1,0 +1,66 @@
+.v-lc-modal{
+  transform: translate3d(-50%,-50%,0) scale(1);
+  position:absolute;
+  top:50%;
+  left:50%;
+  overflow: hidden;
+  border-radius:.1rem;
+  box-shadow:0 0 .03rem .03rem #555;
+  background:rgba(255,255,255,1);
+  .v-lc-modal-header{
+    width:calc(100% - .2rem);
+    margin-top: 10px;
+    padding: 0 .1rem;
+    min-height:.3rem;
+    line-height:.3rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    .v-lc-modal-header-inner{
+      width:100%;
+    }
+  }
+  .v-lc-modal-body{
+    width:calc(100%  - .4rem);
+    min-height:.5rem;
+    max-height:.7rem;
+    line-height:.25rem;
+    padding:.1rem .2rem;
+    word-wrap:break-word;
+    overflow-y:scroll;
+  }
+  .v-lc-modal-footer{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    overflow: hidden;
+    :nth-child(odd){
+      border-left:.01rem solid #ccc;
+    }
+  }
+  .v-lc-modal-button{
+    flex:1;
+    height:.4rem;
+    border:1px solid #eee;
+    border-left: 0 none;
+  }
+  .v-lc-modal-button-sure{
+    //background: springgreen;
+    color: red;
+  }
+  .v-lc-modal-button-cancle{
+    //background: wheat;
+    color: #ccc;
+  }
+}
+//遮罩层
+.v-lc-modal-mask{
+  position: fixed;
+  left:0;
+  top:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,.4);
+}

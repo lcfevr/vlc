@@ -1,0 +1,116 @@
+//.vlc-radiobox-checked{
+//  .vlc-radiobox-inner{
+//
+//    //border-color: @checkBoxColor!important;
+//    border-color: #555!important;
+//    &:after{
+//      background-color:@radioBoxColor!important;
+//    }
+//  }
+//}
+.vlc-radioBoxGroup.vlc-radioBoxGroup-vertical .vlc-radiobox {
+  margin-right:0;
+  margin-bottom:.08rem;
+}
+
+.vlc-radiobox{
+  display:inline-block;
+  margin-right:.08rem;
+}
+
+
+.vlc-radiobox-wrapper{
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: 0;
+  line-height: 1;
+  position: relative
+}
+
+.vlc-radiobox-inner{
+  display: inline-block;
+  width: .14rem;
+  height: .14rem;
+  position: relative;
+  top: 0;
+  left: 0;
+  border: .01rem solid #d7dde4;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: border-color .2s ease-in-out,background-color .2s ease-in-out;
+}
+
+
+
+.vlc-radiobox-inner:after{
+  position: absolute;
+  width: .08rem;
+  height: .08rem;
+  left: .03rem;
+  top: .03rem;
+  border-radius: .06rem;
+  display: table;
+  border-top: 0;
+  border-left: 0;
+  content: " ";
+  background-color: @radioBoxColor;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  transform: scale(0);
+}
+
+.vlc-radiobox-checked .vlc-radiobox-inner:after {
+  opacity: 1;
+  transform: scale(1);
+  transition: all .2s ease-in-out;
+}
+
+.vlc-radiobox-disable.vlc-radiobox-checked .vlc-radiobox-inner:after{
+  background-color: #f3f3f3;
+  cursor: not-allowed;
+}
+
+.vlc-radiobox-disable .vlc-radiobox-inner:after{
+  background-color: #f3f3f3;
+  cursor: not-allowed;
+}
+
+
+.vlc-radiobox-checked.vlc-radiobox-disable .vlc-radiobox-inner{
+  border-color: #f3f3f3;
+  cursor: not-allowed;
+}
+
+.vlc-radiobox-disable input{
+  cursor: not-allowed;
+}
+
+.vlc-radiobox-disable .vlc-radiobox-inner{
+  border-color: #f3f3f3;
+  cursor: not-allowed;
+}
+
+.vlc-radiobox-disable+span{
+  color: #f3f3f3;
+  cursor: not-allowed;
+}
+
+.vlc-radiobox-checked .vlc-radiobox-inner {
+  border-color: #555;
+}
+
+
+.vlc-radiobox-input{
+  width:100%;
+  height:100%;
+  position: absolute;
+  left:0;
+  top:0;
+  right:0;
+  bottom:0;
+  opacity:0;
+  z-index:1;
+  cursor: pointer;
+}

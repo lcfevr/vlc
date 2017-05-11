@@ -1,11 +1,11 @@
 <template>
-    <div class="v-lc-slideBar" :style="getStyles">
+    <div class="vlc-slideBar" :style="getStyles">
         <div
-                :class="['v-lc-slideBar-wrapper',
-                        flex?'v-lc-slideBar-flex':'v-lc-slideBar-slide',
+                :class="['vlc-slideBar-wrapper',
+                        flex?'vlc-slideBar-flex':'vlc-slideBar-slide',
                         type == 'normal' && flex?'normal':'',
                         type == 'vertical' && flex ? 'vertical':'']" ref="wrapper">
-            <div :class="['v-lc-slideBar-child',index == index ? 'active':'']" v-for="(item,index) in items" @click="changeBar(index,$event)" :style="{lineHeight:height,height:height,textAlign:textAlign}"><a class="content ellipse-fir">{{item.name}}</a></div>
+            <div :class="['vlc-slideBar-child',index == index ? 'active':'']" v-for="(item,index) in items" @click="changeBar(index,$event)" :style="{lineHeight:height,height:height,textAlign:textAlign}"><a class="content ellipse-fir">{{item.name}}</a></div>
 
         </div>
     </div>
@@ -89,7 +89,7 @@
     }
 </script>
 <style scoped >
-    .v-lc-slideBar {
+    .vlc-slideBar {
         display: block;
         width:100%;
         background: #ffffff;
@@ -97,54 +97,54 @@
         position: relative;
     }
 
-    .v-lc-slideBar-wrapper::before {
+    .vlc-slideBar-wrapper::before {
         position: absolute;
         content: '';
         height:.02rem;
         color: #39f;
     }
 
-    .v-lc-slideBar-wrapper .v-lc-slideBar-child .content {
+    .vlc-slideBar-wrapper .vlc-slideBar-child .content {
         height:calc(100% - .02rem);
     }
 
-    .v-lc-slideBar-wrapper .v-lc-slideBar-child.active .content{
+    .vlc-slideBar-wrapper .vlc-slideBar-child.active .content{
         box-sizing:border-box;
         border-bottom:solid #39f;
     }
 
-    .v-lc-slideBar-wrapper .v-lc-slideBar-child a {
+    .vlc-slideBar-wrapper .vlc-slideBar-child a {
         display: inline-block;
 
         width:100%;
     }
 
-    .v-lc-slideBar-flex.normal .v-lc-slideBar-child.active .content{
+    .vlc-slideBar-flex.normal .vlc-slideBar-child.active .content{
         border-bottom-width:.02rem;
     }
 
-    .v-lc-slideBar-flex.vertical .v-lc-slideBar-child.active .content{
+    .vlc-slideBar-flex.vertical .vlc-slideBar-child.active .content{
         border-right-width:.02rem;
     }
 
-    .v-lc-slideBar-wrapper.v-lc-slideBar-flex {
+    .vlc-slideBar-wrapper.vlc-slideBar-flex {
         display: flex;
         align-items: center;
     }
 
-    .v-lc-slideBar-wrapper.v-lc-slideBar-flex.normal {
+    .vlc-slideBar-wrapper.vlc-slideBar-flex.normal {
         flex-direction: row;
     }
 
-    .v-lc-slideBar-wrapper.v-lc-slideBar-flex.vertical {
+    .vlc-slideBar-wrapper.vlc-slideBar-flex.vertical {
         flex-direction: column;
     }
 
-    .v-lc-slideBar-wrapper.v-lc-slideBar-flex .v-lc-slideBar-child {
+    .vlc-slideBar-wrapper.vlc-slideBar-flex .vlc-slideBar-child {
         flex:1;
     }
 
-    .v-lc-slideBar-slide{
+    .vlc-slideBar-slide{
         position: absolute;
         top:0;
         bottom:0;
@@ -152,7 +152,7 @@
         right:0;
     }
 
-    .v-lc-slideBar-slide .v-lc-slideBar-child {
+    .vlc-slideBar-slide .vlc-slideBar-child {
         display: inline-block;
 
     }

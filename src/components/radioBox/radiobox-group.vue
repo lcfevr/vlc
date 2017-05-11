@@ -1,5 +1,5 @@
 <template>
-    <div :class="['v-lc-radioBoxGroup',vertical?'v-lc-radioBoxGroup-vertical':'']">
+    <div :class="['vlc-radioBoxGroup',vertical?'vlc-radioBoxGroup-vertical':'']">
         <slot></slot>
     </div>
 </template>
@@ -51,7 +51,7 @@
 </script>
 
 <style scoped >
-    .v-lc-radioBoxGroup-vertical {
+    .vlc-radioBoxGroup-vertical {
         display: flex;
         justify-content: center;
         flex-direction: column;

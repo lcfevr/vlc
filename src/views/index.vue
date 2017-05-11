@@ -33,7 +33,9 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar></Slide-bar>
+        <Slide-bar :items="items"></Slide-bar>
+        <Tab :items="items"></Tab>
+
         <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible"
                title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的"
                @on-ok="ok">
@@ -44,6 +46,9 @@
         <PullDown :refresh="topMethod" :load-more="topMethod">
 
         </PullDown>
+
+        <Button>gdgfd</Button>
+         <Editor :theme="theme" :value="value"></Editor>
         <Prompt  v-model="visible" :val="text" :show="visible" :validator="/HM|RedMi|Mi/ig" title="asdadad" spec="asddddddd" @on-ok="getVal"></Prompt>
     </div>
 </template>
@@ -62,7 +67,7 @@
     import SlideBar from '../components/slideBar/index'
     import Modal from '../components/modal/modal.vue'
     import Prompt from '../components/prompt/prompt.vue'
-
+    import Button from '../components/button/index'
     import PullDown from '../components/pullDown/index'
     export default {
 
@@ -77,7 +82,7 @@
 
 
 
-
+            Button,
             Checkbox,
             Modal,
             CheckboxGroup: Checkbox.group,
@@ -126,11 +131,13 @@
                         path: "/user"
 
                     }
+
                 ],
 
 
-
-
+                theme:"富文本编辑器",
+                value:"<h1>ffasfasssa</h1>" +
+                "fasfassfaasf",
                 visible: true,
 
                 maskCloseble: false,
@@ -159,7 +166,7 @@
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
 
-            let remove = this.$Message.loading({text: 'asdasdasd'});
+            let remove = this.$Message.loading({text: '请输入用户名'});
 
             setTimeout(() => {
                 remove();

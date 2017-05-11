@@ -1,5 +1,5 @@
 <template>
-    <div :class="['v-lc-checkBoxGroup',vertical?'v-lc-checkBoxGroup-vertical':'']" >
+    <div :class="['vlc-checkBoxGroup',vertical?'vlc-checkBoxGroup-vertical':'']" >
         <slot></slot>
     </div>
 </template>
@@ -67,7 +67,7 @@
 </script>
 
 <style scoped>
-    .v-lc-checkBoxGroup-vertical {
+    .vlc-checkBoxGroup-vertical {
         display: flex;
         justify-content: center;
         flex-direction: column;

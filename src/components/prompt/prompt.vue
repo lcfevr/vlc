@@ -11,8 +11,8 @@
                 </div>
             </div>
             <template slot="footer">
-                <button class="vlc-modal-button vlc-modal-button-sure"  @click="ok">{{okText}}</button>
-                <button class=" vlc-modal-button vlc-modal-button-cancle"  @click="cancle">{{cancleText}}</button>
+                <button class="vlc-prompt-button vlc-prompt-button-sure"  @click="ok">{{okText}}</button>
+                <button class=" vlc-prompt-button vlc-prompt-button-cancle"  @click="cancle">{{cancleText}}</button>
             </template>
 
         </Modal>
