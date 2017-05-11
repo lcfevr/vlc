@@ -73,17 +73,7 @@
             },
 
         },
-        watch:{
-            value(val){
-                this.visible = val
-            },
 
-            type(val){
-                this.genre = val
-            },
-
-
-        },
         methods:{
 
             close(){

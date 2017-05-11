@@ -14,7 +14,7 @@
         <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
 
         <h1>111111111111</h1>
-        <tab></tab>
+        <!--<tab></tab>-->
 
         <p>{{address}}</p>
         <button @click="newTip">asdasssssdaaaaaasdadd</button>
@@ -41,10 +41,10 @@
 
         </modal>
         <Message v-model="visible" :text="text"></Message>
-        <PullDown>
+        <PullDown :refresh="topMethod" :load-more="topMethod">
 
         </PullDown>
-
+        <Prompt  v-model="visible" :val="text" :show="visible" :validator="/HM|RedMi|Mi/ig" title="asdadad" spec="asddddddd" @on-ok="getVal"></Prompt>
     </div>
 </template>
 
@@ -61,8 +61,8 @@
     import Editor from '../components/editor/index'
     import SlideBar from '../components/slideBar/index'
     import Modal from '../components/modal/modal.vue'
+    import Prompt from '../components/prompt/prompt.vue'
 
-    import Message from '../components/message/index'
     import PullDown from '../components/pullDown/index'
     export default {
 
@@ -71,11 +71,11 @@
         components: {
 
             Tab,
-            tabItem,
+
 
             Picker,
-            Tab,
-            Message,
+
+
 
 
             Checkbox,
@@ -84,7 +84,7 @@
             Radiobox,
             RadioboxGroup: Radiobox.group,
             Editor,
-
+            Prompt,
             SlideBar,
             vlcHeader,
             PullDown,
@@ -139,16 +139,23 @@
                 checked: true,
                 radio: '1111',
                 theme: 'twilight',
-                mode: 'javascript'
+                mode: 'javascript',
+                text:'test'
 
 
             }
         },
         mounted () {
-            this.$Modal.confirm({
+            this.$Prompt.info({
                 title: 'aaa', content: 'aaaaasd', onOk: this.ok, onCancle: function () {
-                }
+                },
+
             });
+
+
+            setTimeout(()=>{
+
+            },5000)
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
 
@@ -166,6 +173,12 @@
 
         },
         methods: {
+            getVal(val){
+                console.log(val)
+            },
+            topMethod(){
+                console.log('asd')
+            },
             pickerSure(province, city, district){
                 this.address = `${province} ${city} ${district}`
             },
@@ -173,7 +186,7 @@
                 console.log('您取消了选择')
             },
             ok(){
-                console.log('avc')
+                console.log(this.radio)
             },
             close(){
                 console.log('asdasdasd')

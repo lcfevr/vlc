@@ -1,8 +1,7 @@
 <template>
     <div class="vlc-pullDown" :style="{height:`${height}px`}" ref="scroll">
         <div class="vlc-pullDown-top" ref="top">
-            <slot name="top"><span v-if="translateY <= topDistance">{{topPullText}}</span><span
-                    v-else>{{topDropText}}</span></slot>
+            <slot name="top"><span>{{upText}}</span></slot>
         </div>
         <div :class="['vlc-pullDown-content',drag?'drag':'']"
              :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' }" ref="content">
@@ -22,12 +21,17 @@
                     <li>1</li>
                     <li>1</li>
                     <li>1</li>
+                    <li>1</li>
+                    <li>1</li>
+                    <li>1</li>
+                    <li>1</li>
+                    <li>1</li>
                 </ul>
             </slot>
 
         </div>
         <div class="vlc-pullDown-bottom" ref="bottom">
-            <slot name="bottom"></slot>
+            <slot name="bottom"><span>{{downText}}</span></slot>
         </div>
     </div>
 </template>
@@ -39,20 +43,20 @@
                 type: Number,
                 default: 400
             },
-            topMethod: Function,
-            topLoadingText: {
+            refresh: Function,
+            upLoadingText: {
                 type: String,
                 default: '加载中...'
             },
-            topDistance: {
+            upDistance: {
                 type: Number,
                 default: 70
             },
-            topPullText: {
+            upPullText: {
                 type: String,
                 default: '下拉刷新'
             },
-            topDropText: {
+            upDropText: {
                 type: String,
                 default: '释放更新'
             },
@@ -60,131 +64,253 @@
                 type: Number,
                 default: 0
             },
-            distanceIndex: {
+            speed: {
                 type: Number,
-                default: 1
+                default: 2
             },
-            autoFill: {
+            sense: {
                 type: Boolean,
                 default: true
             },
-            bottomPullText: {
+            downPullText: {
                 type: String,
                 default: '上拉刷新'
             },
-            bottomDropText: {
+            downDropText: {
                 type: String,
                 default: '释放更新'
             },
-            bottomLoadingText: {
+            downLoadingText: {
                 type: String,
                 default: '加载中...'
             },
-            bottomDistance: {
+            downDistance: {
                 type: Number,
                 default: 70
             },
-            bottomMethod: Function,
-            bottomAllLoaded: {
+            loadMore: Function,
+            hasMore: {
                 type: Boolean,
                 default: false
             }
 
         },
+
         data(){
             return {
                 translateY: 0,
-                topStatus: '',
+                upStatus: '',
+                downStatus: '',
                 scrollTop: 0,
                 startY: 0,
                 currentY: 0,
                 startScrollTop: 0,
-                drag: false
+                drag: false,
+                upDropped: false,
+                downDropped: false,
+                direction: '',
+                upText: '',
+                downText: '',
+                down: false,
+                scrollTarget:null
             }
         },
         methods: {
+            onLoadUp(){
+                this.translateY = 0;
+                this.upStatus = ''
+            },
+
+            onLoadDown(){
+                this.translateY = 0;
+                this.downStatus = '';
+            },
             onTouchStart(e){
 
                 this.startY = e.touches[0].clientY;
                 this.startTranslateY = this.translateY;
                 this.startScrollTop = this.$refs.scroll.scrollTop;
+                this.down = false;
+                if (this.upStatus !== 'loading') {
+                    this.upStatus = 'pull';
+                    this.upDropped = false;
+                }
+
+                if (this.downStatus !== 'loading') {
+                    this.downStatus = 'pull';
+                    this.downDropped = false;
+                }
             },
             onTouchMove(e){
-
-                console.log(this.$refs.scroll.scrollTop);
+                let pos = this.$refs.scroll.getBoundingClientRect();
+                if (this.startY < pos.top && this.startY > pos.down)  return;
                 this.currentY = e.touches[0].clientY;
                 this.scrollTop = this.$refs.scroll.scrollTop;
-                if (this.currentY > this.startY) {
+                let distance = (this.currentY - this.startY) / this.speed;
 
-                    if (this.scrollTop == 0 && this.topStatus !== 'loading') {
+                this.direction = distance > 0 ? 'down' : 'up';
 
-                        this.topStatus = 'pull';
+                if (this.currentY >= this.startY && typeof this.refresh == 'function' && this.scrollTop == 0 && this.direction == 'down' && this.upStatus != 'loading') {
 
-                        event.preventDefault();
-                        event.stopPropagation();
-                        this.drag = true;
-                        this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) * this.distanceIndex
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (this.maxDistance > 0) {
+
+                        this.translateY = distance <= this.maxDistance ? distance - this.startScrollTop : this.translateY;
+                    } else {
+                        this.translateY = distance - this.startScrollTop;
                     }
-                } else if (this.currentY < this.startY) {
-                    console.log(this.$el, this.$refs.content)
-                    let maxScrollTop = Number(document.defaultView.getComputedStyle(this.$refs.content).height.split('px')[0]) - this.height;
-                    console.log(maxScrollTop)
-                    if (this.scrollTop == maxScrollTop) {
-                        this.topStatus = 'pull';
-                        event.preventDefault();
 
-                        event.stopPropagation();
-                        this.drag = true;
-                        this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) * this.distanceIndex
+
+                    if (this.translateY < 0) {
+                        this.translateY = 0;
                     }
+
+                    this.upStatus = this.translateY >= this.upDistance ? 'drop' : 'pull';
+
+                    this.drag = true;
+//                    this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) / this.distanceIndex;
 
                 }
 
+                if (this.direction === 'up') {
 
+                    this.down = this.down || this.isBottom()
+                }
+
+                if (this.currentY < this.startY && this.down && typeof this.loadMore == 'function' && this.direction == 'up' && this.downStatus != 'loading') {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    if (this.maxDistance > 0) {
+                        this.translateY = Math.abs(distance) <= this.maxDistance
+                            ? this.scrollTop - this.startScrollTop + distance : this.translateY;
+                    } else {
+                        this.translateY = this.scrollTop - this.startScrollTop + distance;
+                    }
+
+                    if (this.translateY > 0) {
+                        this.translateY = 0;
+                    }
+                    this.downStatus = -this.translateY >= this.downDistance ? 'drop' : 'pull';
+                    this.drag = true;
+//                        this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) / this.distanceIndex;
+
+                }
             },
             onTouchEnd(e){
-                this.topStat = 'loading';
-                if (this.translateY >= this.topDistance && typeof this.topMethod == 'function') {
-                    this.topMethod();
+                this.scrollTop = this.$refs.scroll.scrollTop;
+                if (this.direction == 'down' && this.scrollTop == 0 && this.translateY >= 0) {
+                    this.upDropped = true;
+                    if (this.upStatus == 'drop') {
 
-                    let marginTop = document.defaultView.getComputedStyle(this.$refs.top).marginBottom.split('px')[0];
+                        let marginTop = Number(document.defaultView.getComputedStyle(this.$refs.top).marginBottom.split('px')[0]);
+                        this.translateY = -marginTop;
+                        this.upStatus = 'loading';
+                        this.refresh();
 
-                    this.translateY = 0;
-                    this.translateY -= marginTop
+                    } else {
+                        this.upStatus = 'pull';
+                        this.translateY = 0;
 
-                } else if (this.translateY <= -this.bottomDistance && typeof  this.bottomMethod == 'function') {
-                    this.bottomMethod();
-
-                    let marginBottom = document.defaultView.getComputedStyle(this.$refs.top).marginBottom.split('px')[0];
-                    this.translateY = 0;
-                    this.translateY += marginBottom
-
-                } else {
-                    this.translateY = 0
+                    }
                 }
 
+                if (this.direction == 'up' && this.down && this.translateY <= 0) {
+                    this.downDropped = true;
+                    this.down = false;
+                    if (this.downStatus === 'drop') {
+                        let marginBottom = Number(document.defaultView.getComputedStyle(this.$refs.bottom).marginTop.split('px')[0]);
+
+                        this.translateY = marginBottom;
+                        this.downStatus = 'loading';
+                        this.loadMore();
+                    } else {
+                        this.translateY = 0;
+                        this.downStatus = 'pull';
+                    }
+                }
+
+                this.direction = '';
                 this.drag = false
             },
-            getScrollTop(e){
-
+            getScrollEventTarget(element) {
+                let currentNode = element;
+                while (currentNode && currentNode.tagName !== 'HTML' &&
+                currentNode.tagName !== 'BODY' && currentNode.nodeType === 1) {
+                    let overflowY = document.defaultView.getComputedStyle(currentNode).overflowY;
+                    if (overflowY === 'scroll' || overflowY === 'auto') {
+                        return currentNode;
+                    }
+                    currentNode = currentNode.parentNode;
+                }
+                return window;
             },
+
+            isBottom(){
+                if (this.scrollTarget === window) {
+                    return document.body.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight;
+                } else {
+
+                    return this.$el.getBoundingClientRect().bottom <= this.scrollTarget.getBoundingClientRect().bottom + 1;
+                }
+            },
+
             bindEvent(){
-                this.$el.addEventListener('touchstart', this.onTouchStart, false)
-                this.$el.addEventListener('touchmove', this.onTouchMove, false)
-                this.$el.addEventListener('touchend', this.onTouchEnd, false)
+                this.$el.addEventListener('touchstart', this.onTouchStart, false);
+                this.$el.addEventListener('touchmove', this.onTouchMove, false);
+                this.$el.addEventListener('touchend', this.onTouchEnd, false);
             },
             unbindEvent(){
-                this.$el.removeEventListener('touchstart', this.onTouchStart, false)
-                this.$el.removeEventListener('touchmove', this.onTouchMove, false)
-                this.$el.removeEventListener('touchend', this.onTouchEnd, false)
+                this.$el.removeEventListener('touchstart', this.onTouchStart, false);
+                this.$el.removeEventListener('touchmove', this.onTouchMove, false);
+                this.$el.removeEventListener('touchend', this.onTouchEnd, false);
             }
         },
         mounted(){
             this.bindEvent();
+            this.scrollTarget = this.getScrollEventTarget(this.$el)
         },
         beforeDestroy(){
             this.unbindEvent();
-        }
+
+        },
+        watch: {
+            upStatus(val){
+
+                switch (val) {
+                    case 'pull':
+                        this.upText = this.upPullText;
+                        break;
+
+                    case 'drop':
+                        this.upText = this.upDropText;
+                        break;
+
+                    case 'loading':
+                        this.upText = this.upLoadingText;
+                }
+
+                this.$emit('on-change-up-status', val)
+            },
+            downStatus(val){
+
+                switch (val) {
+                    case 'pull':
+                        this.downText = this.downPullText;
+                        break;
+
+                    case 'drop':
+                        this.downText = this.downDropText;
+                        break;
+
+                    case 'loading':
+                        this.downText = this.downLoadingText;
+                        break
+                }
+                this.$emit('on-change-down-status', val)
+            }
+        },
 
     }
 </script>
@@ -195,6 +321,7 @@
         overflow-y: scroll;
         background: #555555;
     }
+
 
     .vlc-pullDown-top {
         width: -webkit-fill-available;

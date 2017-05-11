@@ -51,7 +51,7 @@
             },
             width: {
                 type: String,
-                default: '2.2rem'
+                default: '220px'
             },
             okText: {
                 type: String,
