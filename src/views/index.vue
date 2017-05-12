@@ -67,6 +67,7 @@
     import SlideBar from '../components/slideBar/index'
     import Modal from '../components/modal/modal.vue'
     import Prompt from '../components/prompt/prompt.vue'
+    import Swipe from '../components/swipe/index'
     import Button from '../components/button/index'
     import PullDown from '../components/pullDown/index'
     export default {
@@ -82,6 +83,7 @@
 
 
 
+            Swipe,
             Button,
             Checkbox,
             Modal,
@@ -98,6 +100,36 @@
         },
         data () {
             return {
+                list:[
+                    [
+                            { image:'https://vuefe.cn/images/logo.png',
+                            spec:'asdasd'
+                            },
+                            { image:'https://vuefe.cn/images/logo.png',
+                                spec:'asdasd'
+                            }
+                            ]
+
+                    ,
+                    [
+                            { image:'https://vuefe.cn/images/logo.png',
+                                spec:'asdasd'
+                            },
+                            { image:'https://vuefe.cn/images/logo.png',
+                                spec:'asdasd'
+                            }
+                        ]
+                    ,
+                    [
+                            { image:'https://vuefe.cn/images/logo.png',
+                                spec:'asdasd'
+                            },
+                            { image:'https://vuefe.cn/images/logo.png',
+                                spec:'asdasd'
+                            }
+                        ]
+
+                ],
                 address:'',
                 showAddressPicker: false,
                 items: [
@@ -131,7 +163,6 @@
                         path: "/user"
 
                     }
-
                 ],
 
 
@@ -166,7 +197,7 @@
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
 
-            let remove = this.$Message.loading({text: '请输入用户名'});
+            let remove = this.$Message.loading({text: 'asdasdasd'});
 
             setTimeout(() => {
                 remove();
