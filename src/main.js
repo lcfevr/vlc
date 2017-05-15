@@ -9,16 +9,21 @@ import Env from './config/env';
 import Config from './config/config'
 import {setPageTitle} from './utils/util'
 import Cache from './utils/cache'
-import Modal from './components/modal/index'
-import Prompt from './components/prompt/index'
+// import Modal from './components/modal/index'
+// import Prompt from './components/prompt/index'
 
 import VueTouch from 'vue-touch'
 import Request from './utils/request'
 import VueResource from 'vue-resource'
-import Message from './components/message/index'
+// import Message from './components/message/index'
+
+import vlc from './index'
+
+Vue.use(vlc)
 
 
 
+console.log(vlc)
 Vue.use(VueRouter);
 // Vue.use(VueTouch);
 Vue.use(VueResource)
@@ -26,13 +31,9 @@ Vue.use(VueResource)
 // 开启debug模式
 
 
-
-Vue.prototype.$Modal = Modal;
-Vue.prototype.$Prompt = Prompt;
-
 Vue.prototype.$Config = Config;
 Vue.prototype.$Request = Request;
-Vue.prototype.$Message = Message
+
 
 // 路由配置
 let router = new VueRouter({

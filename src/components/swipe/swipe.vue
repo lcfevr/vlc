@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes" :style="{height:'400px'}">
+    <div :class="classes" :style="{height:height}">
 
         <div :class="wrapperClasses" :style="styles" ref="wrapper">
             <div :class="itemClasses" v-for="(item,index) in arrayList">
@@ -19,6 +19,10 @@
                 </template>
             </div>
 
+        </div>
+        <div :class="dotsClasses">
+            <span :class="['vlc-swipe-dots-item',(loop?(index+1):index)==slideIndex?'active':'']"
+                  v-for="(item,index) in dotLength"></span>
         </div>
     </div>
 </template>
@@ -77,10 +81,14 @@
                 clientWidth: 0,
                 slideIndex: this.startIndex,
                 distance: 0,
-                timer: null
+                timer: null,
+                clientHeight: 0
             }
         },
         computed: {
+            dotLength(){
+                return this.list.length
+            },
             minIndex(){
                 return this.loop ? 1 : 0
             },
@@ -89,7 +97,7 @@
             },
             arrayList(){
                 if (this.loop) {
-                    return [].concat([this.list[0]], this.list, [this.list[this.list.length - 1]])
+                    return [].concat([this.list[this.list.length - 1]], this.list, [this.list[0]])
                 } else {
                     return this.list
                 }
@@ -110,6 +118,16 @@
                     }
                 ]
             },
+            dotsClasses(){
+                return [
+                    `${prefixCls}-dots`,
+                    {
+                        ['vlc-swipe-dots-bottom']:this.dots=='bottom',
+                        ['vlc-swipe-dots-top']:this.dots=='top'
+                    }
+                ]
+            },
+
             itemClasses(){
                 return [
                     `${prefixCls}-item`,
@@ -152,14 +170,15 @@
                 this.translateX = this.currentTranslateX - this.clientWidth;
                 if (++this.slideIndex > this.maxIndex) {
                     this.slideIndex--;
-                    this.$refs.wrapper.addEventListener('webkitTransitionEnd',this.resetSlide,false);
+                    this.$refs.wrapper.addEventListener('webkitTransitionEnd', this.resetSlide, false);
                 }
             },
             onLoopSlideRight(){
                 this.translateX = this.currentTranslateX + this.clientWidth
                 if (--this.slideIndex < this.minIndex) {
+                    console.log(this.slideIndex)
                     this.slideIndex++;
-                    this.$refs.wrapper.addEventListener('webkitTransitionEnd',this.resetSlideMax,false);
+                    this.$refs.wrapper.addEventListener('webkitTransitionEnd', this.resetSlideMax, false);
                 } else {
 
 
@@ -193,9 +212,8 @@
                 this.distance = 0;
 
                 if (this.timer && this.auto) {
-                   this.clearTimer();
+                    this.clearTimer();
                 }
-
             },
 
             onTouchMove(e){
@@ -214,7 +232,7 @@
 
                 if (this.distance < 0 && Math.abs(this.distance) > this.clientWidth / 2) {
 
-                    this.loop && this.auto ?this.onLoopSlideLeft() : this.onSlideLeft()
+                    this.loop && this.auto ? this.onLoopSlideLeft() : this.onSlideLeft()
 
                 } else if (this.distance > 0 && Math.abs(this.distance) > this.clientWidth / 2) {
 
@@ -234,38 +252,39 @@
             resetSlide(){
 
                 this.$refs.wrapper.removeEventListener('webkitTransitionEnd', this.resetSlide, false);
+
                 this.slideIndex = this.minIndex;
                 this.autoSwipe = false;
                 this.translateX = -this.slideIndex * this.clientWidth;
                 setTimeout(() => {
                     this.autoSwipe = true;
-                },0)
-
+                }, 0)
 
             },
 
             resetSlideMax(){
 
-                this.$refs.wrapper.removeEventListener('webkitTransitionEnd', this.resetSlide, false);
+                this.$refs.wrapper.removeEventListener('webkitTransitionEnd', this.resetSlideMax, false);
                 this.slideIndex = this.maxIndex;
                 this.autoSwipe = false;
                 this.translateX = -this.slideIndex * this.clientWidth;
                 setTimeout(() => {
                     this.autoSwipe = true;
-                },0)
+                }, 0)
             },
             autoSlide(){
 
                 this.timer = setTimeout(() => {
 
-                    console.log(this.dragging,this.autoSwipe)
+
                         if (!this.dragging && this.autoSwipe) {
-                            this.translateX  -= this.clientWidth;
+                            this.translateX -= this.clientWidth;
                             if (++this.slideIndex > this.maxIndex) {
-                                console.log(this.slideIndex)
+
                                 this.slideIndex--;
                                 this.$refs.wrapper.addEventListener('webkitTransitionEnd', this.resetSlide, false);
                             }
+
                             this.autoSlide();
                         }
                     }, this.speed < 1 ? 1000 : this.speed * 1000
@@ -295,6 +314,8 @@
         mounted()
         {
             this.clientWidth = this.$el.clientWidth;
+            this.clientHeight = getComputedStyle(this.$el.querySelector('.vlc-swipe-wrapper')).height;
+            console.log(getComputedStyle(this.$el.querySelector('.vlc-swipe-wrapper')).getPropertyValue('height'))
             if (this.auto) this.autoSlide();
 
             this.bindEvent()
@@ -303,7 +324,7 @@
         beforeDestroy()
         {
             this.unbindEvent();
-           this.clearTimer();
+            this.clearTimer();
         }
 
     }
@@ -315,12 +336,13 @@
         position: relative;
         height: auto;
         overflow-x: hidden;
-
         &-wrapper {
-            height: 100%;
-            position: absolute;
+
+            position: relative;
             left: 0;
             top: 0;
+            width:100%;
+            height:100%;
             transition: transform .2s ease-out;
             will-change: transform;
             display: flex;
@@ -330,7 +352,6 @@
         }
         &-item {
             flex: 1;
-            overflow: hidden;
 
             &.multiple {
                 display: flex;
@@ -351,7 +372,7 @@
                 width: 100%;
                 line-height: 25px;
                 text-align: center;
-                height: 25px;
+
             }
         }
 
@@ -371,13 +392,43 @@
                 width: 100%;
                 line-height: 25px;
                 text-align: center;
-                height: 25px;
             }
         }
 
         &-dragging {
             transition: none;
             will-change: none
+        }
+
+        &-dots {
+            position: absolute;
+            left: 0;
+            width: -webkit-fill-available;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            align-items: center;
+            &-item {
+                margin: 0 2px;
+                background: #999;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                display: inline-block;
+
+            }
+
+            &-bottom {
+                bottom: 20px;
+            }
+
+            &-top {
+                top: 20px;
+            }
+        }
+
+        .vlc-swipe-dots-item.active {
+            background: #555;
         }
 
     }

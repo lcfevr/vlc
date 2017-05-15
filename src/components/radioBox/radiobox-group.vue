@@ -1,12 +1,13 @@
 <template>
-    <div :class="['vlc-radioBoxGroup',vertical?'vlc-radioBoxGroup-vertical':'']">
+    <div :class="classes">
         <slot></slot>
     </div>
 </template>
 
 <script>
 
-
+    import {findComponentsDownward} from "../../utils/util"
+    const prefixCls = 'vlc-radioBoxGroup'
     export default {
         name:'radioBoxGroup',
         props:{
@@ -23,29 +24,43 @@
         },
         data(){
             return {
-                model:this.value
+                currentValue:this.value,
+                children:findComponentsDownward(this,'radioBox')
+            }
+        },
+        computed:{
+            classes(){
+                return [
+                    `${prefixCls}`,
+                    {
+                        [`${prefixCls}-vertical`]:this.vertical
+                    }
+                ]
+
             }
         },
         methods:{
             change(data){
-                this.model = data.value;
+                this.currentValue = data.value;
                 this.updateModel();
+                this.$emit('input',data.value);
                 this.$emit('on-change',data.value);
                 this.$emit('on-form-change',data.value)
             },
             updateModel(){
-                let model = this.value;
-                this.$children.forEach((child)=>{
-                    child.select = model == child.model;
+                let value = this.value;
+                this.children = findComponentsDownward(this,'radioBox');
+                this.children.forEach((child)=>{
+                    child.model = value == child.label;
                     child.isGroup = true;
 
                 })
             }
         },
         watch:{
-            model(){
-                this.updateModel()
-            }
+            value(){
+                this.updateModel();
+            },
         }
     }
 </script>

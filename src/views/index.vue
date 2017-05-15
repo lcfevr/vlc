@@ -1,7 +1,7 @@
 <template>
     <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; background: #fff;">
 
-        <vlc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></vlc-header>
+        <!--<vlc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></vlc-header>-->
 
         <div></div>
         <div style="height: 50px;"></div>
@@ -18,18 +18,18 @@
 
         <p>{{address}}</p>
         <button @click="newTip">asdasssssdaaaaaasdadd</button>
-        <Checkbox-group v-model="data" :vertical="visible">
-            <Checkbox label="aaa" :disable="visible"></Checkbox>
-            <Checkbox label="bbb"></Checkbox>
-            <Checkbox label="ccc"></Checkbox>
-        </Checkbox-group>
-        <Checkbox label="ddd" :checked="checked"></Checkbox>
-        <Radiobox value="1111" :checked="checked"></Radiobox>
-        <Radiobox-group v-model="radio" :vertical="visible">
-            <Radiobox :disable="visible" value="1111"></Radiobox>
-            <Radiobox value="222"></Radiobox>
-            <Radiobox value="333"></Radiobox>
-        </Radiobox-group>
+        <CheckBox-group v-model="data" :vertical="visible">
+            <CheckBox label="aaa" :disable="visible"></CheckBox>
+            <CheckBox label="bbb"></CheckBox>
+            <CheckBox label="ccc"></CheckBox>
+        </CheckBox-group>
+        <CheckBox label="ddd" v-model="checked"></CheckBox>
+        <Radio label="1111" v-model="checked" ></Radio>
+        <Radio-group v-model="radio" :vertical="visible">
+            <Radio :disable="visible" label="1111"></Radio>
+            <Radio label="222"></Radio>
+            <Radio label="333"></Radio>
+        </Radio-group>
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
@@ -50,25 +50,26 @@
         <Button>gdgfd</Button>
          <Editor :theme="theme" :value="value"></Editor>
         <Prompt  v-model="visible" :val="text" :show="visible" :validator="/HM|RedMi|Mi/ig" title="asdadad" spec="asddddddd" @on-ok="getVal"></Prompt>
+        <Swipe :auto="true" :loop="true" :list="list"></Swipe>
     </div>
 </template>
 
 <script>
-    import vlcHeader from '../components/header/index'
-    import Picker from '../components/picker/index'
-    import Tab from '../components/tab/tab'
+//    import vlcHeader from '../components/header/index'
+//    import Picker from '../components/picker/index'
+//    import Tab from '../components/tab/tab'
 
-    import Message from '../components/message/index'
+//    import Message from '../components/message/index'
 
 
-    import Checkbox from '../components/checkBox/index'
-    import Radiobox from '../components/radioBox/index'
-    import Editor from '../components/editor/index'
+//    import Checkbox from '../components/checkBox/index'
+//    import Radiobox from '../components/radioBox/index'
+//    import Editor from '../components/editor/index'
     import SlideBar from '../components/slideBar/index'
-    import Modal from '../components/modal/modal.vue'
-    import Prompt from '../components/prompt/prompt.vue'
-    import Swipe from '../components/swipe/index'
-    import Button from '../components/button/index'
+//    import Modal from '../components/modal/modal.vue'
+//    import Prompt from '../components/prompt/prompt.vue'
+//    import Swipe from '../components/swipe/index'
+//    import Button from '../components/button/index'
     import PullDown from '../components/pullDown/index'
     export default {
 
@@ -76,26 +77,14 @@
         directives: {},
         components: {
 
-            Tab,
-
-
-            Picker,
 
 
 
-            Swipe,
-            Button,
-            Checkbox,
-            Modal,
-            CheckboxGroup: Checkbox.group,
-            Radiobox,
-            RadioboxGroup: Radiobox.group,
-            Editor,
-            Prompt,
+
             SlideBar,
-            vlcHeader,
+
             PullDown,
-            Message
+
 
         },
         data () {
@@ -103,29 +92,29 @@
                 list:[
                     [
                             { image:'https://vuefe.cn/images/logo.png',
-                            spec:'asdasd'
+                            spec:'1111'
                             },
                             { image:'https://vuefe.cn/images/logo.png',
-                                spec:'asdasd'
+                                spec:'2222'
                             }
                             ]
 
                     ,
                     [
                             { image:'https://vuefe.cn/images/logo.png',
-                                spec:'asdasd'
+                                spec:'3333'
                             },
                             { image:'https://vuefe.cn/images/logo.png',
-                                spec:'asdasd'
+                                spec:'5555'
                             }
                         ]
                     ,
                     [
                             { image:'https://vuefe.cn/images/logo.png',
-                                spec:'asdasd'
+                                spec:'121231'
                             },
                             { image:'https://vuefe.cn/images/logo.png',
-                                spec:'asdasd'
+                                spec:'0000'
                             }
                         ]
 

@@ -59,12 +59,13 @@
           this.updateModel()
         },
         watch:{
-            model(){
+            value(){
                 this.updateModel()
             }
         }
     }
 </script>
+
 
 <style scoped>
     .vlc-checkBoxGroup-vertical {
