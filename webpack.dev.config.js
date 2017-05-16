@@ -1,52 +1,55 @@
 /**
- * Created by lcfevr on 16/7/5.
+ * 本地预览
  */
 
+var path = require('path');
 var webpack = require('webpack');
-var config = require('./webpack.base.config');
+// var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var merge = require('webpack-merge');
+var webpackBaseConfig = require('./webpack.base.config.js');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var fs = require('fs');
+var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
-config.devtool = '#source-map';                             // source-map
-config.output.publicPath = '/dist/';                        // 资源路径
-config.output.filename = '[name].js';                       // 入口js命名
-config.output.chunkFilename = '[name].chunk.js';            // 路由js命名
 
-config.vue = {
-    loaders: {
-        css: ExtractTextPlugin.extract(
-            "vue-style-loader",
-            "css-loader?sourceMap",
-            {
-                publicPath: "/dist/"
+module.exports = merge(webpackBaseConfig, {
+    // 入口
+    entry: {
+        main: './src/main',
+        vendors: ['vue', 'vue-router']
+    },
+    // 输出
+    output: {
+        path:path.join(__dirname, './example'),
+        publicPath: '',
+        filename: '[name].js',
+        chunkFilename: '[name].chunk.js'
+    },
+    resolve: {
+        alias: {
+            vlc: './src/index',
+            vue: 'vue/dist/vue.js'
+        }
+    },
+    plugins: [
+
+
+        new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
+        new webpack.LoaderOptionsPlugin({
+            // test: /\.xxx$/, // may apply this only for some modules
+            options: {
+                babel:{
+                    presets: ['es2015'],
+                    plugins: ['transform-runtime']
+                }
             }
-        ),
-        less: ExtractTextPlugin.extract(
-            'vue-style-loader',
-            'css-loader!less-loader?sourceMap'
-        ),
-        sass: ExtractTextPlugin.extract(
-            'vue-style-loader',
-            'css-loader!sass-loader'
-        )
-    }
-};
-
-config.plugins = (config.plugins || []).concat([
-    new ExtractTextPlugin("[name].css",{ allChunks : true,resolve : ['modules'] }),             // 提取CSS
-    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),                           // 提取第三方库
-    new HtmlWebpackPlugin({                                                                     // 构建html文件
-        filename: '../index.html',
-        template: './src/template/index.ejs',
-        inject: false
-    })
-]);
-
-// 写入环境变量
-fs.open('./src/config/env.js', 'w', function (err, fd) {
-    var buf = 'export default "development";';
-    fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
+        }),
+        new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
+        new HtmlWebpackPlugin({
+            inject: true,
+            filename: '../example/index.html',
+            template: './src/template/index.ejs'
+        }),
+        new FriendlyErrorsPlugin()
+    ]
 });
-
-module.exports = config;

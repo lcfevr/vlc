@@ -49,7 +49,6 @@
 
         <Button>gdgfd</Button>
          <Editor :theme="theme" :value="value"></Editor>
-        <Prompt  v-model="visible" :val="text" :show="visible" :validator="/HM|RedMi|Mi/ig" title="asdadad" spec="asddddddd" @on-ok="getVal"></Prompt>
         <Swipe :auto="true" :loop="true" :list="list"></Swipe>
     </div>
 </template>
@@ -155,7 +154,7 @@
                 ],
 
 
-                theme:"富文本编辑器",
+
                 value:"<h1>ffasfasssa</h1>" +
                 "fasfassfaasf",
                 visible: true,
@@ -174,7 +173,7 @@
         },
         mounted () {
             this.$Prompt.info({
-                title: 'aaa', content: 'aaaaasd', onOk: this.ok, onCancle: function () {
+                title: 'aaa', spec: 'aaaaasd', onOk: this.ok, onCancle: function () {
                 },
 
             });

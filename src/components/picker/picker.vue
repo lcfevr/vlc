@@ -43,7 +43,7 @@
             rootCode: {
                 default: () => '86'
             },
-            show: Boolean
+            value: Boolean
         },
         data(){
             return {
@@ -53,7 +53,7 @@
                 cityName: '市辖区',
                 district: '110101',
                 districtName: '东城区',
-                visible: this.show
+                visible: this.value
             }
         },
         methods: {
@@ -117,12 +117,8 @@
             pickerSlot
         },
         watch:{
-            show(v){
-                console.log(v);
-
-               if (this.visible !== v) {
-                   this.visible = v;
-               }
+            value(v){
+               this.visible = v
             }
         }
     }

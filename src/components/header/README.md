@@ -20,3 +20,20 @@
 > slot name="left" slot name="right"分别为header组件左边的自定义区域与右边的自定义区域
 
 
+  ```
+  <Header :fixed="fixed" :title="title" ></Header>
+
+
+
+  export default {
+
+      data(){
+
+          fixed:true,
+
+          title:'title'
+      }
+
+  }
+
+  ```

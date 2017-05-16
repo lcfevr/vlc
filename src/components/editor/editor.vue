@@ -25,7 +25,7 @@
             },
             height:{
                 type:String,
-                default:'4rem'
+                default:'400px'
             },
             mode:{
                 type:String,

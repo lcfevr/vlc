@@ -1,6 +1,6 @@
 <template>
     <div class="vlc-message-group" :style="styles">
-        <Message v-for="message in messages"
+        <Message v-for="(message,key) in messages" :key="key"
                  :duration="message.duration"
                  :show-left="message.showLeft"
                  :right-hide="message.rightHide"

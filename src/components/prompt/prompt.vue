@@ -67,7 +67,6 @@
             styles: {
                 type: Object
             },
-            body:String,
             spec:{
                 type:String,
                 default:'提示',
@@ -76,7 +75,7 @@
                 type:[Object,RegExp],
                 default:null
             },
-            invalid:Boolean,
+
             message:String
 
         },
@@ -85,7 +84,7 @@
                 visible:this.value,
                 buttonLoading:false,
                 text:this.val,
-                support:this.invalid
+
             }
         },
         components:{
@@ -112,8 +111,6 @@
                             valid = true;
                     }
                 }
-
-
                 if (valid !== true) {
 
                     if (typeof valid === 'string') {

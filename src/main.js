@@ -3,7 +3,7 @@
  */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import App from 'components/app.vue';
+import App from './components/app.vue';
 import Routers from './router';
 import Env from './config/env';
 import Config from './config/config'
@@ -12,9 +12,8 @@ import Cache from './utils/cache'
 // import Modal from './components/modal/index'
 // import Prompt from './components/prompt/index'
 
-import VueTouch from 'vue-touch'
 import Request from './utils/request'
-import VueResource from 'vue-resource'
+
 // import Message from './components/message/index'
 
 import vlc from './index'
@@ -26,7 +25,7 @@ Vue.use(vlc)
 console.log(vlc)
 Vue.use(VueRouter);
 // Vue.use(VueTouch);
-Vue.use(VueResource)
+
 
 // 开启debug模式
 
@@ -60,5 +59,5 @@ window.EventBus = new Vue();
 new Vue({
     el: '#app',
     router: router,
-    render: h => h('router-view')
+    render: h => h(App)
 })
