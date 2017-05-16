@@ -10,9 +10,7 @@
     "dist:dev": "webpack --config webpack.dist.dev.config.js",
     "dist:prod": "webpack --config webpack.dist.prod.config.js",
     "dist": "npm run dist:style && npm run dist:dev && npm run dist:prod",
-    "lint": "eslint --fix --ext .js,.vue src",
-    "test": "npm run lint && npm run unit",
-    "prepublish": "npm run dist"
+    "build": "npm run dist"
   },
   "repository": {
     "type": "git",
