@@ -21,7 +21,7 @@ import vlc from './index'
 Vue.use(vlc)
 
 
-
+console.log(Routers)
 console.log(vlc)
 Vue.use(VueRouter);
 // Vue.use(VueTouch);

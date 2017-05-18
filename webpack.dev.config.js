@@ -3,6 +3,7 @@
  */
 
 var path = require('path');
+var fs = require('fs');
 var webpack = require('webpack');
 // var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -34,16 +35,7 @@ module.exports = merge(webpackBaseConfig, {
     plugins: [
 
 
-        new ExtractTextPlugin({ filename: '[name].css', disable: false, allChunks: true }),
-        new webpack.LoaderOptionsPlugin({
-            // test: /\.xxx$/, // may apply this only for some modules
-            options: {
-                babel:{
-                    presets: ['es2015'],
-                    plugins: ['transform-runtime']
-                }
-            }
-        }),
+        new ExtractTextPlugin({ filename: '[name].css', disable: true, allChunks: true }),
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
         new HtmlWebpackPlugin({
             inject: true,
@@ -52,4 +44,9 @@ module.exports = merge(webpackBaseConfig, {
         }),
         new FriendlyErrorsPlugin()
     ]
+});
+
+fs.open('./src/config/env.js', 'w', function (err, fd) {
+    var buf = 'export default "development";';
+    fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
 });

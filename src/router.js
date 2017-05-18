@@ -8,8 +8,9 @@ const routers = [
         path:'/',
         redirect:'/guide'
     },
+
     {
-        path:'/cart',
+        path:'/cart/index',
         name:'cart',
         component:require('./views/cart.vue'),
         meta:{

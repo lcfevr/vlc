@@ -14,10 +14,9 @@ MessageGroup.newInstance = function (props) {
     Object.keys(_props).forEach((prop) => {
 
         _prop += ' :' + camelcaseToHyphen(prop) + '=' + prop
-    })
+    });
 
     let div = document.createElement('div');
-
 
     document.body.appendChild(div);
 
@@ -45,5 +44,4 @@ MessageGroup.newInstance = function (props) {
     }
 }
 
-console.log(MessageGroup)
 export default  MessageGroup;

@@ -33,7 +33,11 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar :items="items"></Slide-bar>
+        <Slide-bar :items="items">
+            <div slot="slot-item-0" style="height:100%;flex: 1;background:red"></div>
+            <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow"></div>
+            <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
+        </Slide-bar>
         <Tab :items="items"></Tab>
 
         <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible"
@@ -42,7 +46,6 @@
             <p slot="header">111</p>
 
         </modal>
-        <Message v-model="visible" :text="text"></Message>
         <PullDown :refresh="topMethod" :load-more="topMethod">
 
         </PullDown>
