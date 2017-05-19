@@ -1,6 +1,6 @@
 <template>
     <div :class="classes" >
-        <button type="button" :style="styles" :loading="loading" :class="buttonClass" :disabled="disabled" @click="emit">
+        <button :style="styles" :loading="loading" :class="buttonClass" :disabled="disabled" @click="emit">
             <i v-if="loading">a</i>
             <slot name="button-inner"><span>确定</span></slot>
         </button>
@@ -29,7 +29,9 @@
                 type: Boolean,
                 default: false
             },
-            disabled: Boolean,
+            disabled: {
+               type: Boolean
+            },
             loading:Boolean,
 
         },
@@ -65,6 +67,7 @@
 
         methods:{
             emit(){
+                if (this.disable || this.loading) return;
                 this.$emit('on-click')
             }
         }

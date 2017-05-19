@@ -12,7 +12,7 @@
 
         </div>
         <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
-
+        <Button :disabled="false" :loading="disable"  @on-click="pickerCancle">确定</Button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
 
@@ -33,7 +33,22 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar :items="items">
+        <Slide-bar :items="items" :flex="false" >
+            <div slot="slide-bar-header-0">
+                <span>a</span>
+            </div>
+            <div slot="slide-bar-header-1">
+                <span>a</span>
+            </div>
+            <div slot="slide-bar-header-2">
+                <span>a</span>
+            </div>
+            <div slot="slide-bar-header-3">
+                <span>a</span>
+            </div>
+            <div slot="slide-bar-header-4">
+                <span>a</span>
+            </div>
             <div slot="slot-item-0" style="height:100%;flex: 1;background:red"></div>
             <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow"></div>
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
@@ -169,8 +184,8 @@
                 radio: '1111',
                 theme: 'twilight',
                 mode: 'javascript',
-                text:'test'
-
+                text:'test',
+                disable:false,
 
             }
         },
@@ -213,6 +228,7 @@
             },
             pickerCancle(){
                 console.log('您取消了选择')
+                this.disable = true
             },
             ok(){
                 console.log(this.radio)

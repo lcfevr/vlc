@@ -1,17 +1,20 @@
 <template>
-    <div class="vlc-slideBar" :style="getStyles">
+    <div :class="classes" :style="getStyles">
         <div
-                :class="['vlc-slideBar-wrapper',
-                        flex?'vlc-slideBar-flex':'vlc-slideBar-slide',
-                        type == 'normal' && flex?'normal':'',
-                        type == 'vertical' && flex ? 'vertical':'']" ref="wrapper">
-            <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'']" v-for="(item,key) in items" @click="changeBar(key,$event)" :style="{textAlign:textAlign}"><a class="content ellipse-fir">{{item.name}}</a></div>
+                :class="wrapperClasses"  ref="wrapper">
+
+            <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!flex ? 'normalChild':'']" v-for="(item,key) in items"
+                 @click="changeBar(key,$event)" :style="{textAlign:textAlign,width:itemWidth+'px'}">
+                <slot :name="'slide-bar-header-'+key">
+                    <a class="content ellipse-fir">{{item.name}}</a>
+                </slot>
+            </div>
 
 
         </div>
         <div class="vlc-slideBar-container" :style="{height:height}">
-            <div :class="['vlc-slideBar-content',dragging?'vlc-slideBar-dragging':'']" :style="getContainerStyle"  ref="content">
-                <slot :name="'slot-item-'+index" v-for="(item,index) in items" >
+            <div :class="contentClasses" :style="getContainerStyle" ref="content">
+                <slot :name="'slot-item-'+index" v-for="(item,index) in items">
                     <div class="vlc-slideBar-content-item"></div>
                 </slot>
             </div>
@@ -21,64 +24,90 @@
 </template>
 
 <script>
-
+    const prefixCls = 'vlc-slideBar';
     export default {
-        props:{
-            height:{
-                type:String,
-                default:'2.35rem'
+        props: {
+            height: {
+                type: String,
+                default: '2.35rem'
             },
-            styles:{
-                type:Object,
-                default:()=>{}
+            styles: {
+                type: Object,
+                default: () => {
+                }
             },
-            item:{
-                type:Array,
+            item: {
+                type: Array,
             },
-            scrollColor:{
-                type:String,
-                default:'#39f'
-            },
-            textAlign:{
-                type:String,
-                default:'center'
-            },
-            flex:{
-                type:Boolean,
-                default:true
-            },
-            type:{
-                type:String,
-                default:'normal'
-            },
-            onChange:{
-                type:Function,
-            },
-            items:{
-                type:Array,
-                default:()=>[{name:'按时大大'},{name:'按时大大'},{name:'按时大大'},{name:'按时大大'}]
-            },
-            index:{
-                type:[Number,String],
-                default:0,
-            },
-            distanceIndex:{
+            childWidth:{
                 type:Number,
-                default:1.5
+                default:70
+            },
+            scrollColor: {
+                type: String,
+                default: '#39f'
+            },
+            textAlign: {
+                type: String,
+                default: 'center'
+            },
+            flex: {
+                type: Boolean,
+                default: true
+            },
+            type: {
+                type: String,
+                default: 'normal'
+            },
+            onChange: {
+                type: Function,
+            },
+            items: {
+                type: Array,
+                default: () => [{name: '按时大大'}, {name: '按时大大'}, {name: '按时大大'}, {name: '按时大大'}]
+            },
+            index: {
+                type: [Number, String],
+                default: 0,
+            },
+            distanceIndex: {
+                type: Number,
+                default: 1.5
             }
         },
         mounted(){
             this.clientWidth = this.$el.clientWidth;
             this.bindEvents();
         },
-        computed:{
+        computed: {
 
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
+            wrapperClasses(){
+                return [
+                    `${prefixCls}-wrapper`,
+                    this.flex ? `${prefixCls}-flex` : `${prefixCls}-slide`,
+                    {
+                        ['normal']: this.type == 'normal' && this.flex,
+                        ['vertical']: this.type == 'vertical' && this.flex
+                    }
+                ]
+            },
+            contentClasses(){
+                return [
+                    `${prefixCls}-content`,
+                    {
+                        [`${prefixCls}-dragging`]: this.dragging
+                    }
+                ]
+            },
             getStyles(){
                 let style = {};
 
-
-
-                let customStyle = this.styles ? this.styles:{};
+                let customStyle = this.styles ? this.styles : {};
 
                 Object.assign(style, customStyle);
 
@@ -87,9 +116,12 @@
             getContainerStyle(){
 
                 return {
-                    width:`${this.clientWidth*this.items.length}px`,
-                    transform:`translate3d(${this.translateX}px,0,0)`
+                    width: `${this.clientWidth * this.items.length}px`,
+                    transform: `translate3d(${this.translateX}px,0,0)`
                 }
+            },
+            wrapperWidth(){
+                return this.flex ? `auto` : `${this.itemWidth * this.items.length}px`
             },
             maxIndex(){
                 return this.items.length - 1
@@ -97,31 +129,32 @@
         },
         data(){
             return {
-                translateX:0,
-                scrollWidth:0,
-                clientWidth:0,
-                startIndex:this.index,
-                startTranslateX:0,
-                startX:0,
-                currentX:0,
-                dragging:false,
-                distance:0
+                translateX: 0,
+                scrollWidth: 0,
+                clientWidth: 0,
+                startIndex: this.index,
+                startTranslateX: 0,
+                startX: 0,
+                currentX: 0,
+                dragging: false,
+                distance: 0,
+                itemWidth:this.childWidth
             }
         },
 
-        methods:{
-            changeBar(index,event){
+        methods: {
+            changeBar(index, event){
 
                 if (this.startIndex == index) return;
                 this.startIndex = index;
                 this.translateX = -this.startIndex * this.clientWidth;
-                this.$emit('on-change',index)
+                this.$emit('on-change', index)
             },
             onTouchStart(e){
-                this.startTranslateX= this.translateX;
+                this.startTranslateX = this.translateX;
                 this.distance = 0;
-               this.startX = e.touches[0].clientX;
-               this.dragging = true;
+                this.startX = e.touches[0].clientX;
+                this.dragging = true;
 
             },
 
@@ -135,11 +168,11 @@
 
                 if (this.distance < 0 && Math.abs(this.distance) > this.clientWidth / 2) {
 
-                     this.onSlideLeft()
+                    this.onSlideLeft()
 
                 } else if (this.distance > 0 && Math.abs(this.distance) > this.clientWidth / 2) {
 
-                  this.onSlideRight()
+                    this.onSlideRight()
 
                 } else {
 
@@ -169,18 +202,26 @@
                 }
             },
             bindEvents(){
-                this.$refs.content.addEventListener('touchstart',this.onTouchStart,false)
-                this.$refs.content.addEventListener('touchmove',this.onTouchMove,false)
-                this.$refs.content.addEventListener('touchend',this.onTouchEnd,false)
+                this.$refs.content.addEventListener('touchstart', this.onTouchStart);
+                this.$refs.content.addEventListener('touchmove', this.onTouchMove);
+                this.$refs.content.addEventListener('touchend', this.onTouchEnd)
+            },
+            unbindEvents(){
+                this.$refs.content.removeEventListener('touchstart', this.onTouchStart);
+                this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
+                this.$refs.content.removeEventListener('touchend', this.onTouchEnd)
             }
         },
+        beforeDestroy(){
+            this.unbindEvents()
+        }
 
     }
 </script>
-<style scoped >
+<style scoped>
     .vlc-slideBar {
         display: block;
-        width:100%;
+        width: 100%;
         background: #ffffff;
         overflow: hidden;
         position: relative;
@@ -189,35 +230,33 @@
     .vlc-slideBar-wrapper::before {
         position: absolute;
         content: '';
-        height:.02rem;
+        height: .02rem;
         color: #39f;
     }
 
     .vlc-slideBar-wrapper .vlc-slideBar-child {
-        height:calc(100% - .02rem);
-        box-sizing:content-box;
-        line-height:.3rem;
+        height: calc(100% - .02rem);
+        box-sizing: content-box;
+        line-height: .3rem;
     }
 
-
-
-    .vlc-slideBar-wrapper .vlc-slideBar-child.active{
-        border-bottom:solid #39f;
+    .vlc-slideBar-wrapper .vlc-slideBar-child.active {
+        border-bottom: solid #39f;
         box-sizing: border-box;
     }
 
     .vlc-slideBar-wrapper .vlc-slideBar-child a {
         display: inline-block;
 
-        width:100%;
+        width: 100%;
     }
 
-    .vlc-slideBar-flex.normal .vlc-slideBar-child.active{
-        border-bottom-width:.02rem;
+    .vlc-slideBar-flex.normal .vlc-slideBar-child.active {
+        border-bottom-width: .02rem;
     }
 
-    .vlc-slideBar-flex.vertical .vlc-slideBar-child.active{
-        border-right-width:.02rem;
+    .vlc-slideBar-flex.vertical .vlc-slideBar-child.active {
+        border-right-width: .02rem;
     }
 
     .vlc-slideBar-wrapper.vlc-slideBar-flex {
@@ -234,53 +273,54 @@
     }
 
     .vlc-slideBar-wrapper.vlc-slideBar-flex .vlc-slideBar-child {
-        flex:1;
+        flex: 1;
     }
 
-    .vlc-slideBar-slide{
-        position: absolute;
-        top:0;
-        bottom:0;
-        left:0;
-        right:0;
+    .vlc-slideBar-slide {
+        width:auto;
     }
+
+
 
     .vlc-slideBar-slide .vlc-slideBar-child {
         display: inline-block;
 
     }
 
-    .vlc-slideBar-container{
-        width:100%;
+    .vlc-slideBar-slide .vlc-slideBar-child.normalChild {
+        height:.3rem;
+    }
+
+    .vlc-slideBar-container {
+        width: 100%;
         position: relative;
-        left:0;
-        top:0;
+        left: 0;
+        top: 0;
         overflow: hidden;
     }
 
-    .vlc-slideBar-content{
-        transition:transform .2s ease-in;
+    .vlc-slideBar-content {
+        transition: transform .2s ease-in;
         will-change: transform;
         position: absolute;
-        left:0;
-        top:0;
-        height:100%;
+        left: 0;
+        top: 0;
+        height: 100%;
         display: flex;
-        flex-flow:row nowrap;
+        flex-flow: row nowrap;
 
     }
 
     .vlc-slideBar-content.vlc-slideBar-dragging {
-        transition:none;
+        transition: none;
         will-change: none;
     }
 
     .vlc-slideBar-content-item {
-        flex:1;
-        height:100%;
+        flex: 1;
+        height: 100%;
 
     }
-
 
 
 </style>
