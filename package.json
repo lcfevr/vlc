@@ -1,8 +1,8 @@
 {
-  "name": "vlc",
+  "name": "vlc-ui",
   "version": "1.0.0",
   "description": "Vue组件库",
-  "main": "index.js",
+  "main": "dist/vlc.js",
   "scripts": {
     "init": "webpack --progress --config webpack.dev.config.js",
     "dev": "webpack-dev-server  --inline --hot --compress --history-api-fallback --port 8081 --config webpack.dev.config.js",
@@ -18,8 +18,10 @@
   },
   "keywords": [
     "Vue",
+    "Vue 2.0",
     "vlc",
-    "UI"
+    "UI",
+    "Components"
   ],
   "dependencies": {
     "ace-builds": "^1.2.6",
@@ -72,5 +74,8 @@
   "bugs": {
     "url": "https://github.com/lcfevr/vlc/issues"
   },
-  "homepage": "https://github.com/lcfevr/vlc#readme"
+  "homepage": "https://github.com/lcfevr/vlc#readme",
+  "directories": {
+    "example": "example"
+  }
 }

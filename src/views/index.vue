@@ -137,7 +137,7 @@
 
                 ],
 
-                address:'',
+
                 showAddressPicker: false,
                 items: [
                     {

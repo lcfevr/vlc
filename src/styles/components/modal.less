@@ -4,15 +4,15 @@
   top:50%;
   left:50%;
   overflow: hidden;
-  border-radius:.1rem;
-  box-shadow:0 0 .03rem .03rem #555;
+  border-radius:10px;
+  box-shadow:0 0 3px 3px #555;
   background:rgba(255,255,255,1);
   .v-lc-modal-header{
-    width:calc(100% - .2rem);
+    width:calc(100% - 20px);
     margin-top: 10px;
-    padding: 0 .1rem;
-    min-height:.3rem;
-    line-height:.3rem;
+    padding: 10px;
+    min-height:30px;
+    line-height:30px;
     text-align: center;
     border-bottom: 1px solid #eee;
     .v-lc-modal-header-inner{
@@ -20,11 +20,11 @@
     }
   }
   .v-lc-modal-body{
-    width:calc(100%  - .4rem);
-    min-height:.5rem;
-    max-height:.7rem;
-    line-height:.25rem;
-    padding:.1rem .2rem;
+
+    min-height:50px;
+    max-height:70px;
+    line-height:25px;
+    padding:10px 20px;
     word-wrap:break-word;
     overflow-y:scroll;
   }
@@ -35,12 +35,12 @@
     flex-direction: row;
     overflow: hidden;
     :nth-child(odd){
-      border-left:.01rem solid #ccc;
+      border-left:1px solid #ccc;
     }
   }
   .v-lc-modal-button{
     flex:1;
-    height:.4rem;
+    height:40px;
     border:1px solid #eee;
     border-left: 0 none;
   }

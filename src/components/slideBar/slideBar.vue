@@ -29,15 +29,12 @@
         props: {
             height: {
                 type: String,
-                default: '2.35rem'
+                default: '235px'
             },
             styles: {
                 type: Object,
                 default: () => {
                 }
-            },
-            item: {
-                type: Array,
             },
             childWidth:{
                 type:Number,
@@ -230,14 +227,14 @@
     .vlc-slideBar-wrapper::before {
         position: absolute;
         content: '';
-        height: .02rem;
+        height: 2px;
         color: #39f;
     }
 
     .vlc-slideBar-wrapper .vlc-slideBar-child {
-        height: calc(100% - .02rem);
+        height: calc(100% - 2px);
         box-sizing: content-box;
-        line-height: .3rem;
+        line-height: 30px;
     }
 
     .vlc-slideBar-wrapper .vlc-slideBar-child.active {
@@ -252,11 +249,11 @@
     }
 
     .vlc-slideBar-flex.normal .vlc-slideBar-child.active {
-        border-bottom-width: .02rem;
+        border-bottom-width: 2px;
     }
 
     .vlc-slideBar-flex.vertical .vlc-slideBar-child.active {
-        border-right-width: .02rem;
+        border-right-width: 2px;
     }
 
     .vlc-slideBar-wrapper.vlc-slideBar-flex {
@@ -288,7 +285,7 @@
     }
 
     .vlc-slideBar-slide .vlc-slideBar-child.normalChild {
-        height:.3rem;
+        height:30px;
     }
 
     .vlc-slideBar-container {

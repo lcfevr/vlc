@@ -1,7 +1,7 @@
 <template>
     <div>
         <transition name="vlc-ani-fade">
-            <div class="mask" v-show="visible"></div>
+            <div class="mask" v-show="visible" @click="maskClose"></div>
         </transition>
         <transition name="vlc-ani-slide-up">
             <div :class="classes" v-show="visible">
@@ -23,7 +23,7 @@
         props:{
             value:{
                 type:Boolean,
-
+                default:false
             },
             items:Array,
             maskClosable:{
@@ -62,6 +62,9 @@
 
                 this.visible = false;
             },
+            maskClose(){
+                if (this.maskClosable) this.visible = false
+            }
 
         },
         watch:{
