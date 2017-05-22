@@ -8,3 +8,61 @@ div{
     }
   }
 }
+
+
+@width: 40px;
+.vlc-button {
+
+  width: -webkit-fill-available;
+  overflow: hidden;
+  height: 40px;
+}
+
+.vlc-button.vlc-button-circle {
+
+  width: @width;
+  height: @width;
+  border-radius: 50%
+}
+
+.vlc-button .vlc-button-btn {
+  width: -webkit-fill-available;
+  height: 100%;
+  border:1px solid;
+}
+
+.vlc-button-success {
+  background: #0c6;
+  color: #fff;
+  border-color: #0c6;
+}
+
+.vlc-button-danger {
+  color: #fff;
+  background-color: #f30;
+  border-color: #f30;
+}
+
+.vlc-button-warning {
+  color: #fff;
+  background-color: #f90;
+  border-color: #f90;
+}
+
+.vlc-button-normal {
+  color: #fff;
+  background-color: #39f;
+  border-color: #39f;
+}
+
+.vlc-button-text {
+  color: #657180;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.vlc-button-btn.vlc-button-disabled {
+  border-color: #c3cbd6;
+  color: #ffffff;
+  background: #c3cbd6;
+}

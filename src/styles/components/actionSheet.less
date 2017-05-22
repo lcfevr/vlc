@@ -1,0 +1,51 @@
+.mask {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index:10;
+        background: rgba(0, 0, 0, 0.4);
+    }
+    .vlc-actionSheet {
+        background: #eeeeee;
+        font-size:15px;
+        position: fixed;
+        bottom:0;
+        left:0;
+        z-index:10;
+        width:100%;
+        width:-webkit-fill-available;
+        &-wrapper {
+            width:100%;
+            height:auto;
+            margin-bottom:5px;
+            &-action {
+                width:100%;
+
+                width:-webkit-fill-available;
+                height:45px;
+                background: #ffffff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
+
+            &-action:nth-of-type(odd) {
+                border-bottom:1px solid #eeeeee;
+            }
+         }
+
+        &-cancle {
+
+            width:-webkit-fill-available;
+            height:45px;
+            background: #ffffff;
+            display: inline-block;
+            text-align: center;
+            line-height: 45px;
+        }
+    }
