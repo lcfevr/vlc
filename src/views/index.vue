@@ -68,6 +68,9 @@
         <Button>gdgfd</Button>
          <Editor :theme="theme" :value="value"></Editor>
         <Swipe :auto="true" :loop="true" :list="list"></Swipe>
+        <Action-sheet v-model="visible" :items="lists">
+
+        </Action-sheet>
     </div>
 </template>
 
@@ -88,18 +91,15 @@
 //    import Swipe from '../components/swipe/index'
 //    import Button from '../components/button/index'
     import PullDown from '../components/pullDown/index'
+
+    import ActionSheet from '../components/action-sheet/index'
     export default {
 
         filters: {},
         directives: {},
         components: {
-
-
-
-
-
             SlideBar,
-
+            ActionSheet,
             PullDown,
 
 
@@ -136,6 +136,7 @@
                         ]
 
                 ],
+
                 address:'',
                 showAddressPicker: false,
                 items: [
@@ -171,11 +172,21 @@
                     }
                 ],
 
+                lists:[
+                    {
+                        text:'aaa',
+                        onClick:this.callback
 
+                    },
+                    {
+                        text:'bbb',
+                        onClick:function(){console.log('bbb')}
+                    }
+                ],
 
                 value:"<h1>ffasfasssa</h1>" +
                 "fasfassfaasf",
-                visible: true,
+                visible: false,
 
                 maskCloseble: false,
                 address: '',
@@ -198,7 +209,7 @@
 
 
             setTimeout(()=>{
-
+                this.visible = true
             },5000)
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
@@ -238,7 +249,14 @@
             },
             newTip(){
                 //this.$Notice.open({desc: 'asdasd', onClose: this.close, duration: 4, styles: {right: '0'}})
+            },
+            callback(item,index){
+                console.log('asdasdasd')
+            },
+            callback2(item,index){
+                console.log(item.text)
             }
+
         }
     }
 </script>

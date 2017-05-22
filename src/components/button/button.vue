@@ -11,6 +11,7 @@
 
     const prefixCls = 'vlc-button';
     export default {
+        name:'Button',
         props: {
             type: {
                 type: String,

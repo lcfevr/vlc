@@ -49,5 +49,32 @@
         }
 
     }
+
+
+    &-slide-up {
+        &-enter-active,&-leave-active {
+            transition: all .3s ease;
+        }
+
+        &-enter,&-leave-active {
+            transform: translate3d(0, 100%, 0);
+        }
+
+
+    }
+
+    &-slide-down {
+        &-enter-active,&-leave-active {
+            transition: all .3s ease;
+        }
+
+        &-enter,&-leave-active {
+            transform: translate3d(0, -100%, 0);
+        }
+    }
+
 }
+
+
+
 

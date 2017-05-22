@@ -1,13 +1,12 @@
 <template>
-    <div v-transfer-dom>
-    <transition name="forward"
-                enter-active-class="animated fadeIn"
-                leave-active-class="animated fadeOut">
+    <div>
+    <transition name="vlc-ani-fade">
         <div class="v-lc-modal-mask" v-show="visible"  @click="mask"></div>
     </transition>
 
     <span>
-    <transition name="scale">
+
+    <transition name="vlc-ani-scale">
         <div class="v-lc-modal " :style="getWrapperStyle" v-show="visible" >
             <div class="v-lc-modal-header" v-if="showHead"><slot name="header"><div class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
             <div class="v-lc-modal-body"><slot name="body">{{body}}</slot></div>
@@ -26,13 +25,11 @@
 <script>
     import Emitter from '../../mixin/emitter'
 
-    import TransferDom from '../../directives/tranferDom'
+
     export default {
         name:'Modal',
         mixins:[Emitter],
-        directives:{
-            TransferDom
-        },
+
         props:{
             value: {
                 type: Boolean,

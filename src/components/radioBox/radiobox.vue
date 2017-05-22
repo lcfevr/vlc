@@ -103,7 +103,6 @@
                 this.updateModel()
             },
 
-
         }
     }
 </script>
