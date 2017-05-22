@@ -59,7 +59,7 @@
         methods: {
             sure(){
                 this.visible = false;
-                this.$emit('sure',this.provinceName,this.cityName,this.districtName)
+                this.$emit('sure',{code:this.province,name:this.provinceName},{code:this.city,name:this.cityName},{code:this.district,name:this.districtName})
             },
             cancle(){
                 this.visible = false;
@@ -94,7 +94,7 @@
                         this.districtName = current.value
                 }
 
-                this.$emit('parentchange', this.provinceName, this.cityName, this.districtName)
+                this.$emit('parentchange', {code:this.province,name:this.provinceName},{code:this.city,name:this.cityName},{code:this.district,name:this.districtName})
             }
         },
         computed: {
