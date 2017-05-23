@@ -1,6 +1,6 @@
 <template>
 
-        <Modal v-model="visible"  :width="width" :style="styles" :mask-closable="maskClosable">
+        <Modal v-model="visible"  :width="width" :title="title" :style="styles" :mask-closable="maskClosable">
 
             <div class="vlc-modal-header-inner ellipse-fir" v-html="title" slot="header"></div>
             <div class="vlc-modal-body-inner"  slot="body">
@@ -44,6 +44,7 @@
             title: {
                 type: String
             },
+
             width: {
                 type: String,
                 default: '220px'
@@ -76,7 +77,10 @@
                 default:null
             },
 
-            message:String
+            message:String,
+            placeholderText:String,
+            onOk:Function,
+            onCancle:Function
 
         },
         data(){
@@ -84,11 +88,14 @@
                 visible:this.value,
                 buttonLoading:false,
                 text:this.val,
-
+                placeholder:this.placeholderText
             }
         },
         components:{
             Modal
+        },
+        mounted(){
+
         },
         watch:{
             val(val){
@@ -126,12 +133,12 @@
                 } else {
                     this.visible = false;
                 }
-
+                this.onOk(this.text);
                 this.$emit('on-ok',this.text)
             },
             cancle(){
                 this.visible = false;
-
+                this.onCancle();
                 this.$emit('on-cancle')
             },
 

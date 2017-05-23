@@ -33,27 +33,13 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar :items="items" :flex="false" >
-            <div slot="slide-bar-header-0">
-                <span>a</span>
-            </div>
-            <div slot="slide-bar-header-1">
-                <span>a</span>
-            </div>
-            <div slot="slide-bar-header-2">
-                <span>a</span>
-            </div>
-            <div slot="slide-bar-header-3">
-                <span>a</span>
-            </div>
-            <div slot="slide-bar-header-4">
-                <span>a</span>
-            </div>
+        <Slide-bar :items="items" :flex="true" :can-drag="false" scroll-height='50px'>
+
             <div slot="slot-item-0" style="height:100%;flex: 1;background:red"></div>
             <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow"></div>
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
         </Slide-bar>
-        <Tab :items="items"></Tab>
+        <Tab :items="items" v-model="maskCloseble"></Tab>
 
         <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible"
                title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的"
@@ -165,9 +151,9 @@
 
                     }, {
                         name: "我",
-                        icon: "&#xe661;",
-                        iconCur: "&#xe669;",
-                        path: "/user"
+                        icon: "<i class='ifont'>&#xe661;</i>",
+                        iconCur: "<i class='ifont'>&#xe669;</i>",
+                        path: "http://www.baidu.com/"
 
                     }
                 ],
@@ -188,7 +174,7 @@
                 "fasfassfaasf",
                 visible: false,
 
-                maskCloseble: false,
+                maskCloseble: true,
                 address: '',
                 data: [],
                 checked: true,
@@ -203,14 +189,20 @@
         mounted () {
             this.$Prompt.info({
                 title: 'aaa', spec: 'aaaaasd', onOk: this.ok, onCancle: function () {
+                    console.log('asdad')
                 },
 
             });
 
+            this.$Modal.info({
+                title:'vvv',body:'ooo'
+            })
+
+
 
             setTimeout(()=>{
                 this.visible = true
-            },5000)
+            },5000);
 //            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
 
 

@@ -4,22 +4,20 @@
                 :class="wrapperClasses"  ref="wrapper">
 
             <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!flex ? 'normalChild':'']" v-for="(item,key) in items"
-                 @click="changeBar(key,$event)" :style="{textAlign:textAlign,width:itemWidth+'px'}">
+                 @click="changeBar(key,$event)" :style="{textAlign:textAlign,width:itemWidth+'px',height:scrollHeight,lineHeight:scrollHeight}">
                 <slot :name="'slide-bar-header-'+key">
                     <a class="content ellipse-fir">{{item.name}}</a>
                 </slot>
             </div>
-
-
+            <div class="vlc-slideBar-wrapper-absolute" :style="getScrollStyle"></div>
         </div>
         <div class="vlc-slideBar-container" :style="{height:height}">
             <div :class="contentClasses" :style="getContainerStyle" ref="content">
                 <slot :name="'slot-item-'+index" v-for="(item,index) in items">
-                    <div class="vlc-slideBar-content-item"></div>
+                    <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]"></div>
                 </slot>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -27,6 +25,10 @@
     const prefixCls = 'vlc-slideBar';
     export default {
         props: {
+            scrollHeight:{
+                type:String,
+                default:'30px'
+            },
             height: {
                 type: String,
                 default: '235px'
@@ -61,7 +63,7 @@
             },
             items: {
                 type: Array,
-                default: () => [{name: '按时大大'}, {name: '按时大大'}, {name: '按时大大'}, {name: '按时大大'}]
+                default: () => [{name: '1'}, {name: '2'}, {name: '3'}, {name: '4'}]
             },
             index: {
                 type: [Number, String],
@@ -70,10 +72,15 @@
             distanceIndex: {
                 type: Number,
                 default: 1.5
+            },
+            canDrag:{
+                type:Boolean,
+                default:true
             }
         },
         mounted(){
             this.clientWidth = this.$el.clientWidth;
+            this.itemWidth = this.flex ? this.clientWidth / this.items.length : this.itemWidth;
             this.bindEvents();
         },
         computed: {
@@ -101,6 +108,7 @@
                     }
                 ]
             },
+
             getStyles(){
                 let style = {};
 
@@ -117,16 +125,28 @@
                     transform: `translate3d(${this.translateX}px,0,0)`
                 }
             },
+            getScrollStyle(){
+
+                return {
+                    width:`${this.itemWidth}px`,
+                    transform:`translate3d(${this.scrollTranslateX}px,0,0)`,
+                    backgroundColor:this.scrollColor
+                }
+            },
             wrapperWidth(){
                 return this.flex ? `auto` : `${this.itemWidth * this.items.length}px`
             },
             maxIndex(){
                 return this.items.length - 1
+            },
+            scrollTranslateX(){
+                return this.startIndex * this.itemWidth
             }
         },
         data(){
             return {
                 translateX: 0,
+
                 scrollWidth: 0,
                 clientWidth: 0,
                 startIndex: this.index,
@@ -199,14 +219,20 @@
                 }
             },
             bindEvents(){
-                this.$refs.content.addEventListener('touchstart', this.onTouchStart);
-                this.$refs.content.addEventListener('touchmove', this.onTouchMove);
-                this.$refs.content.addEventListener('touchend', this.onTouchEnd)
+                if (this.canDrag) {
+                    console.log('candrag')
+                    this.$refs.content.addEventListener('touchstart', this.onTouchStart);
+                    this.$refs.content.addEventListener('touchmove', this.onTouchMove);
+                    this.$refs.content.addEventListener('touchend', this.onTouchEnd)
+                }
+
             },
             unbindEvents(){
-                this.$refs.content.removeEventListener('touchstart', this.onTouchStart);
-                this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
-                this.$refs.content.removeEventListener('touchend', this.onTouchEnd)
+                if (this.canDrag) {
+                    this.$refs.content.removeEventListener('touchstart', this.onTouchStart);
+                    this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
+                    this.$refs.content.removeEventListener('touchend', this.onTouchEnd)
+                }
             }
         },
         beforeDestroy(){
@@ -215,109 +241,3 @@
 
     }
 </script>
-<style scoped>
-    .vlc-slideBar {
-        display: block;
-        width: 100%;
-        background: #ffffff;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .vlc-slideBar-wrapper::before {
-        position: absolute;
-        content: '';
-        height: 2px;
-        color: #39f;
-    }
-
-    .vlc-slideBar-wrapper .vlc-slideBar-child {
-        height: calc(100% - 2px);
-        box-sizing: content-box;
-        line-height: 30px;
-    }
-
-    .vlc-slideBar-wrapper .vlc-slideBar-child.active {
-        border-bottom: solid #39f;
-        box-sizing: border-box;
-    }
-
-    .vlc-slideBar-wrapper .vlc-slideBar-child a {
-        display: inline-block;
-
-        width: 100%;
-    }
-
-    .vlc-slideBar-flex.normal .vlc-slideBar-child.active {
-        border-bottom-width: 2px;
-    }
-
-    .vlc-slideBar-flex.vertical .vlc-slideBar-child.active {
-        border-right-width: 2px;
-    }
-
-    .vlc-slideBar-wrapper.vlc-slideBar-flex {
-        display: flex;
-        align-items: center;
-    }
-
-    .vlc-slideBar-wrapper.vlc-slideBar-flex.normal {
-        flex-direction: row;
-    }
-
-    .vlc-slideBar-wrapper.vlc-slideBar-flex.vertical {
-        flex-direction: column;
-    }
-
-    .vlc-slideBar-wrapper.vlc-slideBar-flex .vlc-slideBar-child {
-        flex: 1;
-    }
-
-    .vlc-slideBar-slide {
-        width:auto;
-    }
-
-
-
-    .vlc-slideBar-slide .vlc-slideBar-child {
-        display: inline-block;
-
-    }
-
-    .vlc-slideBar-slide .vlc-slideBar-child.normalChild {
-        height:30px;
-    }
-
-    .vlc-slideBar-container {
-        width: 100%;
-        position: relative;
-        left: 0;
-        top: 0;
-        overflow: hidden;
-    }
-
-    .vlc-slideBar-content {
-        transition: transform .2s ease-in;
-        will-change: transform;
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        display: flex;
-        flex-flow: row nowrap;
-
-    }
-
-    .vlc-slideBar-content.vlc-slideBar-dragging {
-        transition: none;
-        will-change: none;
-    }
-
-    .vlc-slideBar-content-item {
-        flex: 1;
-        height: 100%;
-
-    }
-
-
-</style>

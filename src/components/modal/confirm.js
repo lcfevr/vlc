@@ -87,7 +87,6 @@ Modal.newInstance = properties =>{
             onRemove(){}
 
         },
-
     }).$children[0];
 
 
@@ -132,6 +131,10 @@ Modal.newInstance = properties =>{
 
             if ('loading' in props) {
                 modal.$parent.loading = props.loading
+            }
+
+            if ('body' in props) {
+                modal.$parent.body = props.body
             }
 
 

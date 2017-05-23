@@ -1,17 +1,129 @@
-.vlc-slideBar{
-    border-top-color:@SlideBarBgColor;
-    border-bottom-color: @SlideBarBgColor;
-    border-top-style: solid;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-top-width:1px;
-   //border-bottom: 1px solid #eee;
-   //border-top: 1px solid #eee;
-    .vlc-slideBar-child{
-      background-color: @SlideBackgroundCorlor;
-       >a{
+.vlc-slideBar {
+  border-top-color: @SlideBarBgColor;
+  border-bottom-color: @SlideBarBgColor;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-top-width: 1px;
+  //border-bottom: 1px solid #eee;
+  //border-top: 1px solid #eee;
+  .vlc-slideBar-child {
+    background-color: @SlideBackgroundCorlor;
+    > a {
 
-         color: @slideChildColor;
-       }
+      color: @slideChildColor;
     }
+  }
+}
+
+.vlc-slideBar {
+  display: block;
+  width: 100%;
+  background: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+
+.vlc-slideBar-wrapper {
+  position: relative;
+  //border-bottom: 1px solid #eeeeee;
+}
+
+.vlc-slideBar-wrapper-absolute {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: #39f;
+  transition: transform .2s ease-out;
+  will-change: transform;
+  z-index:2;
+}
+
+//.vlc-slideBar-wrapper::before {
+//  width:100%;
+//  bottom:0;
+//  left: 0;
+//  position: absolute;
+//  content: '';
+//  height: 1px;
+//  background: #eeeeee;
+//
+//}
+
+.vlc-slideBar-wrapper .vlc-slideBar-child {
+  height: 100%;
+  line-height: 1;
+}
+
+.vlc-slideBar-wrapper .vlc-slideBar-child.active {
+
+}
+
+.vlc-slideBar-wrapper .vlc-slideBar-child a {
+  display: inline-block;
+  width: 100%;
+}
+
+.vlc-slideBar-wrapper.vlc-slideBar-flex {
+  display: flex;
+  align-items: center;
+
+}
+
+.vlc-slideBar-wrapper.vlc-slideBar-flex.normal {
+  flex-direction: row;
+}
+
+.vlc-slideBar-wrapper.vlc-slideBar-flex.vertical {
+  flex-direction: column;
+}
+
+.vlc-slideBar-wrapper.vlc-slideBar-flex .vlc-slideBar-child {
+  flex: 1;
+  width:0;
+}
+
+.vlc-slideBar-slide {
+  width: auto;
+}
+
+.vlc-slideBar-slide .vlc-slideBar-child {
+  display: inline-block;
+
+}
+
+//.vlc-slideBar-slide .vlc-slideBar-child.normalChild {
+//  height: 30px;
+//}
+
+.vlc-slideBar-container {
+  width: 100%;
+  position: relative;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.vlc-slideBar-content {
+  transition: transform .2s ease-in;
+  will-change: transform;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+
+}
+
+.vlc-slideBar-content.vlc-slideBar-dragging {
+  transition: none;
+  will-change: none;
+}
+
+.vlc-slideBar-content-item {
+  flex: 1;
+  width:0;
+  height: 100%;
+
 }

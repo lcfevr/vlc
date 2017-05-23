@@ -1,12 +1,23 @@
 <template>
-    <div class="vlc-tab" v-show="show" :style="border ? borderStyle : ''">
+    <div class="vlc-tab" v-show="show" :style="getStyles">
         <ul>
-            <router-link tag="li" v-for="(item, index) in items" :key="index" :to="item.path" :class="itemClass(item, index)">
-                <slot name="item">
-                    <div v-html="getIconHtml(item, index)"></div>
-                    <p>{{item.name}}</p>
-                </slot>
-            </router-link>
+            <li v-for="(item, index) in items" :key="index">
+                <template v-if="/(http|https)/i.test(item.path)">
+                    <a :href="item.path" :class="itemClass(item, index)">
+                        <span v-html="getIconHtml(item, index)"></span>
+                        <p>{{item.name}}</p>
+                    </a>
+                </template>
+                <template v-else>
+                    <router-link tag="a" :to="item.path" :class="itemClass(item, index)">
+                        <slot name="item">
+                            <span v-html="getIconHtml(item, index)"></span>
+                            <p>{{item.name}}</p>
+                        </slot>
+                    </router-link>
+                </template>
+            </li>
+
         </ul>
     </div>
 </template>
@@ -14,34 +25,40 @@
 <script>
 
     export default {
-        props:{
+        props: {
             items: Array,
             value: {
-                type:Boolean,
-                default:true
+                type: Boolean,
+                default: true
             },
             index: {
                 type: [Number, String],
                 default: 0
             },
             border: {
-                type:Boolean,
-                default:true
+                type: Boolean,
+                default: true
+            },
+            styles: {
+                type: Object,
+                default(){
+                    return {}
+                }
             }
         },
         data(){
             return {
-                show:this.value
+                show: this.value
             }
         },
         computed: {
-            borderStyle() {
-                return {
-                    borderTopWidth: '1px'
-                }
+            getStyles() {
+                return Object.assign({}, {
+                    borderTopWidth: this.border ? '1px' : '0px'
+                }, this.styles)
             }
         },
-        watch:{
+        watch: {
             value(val){
                 this.show = val
             }

@@ -212,7 +212,6 @@
                     } else {
                         this.upStatus = 'pull';
                         this.translateY = 0;
-
                     }
                 }
 

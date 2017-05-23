@@ -13,6 +13,7 @@ import Radio from './components/radioBox'
 import Swipe from './components/swipe'
 import Tab from './components/tab'
 import Prompt from './components/prompt'
+import SlideBar from './components/slideBar'
 
 
 const vlc = {
@@ -29,7 +30,8 @@ const vlc = {
     Prompt,
     Picker,
     Swipe,
-    Tab
+    Tab,
+    SlideBar
 };
 
 

@@ -1,7 +1,7 @@
 /**
  * Created by admin on 2017/5/10.
  */
-import Prompt from '../modal/modal.vue'
+import Prompt from '../prompt/prompt.vue'
 import Vue from 'vue'
 
 import {camelcaseToHyphen} from '../../utils/util'
@@ -27,40 +27,38 @@ Prompt.newInstance = properties => {
     const propmt = new Vue({
         el: div,
 
-        template: `<Prompt ${props} v-model="visible" :width="width" >
-                        
-                        <div class="${prefixCls}-header-inner ellipse-fir" v-html="title" slot="header"></div>
-                        <div class="${prefixCls}-body-inner"  slot="body">
-                            <div class="vlc-prompt-content">
-                                <span class="vlc-prompt-spec">{{spec}}</span>
-                                <input v-model="text" type="text" :placeholder="placeholder" />
-                                <div class="vlc-prompt-error" v-if="!!message" v-html="message"></div>
-                            </div>
-                        </div>
-                        <template slot="footer">
-                               <button class="vlc-prompt-button vlc-prompt-button-sure"  @click="ok">{{okText}}</button>
-                                <button class=" vlc-prompt-button vlc-prompt-button-cancle"  @click="cancle">{{cancleText}}</button>
-                        </template>
-
-
-                    </Prompt>`,
+        template: `<Prompt ${props} v-model="visible" 
+                                    :width="width" 
+                                    :text="text" 
+                                    :title="title" 
+                                    :ok-text="okText" 
+                                    :cancle-text="cancleText" 
+                                    :loading="loading" 
+                                    :show-cancle="showCancle" 
+                                    :spec="spec" 
+                                    :message="message" 
+                                    :validator="validator"
+                                    :on-ok="onOk" 
+                                    :on-cancle="onCancle"> </Prompt>`,
         components: {
             Prompt
         },
         data: Object.assign(_props, {
             text:'',
-            placeholder: '请输入',
+            placeholderText: '请输入',
             visible: false,
             width: '220px',
             title: '',
             okText: '确定',
             cancleText: '取消',
             loading: false,
-            buttonLoading: false,
             showCancle: true,
             spec: '',
             message: '',
             validator: null,
+            onOk:function(){},
+            onCancle:function(prop){},
+            onRemove:function(){}
         }),
         methods: {
             cancle(){
@@ -89,12 +87,10 @@ Prompt.newInstance = properties => {
                 document.body.removeChild(this.$el);
                 this.onRemove()
             },
-            onOk(){
+            mounted(){
+
+
             },
-            onCancle(){
-            },
-            onRemove(){
-            }
         }
     }).$children[0]
 
@@ -120,15 +116,18 @@ Prompt.newInstance = properties => {
             }
 
             if ('title' in props) {
+                console.log(props.title)
                 propmt.$parent.title = props.title
             }
 
-            if ('placeholder' in props) {
-                propmt.$parent.placeholder = props.placeholder
+            console.log(props.title)
+
+            if ('placeholderText' in props) {
+                propmt.$parent.placeholderText = props.placeholderText
             }
 
             if ('content' in props) {
-                propmt.$parent.body = props.content
+                propmt.$parent.body = props.body
             }
 
 
@@ -151,6 +150,16 @@ Prompt.newInstance = properties => {
             if ('loading' in props) {
                 propmt.$parent.loading = props.loading
             }
+
+            if ('message' in props) {
+                propmt.$parent.message = props.message
+            }
+
+            if ('validator' in props) {
+                propmt.$parent.validator = props.validator
+            }
+
+            console.log(propmt.$parent)
         },
         remove () {
 
