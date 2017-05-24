@@ -60,7 +60,7 @@ function message(props) {
 
     let instance = getNewInstance();
 
-    console.log(instance)
+
 
     instance.add({
         name: name,

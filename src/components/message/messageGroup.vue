@@ -1,6 +1,6 @@
 <template>
     <div class="vlc-message-group" :style="styles">
-        <Message v-for="(message,key) in messages" :key="key"
+        <Message v-for="(message,key) in messages" :key="message.name"
                  :duration="message.duration"
                  :show-left="message.showLeft"
                  :right-hide="message.rightHide"
@@ -38,6 +38,7 @@
         },
         methods:{
             add(props){
+
                 let _prop = Object.assign({},{
                     text:'',
                     showLeft:false,
@@ -50,15 +51,16 @@
             },
 
             remove(name){
-                console.log(this.messages)
-                this.messages.forEach((item,index)=>{
 
-                    if(item.name == name) {
+                const messages = this.messages;
 
-                        let remove = this.messages.splice(index,1);
-                        return remove;
+                messages.forEach((item,index)=>{
+                    if(item.name===name){
+                        this.messages.splice(index,1);
+
                     }
                 })
+
             }
         },
         components:{

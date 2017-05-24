@@ -1,6 +1,6 @@
 {
   "name": "vlc-ui",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "Vue组件库",
   "main": "dist/vlc.js",
   "scripts": {

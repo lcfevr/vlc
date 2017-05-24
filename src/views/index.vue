@@ -3,16 +3,18 @@
 
         <!--<vlc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></vlc-header>-->
 
-        <div></div>
+
+        <Header title="aaaa" ></Header>
         <div style="height: 50px;"></div>
         <div style="min-height: 50px; background: pink; padding: 0 10px;">
+
 
 
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
         <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
-        <Button :disabled="false" :loading="disable"  @on-click="pickerCancle">确定</Button>
+        <Button :disabled="false" :loading="disable"  @on-click="showMessage">确定</Button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
 
@@ -33,9 +35,65 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar :items="items" :flex="true" :can-drag="false" scroll-height='50px'>
+        <Slide-bar :items="items" :flex="false" :can-drag="false" height="100%" scroll-height='50px' :is-fixed-header="true">
 
-            <div slot="slot-item-0" style="height:100%;flex: 1;background:red"></div>
+            <div slot="slot-item-0" style="height:100%;flex: 1;background:red;overflow: scroll">
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+            </div>
             <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow"></div>
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
         </Slide-bar>
@@ -47,7 +105,7 @@
             <p slot="header">111</p>
 
         </modal>
-        <PullDown :refresh="topMethod" :load-more="topMethod">
+        <PullDown  :load-more="topMethod" @on-change-up-status="getStatus" ref="pulldown">
 
         </PullDown>
 
@@ -155,6 +213,20 @@
                         iconCur: "<i class='ifont'>&#xe669;</i>",
                         path: "http://www.baidu.com/"
 
+                    },
+                    {
+                        name: "我",
+                        icon: "<i class='ifont'>&#xe661;</i>",
+                        iconCur: "<i class='ifont'>&#xe669;</i>",
+                        path: "http://www.baidu.com/"
+
+                    },
+                    {
+                        name: "我",
+                        icon: "<i class='ifont'>&#xe661;</i>",
+                        iconCur: "<i class='ifont'>&#xe669;</i>",
+                        path: "http://www.baidu.com/"
+
                     }
                 ],
 
@@ -247,8 +319,24 @@
             },
             callback2(item,index){
                 console.log(item.text)
+            },
+            getStatus(val){
+                console.log(val)
+            },
+            showMessage(){
+                this.$Message.show({text:'asdasdasdasd'})
             }
 
         }
     }
 </script>
+
+<style>
+    html,body {
+       height : 100%
+    }
+
+    .vlc-slideBar {
+        height:100%;
+    }
+</style>

@@ -143,6 +143,9 @@
             },
 
         },
+        beforeDestroy(){
+
+        }
 
     }
 </script>

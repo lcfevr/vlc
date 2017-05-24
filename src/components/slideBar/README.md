@@ -24,6 +24,10 @@
 
    distanceIndex              Number                  1.5           滑动速度
 
+   isFixedHeader             Boolean                  false         滑动时header是否吸顶
+
+   isDrag                   Boolean                   false         是否允许拖动
+
 
 
 菜单栏跟container项均可通过slot配置 配置方法如下：

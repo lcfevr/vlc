@@ -13,7 +13,7 @@
             <div class="v-lc-modal-footer" v-if="!footerHide">
                 <slot name="footer">
                     <button class="v-lc-modal-button v-lc-modal-button-sure" @click="ok">{{okText}}</button>
-                    <button class=" v-lc-modal-button v-lc-modal-button-cancle" @click="close">{{cancleText}}</button>
+                    <button class=" v-lc-modal-button v-lc-modal-button-cancle" @click="close" v-if="cancleText">{{cancleText}}</button>
                 </slot>
             </div>
         </div>
@@ -158,6 +158,7 @@
         },
         beforeDestroy(){
             document.addEventListener('keydown',this.EscClose)
+
         }
     }
 </script>

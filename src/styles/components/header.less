@@ -1,4 +1,5 @@
 .vlc-header {
+
     & > header {
         display: flex;
         justify-content: center;
@@ -29,13 +30,15 @@
     }
 
     &.vlc-header-fixed > header {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
+        position: fixed;
+        left:0;
+        top:0;
+        right:0;
+        z-index:3;
     }
 
     .header-place{
-        height: @HeaderHeight;
+        padding-top: @HeaderHeight;
+
     }
 }

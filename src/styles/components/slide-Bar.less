@@ -5,9 +5,11 @@
   border-bottom-style: solid;
   border-bottom-width: 1px;
   border-top-width: 1px;
+
   //border-bottom: 1px solid #eee;
   //border-top: 1px solid #eee;
   .vlc-slideBar-child {
+
     background-color: @SlideBackgroundCorlor;
     > a {
 
@@ -22,10 +24,22 @@
   background: #ffffff;
   overflow: hidden;
   position: relative;
+
+  &-header {
+    overflow-x:scroll ;
+    width:100%;
+    &.fixed {
+      position: fixed;
+      top:0;
+      left:0;
+      z-index:3;
+    }
+  }
 }
 
 .vlc-slideBar-wrapper {
   position: relative;
+
   //border-bottom: 1px solid #eeeeee;
 }
 
@@ -124,6 +138,5 @@
 .vlc-slideBar-content-item {
   flex: 1;
   width:0;
-  height: 100%;
-
+  min-height:100px;
 }

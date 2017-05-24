@@ -1,25 +1,30 @@
 <template>
-    <div class="vlc-tab" v-show="show" :style="getStyles">
-        <ul>
-            <li v-for="(item, index) in items" :key="index">
-                <template v-if="/(http|https)/i.test(item.path)">
-                    <a :href="item.path" :class="itemClass(item, index)">
-                        <span v-html="getIconHtml(item, index)"></span>
-                        <p>{{item.name}}</p>
-                    </a>
-                </template>
-                <template v-else>
-                    <router-link tag="a" :to="item.path" :class="itemClass(item, index)">
-                        <slot name="item">
+
+        <div class="vlc-tab" v-show="show" :style="getStyles">
+            <ul>
+                <li v-for="(item, index) in items" :key="index">
+                    <template v-if="/(http|https)/i.test(item.path)">
+                        <a :href="item.path" :class="itemClass(item, index)">
                             <span v-html="getIconHtml(item, index)"></span>
                             <p>{{item.name}}</p>
-                        </slot>
-                    </router-link>
-                </template>
-            </li>
+                        </a>
+                    </template>
+                    <template v-else>
+                        <router-link tag="a" :to="item.path" :class="itemClass(item, index)">
+                            <slot name="item">
+                                <span v-html="getIconHtml(item, index)"></span>
+                                <p>{{item.name}}</p>
+                            </slot>
+                        </router-link>
+                    </template>
+                </li>
 
-        </ul>
-    </div>
+            </ul>
+
+        </div>
+
+
+
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <tab :items="items" :index="1"></tab>
 
+        <PullDown :refresh="topMethod" :load-more="topMethod"></PullDown>
         <!--<button @click="newTip">queding</button>-->
     </div>
     <!--<modal :mask-closable="maskCloseble" width="2.5rem" :visible.sync="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">-->
@@ -13,49 +13,54 @@
 
     import Tab from '../components/tab/tab'
     import Modal from '../components/modal/modal'
+    import PullDown from '../components/pullDown/index'
 
     export default {
-        components:{
+        components: {
             Tab,
-            Modal
+            Modal,
+            PullDown
         },
         data () {
             return {
                 items: [
                     {
-                        name:"首页",
-                        icon:"<i style='font-size: 20px;'>&clubs;</i>",
-                        iconCur:"<i style='font-size: 20px;'>&clubs;</i>",
-                        path:"/guide"
+                        name: "首页",
+                        icon: "<i style='font-size: 20px;'>&clubs;</i>",
+                        iconCur: "<i style='font-size: 20px;'>&clubs;</i>",
+                        path: "/guide"
                     },
                     {
-                        name:"购物车",
-                        icon:"<i style='font-size: 20px;'>&hearts;</i>",
-                        path:"/cart"
+                        name: "购物车",
+                        icon: "<i style='font-size: 20px;'>&hearts;</i>",
+                        path: "/cart"
                     }
                 ],
-                visible:true,
-                maskCloseble:false
+                visible: true,
+                maskCloseble: false
             }
         },
         mounted () {
 //            this.$Modal.confirm({title:'aaa',content:'aaaaasd',onOk:this.ok,onCancle:function(){}})
-           // this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
+            // this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
             //console.log('asdasd')
         },
         beforeDestroy () {
 
         },
         methods: {
-           /* ok(){
-                console.log('avc')
+            topMethod(){
+                console.log('asd')
             },
-            close(){
-                console.log('asdasdasd')
-            },
-            newTip(){
-                this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,styles:{right:'0'}})
-            }*/
+            /* ok(){
+             console.log('avc')
+             },
+             close(){
+             console.log('asdasdasd')
+             },
+             newTip(){
+             this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,styles:{right:'0'}})
+             }*/
         }
     }
 </script>

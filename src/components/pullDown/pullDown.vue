@@ -4,12 +4,10 @@
             <slot name="top"><span>{{upText}}</span></slot>
         </div>
         <div :class="['vlc-pullDown-content',drag?'drag':'']"
-             :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' }" ref="content">
+             :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' ,'height':height+'px'}" ref="content">
             <slot name="content">
                 <ul class="vlc-pullDown-main">
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
+
                     <li>1</li>
                     <li>1</li>
                     <li>1</li>
@@ -112,18 +110,19 @@
                 upText: '',
                 downText: '',
                 down: false,
-                scrollTarget:null
+                scrollTarget: null
             }
         },
         methods: {
             onLoadUp(){
                 this.translateY = 0;
                 this.upStatus = ''
-            },
 
+            },
             onLoadDown(){
                 this.translateY = 0;
                 this.downStatus = '';
+                console.log('asdasdasdadasd')
             },
             onTouchStart(e){
 
@@ -142,15 +141,14 @@
                 }
             },
             onTouchMove(e){
-                let pos = this.$refs.scroll.getBoundingClientRect();
+                let pos = this.$el.getBoundingClientRect();
                 if (this.startY < pos.top && this.startY > pos.down)  return;
                 this.currentY = e.touches[0].clientY;
                 this.scrollTop = this.$refs.scroll.scrollTop;
                 let distance = (this.currentY - this.startY) / this.speed;
 
                 this.direction = distance > 0 ? 'down' : 'up';
-
-                if (this.currentY >= this.startY && typeof this.refresh == 'function' && this.scrollTop == 0 && this.direction == 'down' && this.upStatus != 'loading') {
+                if (this.currentY >= this.startY && typeof this.refresh == 'function' && this.$refs.content.scrollTop == 0 && this.direction == 'down' && this.upStatus != 'loading') {
 
                     event.preventDefault();
                     event.stopPropagation();
@@ -169,7 +167,7 @@
                     this.upStatus = this.translateY >= this.upDistance ? 'drop' : 'pull';
 
                     this.drag = true;
-//                    this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) / this.distanceIndex;
+//                  this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) / this.distanceIndex;
 
                 }
 
@@ -193,8 +191,9 @@
                         this.translateY = 0;
                     }
                     this.downStatus = -this.translateY >= this.downDistance ? 'drop' : 'pull';
+                    console.log(this.downStatus)
                     this.drag = true;
-//                        this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) / this.distanceIndex;
+//                  this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) / this.distanceIndex;
 
                 }
             },
@@ -210,8 +209,10 @@
                         this.refresh();
 
                     } else {
+
                         this.upStatus = 'pull';
                         this.translateY = 0;
+
                     }
                 }
 
@@ -220,7 +221,6 @@
                     this.down = false;
                     if (this.downStatus === 'drop') {
                         let marginBottom = Number(document.defaultView.getComputedStyle(this.$refs.bottom).marginTop.split('px')[0]);
-
                         this.translateY = marginBottom;
                         this.downStatus = 'loading';
                         this.loadMore();
@@ -247,10 +247,11 @@
             },
 
             isBottom(){
+
+
                 if (this.scrollTarget === window) {
                     return document.body.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight;
                 } else {
-
                     return this.$el.getBoundingClientRect().bottom <= this.scrollTarget.getBoundingClientRect().bottom + 1;
                 }
             },
@@ -269,6 +270,7 @@
         mounted(){
             this.bindEvent();
             this.scrollTarget = this.getScrollEventTarget(this.$el)
+
         },
         beforeDestroy(){
             this.unbindEvent();
@@ -305,7 +307,8 @@
 
                     case 'loading':
                         this.downText = this.downLoadingText;
-                        break
+                        break;
+
                 }
                 this.$emit('on-change-down-status', val)
             }
@@ -317,10 +320,9 @@
 
     .vlc-pullDown {
         width: -webkit-fill-available;
-        overflow-y: scroll;
+        overflow: hidden;
         background: #555555;
     }
-
 
     .vlc-pullDown-top {
         width: -webkit-fill-available;
@@ -334,7 +336,7 @@
     }
 
     .vlc-pullDown-content {
-
+        overflow: scroll;
         transition: all .2s ease-in;
         will-change: transform
     }

@@ -1,16 +1,17 @@
 <template>
     <div :class="classes" :style="getStyles">
-        <div
-                :class="wrapperClasses"  ref="wrapper">
-
-            <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!flex ? 'normalChild':'']" v-for="(item,key) in items"
-                 @click="changeBar(key,$event)" :style="{textAlign:textAlign,width:itemWidth+'px',height:scrollHeight,lineHeight:scrollHeight}">
-                <slot :name="'slide-bar-header-'+key">
-                    <a class="content ellipse-fir">{{item.name}}</a>
-                </slot>
+        <div :class="['vlc-slideBar-header',fixed ? 'fixed':'']" ref="header">
+            <div :class="wrapperClasses"  ref="wrapper" :style="{width:flex ? 'auto' : items.length * itemWidth + 'px'}">
+                <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!flex ? 'normalChild':'']" v-for="(item,key) in items"
+                     @click="changeBar(key,$event)" :style="{textAlign:textAlign,width:itemWidth+'px',height:scrollHeight,lineHeight:scrollHeight}">
+                    <slot :name="'slide-bar-header-'+key">
+                        <a class="content ellipse-fir">{{item.name}}</a>
+                    </slot>
+                </div>
+                <div class="vlc-slideBar-wrapper-absolute" :style="getScrollStyle"></div>
             </div>
-            <div class="vlc-slideBar-wrapper-absolute" :style="getScrollStyle"></div>
         </div>
+
         <div class="vlc-slideBar-container" :style="{height:height}">
             <div :class="contentClasses" :style="getContainerStyle" ref="content">
                 <slot :name="'slot-item-'+index" v-for="(item,index) in items">
@@ -76,12 +77,18 @@
             canDrag:{
                 type:Boolean,
                 default:true
+            },
+            isFixedHeader:{
+                type:Boolean,
+                default:false
             }
         },
         mounted(){
             this.clientWidth = this.$el.clientWidth;
             this.itemWidth = this.flex ? this.clientWidth / this.items.length : this.itemWidth;
+            this.onScroll();
             this.bindEvents();
+
         },
         computed: {
 
@@ -114,7 +121,9 @@
 
                 let customStyle = this.styles ? this.styles : {};
 
-                Object.assign(style, customStyle);
+                let fixedStyle = {paddingTop:this.fixed ? this.scrollHeight : 0}
+
+                Object.assign(style, customStyle,fixedStyle);
 
                 return style;
             },
@@ -155,7 +164,8 @@
                 currentX: 0,
                 dragging: false,
                 distance: 0,
-                itemWidth:this.childWidth
+                itemWidth:this.childWidth,
+                fixed:false
             }
         },
 
@@ -218,6 +228,9 @@
                     this.translateX = this.startTranslateX + this.clientWidth
                 }
             },
+            onScroll(e){
+                this.$el.getBoundingClientRect().top <= 0 ? this.fixed = true : this.fixed = false
+            },
             bindEvents(){
                 if (this.canDrag) {
                     console.log('candrag')
@@ -226,13 +239,19 @@
                     this.$refs.content.addEventListener('touchend', this.onTouchEnd)
                 }
 
+                if (this.isFixedHeader) {
+
+                    window.addEventListener('scroll',this.onScroll)
+                }
+
             },
             unbindEvents(){
-                if (this.canDrag) {
-                    this.$refs.content.removeEventListener('touchstart', this.onTouchStart);
-                    this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
-                    this.$refs.content.removeEventListener('touchend', this.onTouchEnd)
-                }
+
+                this.$refs.content.removeEventListener('touchstart', this.onTouchStart);
+                this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
+                this.$refs.content.removeEventListener('touchend', this.onTouchEnd);
+                window.removeEventListener('scroll',this.onScroll);
+
             }
         },
         beforeDestroy(){

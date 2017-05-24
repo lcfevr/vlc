@@ -34,7 +34,6 @@ Prompt.newInstance = properties => {
                                     :ok-text="okText" 
                                     :cancle-text="cancleText" 
                                     :loading="loading" 
-                                    :show-cancle="showCancle" 
                                     :spec="spec" 
                                     :message="message" 
                                     :validator="validator"
@@ -116,11 +115,11 @@ Prompt.newInstance = properties => {
             }
 
             if ('title' in props) {
-                console.log(props.title)
+
                 propmt.$parent.title = props.title
             }
 
-            console.log(props.title)
+
 
             if ('placeholderText' in props) {
                 propmt.$parent.placeholderText = props.placeholderText
