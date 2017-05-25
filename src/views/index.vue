@@ -115,6 +115,8 @@
         <Action-sheet v-model="visible" :items="lists">
 
         </Action-sheet>
+        <TextBar v-model="texts" type="textarea"></TextBar>
+        <span>{{texts}}</span>
     </div>
 </template>
 
@@ -135,7 +137,7 @@
 //    import Swipe from '../components/swipe/index'
 //    import Button from '../components/button/index'
     import PullDown from '../components/pullDown/index'
-
+    import TextBar from '../components/Text/index'
     import ActionSheet from '../components/action-sheet/index'
     export default {
 
@@ -145,11 +147,12 @@
             SlideBar,
             ActionSheet,
             PullDown,
-
-
+            TextBar
         },
         data () {
             return {
+                msgTip:'',
+                texts:'',
                 list:[
                     [
                             { image:'https://vuefe.cn/images/logo.png',
@@ -292,6 +295,18 @@
 
         },
         methods: {
+            valida(val){
+
+                if (val != 'a' ) {
+                    return false;
+                }
+
+                return true;
+            },
+            getConfirm(val){
+                console.log(val)
+                val ? this.msgTip = '成功' : this.msgTip = "失败"
+            },
             getVal(val){
                 console.log(val)
             },

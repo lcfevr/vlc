@@ -1,5 +1,5 @@
 /**
  * Created by admin on 2017/5/24.
  */
-import Text from './text';
+import Text from './textBar';
 export  default Text

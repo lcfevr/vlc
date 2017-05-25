@@ -191,7 +191,7 @@
                         this.translateY = 0;
                     }
                     this.downStatus = -this.translateY >= this.downDistance ? 'drop' : 'pull';
-                    console.log(this.downStatus)
+
                     this.drag = true;
 //                  this.translateY = (this.currentY - this.startY - this.startScrollTop + this.scrollTop + this.startTranslateY) / this.distanceIndex;
 

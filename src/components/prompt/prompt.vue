@@ -77,7 +77,7 @@
                 default:null
             },
 
-            message:String,
+            msg:String,
             placeholderText:String,
             onOk:Function,
             onCancle:Function
@@ -88,7 +88,8 @@
                 visible:this.value,
                 buttonLoading:false,
                 text:this.val,
-                placeholder:this.placeholderText
+                placeholder:this.placeholderText,
+                message:this.msg
             }
         },
         components:{
