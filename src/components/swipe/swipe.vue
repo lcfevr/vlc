@@ -4,7 +4,7 @@
         <div :class="wrapperClasses" :style="styles" ref="wrapper">
             <div :class="itemClasses" v-for="(item,index) in arrayList">
                 <template v-if="isMultiple">
-                    <div class="vlc-swipe-multiple" v-for="(_item,$index) in item">
+                    <div class="vlc-swipe-multiple" v-for="(_item,$index) in item" @click="choose(_item,index)">
                         <slot name="multiple" :item="_item" :index="$index">
                             <img :src="_item.image"/>
                             <span>{{_item.spec}}</span>
@@ -12,10 +12,12 @@
                     </div>
                 </template>
                 <template v-else>
-                    <slot name="single" :item="item" :index="index">
-                        <img :src="item.image">
-                        <span>{{item.spec}}</span>
-                    </slot>
+                    <div class="vlc-swipe-single" @click="choose(item,index)">
+                        <slot name="single" :item="item" :index="index">
+                            <img :src="item.image">
+                            <span>{{item.spec}}</span>
+                        </slot>
+                    </div>
                 </template>
             </div>
 
@@ -67,6 +69,10 @@
             speed: {
                 type: Number,
                 default: 2
+            },
+            perpage: {
+                type: Number,
+                default: 1
             }
 
         },
@@ -82,12 +88,13 @@
                 slideIndex: this.startIndex,
                 distance: 0,
                 timer: null,
-                clientHeight: 0
+                clientHeight: 0,
+                localList: this.list
             }
         },
         computed: {
             dotLength(){
-                return this.list.length
+                return this.localList.length
             },
             minIndex(){
                 return this.loop ? 1 : 0
@@ -97,9 +104,9 @@
             },
             arrayList(){
                 if (this.loop) {
-                    return [].concat([this.list[this.list.length - 1]], this.list, [this.list[0]])
+                    return [].concat([this.localList[this.localList.length - 1]], this.localList, [this.localList[0]])
                 } else {
-                    return this.list
+                    return this.localList
                 }
 
             },
@@ -122,8 +129,8 @@
                 return [
                     `${prefixCls}-dots`,
                     {
-                        ['vlc-swipe-dots-bottom']:this.dots=='bottom',
-                        ['vlc-swipe-dots-top']:this.dots=='top'
+                        ['vlc-swipe-dots-bottom']: this.dots == 'bottom',
+                        ['vlc-swipe-dots-top']: this.dots == 'top'
                     }
                 ]
             },
@@ -138,14 +145,29 @@
             },
             isMultiple(){
 
-                let arr = Object.keys(this.list);
-
-                arr.forEach((item) => {
-                    Object.keys(item).forEach((n) => {
-                        if (!n) return false
+                if (this.perpage <= 1) {
+                    return false;
+                } else {
+                    const page = this.perpage;
+                    let arr = [];
+                    let multipleArr = [];
+                    this.localList.forEach((item, index) => {
+                        if (arr.length < 2) {
+                            arr.push(item);
+                            if (this.localList.length - 1 == index) {
+                                multipleArr.push(arr);
+                            }
+                        } else {
+                            multipleArr.push(arr);
+                            arr = [];
+                            arr.push(item)
+                        }
                     })
-                })
-                return true;
+
+                    this.localList = multipleArr;
+                    return true;
+                }
+
             },
             styles(){
 
@@ -157,7 +179,7 @@
                 }
             },
             length(){
-                return this.loop ? this.list.length + 2 : this.list.length
+                return this.loop ? this.localList.length + 2 : this.localList.length
             },
             currentIndex(){
 
@@ -165,6 +187,14 @@
             }
         },
         methods: {
+
+            choose(item, index) {
+
+                if (item.onClick && typeof item.onClick == 'function') {
+
+                    item.onClick(item, index)
+                }
+            },
 
             onLoopSlideLeft(){
                 this.translateX = this.currentTranslateX - this.clientWidth;
@@ -330,108 +360,3 @@
     }
 </script>
 
-<style lang="less">
-    .vlc-swipe {
-        width: -webkit-fill-available;
-        position: relative;
-        height: auto;
-        overflow-x: hidden;
-        &-wrapper {
-
-            position: relative;
-            left: 0;
-            top: 0;
-            width:100%;
-            height:100%;
-            transition: transform .2s ease-out;
-            will-change: transform;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-        }
-        &-item {
-            flex: 1;
-
-            &.multiple {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-
-            }
-
-            > img {
-                display: block;
-                width: 100%;
-                height: 80%;
-                object-fit: cover;
-            }
-
-            > span {
-                display: block;
-                width: 100%;
-                line-height: 25px;
-                text-align: center;
-
-            }
-        }
-
-        &-multiple {
-            flex: 1;
-            height: 100%;
-
-            > img {
-                display: block;
-                width: 100%;
-                height: 80%;
-                object-fit: cover;
-            }
-
-            > span {
-                display: block;
-                width: 100%;
-                line-height: 25px;
-                text-align: center;
-            }
-        }
-
-        &-dragging {
-            transition: none;
-            will-change: none
-        }
-
-        &-dots {
-            position: absolute;
-            left: 0;
-            width: -webkit-fill-available;
-            display: flex;
-            justify-content: center;
-            flex-direction: row;
-            align-items: center;
-            &-item {
-                margin: 0 2px;
-                background: #999;
-                width: 7px;
-                height: 7px;
-                border-radius: 50%;
-                display: inline-block;
-
-            }
-
-            &-bottom {
-                bottom: 20px;
-            }
-
-            &-top {
-                top: 20px;
-            }
-        }
-
-        .vlc-swipe-dots-item.active {
-            background: #555;
-        }
-
-    }
-
-
-</style>

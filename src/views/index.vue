@@ -111,12 +111,14 @@
 
         <Button>gdgfd</Button>
          <Editor :theme="theme" :value="value"></Editor>
-        <Swipe :auto="true" :loop="true" :list="list"></Swipe>
+        <Swipe :auto="true" :perpage="1" :loop="true" :list="list"></Swipe>
         <Action-sheet v-model="visible" :items="lists">
 
         </Action-sheet>
         <TextBar v-model="texts" type="textarea"></TextBar>
         <span>{{texts}}</span>
+        <Number v-model="number" :min="1" :max="10" :focus="true"></Number>
+        <span>{{number}}</span>
     </div>
 </template>
 
@@ -147,40 +149,45 @@
             SlideBar,
             ActionSheet,
             PullDown,
-            TextBar
+            TextBar : TextBar,
+            Number : TextBar.Number
         },
         data () {
             return {
+                number:1,
                 msgTip:'',
-                texts:'',
+                texts:1,
                 list:[
-                    [
+
                             { image:'https://vuefe.cn/images/logo.png',
-                            spec:'1111'
+                            spec:'1111',
+                                onClick:function (item,index) {
+                                    console.log(item)
+                                }
                             },
                             { image:'https://vuefe.cn/images/logo.png',
                                 spec:'2222'
                             }
-                            ]
+
 
                     ,
-                    [
+
                             { image:'https://vuefe.cn/images/logo.png',
                                 spec:'3333'
                             },
                             { image:'https://vuefe.cn/images/logo.png',
                                 spec:'5555'
                             }
-                        ]
+
                     ,
-                    [
+
                             { image:'https://vuefe.cn/images/logo.png',
                                 spec:'121231'
                             },
                             { image:'https://vuefe.cn/images/logo.png',
                                 spec:'0000'
                             }
-                        ]
+
 
                 ],
 

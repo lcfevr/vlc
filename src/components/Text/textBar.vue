@@ -45,8 +45,10 @@
 
 <script>
     const prefixCls = 'vlc-textBar';
+    import Input from '../../mixin/input'
     export default {
         name: 'TextBar',
+        mixins:[Input],
         props: {
             rows:{
                 type:Number,
@@ -55,10 +57,7 @@
                 type:Boolean,
                 default:true
             },
-            disable:{
-                type:Boolean,
-                default:false
-            },
+
             type:{
                 type:String,
                 default:'text'
@@ -68,9 +67,6 @@
                 default:''
             },
 
-            styles:{
-                type:Object
-            },
             placeholder:{
                 type:[String,Number],
                 default:'请输入'
@@ -82,13 +78,6 @@
             maxLength:{
                 type:Number
             },
-            autocomplete:{
-                type:String,
-                validator(val){
-                    return ['on','off'].indexOf(val)
-                },
-                default:'off',
-            },
             name:String,
             readonly:{
                 type:Boolean,
@@ -98,9 +87,7 @@
         },
         data(){
             return {
-                currentVal: this.value,
-
-
+                currentVal:   this.value
             }
         },
         computed:{
@@ -116,28 +103,23 @@
         },
         methods:{
             changeInput(e){
-                this.currentVal = e.target.value;
-                this.$emit('input',this.currentVal)
+                this.currentVal =  e.target.value;
+
+                this.$emit('input',this.currentVal);
+                this.$emit('on-input',e)
             },
-            blurInput(e){
-                this.$emit('on-blur',e)
-            },
-            focusInput(e){
-                this.$emit('on-focus',e)
-            },
+
 
             enterInput(e){
                 this.$emit('on-enter',e)
             },
 
-            onChangeInput(e){
-                this.$emit('on-change',e)
-            }
+
 
         },
         watch: {
             value(val){
-                this.currentVal = val
+                this.currentVal =  val
             },
             currentVal(val){
 
@@ -149,91 +131,3 @@
     }
 </script>
 
-<style lang="less">
-    .vlc-textBar {
-        background: #ffffff;
-        overflow: hidden;
-        &-input {
-            width:100%;
-            display: inline-block;
-
-            & > input {
-                border:1px solid #eeeeee;
-                border-radius:5px;
-                height:30px;
-                box-sizing: border-box;
-                width:100%;
-                padding-left:10px;
-                color: #666666;
-
-            }
-
-            & > input:focus {
-                transition:border-color .2s linear;
-                will-change:border-color;
-                border-color:#39f;
-                box-shadow:0 0 2px #39f
-
-            }
-
-            & > input::placeholder {
-                color: #e5e5e5;
-                font-family: "Microsoft Tai Le";
-            }
-        }
-
-
-        &-textarea {
-
-            width:100%;
-
-
-           & > textarea {
-               padding-left:10px;
-               box-sizing: border-box;
-               height:70px;
-               border:1px solid #eeeeee;
-               border-radius:5px;
-               color: #666666;
-               font-size:12px;
-            }
-
-            & > textarea:focus {
-                transition:border-color .2s linear;
-                will-change:border-color;
-                border-color:#39f;
-                box-shadow:0 0 2px #39f
-
-            }
-
-            & > textarea::placeholder {
-                color: #e5e5e5;
-                font-family: "Microsoft Tai Le";
-            }
-        }
-
-
-
-        &-tip {
-            flex:1;
-            align-self: center;
-            text-indent: 3px;
-            line-height:1;
-            font-size:12px;
-        }
-
-        &-tip.success{
-            color:lightgreen;
-        }
-
-        &-tip.error {
-            color: red;
-        }
-    }
-
-
-
-
-
-
-</style>

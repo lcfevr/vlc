@@ -15,6 +15,8 @@ import Tab from './components/tab'
 import Prompt from './components/prompt'
 import SlideBar from './components/slideBar'
 import PullDown from './components/pullDown'
+import TextBar from './components/Text'
+
 
 
 const vlc = {
@@ -33,7 +35,10 @@ const vlc = {
     Swipe,
     Tab,
     SlideBar,
-    PullDown
+    PullDown,
+    TextBar,
+    Number:TextBar.Number
+
 };
 
 

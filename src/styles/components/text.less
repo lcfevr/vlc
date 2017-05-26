@@ -1,0 +1,81 @@
+.vlc-textBar {
+  background: #ffffff;
+  overflow: hidden;
+  &-input {
+    width:100%;
+    display: inline-block;
+
+    & > input {
+      border:1px solid #eeeeee;
+      border-radius:5px;
+      height:30px;
+      box-sizing: border-box;
+      width:100%;
+      padding-left:10px;
+      color: #666666;
+      transition:border-color .2s linear;
+      will-change:border-color;
+    }
+
+    & > input:focus {
+
+      border-color:#39f;
+      box-shadow:0 0 2px #39f
+
+    }
+
+    & > input::placeholder {
+      color: #e5e5e5;
+      font-family: "Microsoft Tai Le";
+    }
+  }
+
+
+  &-textarea {
+
+    width:100%;
+
+
+    & > textarea {
+      padding:10px 5px;
+      box-sizing: border-box;
+      height:70px;
+      border:1px solid #eeeeee;
+      border-radius:5px;
+      color: #666666;
+      transition:border-color .2s linear;
+      will-change:border-color;
+      font-size:12px;
+    }
+
+    & > textarea:focus {
+      border-color:#39f;
+      box-shadow:0 0 2px #39f
+
+    }
+
+    & > textarea::placeholder {
+      color: #e5e5e5;
+      font-family: "Microsoft Tai Le";
+    }
+  }
+
+
+
+  &-tip {
+    flex:1;
+    align-self: center;
+    text-indent: 3px;
+    line-height:1;
+    font-size:12px;
+  }
+
+  &-tip.success{
+    color:lightgreen;
+  }
+
+  &-tip.error {
+    color: red;
+  }
+}
+

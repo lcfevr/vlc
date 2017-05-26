@@ -14,9 +14,9 @@
 
         <div class="vlc-slideBar-container" :style="{height:height}">
             <div :class="contentClasses" :style="getContainerStyle" ref="content">
-                <slot :name="'slot-item-'+index" v-for="(item,index) in items">
-                    <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]"></div>
-                </slot>
+                <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]" v-for="(item,index) in items">
+                    <slot :name="'slot-item-'+index"> </slot>
+                </div>
             </div>
         </div>
     </div>

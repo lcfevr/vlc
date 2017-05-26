@@ -1,0 +1,30 @@
+.vlc-number {
+
+  width: 100%;
+  & input {
+    box-sizing:border-box;
+    border: 1px  solid #eeeeee;
+    text-align: center;
+    transition:border-color .2s linear;
+    will-change:border-color;
+  }
+
+  & input:focus {
+    border-color:#39f
+  }
+  & .disabled{
+    background: #eeeeee;
+    color: #ffffff;
+    border-color: transparent;
+
+  }
+  &-changvalue {
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box;
+    border:1px solid #555555;
+    border-radius:3px;
+    vertical-align: middle;
+
+  }
+}
