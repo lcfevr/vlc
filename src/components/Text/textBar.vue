@@ -35,8 +35,7 @@
                     @blur="blurInput"
                     @focus="focusInput"
                     @keyup.enter="enterInput"
-                    @change="onChangeInput"
-            >
+                    @change="onChangeInput">
 
             </textarea>
         </label>

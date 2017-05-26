@@ -119,6 +119,7 @@
         <span>{{texts}}</span>
         <Number v-model="number" :min="1" :max="10" :focus="true"></Number>
         <span>{{number}}</span>
+        <Upload></Upload>
     </div>
 </template>
 

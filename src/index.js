@@ -16,6 +16,7 @@ import Prompt from './components/prompt'
 import SlideBar from './components/slideBar'
 import PullDown from './components/pullDown'
 import TextBar from './components/Text'
+import Upload from './components/upload'
 
 
 
@@ -37,7 +38,8 @@ const vlc = {
     SlideBar,
     PullDown,
     TextBar,
-    Number:TextBar.Number
+    Number:TextBar.Number,
+    Upload
 
 };
 
