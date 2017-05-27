@@ -1,4 +1,253 @@
-/**
- * Created by admin on 2017/5/26.
- */
-!function(){function a(a){var d,e,b=a.naturalWidth,c=a.naturalHeight;return b*c>1048576?(d=document.createElement("canvas"),d.width=d.height=1,e=d.getContext("2d"),e.drawImage(a,-b+1,0),0===e.getImageData(0,0,1,1).data[3]):!1}function b(a,b,c){var e,f,g,h,i,j,k,d=document.createElement("canvas");for(d.width=1,d.height=c,e=d.getContext("2d"),e.drawImage(a,0,0),f=e.getImageData(0,0,1,c).data,g=0,h=c,i=c;i>g;)j=f[4*(i-1)+3],0===j?h=i:g=i,i=h+g>>1;return k=i/c,0===k?1:k}function c(a,b,c){var e=document.createElement("canvas");return d(a,e,b,c),e.toDataURL("image/jpeg",b.quality||.8)}function d(c,d,f,g){var m,n,o,p,q,r,s,t,u,v,w,h=c.naturalWidth,i=c.naturalHeight,j=f.width,k=f.height,l=d.getContext("2d");for(l.save(),e(d,l,j,k,f.orientation),m=a(c),m&&(h/=2,i/=2),n=1024,o=document.createElement("canvas"),o.width=o.height=n,p=o.getContext("2d"),q=g?b(c,h,i):1,r=Math.ceil(n*j/h),s=Math.ceil(n*k/i/q),t=0,u=0;i>t;){for(v=0,w=0;h>v;)p.clearRect(0,0,n,n),p.drawImage(c,-v,-t),l.drawImage(o,0,0,n,n,w,u,r,s),v+=n,w+=r;t+=n,u+=s}l.restore(),o=p=null}function e(a,b,c,d,e){switch(e){case 5:case 6:case 7:case 8:a.width=d,a.height=c;break;default:a.width=c,a.height=d}switch(e){case 2:b.translate(c,0),b.scale(-1,1);break;case 3:b.translate(c,d),b.rotate(Math.PI);break;case 4:b.translate(0,d),b.scale(1,-1);break;case 5:b.rotate(.5*Math.PI),b.scale(1,-1);break;case 6:b.rotate(.5*Math.PI),b.translate(0,-d);break;case 7:b.rotate(.5*Math.PI),b.translate(c,-d),b.scale(-1,1);break;case 8:b.rotate(-.5*Math.PI),b.translate(-c,0)}}function f(a){var b,c,d;if(window.Blob&&a instanceof Blob){if(b=new Image,c=window.URL&&window.URL.createObjectURL?window.URL:window.webkitURL&&window.webkitURL.createObjectURL?window.webkitURL:null,!c)throw Error("No createObjectURL function found to create blob url");b.src=c.createObjectURL(a),this.blob=a,a=b}a.naturalWidth||a.naturalHeight||(d=this,a.onload=function(){var b,c,a=d.imageLoadListeners;if(a)for(d.imageLoadListeners=null,b=0,c=a.length;c>b;b++)a[b]()},this.imageLoadListeners=[]),this.srcImage=a}f.prototype.render=function(a,b,e){var f,g,h,i,j,k,l,m,n,o,p;if(this.imageLoadListeners)return f=this,this.imageLoadListeners.push(function(){f.render(a,b,e)}),void 0;b=b||{},g=this.srcImage.naturalWidth,h=this.srcImage.naturalHeight,i=b.width,j=b.height,k=b.maxWidth,l=b.maxHeight,m=!this.blob||"image/jpeg"===this.blob.type,i&&!j?j=h*i/g<<0:j&&!i?i=g*j/h<<0:(i=g,j=h),k&&i>k&&(i=k,j=h*i/g<<0),l&&j>l&&(j=l,i=g*j/h<<0),n={width:i,height:j};for(o in b)n[o]=b[o];p=a.tagName.toLowerCase(),"img"===p?a.src=c(this.srcImage,n,m):"canvas"===p&&d(this.srcImage,a,n,m),"function"==typeof this.onrender&&this.onrender(a),e&&e()},"function"==typeof define&&define.amd?define([],function(){return f}):this.MegaPixImage=f}();
+(function() {
+
+    /**
+     * Detect subsampling in loaded image.
+     * In iOS, larger images than 2M pixels may be subsampled in rendering.
+     */
+    function detectSubsampling(img) {
+        var iw = img.naturalWidth, ih = img.naturalHeight;
+        if (iw * ih > 1024 * 1024) { // subsampling may happen over megapixel image
+            var canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 1;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, -iw + 1, 0);
+            // subsampled image becomes half smaller in rendering size.
+            // check alpha channel value to confirm image is covering edge pixel or not.
+            // if alpha value is 0 image is not covering, hence subsampled.
+            return ctx.getImageData(0, 0, 1, 1).data[3] === 0;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Detecting vertical squash in loaded image.
+     * Fixes a bug which squash image vertically while drawing into canvas for some images.
+     */
+    function detectVerticalSquash(img, iw, ih) {
+        var canvas = document.createElement('canvas');
+        canvas.width = 1;
+        canvas.height = ih;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        var data = ctx.getImageData(0, 0, 1, ih).data;
+        // search image edge pixel position in case it is squashed vertically.
+        var sy = 0;
+        var ey = ih;
+        var py = ih;
+        while (py > sy) {
+            var alpha = data[(py - 1) * 4 + 3];
+            if (alpha === 0) {
+                ey = py;
+            } else {
+                sy = py;
+            }
+            py = (ey + sy) >> 1;
+        }
+        var ratio = (py / ih);
+        return (ratio===0)?1:ratio;
+    }
+
+    /**
+     * Rendering image element (with resizing) and get its data URL
+     */
+    function renderImageToDataURL(img, options, doSquash) {
+        var canvas = document.createElement('canvas');
+        renderImageToCanvas(img, canvas, options, doSquash);
+        return canvas.toDataURL("image/jpeg", options.quality || 0.8);
+    }
+
+    /**
+     * Rendering image element (with resizing) into the canvas element
+     */
+    function renderImageToCanvas(img, canvas, options, doSquash) {
+        var iw = img.naturalWidth, ih = img.naturalHeight;
+        if (!(iw+ih)) return;
+        var width = options.width, height = options.height;
+        var ctx = canvas.getContext('2d');
+        ctx.save();
+        transformCoordinate(canvas, ctx, width, height, options.orientation);
+        var subsampled = detectSubsampling(img);
+        if (subsampled) {
+            iw /= 2;
+            ih /= 2;
+        }
+        var d = 1024; // size of tiling canvas
+        var tmpCanvas = document.createElement('canvas');
+        tmpCanvas.width = tmpCanvas.height = d;
+        var tmpCtx = tmpCanvas.getContext('2d');
+        var vertSquashRatio = doSquash ? detectVerticalSquash(img, iw, ih) : 1;
+        var dw = Math.ceil(d * width / iw);
+        var dh = Math.ceil(d * height / ih / vertSquashRatio);
+        var sy = 0;
+        var dy = 0;
+        while (sy < ih) {
+            var sx = 0;
+            var dx = 0;
+            while (sx < iw) {
+                tmpCtx.clearRect(0, 0, d, d);
+                tmpCtx.drawImage(img, -sx, -sy);
+                ctx.drawImage(tmpCanvas, 0, 0, d, d, dx, dy, dw, dh);
+                sx += d;
+                dx += dw;
+            }
+            sy += d;
+            dy += dh;
+        }
+        ctx.restore();
+        tmpCanvas = tmpCtx = null;
+    }
+
+    /**
+     * Transform canvas coordination according to specified frame size and orientation
+     * Orientation value is from EXIF tag
+     */
+    function transformCoordinate(canvas, ctx, width, height, orientation) {
+        switch (orientation) {
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                canvas.width = height;
+                canvas.height = width;
+                break;
+            default:
+                canvas.width = width;
+                canvas.height = height;
+        }
+        switch (orientation) {
+            case 2:
+                // horizontal flip
+                ctx.translate(width, 0);
+                ctx.scale(-1, 1);
+                break;
+            case 3:
+                // 180 rotate left
+                ctx.translate(width, height);
+                ctx.rotate(Math.PI);
+                break;
+            case 4:
+                // vertical flip
+                ctx.translate(0, height);
+                ctx.scale(1, -1);
+                break;
+            case 5:
+                // vertical flip + 90 rotate right
+                ctx.rotate(0.5 * Math.PI);
+                ctx.scale(1, -1);
+                break;
+            case 6:
+                // 90 rotate right
+                ctx.rotate(0.5 * Math.PI);
+                ctx.translate(0, -height);
+                break;
+            case 7:
+                // horizontal flip + 90 rotate right
+                ctx.rotate(0.5 * Math.PI);
+                ctx.translate(width, -height);
+                ctx.scale(-1, 1);
+                break;
+            case 8:
+                // 90 rotate left
+                ctx.rotate(-0.5 * Math.PI);
+                ctx.translate(-width, 0);
+                break;
+            default:
+                break;
+        }
+    }
+
+    var URL = window.URL && window.URL.createObjectURL ? window.URL :
+        window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
+            null;
+
+    /**
+     * MegaPixImage class
+     */
+    function MegaPixImage(srcImage) {
+        if (window.Blob && srcImage instanceof Blob) {
+            if (!URL) { throw Error("No createObjectURL function found to create blob url"); }
+            var img = new Image();
+            img.src = URL.createObjectURL(srcImage);
+            this.blob = srcImage;
+            srcImage = img;
+        }
+        if (!srcImage.naturalWidth && !srcImage.naturalHeight) {
+            var _this = this;
+            srcImage.onload = srcImage.onerror = function() {
+                var listeners = _this.imageLoadListeners;
+                if (listeners) {
+                    _this.imageLoadListeners = null;
+                    for (var i=0, len=listeners.length; i<len; i++) {
+                        listeners[i]();
+                    }
+                }
+            };
+            this.imageLoadListeners = [];
+        }
+        this.srcImage = srcImage;
+    }
+
+    /**
+     * Rendering megapix image into specified target element
+     */
+    MegaPixImage.prototype.render = function(target, options, callback) {
+        if (this.imageLoadListeners) {
+            var _this = this;
+            this.imageLoadListeners.push(function() { _this.render(target, options, callback); });
+            return;
+        }
+        options = options || {};
+        var imgWidth = this.srcImage.naturalWidth, imgHeight = this.srcImage.naturalHeight,
+            width = options.width, height = options.height,
+            maxWidth = options.maxWidth, maxHeight = options.maxHeight,
+            doSquash = !this.blob || this.blob.type === 'image/jpeg';
+        if (width && !height) {
+            height = (imgHeight * width / imgWidth) << 0;
+        } else if (height && !width) {
+            width = (imgWidth * height / imgHeight) << 0;
+        } else {
+            width = imgWidth;
+            height = imgHeight;
+        }
+        if (maxWidth && width > maxWidth) {
+            width = maxWidth;
+            height = (imgHeight * width / imgWidth) << 0;
+        }
+        if (maxHeight && height > maxHeight) {
+            height = maxHeight;
+            width = (imgWidth * height / imgHeight) << 0;
+        }
+        var opt = { width : width, height : height };
+        for (var k in options) opt[k] = options[k];
+
+        var tagName = target.tagName.toLowerCase();
+        if (tagName === 'img') {
+            target.src = renderImageToDataURL(this.srcImage, opt, doSquash);
+        } else if (tagName === 'canvas') {
+            renderImageToCanvas(this.srcImage, target, opt, doSquash);
+        }
+        if (typeof this.onrender === 'function') {
+            this.onrender(target);
+        }
+        if (callback) {
+            callback();
+        }
+        if (this.blob) {
+            this.blob = null;
+            URL.revokeObjectURL(this.srcImage.src);
+        }
+    };
+
+    /**
+     * Export class to global
+     */
+    if (typeof define === 'function' && define.amd) {
+        define([], function() { return MegaPixImage; }); // for AMD loader
+    } else if (typeof exports === 'object') {
+        module.exports = MegaPixImage; // for CommonJS
+    } else {
+        this.MegaPixImage = MegaPixImage;
+    }
+
+})();

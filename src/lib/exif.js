@@ -749,6 +749,7 @@
         if (!imageHasData(img)) {
             getImageData(img, callback);
         } else {
+        
             if (callback) {
                 callback.call(img);
             }

@@ -9,6 +9,7 @@
                             <p>{{item.name}}</p>
                         </a>
                     </template>
+
                     <template v-else>
                         <router-link tag="a" :to="item.path" :class="itemClass(item, index)">
                             <slot name="item">
@@ -58,9 +59,7 @@
         },
         computed: {
             getStyles() {
-                return Object.assign({}, {
-                    borderTopWidth: this.border ? '1px' : '0px'
-                }, this.styles)
+                return Object.assign({}, this.styles)
             }
         },
         watch: {

@@ -173,7 +173,7 @@
 
                 return {
 
-                    width: `${this.length * 375}px`,
+                    width: `${this.length * this.clientWidth}px`,
                     height: Object.is(Number.parseInt(this.height), NaN) ? `${this.height}` : `${this.height}px`,
                     transform: `translate3d(${this.translateX}px,0,0)`
                 }
@@ -345,7 +345,6 @@
         {
             this.clientWidth = this.$el.clientWidth;
             this.clientHeight = getComputedStyle(this.$el.querySelector('.vlc-swipe-wrapper')).height;
-            console.log(getComputedStyle(this.$el.querySelector('.vlc-swipe-wrapper')).getPropertyValue('height'))
             if (this.auto) this.autoSlide();
 
             this.bindEvent()

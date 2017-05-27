@@ -1,36 +1,61 @@
 .vlc-tab {
   background: @TabBgColor;
   position: absolute;
+  height:@TabHeight;
   left: 0;
   right: 0;
   bottom: 0;
-  border-top-color: @TabBorderColor;
-  border-top-style: solid;
-  height: @TabHeight;
+  box-sizing: content-box;
+
 
   ul {
     display: flex;
     height: 100%;
 
     li {
+      position: relative;
       flex: 1;
-      width:0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      height:100%;
       color: @TabTxtColor;
       font-size: @TabTxtSize;
+      line-height:@TabTxtSize;
       a {
+        width:100%;
+        display: inline-block;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate3d(-50%,-50%,0);
+        vertical-align: middle;
         text-align: center;
+        color: #666666;
+          i {
+            display: inline-block;
+            font-size:22px;
+            line-height: 1;
+            margin-top: 2px;
+            text-align: center;
+          }
+
+
+        span{
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+          line-height:23px;
+        }
+
+        p {
+          width:100%;
+          display: inline-block;
+        }
+
       }
       &.cur {
         color: @TabTxtColorCur;
       }
 
-      & span {
-        display: inline-block;
-      }
+
     }
   }
 

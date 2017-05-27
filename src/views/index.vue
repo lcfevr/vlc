@@ -4,17 +4,16 @@
         <!--<vlc-header title="asdasdsssssssssssssssssssssssssssssssssssssssssssssssss"></vlc-header>-->
 
 
-        <Header title="aaaa" ></Header>
+        <Header title="aaaa"></Header>
         <div style="height: 50px;"></div>
         <div style="min-height: 50px; background: pink; padding: 0 10px;">
-
 
 
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
         <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
-        <Button :disabled="false" :loading="disable"  @on-click="showMessage">确定</Button>
+        <Button :disabled="false" :loading="disable" @on-click="showMessage">确定</Button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
 
@@ -26,7 +25,7 @@
             <CheckBox label="ccc"></CheckBox>
         </CheckBox-group>
         <CheckBox label="ddd" v-model="checked"></CheckBox>
-        <Radio label="1111" v-model="checked" ></Radio>
+        <Radio label="1111" v-model="checked"></Radio>
         <Radio-group v-model="radio" :vertical="visible">
             <Radio :disable="visible" label="1111"></Radio>
             <Radio label="222"></Radio>
@@ -35,7 +34,8 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar :items="items" :flex="false" :can-drag="false" height="100%" scroll-height='50px' :is-fixed-header="true">
+        <Slide-bar :items="items" :flex="false" :can-drag="false" height="100%" scroll-height='50px'
+                   :is-fixed-header="true">
 
             <div slot="slot-item-0" style="height:100%;flex: 1;background:red;overflow: scroll">
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
@@ -105,12 +105,12 @@
             <p slot="header">111</p>
 
         </modal>
-        <PullDown  :load-more="topMethod" @on-change-up-status="getStatus" ref="pulldown">
+        <PullDown :load-more="topMethod" @on-change-up-status="getStatus" ref="pulldown">
 
         </PullDown>
 
         <Button>gdgfd</Button>
-         <Editor :theme="theme" :value="value"></Editor>
+        <Editor :theme="theme" :value="value"></Editor>
         <Swipe :auto="true" :perpage="1" :loop="true" :list="list"></Swipe>
         <Action-sheet v-model="visible" :items="lists">
 
@@ -119,26 +119,27 @@
         <span>{{texts}}</span>
         <Number v-model="number" :min="1" :max="10" :focus="true"></Number>
         <span>{{number}}</span>
-        <Upload></Upload>
+        <Upload :multiple="true"  @on-change-file="onChangeFile" ref="upload"></Upload>
+        <img :src="item.base64" v-for="item in files"/>
     </div>
 </template>
 
 <script>
-//    import vlcHeader from '../components/header/index'
-//    import Picker from '../components/picker/index'
-//    import Tab from '../components/tab/tab'
+    //    import vlcHeader from '../components/header/index'
+    //    import Picker from '../components/picker/index'
+    //    import Tab from '../components/tab/tab'
 
-//    import Message from '../components/message/index'
+    //    import Message from '../components/message/index'
 
 
-//    import Checkbox from '../components/checkBox/index'
-//    import Radiobox from '../components/radioBox/index'
-//    import Editor from '../components/editor/index'
+    //    import Checkbox from '../components/checkBox/index'
+    //    import Radiobox from '../components/radioBox/index'
+    //    import Editor from '../components/editor/index'
     import SlideBar from '../components/slideBar/index'
-//    import Modal from '../components/modal/modal.vue'
-//    import Prompt from '../components/prompt/prompt.vue'
-//    import Swipe from '../components/swipe/index'
-//    import Button from '../components/button/index'
+    //    import Modal from '../components/modal/modal.vue'
+    //    import Prompt from '../components/prompt/prompt.vue'
+    //    import Swipe from '../components/swipe/index'
+    //    import Button from '../components/button/index'
     import PullDown from '../components/pullDown/index'
     import TextBar from '../components/Text/index'
     import ActionSheet from '../components/action-sheet/index'
@@ -150,44 +151,51 @@
             SlideBar,
             ActionSheet,
             PullDown,
-            TextBar : TextBar,
-            Number : TextBar.Number
+            TextBar: TextBar,
+            Number: TextBar.Number
         },
         data () {
             return {
-                number:1,
-                msgTip:'',
-                texts:1,
-                list:[
+                files:[],
+                number: 1,
+                msgTip: '',
+                texts: 1,
+                list: [
 
-                            { image:'https://vuefe.cn/images/logo.png',
-                            spec:'1111',
-                                onClick:function (item,index) {
-                                    console.log(item)
-                                }
-                            },
-                            { image:'https://vuefe.cn/images/logo.png',
-                                spec:'2222'
-                            }
+                    {
+                        image: 'https://vuefe.cn/images/logo.png',
+                        spec: '1111',
+                        onClick: function (item, index) {
+                            console.log(item)
+                        }
+                    },
+                    {
+                        image: 'https://vuefe.cn/images/logo.png',
+                        spec: '2222'
+                    }
 
-
-                    ,
-
-                            { image:'https://vuefe.cn/images/logo.png',
-                                spec:'3333'
-                            },
-                            { image:'https://vuefe.cn/images/logo.png',
-                                spec:'5555'
-                            }
 
                     ,
 
-                            { image:'https://vuefe.cn/images/logo.png',
-                                spec:'121231'
-                            },
-                            { image:'https://vuefe.cn/images/logo.png',
-                                spec:'0000'
-                            }
+                    {
+                        image: 'https://vuefe.cn/images/logo.png',
+                        spec: '3333'
+                    },
+                    {
+                        image: 'https://vuefe.cn/images/logo.png',
+                        spec: '5555'
+                    }
+
+                    ,
+
+                    {
+                        image: 'https://vuefe.cn/images/logo.png',
+                        spec: '121231'
+                    },
+                    {
+                        image: 'https://vuefe.cn/images/logo.png',
+                        spec: '0000'
+                    }
 
 
                 ],
@@ -241,19 +249,21 @@
                     }
                 ],
 
-                lists:[
+                lists: [
                     {
-                        text:'aaa',
-                        onClick:this.callback
+                        text: 'aaa',
+                        onClick: this.callback
 
                     },
                     {
-                        text:'bbb',
-                        onClick:function(){console.log('bbb')}
+                        text: 'bbb',
+                        onClick: function () {
+                            console.log('bbb')
+                        }
                     }
                 ],
 
-                value:"<h1>ffasfasssa</h1>" +
+                value: "<h1>ffasfasssa</h1>" +
                 "fasfassfaasf",
                 visible: false,
 
@@ -264,37 +274,13 @@
                 radio: '1111',
                 theme: 'twilight',
                 mode: 'javascript',
-                text:'test',
-                disable:false,
+                text: 'test',
+                disable: false,
 
             }
         },
         mounted () {
-            this.$Prompt.info({
-                title: 'aaa', spec: 'aaaaasd', onOk: this.ok, onCancle: function () {
-                    console.log('asdad')
-                },
 
-            });
-
-            this.$Modal.info({
-                title:'vvv',body:'ooo'
-            })
-
-
-
-            setTimeout(()=>{
-                this.visible = true
-            },5000);
-//            this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
-
-
-            let remove = this.$Message.loading({text: 'asdasdasd'});
-
-            setTimeout(() => {
-                remove();
-
-            }, 3000)
 
 
         },
@@ -303,9 +289,16 @@
 
         },
         methods: {
+            onChangeFile(val){
+                this.files = val
+            },
+            onLoad(val){
+                console.log(val,'a')
+                let remove;
+                val ? remove = this.$Message.show({'text': 'loading', 'duration': 0}) : remove();
+            },
             valida(val){
-
-                if (val != 'a' ) {
+                if (val != 'a') {
                     return false;
                 }
 
@@ -337,17 +330,17 @@
             newTip(){
                 //this.$Notice.open({desc: 'asdasd', onClose: this.close, duration: 4, styles: {right: '0'}})
             },
-            callback(item,index){
+            callback(item, index){
                 console.log('asdasdasd')
             },
-            callback2(item,index){
+            callback2(item, index){
                 console.log(item.text)
             },
             getStatus(val){
                 console.log(val)
             },
             showMessage(){
-                this.$Message.show({text:'asdasdasdasd'})
+                this.$Message.show({text: 'asdasdasdasd'})
             }
 
         }
@@ -355,11 +348,40 @@
 </script>
 
 <style>
-    html,body {
-       height : 100%
+    html, body {
+        height: 100%
     }
 
     .vlc-slideBar {
-        height:100%;
+        height: 100%;
+    }
+
+    @font-face {
+        font-family: "ifont";
+        /*src: url('font/iconfont.eot'); !* IE9*!*/
+        /*src: url('font/iconfont.eot?#iefix') format('embedded-opentype'), !* IE6-IE8 *!*/
+        /*url('font/iconfont.woff') format('woff'), !* chrome、firefox *!*/
+        /*url('font/iconfont.ttf') format('truetype'), !* chrome、firefox、opera、Safari, Android, iOS 4.2+*!*/
+        /*url('font/iconfont.svg#iconfont') format('svg'); !* iOS 4.1- *!*/
+        /*src: url('//at.alicdn.com/t/font_gm9v3xai12z6ko6r.eot');*/
+        /*src: url('//at.alicdn.com/t/font_gm9v3xai12z6ko6r.eot?#iefix') format('embedded-opentype'),*/
+        /*url('//at.alicdn.com/t/font_gm9v3xai12z6ko6r.woff') format('woff'),*/
+        /*url('//at.alicdn.com/t/font_gm9v3xai12z6ko6r.ttf') format('truetype'),*/
+        /*url('//at.alicdn.com/t/font_gm9v3xai12z6ko6r.svg#iconfont') format('svg');*/
+        src: url('//at.alicdn.com/t/font_mrhpq9yw1ssxxbt9.eot');
+        src: url('//at.alicdn.com/t/font_mrhpq9yw1ssxxbt9.eot?#iefix') format('embedded-opentype'),
+        url('//at.alicdn.com/t/font_mrhpq9yw1ssxxbt9.woff') format('woff'),
+        url('//at.alicdn.com/t/font_mrhpq9yw1ssxxbt9.ttf') format('truetype'),
+        url('//at.alicdn.com/t/font_mrhpq9yw1ssxxbt9.svg#iconfont') format('svg');
+    }
+
+    .ifont {
+        margin: 0 3px;
+        font-family: "ifont" !important;
+        font-size: 16px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: 0.2px;
+        -moz-osx-font-smoothing: grayscale;
     }
 </style>
