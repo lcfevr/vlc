@@ -11,7 +11,7 @@ function getModalInstance(){
             closable:true,
             maskClosable:false,
             footerHide:false
-        })
+        });
 
 
     return modalInstance

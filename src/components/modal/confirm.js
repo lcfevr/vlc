@@ -52,7 +52,10 @@ Modal.newInstance = properties =>{
             cancleText:'取消',
             loading:false,
             buttonLoading:false,
-            showCancle:true
+            showCancle:true,
+            onOk:function(){},
+            onCancle:function(){},
+            onRemove:function(){}
         }),
         methods:{
             cancle(){
@@ -82,9 +85,7 @@ Modal.newInstance = properties =>{
                 document.body.removeChild(this.$el);
                 this.onRemove()
             },
-            onOk(){},
-            onCancle(){},
-            onRemove(){}
+
 
         },
     }).$children[0];

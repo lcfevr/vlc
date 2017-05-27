@@ -17,6 +17,8 @@ import SlideBar from './components/slideBar'
 import PullDown from './components/pullDown'
 import TextBar from './components/Text'
 import Upload from './components/upload'
+import ActionSheet from './components/action-sheet'
+import SwitchBar from './components/switchbar'
 
 
 
@@ -39,7 +41,9 @@ const vlc = {
     PullDown,
     TextBar,
     Number:TextBar.Number,
-    Upload
+    Upload,
+    ActionSheet,
+    SwitchBar
 
 };
 

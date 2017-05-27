@@ -43,56 +43,7 @@
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
-                <div style="height: 40px;width: 100%;background-color: blue;"></div>
+
             </div>
             <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow"></div>
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
@@ -121,38 +72,18 @@
         <span>{{number}}</span>
         <Upload :multiple="true"  @on-change-file="onChangeFile" ref="upload"></Upload>
         <img :src="item.base64" v-for="item in files"/>
+        <SwitchBar></SwitchBar>
     </div>
 </template>
 
 <script>
-    //    import vlcHeader from '../components/header/index'
-    //    import Picker from '../components/picker/index'
-    //    import Tab from '../components/tab/tab'
 
-    //    import Message from '../components/message/index'
-
-
-    //    import Checkbox from '../components/checkBox/index'
-    //    import Radiobox from '../components/radioBox/index'
-    //    import Editor from '../components/editor/index'
-    import SlideBar from '../components/slideBar/index'
-    //    import Modal from '../components/modal/modal.vue'
-    //    import Prompt from '../components/prompt/prompt.vue'
-    //    import Swipe from '../components/swipe/index'
-    //    import Button from '../components/button/index'
-    import PullDown from '../components/pullDown/index'
-    import TextBar from '../components/Text/index'
-    import ActionSheet from '../components/action-sheet/index'
     export default {
 
         filters: {},
         directives: {},
         components: {
-            SlideBar,
-            ActionSheet,
-            PullDown,
-            TextBar: TextBar,
-            Number: TextBar.Number
+
         },
         data () {
             return {
@@ -280,7 +211,6 @@
             }
         },
         mounted () {
-
 
 
         },
