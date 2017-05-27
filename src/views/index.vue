@@ -103,10 +103,7 @@
                     {
                         image: 'https://vuefe.cn/images/logo.png',
                         spec: '2222'
-                    }
-
-
-                    ,
+                    },
 
                     {
                         image: 'https://vuefe.cn/images/logo.png',
@@ -115,9 +112,7 @@
                     {
                         image: 'https://vuefe.cn/images/logo.png',
                         spec: '5555'
-                    }
-
-                    ,
+                    },
 
                     {
                         image: 'https://vuefe.cn/images/logo.png',

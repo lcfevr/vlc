@@ -51,7 +51,7 @@ Modal.remove = function(){
         return false;
     }
 
-    const instance = getModalInstance()
+    const instance = getModalInstance();
 
     instance.remove();
 };

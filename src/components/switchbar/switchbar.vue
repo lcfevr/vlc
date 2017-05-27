@@ -1,11 +1,13 @@
 <template>
-    <div class="com_checkbox">
-        <input type="checkbox" id="read_list_set_new" class="cbx hidden">
-        <label for="read_list_set_new" class="lbl small"></label>
+    <div class="vlc-switch">
+        <input type="checkbox" :id="id" class="vlc-switch-checkbox hidden">
+        <label :for="id" class="vlc-switch-ui small"></label>
     </div>
 </template>
 
 <script>
+    import {random_str} from '../../utils/util'
+    const id = Date.now()+"_"+random_str();
 
     export default {
         name:'SwitchBar',
@@ -25,6 +27,7 @@
         },
         data(){
             return {
+                id:id,
 
             }
         },
@@ -34,7 +37,7 @@
     }
 </script>
 <style>
-    .lbl {
+    .vlc-switch-ui {
         display: block;
         width: 35px;
         height: 20px;
@@ -46,12 +49,12 @@
         -moz-transition: all .3s ease;
         transition: all .3s ease;
     }
-    .lbl.small{
+    .vlc-switch-ui.small{
         width: 24px;
         height: 14px;
     }
 
-    .lbl:after {
+    .vlc-switch-ui:after {
         content: '';
         display: block;
         width: 18px;
@@ -66,46 +69,46 @@
         -moz-transition: all .3s ease;
         transition: all .3s ease;
     }
-    .lbl.small:after{
+    .vlc-switch-ui.small:after{
         width: 12px;
         height: 12px;
     }
 
-    .lbl:active:after {
+    .vlc-switch-ui:active:after {
         width: 24px;
     }
-    .lbl.small:active:after{
+    .vlc-switch-ui.small:active:after{
         width: 16px;
     }
 
-    .cbx:checked ~ label {
+    .vlc-switch-checkbox:checked ~ label {
         background: #34bf49;
     }
 
-    .cbx:checked ~ label:after {
+    .vlc-switch-checkbox:checked ~ label:after {
         left: 16px;
     }
-    .cbx:checked ~ label:active:after {
+    .vlc-switch-checkbox:checked ~ label:active:after {
         left: 10px;
     }
 
-    .cbx:checked ~ label.small:after{
+    .vlc-switch-checkbox:checked ~ label.small:after{
         left: 11px;
     }
-    .cbx:checked ~ label.small:active:after {
+    .vlc-switch-checkbox:checked ~ label.small:active:after {
         left: 7px;
     }
 
-    .cbx:disabled ~ label {
+    .vlc-switch-checkbox:disabled ~ label {
         background: #d5d5d5;
         pointer-events: none;
     }
 
-    .cbx:disabled ~ label:after {
+    .vlc-switch-checkbox:disabled ~ label:after {
         background: #bcbdbc;
     }
 
-    .cbx.hidden {
+    .vlc-switch-checkbox.hidden {
         display: none;
     }
 </style>
