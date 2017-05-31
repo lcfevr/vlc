@@ -1,5 +1,5 @@
 <template>
-    <div class="vlc-upload">
+    <div class="vlc-upload" :style="styles">
         <slot>
             <div class="vlc-upload-wrapper">图片上传</div>
         </slot>
@@ -26,20 +26,27 @@
             capture: {
                 type: String,
                 default: 'camera'
+            },
+            styles: {
+                type: Object,
+                default(){
+                    return {}
+                }
             }
         },
-        data(){
-            return {
-                files: [],
-            }
-        },
-        methods: {
+            data(){
+                return {
+                    files: [],
+                }
+            },
 
-            showPhoto(e){
+            methods: {
 
-                let file = e.target.files;
-                let that = this;
-                let Orientation = null;
+                showPhoto(e){
+
+                    let file = e.target.files;
+                    let that = this;
+                    let Orientation = null;
 
                     for (let i = 0; i < file.length; i++) {
 
@@ -69,133 +76,107 @@
                     e.target.value = '';
 
 
+                },
+                create(file, Orientation){
 
-            },
-            create(file, Orientation){
+                    let _this = this;
+                    let data = null;
+                    let img = new Image();
+                    let mpImg = new MegaPixImage(file);
 
-                let _this = this;
-                let data = null;
-                let img = new Image();
-                let mpImg = new MegaPixImage(file);
+                    mpImg.render(img, {maxWidth: 600, quality: 0.8});
+                    img.onload = function () {
 
-                mpImg.render(img, {maxWidth: 600, quality: 0.8});
-                img.onload = function () {
-
-                    let canvas = document.createElement('canvas');
-                    let ctx = canvas.getContext('2d');
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-                    data = canvas.toDataURL("image/jpeg", 0.8);
-
-                    if (navigator.userAgent.match(/iphone/i)) {
-                        if (Orientation != "" && Orientation != 1) {
-                            switch (Orientation) {
-                                case 6:
-                                    _this.rotateImg(this, 'left', canvas);
-                                    break;
-                                case 8:
-                                    _this.rotateImg(this, 'right', canvas);
-                                    break;
-                                case 3:
-                                    _this.rotateImg(this, 'right', canvas);
-                                    _this.rotateImg(this, 'right', canvas);
-                                    break;
-                            }
-                        }
+                        let canvas = document.createElement('canvas');
+                        let ctx = canvas.getContext('2d');
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
                         data = canvas.toDataURL("image/jpeg", 0.8);
-                    }
-                    if (navigator.userAgent.match(/Android/i)) {
-                        let JPEGEncoder = JPEG.JPEGEncoder;
-                        let encoder = new JPEGEncoder();
-                        data = encoder.encode(ctx.getImageData(0, 0, canvas.width, canvas.height), 80);
-                    }
-                    let result = {
-                        base64: data,
-                        clearBase64: data.substr(data.indexOf(',') + 1)
-                    };
-                    _this.files.push(result)
-                };
-            },
-            rotateImg(img, direction, canvas) {
-                let min_step = 0;
-                let max_step = 3;
-                if (img == null)return;
-                let height = img.height;
-                let width = img.width;
-                let step = 2;
-                if (step == null) {
-                    step = min_step;
-                }
-                if (direction == 'right') {
-                    step++;
-                    step > max_step && (step = min_step);
-                } else {
-                    step--;
-                    step < min_step && (step = max_step);
-                }
-                let degree = step * 90 * Math.PI / 180;
-                let ctx = canvas.getContext('2d');
-                switch (step) {
-                    case 0:
-                        canvas.width = width;
-                        canvas.height = height;
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        break;
-                    case 1:
-                        canvas.width = height;
-                        canvas.height = width;
-                        ctx.rotate(degree);
-                        ctx.drawImage(img, 0, -height, canvas.height, canvas.width);
-                        break;
-                    case 2:
-                        canvas.width = width;
-                        canvas.height = height;
-                        ctx.rotate(degree);
-                        ctx.drawImage(img, -width, -height, canvas.width, canvas.height);
-                        break;
-                    case 3:
-                        canvas.width = height;
-                        canvas.height = width;
-                        ctx.rotate(degree);
-                        ctx.drawImage(img, -width, 0, canvas.height, canvas.width);
-                        break;
-                }
-            }
-        },
-        watch: {
 
-            files(val){
-                this.$emit('on-change-file',val)
+                        if (navigator.userAgent.match(/iphone/i)) {
+                            if (Orientation != "" && Orientation != 1) {
+                                switch (Orientation) {
+                                    case 6:
+                                        _this.rotateImg(this, 'left', canvas);
+                                        break;
+                                    case 8:
+                                        _this.rotateImg(this, 'right', canvas);
+                                        break;
+                                    case 3:
+                                        _this.rotateImg(this, 'right', canvas);
+                                        _this.rotateImg(this, 'right', canvas);
+                                        break;
+                                }
+                            }
+                            data = canvas.toDataURL("image/jpeg", 0.8);
+                        }
+                        if (navigator.userAgent.match(/Android/i)) {
+                            let JPEGEncoder = JPEG.JPEGEncoder;
+                            let encoder = new JPEGEncoder();
+                            data = encoder.encode(ctx.getImageData(0, 0, canvas.width, canvas.height), 80);
+                        }
+                        let result = {
+                            base64: data,
+                            clearBase64: data.substr(data.indexOf(',') + 1)
+                        };
+                        _this.files.push(result)
+                    };
+                },
+                rotateImg(img, direction, canvas) {
+                    let min_step = 0;
+                    let max_step = 3;
+                    if (img == null)return;
+                    let height = img.height;
+                    let width = img.width;
+                    let step = 2;
+                    if (step == null) {
+                        step = min_step;
+                    }
+                    if (direction == 'right') {
+                        step++;
+                        step > max_step && (step = min_step);
+                    } else {
+                        step--;
+                        step < min_step && (step = max_step);
+                    }
+                    let degree = step * 90 * Math.PI / 180;
+                    let ctx = canvas.getContext('2d');
+                    switch (step) {
+                        case 0:
+                            canvas.width = width;
+                            canvas.height = height;
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            break;
+                        case 1:
+                            canvas.width = height;
+                            canvas.height = width;
+                            ctx.rotate(degree);
+                            ctx.drawImage(img, 0, -height, canvas.height, canvas.width);
+                            break;
+                        case 2:
+                            canvas.width = width;
+                            canvas.height = height;
+                            ctx.rotate(degree);
+                            ctx.drawImage(img, -width, -height, canvas.width, canvas.height);
+                            break;
+                        case 3:
+                            canvas.width = height;
+                            canvas.height = width;
+                            ctx.rotate(degree);
+                            ctx.drawImage(img, -width, 0, canvas.height, canvas.width);
+                            break;
+                    }
+                }
+            },
+            watch: {
+
+                files(val){
+                    this.$emit('on-change-file', val)
+                }
             }
         }
-    }
+
 </script>
 
-<style lang="less">
-    .vlc-upload {
-        position: relative;
-        width: 100px;
-        height: 50px;
-        &-wrapper {
-            width: 100%;
-            height: 100%;
-            background: #39f;
-            color: #ffffff;
-            line-height: 50px;
-            text-align: center;
-            border-radius: 10px;
-        }
-
-        input[type=file] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-    }
-</style>

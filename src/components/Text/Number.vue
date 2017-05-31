@@ -30,6 +30,7 @@
 
     import Input from '../../mixin/input'
     export default {
+        name:'Number',
         mixins:[Input],
         props: {
             min: {

@@ -1,5 +1,5 @@
 <template>
-    <div class="vlc-textBar" :style="styles">
+    <div :class="classes" :style="styles">
         <label :class="['vlc-textBar-input']" :style="inputStyles" v-if="type !== 'textarea'">
             <input
                     :type="type"
@@ -7,7 +7,7 @@
                     :value="currentVal"
                     :placeholder="placeholder"
                     :readonly="readonly"
-                    :maxlength="maxLength"
+                    :maxlength="maxlength"
                     :autocomplete="autocomplete"
                     :name="name"
                     :disabled="disable"
@@ -27,7 +27,7 @@
                     :value="currentVal"
                     :placeholder="placeholder"
                     :readonly="readonly"
-                    :maxlength="maxLength"
+                    :maxlength="maxlength"
                     :name="name"
                     :rows="rows"
                     :disabled="disable"
@@ -74,7 +74,7 @@
                 type:Object,
 
             },
-            maxLength:{
+            maxlength:{
                 type:Number
             },
             name:String,
@@ -86,10 +86,16 @@
         },
         data(){
             return {
-                currentVal:   this.value
+                currentVal:   this.value,
             }
         },
         computed:{
+            classes(){
+
+                return [
+                    `${prefixCls}`
+                ]
+            },
             textareaClass(){
                 return [
                     `${prefixCls}-textarea`

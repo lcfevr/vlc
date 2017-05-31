@@ -125,12 +125,13 @@
                     }
                 ]
             },
+
             dotsClasses(){
                 return [
                     `${prefixCls}-dots`,
                     {
-                        ['vlc-swipe-dots-bottom']: this.dots == 'bottom',
-                        ['vlc-swipe-dots-top']: this.dots == 'top'
+                        [`${prefixCls}-dots-bottom`]: this.dots === 'bottom',
+                        [`${prefixCls}-dots-top`]: this.dots === 'top'
                     }
                 ]
             },
@@ -152,9 +153,9 @@
                     let arr = [];
                     let multipleArr = [];
                     this.localList.forEach((item, index) => {
-                        if (arr.length < 2) {
+                        if (arr.length < page) {
                             arr.push(item);
-                            if (this.localList.length - 1 == index) {
+                            if (this.localList.length - 1 === index) {
                                 multipleArr.push(arr);
                             }
                         } else {
@@ -162,12 +163,11 @@
                             arr = [];
                             arr.push(item)
                         }
-                    })
+                    });
 
                     this.localList = multipleArr;
                     return true;
                 }
-
             },
             styles(){
 
@@ -206,7 +206,6 @@
             onLoopSlideRight(){
                 this.translateX = this.currentTranslateX + this.clientWidth
                 if (--this.slideIndex < this.minIndex) {
-                    console.log(this.slideIndex)
                     this.slideIndex++;
                     this.$refs.wrapper.addEventListener('webkitTransitionEnd', this.resetSlideMax, false);
                 } else {
@@ -279,6 +278,11 @@
                 }
 
             },
+
+            onResize(){
+                this.clientWidth = this.$el.clientWidth;
+                this.clientHeight = getComputedStyle(this.$el.querySelector('.vlc-swipe-wrapper')).height;
+            },
             resetSlide(){
 
                 this.$refs.wrapper.removeEventListener('webkitTransitionEnd', this.resetSlide, false);
@@ -332,6 +336,7 @@
                 this.$refs.wrapper.addEventListener('touchstart', this.onTouchStart, false);
                 this.$refs.wrapper.addEventListener('touchmove', this.onTouchMove, false);
                 this.$refs.wrapper.addEventListener('touchend', this.onTouchEnd, false)
+                window.addEventListener('resize',this.onResize)
             }
             ,
             unbindEvent()
@@ -339,6 +344,7 @@
                 this.$refs.wrapper.removeEventListener('touchstart', this.onTouchStart, false);
                 this.$refs.wrapper.removeEventListener('touchmove', this.onTouchMove, false);
                 this.$refs.wrapper.removeEventListener('touchend', this.onTouchEnd, false)
+                window.removeEventListener('resize',this.onResize)
             }
         },
         mounted()

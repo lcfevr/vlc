@@ -66,13 +66,15 @@
         <Action-sheet v-model="visible" :items="lists">
 
         </Action-sheet>
-        <TextBar v-model="texts" type="textarea"></TextBar>
+        <TextBar v-model="texts" type="textarea" :maxlength="9"></TextBar>
         <span>{{texts}}</span>
         <Number v-model="number" :min="1" :max="10" :focus="true"></Number>
         <span>{{number}}</span>
         <Upload :multiple="true"  @on-change-file="onChangeFile" ref="upload"></Upload>
         <img :src="item.base64" v-for="item in files"/>
-        <SwitchBar></SwitchBar>
+        <SwitchBar v-model="check" size="large"></SwitchBar>
+        <span>{{check}}</span>
+        <SwitchBar size="large"></SwitchBar>
     </div>
 </template>
 
@@ -87,6 +89,7 @@
         },
         data () {
             return {
+                check:false,
                 files:[],
                 number: 1,
                 msgTip: '',

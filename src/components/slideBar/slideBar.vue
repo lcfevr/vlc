@@ -88,7 +88,6 @@
             this.itemWidth = this.flex ? this.clientWidth / this.items.length : this.itemWidth;
             this.onScroll();
             this.bindEvents();
-
         },
         computed: {
 
@@ -231,9 +230,14 @@
             onScroll(e){
                 this.$el.getBoundingClientRect().top <= 0 ? this.fixed = true : this.fixed = false
             },
+            onResize(){
+
+                this.clientWidth = this.$el.clientWidth;
+                this.itemWidth = this.flex ? this.clientWidth / this.items.length : this.itemWidth;
+
+            },
             bindEvents(){
                 if (this.canDrag) {
-                    console.log('candrag')
                     this.$refs.content.addEventListener('touchstart', this.onTouchStart);
                     this.$refs.content.addEventListener('touchmove', this.onTouchMove);
                     this.$refs.content.addEventListener('touchend', this.onTouchEnd)
@@ -244,6 +248,8 @@
                     window.addEventListener('scroll',this.onScroll)
                 }
 
+                window.addEventListener('resize',this.onResize)
+
             },
             unbindEvents(){
 
@@ -251,11 +257,17 @@
                 this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
                 this.$refs.content.removeEventListener('touchend', this.onTouchEnd);
                 window.removeEventListener('scroll',this.onScroll);
+                window.removeEventListener('resize',this.onResize)
 
             }
         },
         beforeDestroy(){
             this.unbindEvents()
+        },
+        watch:{
+            index(val){
+                this.startIndex = val
+            }
         }
 
     }
