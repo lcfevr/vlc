@@ -217,6 +217,7 @@
 
                     this.translateX = this.startTranslateX - this.clientWidth
                 }
+                this.$emit('on-change', index)
             },
             onSlideRight(){
                 if (--this.startIndex < 0) {
@@ -226,6 +227,7 @@
 
                     this.translateX = this.startTranslateX + this.clientWidth
                 }
+                this.$emit('on-change', index)
             },
             onScroll(e){
                 this.$el.getBoundingClientRect().top <= 0 ? this.fixed = true : this.fixed = false

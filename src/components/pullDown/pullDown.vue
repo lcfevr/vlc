@@ -248,7 +248,6 @@
 
             isBottom(){
 
-
                 if (this.scrollTarget === window) {
                     return document.body.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight;
                 } else {
@@ -274,7 +273,6 @@
         },
         beforeDestroy(){
             this.unbindEvent();
-
         },
         watch: {
             upStatus(val){

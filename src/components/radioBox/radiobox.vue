@@ -82,7 +82,6 @@
                 const checked = e.target.checked;
                 this.model = checked;
                 this.$emit('input', checked);
-                console.log(this.model)
 
                 if (this.isGroup && this.label !== undefined) {
                     this.parent.change({value: this.label, checked: this.model})
