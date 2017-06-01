@@ -2,6 +2,7 @@
  * Created by admin on 2017/3/30.
  */
 import Modal from './modal.vue'
+import Button from '../button/button.vue'
 import Vue from 'vue'
 
 import { camelcaseToHyphen } from '../../utils/util'
@@ -31,16 +32,18 @@ Modal.newInstance = properties =>{
         el:div,
         template:`<Modal ${props} v-model="visible" :width="width" >
                         
-                        <div class="${prefixCls}-header-inner ellipse-fir" v-html="title" slot="header"></div>
+                        <div class="${prefixCls}-header-inner  ellipse-fir"  v-html="title" slot="header"></div>
                         <div class="${prefixCls}-body-inner" v-html="body" slot="body"></div>
                         <template slot="footer">
-                             <button class="${prefixCls}-button ${prefixCls}-button-sure"  @click="ok">{{okText}}</button>
-                             <button class=" ${prefixCls}-button ${prefixCls}-button-cancle" v-if="showCancle" @click="cancle">{{cancleText}}</button>
+                             <Button :styles="{background:'#ffffff',color:'red'}"  @on-click="ok"><span slot="button-inner">{{okText}}</span></Button>
+                             <Button :styles="{background:'#ffffff',color:'#ccc'}"  @on-click="cancle"  v-if="showCancle"><span slot="button-inner">{{cancleText}}</span></Button>
+
                         </template>
 
                     </Modal>`,
         components:{
-            Modal
+            Modal,
+            Button
         },
         data:Object.assign(_props,{
 
@@ -109,6 +112,7 @@ Modal.newInstance = properties =>{
             }
 
 
+
             if ('content' in props) {
                 modal.$parent.body = props.content
             }
@@ -121,6 +125,7 @@ Modal.newInstance = properties =>{
             if ('cancleText' in props) {
                 modal.$parent.cancleText = props.cancleText
             }
+
 
             if ('onCancle' in props) {
                 modal.$parent.onCancle = props.onCancle

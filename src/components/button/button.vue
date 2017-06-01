@@ -1,8 +1,9 @@
 <template>
-    <div :class="classes" >
-        <button :style="styles" :loading="loading" :class="buttonClass" :disabled="disabled" @click="emit">
-            <i v-if="loading">a</i>
+    <div :class="classes" :style="wrapperStyles">
+        <button :style="styles"  :class="buttonClass" :disabled="disabled" @click="emit">
+            <slot name="left"></slot>
             <slot name="button-inner"><span>确定</span></slot>
+            <slot name="right"></slot>
         </button>
     </div>
 </template>
@@ -33,22 +34,46 @@
             disabled: {
                type: Boolean
             },
-            loading:Boolean,
+
+            inline:{
+                type:Boolean,
+                default:false
+            },
+            width:{
+                type:String,
+                default:'100%'
+            },
+            height:{
+                type:String,
+                default:'40px'
+
+            }
 
         },
-        data(){
-            return {}
-        },
+
         computed: {
             classes(){
 
                 return [
                     `${prefixCls}`,
                     {
-                        [`${prefixCls}-circle`]: this.circle
+                        [`${prefixCls}-circle`]: this.circle,
+                        [`${prefixCls}-inline`]:this.inline
                     }
                 ]
             },
+            wrapperStyles(){
+
+                return {
+                    display:this.inline ? 'inline-block':'block',
+                    width:this.width,
+                    height:this.height
+                }
+
+            },
+
+
+
             buttonClass(){
                 return [
                     `${prefixCls}-btn`,
@@ -68,7 +93,7 @@
 
         methods:{
             emit(){
-                if (this.disable || this.loading) return;
+                if (this.disabled) return;
                 this.$emit('on-click')
             }
         }

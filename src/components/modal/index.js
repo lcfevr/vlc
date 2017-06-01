@@ -7,7 +7,7 @@ let modalInstance;
 
 function getModalInstance(){
     modalInstance = modalInstance || Modal.newInstance({
-
+            showHead:false,
             closable:true,
             maskClosable:false,
             footerHide:false
@@ -20,7 +20,7 @@ function getModalInstance(){
 
 function confirm (options) {
 
-    let instance =getModalInstance();
+    let instance = getModalInstance();
 
     options.onRemove = function (){
         modalInstance = null;
@@ -40,7 +40,8 @@ Modal.info = function (props={}){
 
 Modal.confirm = function (props={}) {
 
-    props.showCancle =false;
+    props.showCancle = false;
+
 
     return confirm(props)
 }

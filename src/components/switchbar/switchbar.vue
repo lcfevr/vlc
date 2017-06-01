@@ -22,7 +22,7 @@
                 type:String,
                 default:'small',
                 validator(val){
-                    return ['small','large'].indexOf(val)
+                    return ['small','large'].indexOf(val) > -1
                 }
             }
         },
@@ -70,6 +70,3 @@
         }
     }
 </script>
-<style>
-
-</style>

@@ -54,13 +54,12 @@
                title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的"
                @on-ok="ok">
             <p slot="header">111</p>
-
         </modal>
         <PullDown :load-more="topMethod" @on-change-up-status="getStatus" ref="pulldown">
 
         </PullDown>
 
-        <Button>gdgfd</Button>
+
         <Editor :theme="theme" :value="value"></Editor>
         <Swipe :auto="true" :perpage="1" :loop="true" :list="list"></Swipe>
         <Action-sheet v-model="visible" :items="lists">
@@ -75,6 +74,10 @@
         <SwitchBar v-model="check" size="large"></SwitchBar>
         <span>{{check}}</span>
         <SwitchBar size="large"></SwitchBar>
+
+        <Button :inline="true" width="40%" type="warning"></Button>
+        <Button :inline="true" width="40%" type="success"></Button>
+
     </div>
 </template>
 
@@ -209,8 +212,7 @@
             }
         },
         mounted () {
-
-
+            this.$Modal.info({showHead:false,cancleText:'取消',body:'啊实多多多多打实'})
         },
         beforeDestroy () {
 
@@ -221,9 +223,7 @@
                 this.files = val
             },
             onLoad(val){
-                console.log(val,'a')
-                let remove;
-                val ? remove = this.$Message.show({'text': 'loading', 'duration': 0}) : remove();
+
             },
             valida(val){
                 if (val != 'a') {
@@ -233,7 +233,7 @@
                 return true;
             },
             getConfirm(val){
-                console.log(val)
+
                 val ? this.msgTip = '成功' : this.msgTip = "失败"
             },
             getVal(val){

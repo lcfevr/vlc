@@ -1,22 +1,16 @@
-div{
-  &.vlc-button{
-    height: @ButtonHeight;
-    .vlc-button-btn{
-      span{
-        font-size: @ButtonFontSize;
-      }
-    }
-  }
-}
+
+
 
 
 @width: 40px;
 .vlc-button {
 
   width: -webkit-fill-available;
-  overflow: hidden;
-  height: 40px;
+  overflow-x: hidden;
+
 }
+
+
 
 .vlc-button.vlc-button-circle {
 
@@ -25,10 +19,20 @@ div{
   border-radius: 50%
 }
 
+
+
 .vlc-button .vlc-button-btn {
   width: -webkit-fill-available;
-  height: 100%;
-  border:1px solid;
+  height:40px;
+}
+
+.vlc-button-inline {
+  letter-spacing: -3px;
+}
+
+.vlc-button-inline > button {
+
+  letter-spacing: 0;
 }
 
 .vlc-button-success {

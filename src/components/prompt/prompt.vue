@@ -3,25 +3,27 @@
         <Modal v-model="visible"  :width="width" :title="title" :style="styles" :mask-closable="maskClosable">
 
             <div class="vlc-modal-header-inner ellipse-fir" v-html="title" slot="header"></div>
-            <div class="vlc-modal-body-inner"  slot="body">
+            <div class="vlc-prompt-body-inner"  slot="body">
                 <div class="vlc-prompt-content">
                     <span class="vlc-prompt-spec">{{spec}}</span>
-                    <input v-model="text" type="text" :placeholder="placeholder" />
+                    <TextBar v-model="text" type="text" :placeholder="placeholder" ></TextBar>
                     <div class="vlc-prompt-error" v-if="!!message" v-html="message"></div>
                 </div>
             </div>
             <template slot="footer">
-                <button class="vlc-prompt-button vlc-prompt-button-sure"  @click="ok">{{okText}}</button>
-                <button class=" vlc-prompt-button vlc-prompt-button-cancle"  @click="cancle">{{cancleText}}</button>
+                <Button :styles="{background:'#ffffff',color:'red'}"  @on-click="ok"><span slot="button-inner">{{okText}}</span></Button>
+                <Button :styles="{background:'#ffffff',color:'#ccc'}"  @on-click="cancle" ><span slot="button-inner">{{cancleText}}</span></Button>
             </template>
-
         </Modal>
+
 
 </template>
 
 <script>
 
     import Modal from '../modal/modal.vue'
+    import TextBar from '../Text/textBar.vue'
+    import Button from '../button/button.vue'
     export default {
         props:{
 
@@ -79,8 +81,14 @@
 
             msg:String,
             placeholderText:String,
-            onOk:Function,
-            onCancle:Function
+            onOk:{
+                type:Function,
+                default:function(){}
+            },
+            onCancle:{
+                type:Function,
+                default:function(){}
+            }
 
         },
         data(){
@@ -93,7 +101,9 @@
             }
         },
         components:{
-            Modal
+            Modal,
+            TextBar,
+            Button
         },
         mounted(){
 
@@ -101,6 +111,9 @@
         watch:{
             val(val){
                 this.text = val
+            },
+            loading(val) {
+                this.buttonLoading = val
             }
         },
         methods:{
@@ -134,12 +147,13 @@
                 } else {
                     this.visible = false;
                 }
-                this.onOk(this.text);
+                if (this.onOk && typeof this.onOk =='function') this.onOk(this.text);
                 this.$emit('on-ok',this.text)
             },
             cancle(){
                 this.visible = false;
-                this.onCancle();
+                if (this.onCancle && typeof this.onCancle =='function') this.onCancle();
+
                 this.$emit('on-cancle')
             },
 

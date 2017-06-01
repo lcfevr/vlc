@@ -4,11 +4,11 @@
         <div class="v-lc-modal-mask" v-show="visible"  @click="mask"></div>
     </transition>
 
-    <span>
+
 
     <transition name="vlc-ani-scale">
         <div class="v-lc-modal " :style="getWrapperStyle" v-show="visible" >
-            <div class="v-lc-modal-header" v-if="showHead"><slot name="header"><div class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
+            <div class="v-lc-modal-header" v-if="isHead"><slot name="header"><div class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
             <div class="v-lc-modal-body"><slot name="body">{{body}}</slot></div>
             <div class="v-lc-modal-footer" v-if="!footerHide">
                 <slot name="footer">
@@ -18,7 +18,7 @@
             </div>
         </div>
     </transition>
-        </span>
+
     </div>
 </template>
 
@@ -72,7 +72,10 @@
             className: {
                 type: String
             },
-
+            showHead:{
+                type:Boolean,
+                default:true
+            },
             footerHide: {
                 type: Boolean,
                 default: false
@@ -85,7 +88,7 @@
         },
         data(){
             return {
-                showHead:true,
+                isHead:this.showHead,
                 visible:this.value
             }
         },

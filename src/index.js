@@ -19,6 +19,7 @@ import TextBar from './components/Text'
 import Upload from './components/upload'
 import ActionSheet from './components/action-sheet'
 import SwitchBar from './components/switchbar'
+import Rater from './components/rater'
 
 
 
@@ -43,7 +44,8 @@ const vlc = {
     Number:TextBar.Number,
     Upload,
     ActionSheet,
-    SwitchBar
+    SwitchBar,
+    Rater
 
 };
 
