@@ -1,8 +1,8 @@
 <template>
     <div :class="classes" :style="{height:height}">
 
-        <div :class="wrapperClasses" :style="styles" ref="wrapper">
-            <div :class="itemClasses" v-for="(item,index) in arrayList">
+        <div :class="wrapperClasses" :style="styles" ref="wrapper" >
+            <div :class="itemClasses" v-for="(item,index) in arrayList" v-if="arrayList.length">
                 <template v-if="isMultiple">
                     <div class="vlc-swipe-multiple" v-for="(_item,$index) in item" @click="choose(_item,index)">
                         <slot name="multiple" :item="_item" :index="$index">
@@ -103,12 +103,12 @@
                 return this.loop ? this.length - 2 : this.length - 1
             },
             arrayList(){
+                if (!this.localList.length) return [];
                 if (this.loop) {
                     return [].concat([this.localList[this.localList.length - 1]], this.localList, [this.localList[0]])
                 } else {
                     return this.localList
                 }
-
             },
 
             classes(){
@@ -193,6 +193,10 @@
                 if (item.onClick && typeof item.onClick == 'function') {
 
                     item.onClick(item, index)
+                } else if(item.link &&　/(http|https)/i.test(item.link)){
+
+                    window.location.href = item.link
+
                 }
             },
 

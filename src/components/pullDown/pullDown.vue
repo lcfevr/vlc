@@ -4,7 +4,7 @@
             <slot name="top"><span>{{upText}}</span></slot>
         </div>
         <div :class="['vlc-pullDown-content',drag?'drag':'']"
-             :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' ,'height':height+'px'}" ref="content">
+             :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' ,'height':height+'px'}" ref="content" @scroll="onScroll">
             <slot name="content">
                 <ul class="vlc-pullDown-main">
 
@@ -24,6 +24,12 @@
                     <li>1</li>
                     <li>1</li>
                     <li>1</li>
+                    <li>1</li>
+                    <li>1</li>
+                    <li>1</li>
+                    <li>1</li>
+                    <li>1</li>
+
                 </ul>
             </slot>
 
@@ -122,7 +128,11 @@
             onLoadDown(){
                 this.translateY = 0;
                 this.downStatus = '';
-                console.log('asdasdasdadasd')
+            },
+            onLoadOff(){
+                this.translateY = 0;
+                this.downStatus = '';
+                this.upStatus = '';
             },
             onTouchStart(e){
 
@@ -148,10 +158,11 @@
                 let distance = (this.currentY - this.startY) / this.speed;
 
                 this.direction = distance > 0 ? 'down' : 'up';
-                if (this.currentY >= this.startY && typeof this.refresh == 'function' && this.$refs.content.scrollTop == 0 && this.direction == 'down' && this.upStatus != 'loading') {
+                if (this.currentY >= this.startY && typeof this.refresh === 'function' && this.$refs.content.scrollTop === 0 && this.direction === 'down' ) {
 
                     event.preventDefault();
                     event.stopPropagation();
+                    if (this.upStatus === 'loading') return ;
                     if (this.maxDistance > 0) {
 
                         this.translateY = distance <= this.maxDistance ? distance - this.startScrollTop : this.translateY;
@@ -176,7 +187,12 @@
                     this.down = this.down || this.isBottom()
                 }
 
-                if (this.currentY < this.startY && this.down && typeof this.loadMore == 'function' && this.direction == 'up' && this.downStatus != 'loading') {
+                console.log(this.scrollTarget)
+
+
+
+
+                if (this.down && typeof this.loadMore == 'function' && this.direction == 'up' && this.downStatus != 'loading') {
                     event.preventDefault();
                     event.stopPropagation();
 
@@ -216,7 +232,7 @@
                     }
                 }
 
-                if (this.direction == 'up' && this.down && this.translateY <= 0) {
+                if (this.direction === 'up' && this.down && this.translateY <= 0) {
                     this.downDropped = true;
                     this.down = false;
                     if (this.downStatus === 'drop') {
@@ -232,6 +248,22 @@
 
                 this.direction = '';
                 this.drag = false
+            },
+            onScroll(e){
+
+                if (this.downStatus === 'loading') return;
+
+                let scrollTop = e.target.scrollTop;
+                let containerHeight = e.target.scrollHeight;
+                let clientHeight = e.target.clientHeight;
+
+                if (scrollTop + clientHeight >= containerHeight) {
+                    console.log('1')
+
+                }
+
+
+
             },
             getScrollEventTarget(element) {
                 let currentNode = element;
@@ -251,7 +283,11 @@
                 if (this.scrollTarget === window) {
                     return document.body.scrollTop + document.documentElement.clientHeight >= document.body.scrollHeight;
                 } else {
-                    return this.$el.getBoundingClientRect().bottom <= this.scrollTarget.getBoundingClientRect().bottom + 1;
+
+                    let scrollTop = this.$refs.content.scrollTop;
+                    let containerHeight = this.$refs.content.scrollHeight;
+                    let clientHeight = this.$refs.content.clientHeight;
+                    return scrollTop + clientHeight >= containerHeight
                 }
             },
 
@@ -268,7 +304,7 @@
         },
         mounted(){
             this.bindEvent();
-            this.scrollTarget = this.getScrollEventTarget(this.$el)
+            this.scrollTarget = this.getScrollEventTarget(this.$refs.content)
 
         },
         beforeDestroy(){
@@ -318,8 +354,8 @@
 
     .vlc-pullDown {
         width: -webkit-fill-available;
-        overflow: hidden;
         background: #555555;
+        overflow: hidden;
     }
 
     .vlc-pullDown-top {
@@ -356,6 +392,8 @@
     .vlc-pullDown .vlc-pullDown-main {
         display: inline-block;
         width: -webkit-fill-available;
+        min-height:100%;
+        background: #ffffff;
     }
 
     .vlc-pullDown .vlc-pullDown-main li {

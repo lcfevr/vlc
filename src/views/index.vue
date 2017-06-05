@@ -55,7 +55,7 @@
                @on-ok="ok">
             <p slot="header">111</p>
         </modal>
-        <PullDown :load-more="topMethod" @on-change-up-status="getStatus" ref="pulldown">
+        <PullDown :refresh="topMethod" :load-more="topMethod" @on-change-up-status="getStatus" ref="pulldown">
 
         </PullDown>
 
@@ -77,7 +77,8 @@
 
         <Button :inline="true" width="40%" type="warning"></Button>
         <Button :inline="true" width="40%" type="success"></Button>
-
+        <Rater v-model="rate" disabled></Rater>
+        {{rate}}
     </div>
 </template>
 
@@ -92,6 +93,7 @@
         },
         data () {
             return {
+                rate:3.8,
                 check:false,
                 files:[],
                 number: 1,
@@ -213,6 +215,7 @@
         },
         mounted () {
             this.$Modal.info({showHead:false,cancleText:'取消',body:'啊实多多多多打实'})
+
         },
         beforeDestroy () {
 
