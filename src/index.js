@@ -2,7 +2,7 @@
  * Created by admin on 2017/5/15.
  */
 
-import Button from './components/button'
+import VButton from './components/button'
 import CheckBox from './components/checkBox'
 import Editor from './components/editor'
 import Header from './components/Header'
@@ -25,7 +25,7 @@ import Rater from './components/rater'
 
 const vlc = {
 
-    Button,
+    VButton,
     CheckBox,
     CheckBoxGroup:CheckBox.group,
     Radio,

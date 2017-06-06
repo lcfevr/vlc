@@ -1,13 +1,14 @@
 <template>
     <div :class="classes" :style="getStyles">
         <div :class="['vlc-slideBar-header',fixed ? 'fixed':'']" ref="header">
-            <div :class="wrapperClasses"  ref="wrapper" :style="{width:flex ? 'auto' : items.length * itemWidth + 'px'}">
-                <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!flex ? 'normalChild':'']" v-for="(item,key) in items"
+            <div :class="wrapperClasses"  ref="wrapper" :style="{width:isFlex ? 'auto' : items.length * itemWidth + 'px'}">
+                <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!isFlex ? 'normalChild':'']" v-for="(item,key) in items"
                      @click="changeBar(key,$event)" :style="{textAlign:textAlign,width:itemWidth+'px',height:scrollHeight,lineHeight:scrollHeight}">
                     <slot :name="'slide-bar-header-'+key">
                         <a class="content ellipse-fir">{{item.name}}</a>
                     </slot>
                 </div>
+
                 <div class="vlc-slideBar-wrapper-absolute" :style="getScrollStyle"></div>
             </div>
         </div>
@@ -27,11 +28,11 @@
     export default {
         props: {
             scrollHeight:{
-                type:String,
+                type:[String,Number],
                 default:'30px'
             },
             height: {
-                type: String,
+                type: [String,Number],
                 default: '235px'
             },
             styles: {
@@ -85,7 +86,9 @@
         },
         mounted(){
             this.clientWidth = this.$el.clientWidth;
-            this.itemWidth = this.flex ? this.clientWidth / this.items.length : this.itemWidth;
+            if (this.itemWidth * this.items.length < this.clientWidth) this.isFlex = true;
+
+            this.itemWidth = this.isFlex ? this.clientWidth / this.items.length : this.itemWidth;
             this.onScroll();
             this.bindEvents();
         },
@@ -99,10 +102,10 @@
             wrapperClasses(){
                 return [
                     `${prefixCls}-wrapper`,
-                    this.flex ? `${prefixCls}-flex` : `${prefixCls}-slide`,
+                    this.isFlex ? `${prefixCls}-flex` : `${prefixCls}-slide`,
                     {
-                        ['normal']: this.type == 'normal' && this.flex,
-                        ['vertical']: this.type == 'vertical' && this.flex
+                        ['normal']: this.type == 'normal' && this.isFlex,
+                        ['vertical']: this.type == 'vertical' && this.isFlex
                     }
                 ]
             },
@@ -142,7 +145,7 @@
                 }
             },
             wrapperWidth(){
-                return this.flex ? `auto` : `${this.itemWidth * this.items.length}px`
+                return this.isFlex ? `auto` : `${this.itemWidth * this.items.length}px`
             },
             maxIndex(){
                 return this.items.length - 1
@@ -164,7 +167,8 @@
                 dragging: false,
                 distance: 0,
                 itemWidth:this.childWidth,
-                fixed:false
+                fixed:false,
+                isFlex:this.flex
             }
         },
 
@@ -235,7 +239,7 @@
             onResize(){
 
                 this.clientWidth = this.$el.clientWidth;
-                this.itemWidth = this.flex ? this.clientWidth / this.items.length : this.itemWidth;
+                this.itemWidth = this.isFlex ? this.clientWidth / this.items.length : this.itemWidth;
 
             },
             bindEvents(){
@@ -269,6 +273,10 @@
         watch:{
             index(val){
                 this.startIndex = val
+            },
+
+            startIndex(val){
+                this.translateX = -val * this.clientWidth;
             }
         }
 

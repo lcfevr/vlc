@@ -12,7 +12,6 @@ import Cache from './utils/cache'
 // import Modal from './components/modal/index'
 // import Prompt from './components/prompt/index'
 
-import Request from './utils/request'
 
 // import Message from './components/message/index'
 
@@ -31,7 +30,7 @@ Vue.use(VueRouter);
 
 
 Vue.prototype.$Config = Config;
-Vue.prototype.$Request = Request;
+
 
 
 // 路由配置

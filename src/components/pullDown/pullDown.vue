@@ -1,10 +1,10 @@
 <template>
-    <div class="vlc-pullDown" :style="{height:`${height}px`}" ref="scroll">
+    <div class="vlc-pullDown" :style="containerStyles" ref="scroll">
         <div class="vlc-pullDown-top" ref="top">
-            <slot name="top"><span>{{upText}}</span></slot>
+            <slot name="top"><span v-cloak>{{upText}}</span></slot>
         </div>
         <div :class="['vlc-pullDown-content',drag?'drag':'']"
-             :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' ,'height':height+'px'}" ref="content" @scroll="onScroll">
+             :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' ,'height':height}" ref="content" @scroll="onScroll">
             <slot name="content">
                 <ul class="vlc-pullDown-main">
 
@@ -35,7 +35,7 @@
 
         </div>
         <div class="vlc-pullDown-bottom" ref="bottom">
-            <slot name="bottom"><span>{{downText}}</span></slot>
+            <slot name="bottom"><span v-cloak>{{downText}}</span></slot>
         </div>
     </div>
 </template>
@@ -44,8 +44,8 @@
     export default {
         props: {
             height: {
-                type: Number,
-                default: 400
+                type: [Number,String],
+                default: '100%'
             },
             refresh: Function,
             upLoadingText: {
@@ -96,6 +96,12 @@
             hasMore: {
                 type: Boolean,
                 default: false
+            },
+            styles:{
+                type:Object,
+                default(){
+                    return {}
+                }
             }
 
         },
@@ -187,14 +193,16 @@
                     this.down = this.down || this.isBottom()
                 }
 
-                console.log(this.scrollTarget)
 
 
 
 
-                if (this.down && typeof this.loadMore == 'function' && this.direction == 'up' && this.downStatus != 'loading') {
+
+                if (this.down && typeof this.loadMore == 'function' && this.direction == 'up' ) {
                     event.preventDefault();
                     event.stopPropagation();
+
+                    if (this.downStatus === 'loading') return ;
 
                     if (this.maxDistance > 0) {
                         this.translateY = Math.abs(distance) <= this.maxDistance
@@ -347,10 +355,20 @@
                 this.$emit('on-change-down-status', val)
             }
         },
+        computed:{
+            containerStyles(){
+
+                return Object.assign({},this.styles,{height:`${this.height}`})
+            }
+        }
 
     }
 </script>
 <style lang="less">
+
+    [v-cloak] {
+        display: none;
+    }
 
     .vlc-pullDown {
         width: -webkit-fill-available;

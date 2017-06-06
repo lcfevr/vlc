@@ -154,32 +154,6 @@
                         icon: "&#xe666;",
                         iconCur: "&#xe668;",
                         path: "/shareOrder"
-                    }, {
-                        name: "购物车",
-                        icon: "&#xe664;",
-                        iconCur: "&#xe66a;",
-                        path: "/cart"
-
-                    }, {
-                        name: "我",
-                        icon: "<i class='ifont'>&#xe661;</i>",
-                        iconCur: "<i class='ifont'>&#xe669;</i>",
-                        path: "http://www.baidu.com/"
-
-                    },
-                    {
-                        name: "我",
-                        icon: "<i class='ifont'>&#xe661;</i>",
-                        iconCur: "<i class='ifont'>&#xe669;</i>",
-                        path: "http://www.baidu.com/"
-
-                    },
-                    {
-                        name: "我",
-                        icon: "<i class='ifont'>&#xe661;</i>",
-                        iconCur: "<i class='ifont'>&#xe669;</i>",
-                        path: "http://www.baidu.com/"
-
                     }
                 ],
 
