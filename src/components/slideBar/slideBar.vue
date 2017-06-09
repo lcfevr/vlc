@@ -1,9 +1,12 @@
 <template>
     <div :class="classes" :style="getStyles">
         <div :class="['vlc-slideBar-header',fixed ? 'fixed':'']" ref="header">
-            <div :class="wrapperClasses"  ref="wrapper" :style="{width:isFlex ? 'auto' : items.length * itemWidth + 'px'}">
-                <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!isFlex ? 'normalChild':'']" v-for="(item,key) in items"
-                     @click="changeBar(key,$event)" :style="{textAlign:textAlign,width:itemWidth+'px',height:scrollHeight,lineHeight:scrollHeight}">
+            <div :class="wrapperClasses" ref="wrapper"
+                 :style="{width:isFlex ? 'auto' : items.length * itemWidth + 'px'}">
+                <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!isFlex ? 'normalChild':'']"
+                     v-for="(item,key) in items"
+                     @click="changeBar(key,$event)"
+                     :style="{textAlign:textAlign,width:itemWidth+'px',height:scrollHeight,lineHeight:scrollHeight}">
                     <slot :name="'slide-bar-header-'+key">
                         <a class="content ellipse-fir">{{item.name}}</a>
                     </slot>
@@ -15,8 +18,9 @@
 
         <div class="vlc-slideBar-container" :style="{height:height}">
             <div :class="contentClasses" :style="getContainerStyle" ref="content">
-                <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]" v-for="(item,index) in items">
-                    <slot :name="'slot-item-'+index"> </slot>
+                <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]"
+                     v-for="(item,index) in items">
+                    <slot :name="'slot-item-'+index"></slot>
                 </div>
             </div>
         </div>
@@ -27,12 +31,12 @@
     const prefixCls = 'vlc-slideBar';
     export default {
         props: {
-            scrollHeight:{
-                type:[String,Number],
-                default:'30px'
+            scrollHeight: {
+                type: [String, Number],
+                default: '30px'
             },
             height: {
-                type: [String,Number],
+                type: [String, Number],
                 default: '235px'
             },
             styles: {
@@ -40,9 +44,9 @@
                 default: () => {
                 }
             },
-            childWidth:{
-                type:Number,
-                default:70
+            childWidth: {
+                type: Number,
+                default: 70
             },
             scrollColor: {
                 type: String,
@@ -63,7 +67,7 @@
             onChange: {
                 type: Function,
             },
-            items: {
+            list: {
                 type: Array,
                 default: () => [{name: '1'}, {name: '2'}, {name: '3'}, {name: '4'}]
             },
@@ -75,20 +79,21 @@
                 type: Number,
                 default: 1.5
             },
-            canDrag:{
-                type:Boolean,
-                default:true
+            canDrag: {
+                type: Boolean,
+                default: true
             },
-            isFixedHeader:{
-                type:Boolean,
-                default:false
+            isFixedHeader: {
+                type: Boolean,
+                default: false
             }
         },
-        mounted(){
+        mounted (){
             this.clientWidth = this.$el.clientWidth;
             if (this.itemWidth * this.items.length < this.clientWidth) this.isFlex = true;
 
             this.itemWidth = this.isFlex ? this.clientWidth / this.items.length : this.itemWidth;
+            this.translateX = -this.startIndex * this.clientWidth;
             this.onScroll();
             this.bindEvents();
         },
@@ -123,9 +128,9 @@
 
                 let customStyle = this.styles ? this.styles : {};
 
-                let fixedStyle = {paddingTop:this.fixed ? this.scrollHeight : 0}
+                let fixedStyle = {paddingTop: this.fixed ? this.scrollHeight : 0}
 
-                Object.assign(style, customStyle,fixedStyle);
+                Object.assign(style, customStyle, fixedStyle);
 
                 return style;
             },
@@ -139,9 +144,9 @@
             getScrollStyle(){
 
                 return {
-                    width:`${this.itemWidth}px`,
-                    transform:`translate3d(${this.scrollTranslateX}px,0,0)`,
-                    backgroundColor:this.scrollColor
+                    width: `${this.itemWidth}px`,
+                    transform: `translate3d(${this.scrollTranslateX}px,0,0)`,
+                    backgroundColor: this.scrollColor
                 }
             },
             wrapperWidth(){
@@ -166,9 +171,10 @@
                 currentX: 0,
                 dragging: false,
                 distance: 0,
-                itemWidth:this.childWidth,
-                fixed:false,
-                isFlex:this.flex
+                items: this.list,
+                itemWidth: this.childWidth,
+                fixed: false,
+                isFlex: this.flex
             }
         },
 
@@ -251,10 +257,10 @@
 
                 if (this.isFixedHeader) {
 
-                    window.addEventListener('scroll',this.onScroll)
+                    window.addEventListener('scroll', this.onScroll)
                 }
 
-                window.addEventListener('resize',this.onResize)
+                window.addEventListener('resize', this.onResize)
 
             },
             unbindEvents(){
@@ -262,21 +268,27 @@
                 this.$refs.content.removeEventListener('touchstart', this.onTouchStart);
                 this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
                 this.$refs.content.removeEventListener('touchend', this.onTouchEnd);
-                window.removeEventListener('scroll',this.onScroll);
-                window.removeEventListener('resize',this.onResize)
+                window.removeEventListener('scroll', this.onScroll);
+                window.removeEventListener('resize', this.onResize)
 
             }
         },
         beforeDestroy(){
             this.unbindEvents()
         },
-        watch:{
+        watch: {
             index(val){
                 this.startIndex = val
             },
 
             startIndex(val){
                 this.translateX = -val * this.clientWidth;
+            },
+            childWidth(val){
+                this.itemWidth = val;
+            },
+            list(val) {
+                this.items = val;
             }
         }
 

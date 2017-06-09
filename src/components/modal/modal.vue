@@ -12,8 +12,8 @@
             <div class="v-lc-modal-body"><slot name="body">{{body}}</slot></div>
             <div class="v-lc-modal-footer" v-if="!footerHide">
                 <slot name="footer">
-                    <button class="v-lc-modal-button v-lc-modal-button-sure" @click="ok">{{okText}}</button>
-                    <button class=" v-lc-modal-button v-lc-modal-button-cancle" @click="close" v-if="cancleText">{{cancleText}}</button>
+                    <v-button :styles="{background:'#ffffff',color:'red'}" @on-click="ok" :loading="buttonLoading">{{okText}}</v-button>
+                    <v-button :styles="{background:'#ffffff',color:'red'}" @on-click="close" v-if="cancleText">{{cancleText}}</v-button>
                 </slot>
             </div>
         </div>
@@ -24,7 +24,7 @@
 
 <script>
     import Emitter from '../../mixin/emitter'
-
+    import VButton from '../button'
 
     export default {
         name:'Modal',
@@ -89,11 +89,12 @@
         data(){
             return {
                 isHead:this.showHead,
-                visible:this.value
+                visible:this.value,
+                buttonLoading:false
             }
         },
         components:{
-
+            VButton
         },
         computed:{
             getWrapperStyle(){

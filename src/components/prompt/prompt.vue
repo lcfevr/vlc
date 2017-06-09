@@ -11,8 +11,8 @@
                 </div>
             </div>
             <template slot="footer">
-                <Button :styles="{background:'#ffffff',color:'red'}"  @on-click="ok"><span slot="button-inner">{{okText}}</span></Button>
-                <Button :styles="{background:'#ffffff',color:'#ccc'}"  @on-click="cancle" ><span slot="button-inner">{{cancleText}}</span></Button>
+                <v-button :styles="{background:'#ffffff',color:'red'}"  @on-click="ok"><span slot="button-inner">{{okText}}</span></v-button>
+                <v-button :styles="{background:'#ffffff',color:'#ccc'}"  @on-click="cancle" ><span slot="button-inner">{{cancleText}}</span></v-button>
             </template>
         </Modal>
 
@@ -23,7 +23,7 @@
 
     import Modal from '../modal/modal.vue'
     import TextBar from '../Text/textBar.vue'
-    import Button from '../button/button.vue'
+    import VButton from '../button/button.vue'
     export default {
         props:{
 
@@ -103,7 +103,7 @@
         components:{
             Modal,
             TextBar,
-            Button
+            VButton
         },
         mounted(){
 

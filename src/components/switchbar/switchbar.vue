@@ -61,6 +61,10 @@
 
             },
 
+            id(val){
+               this.name=val
+            },
+
             currentValue(val){
 
                 this.$emit('input',val)

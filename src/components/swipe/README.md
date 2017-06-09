@@ -24,6 +24,7 @@
     loop                      Boolean             true              是否循环
 
     speed                     Number               2                轮播速度
+    perpage                    Number               1              每个轮播项里的子项个数
 
 
 
@@ -45,7 +46,7 @@
                             { image:'https://vuefe.cn/images/logo.png',
                                 spec:'2222'
                             }
-                            ]
+                    ]
 
                     ,
                     [

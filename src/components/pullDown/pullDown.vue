@@ -4,7 +4,7 @@
             <slot name="top"><span v-cloak>{{upText}}</span></slot>
         </div>
         <div :class="['vlc-pullDown-content',drag?'drag':'']"
-             :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' ,'height':height}" ref="content" @scroll="onScroll">
+             :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' ,'height':height}" ref="content" >
             <slot name="content">
                 <ul class="vlc-pullDown-main">
 
@@ -34,7 +34,7 @@
             </slot>
 
         </div>
-        <div class="vlc-pullDown-bottom" ref="bottom">
+        <div class="vlc-pullDown-bottom" ref="bottom"  v-show="hasMore">
             <slot name="bottom"><span v-cloak>{{downText}}</span></slot>
         </div>
     </div>
@@ -95,7 +95,7 @@
             loadMore: Function,
             hasMore: {
                 type: Boolean,
-                default: false
+                default: true
             },
             styles:{
                 type:Object,
@@ -194,10 +194,6 @@
                 }
 
 
-
-
-
-
                 if (this.down && typeof this.loadMore == 'function' && this.direction == 'up' ) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -243,7 +239,7 @@
                 if (this.direction === 'up' && this.down && this.translateY <= 0) {
                     this.downDropped = true;
                     this.down = false;
-                    if (this.downStatus === 'drop') {
+                    if (this.downStatus === 'drop' && this.hasMore) {
                         let marginBottom = Number(document.defaultView.getComputedStyle(this.$refs.bottom).marginTop.split('px')[0]);
                         this.translateY = marginBottom;
                         this.downStatus = 'loading';
@@ -389,6 +385,7 @@
 
     .vlc-pullDown-content {
         overflow: scroll;
+        -webkit-overflow-scrolling : touch;
         transition: all .2s ease-in;
         will-change: transform
     }

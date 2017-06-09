@@ -4,8 +4,8 @@
         <div :class="wrapperClasses" :style="styles" ref="wrapper" >
             <div :class="itemClasses" v-for="(item,index) in arrayList" v-if="arrayList.length">
                 <template v-if="isMultiple">
-                    <div class="vlc-swipe-multiple" v-for="(_item,$index) in item" @click="choose(_item,index)">
-                        <slot name="multiple" :item="_item" :index="$index">
+                    <div class="vlc-swipe-multiple" v-for="(_item,$index) in item" @click="choose(_item,$index)">
+                        <slot :name="'slide-'+$index" :item="_item" :index="$index">
                             <img :src="_item.image"/>
                             <span>{{_item.spec}}</span>
                         </slot>
@@ -13,7 +13,7 @@
                 </template>
                 <template v-else>
                     <div class="vlc-swipe-single" @click="choose(item,index)">
-                        <slot name="single" :item="item" :index="index">
+                        <slot :name="'slide-'+index" :item="item" :index="index">
                             <img :src="item.image">
                             <span>{{item.spec}}</span>
                         </slot>
@@ -90,6 +90,14 @@
                 timer: null,
                 clientHeight: 0,
                 localList: this.list
+            }
+        },
+        watch:{
+            list(val){
+                this.localList = val
+            },
+            startIndex(val){
+                this.slideIndex = val
             }
         },
         computed: {
@@ -212,9 +220,6 @@
                 if (--this.slideIndex < this.minIndex) {
                     this.slideIndex++;
                     this.$refs.wrapper.addEventListener('webkitTransitionEnd', this.resetSlideMax, false);
-                } else {
-
-
                 }
             },
             onSlideLeft(){

@@ -33,6 +33,20 @@
 
 
  ```
-    this.$Modal.info(props)
+    this.$Modal.info({
+        visible:false,
+        width:'220px',
+        body:'这是内容',
+        title:'标题',
+        okText:'确定',
+        cancleText:'取消',
+        loading:false, //
+        showCancle:true,
+        onOk:function(){},
+        onCancle:function(){},
+        onRemove:function(){}
+
+
+    })
 
  ```

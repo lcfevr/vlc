@@ -1,7 +1,7 @@
 <template>
     <div :class="classes" :style="wrapperStyles">
         <button :style="styles"  :class="buttonClass" :disabled="disabled" @click="emit">
-            <slot name="left"></slot>
+            <slot name="left"><span class="loading" v-show="loading"></span></slot>
             <slot name="button-inner"><span>确定</span></slot>
             <slot name="right"></slot>
         </button>
@@ -12,7 +12,7 @@
 
     const prefixCls = 'vlc-button';
     export default {
-        name:'Button',
+        name:'VButton',
         props: {
             type: {
                 type: String,
@@ -47,6 +47,10 @@
                 type:String,
                 default:'40px'
 
+            },
+            loading:{
+                type:Boolean,
+                default:false
             }
 
         },

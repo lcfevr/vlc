@@ -13,12 +13,12 @@
 
         </div>
         <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
-        <Button :disabled="false" :loading="disable" @on-click="showMessage">确定</Button>
+        <v-button :disabled="false" :loading="disable" @on-click="showMessage">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
 
         <p>{{address}}</p>
-        <button @click="newTip">asdasssssdaaaaaasdadd</button>
+        <v-button @click="newTip">asdasssssdaaaaaasdadd</v-button>
         <CheckBox-group v-model="data" :vertical="visible">
             <CheckBox label="aaa" :disable="visible"></CheckBox>
             <CheckBox label="bbb"></CheckBox>
@@ -34,7 +34,7 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar :items="items" :flex="false" :can-drag="false" height="100%" scroll-height='50px'
+        <Slide-bar :list="items" :flex="false" index="2" :can-drag="false" height="100%" scroll-height='50px'
                    :is-fixed-header="true">
 
             <div slot="slot-item-0" style="height:100%;flex: 1;background:red;overflow: scroll">
@@ -61,7 +61,13 @@
 
 
         <Editor :theme="theme" :value="value"></Editor>
-        <Swipe :auto="true" :perpage="1" :loop="true" :list="list"></Swipe>
+        <Swipe :auto="true" :perpage="1" :loop="true" :list="files">
+            <div :slot="'slide-'+index" v-for="(item,index) in files">
+                <img :src="item.image"/>
+                <span>{{item.spec}}</span>
+            </div>
+
+        </Swipe>
         <Action-sheet v-model="visible" :items="lists">
 
         </Action-sheet>
@@ -75,8 +81,10 @@
         <span>{{check}}</span>
         <SwitchBar size="large"></SwitchBar>
 
-        <Button :inline="true" width="40%" type="warning"></Button>
-        <Button :inline="true" width="40%" type="success"></Button>
+
+
+        <v-button :inline="true" width="40%" type="warning" :loading="loading" @on-click="load"></v-button>
+        <v-button :inline="true" width="40%" type="success"></v-button>
         <Rater v-model="rate" disabled></Rater>
         {{rate}}
     </div>
@@ -93,9 +101,24 @@
         },
         data () {
             return {
+                loading:false,
                 rate:3.8,
                 check:false,
-                files:[],
+                files:[
+                    {user_id:10,
+                        id:6,
+                        deleted_at:null,
+                        created_at:"2016-05-13 09:17:22",
+                        cover_photo:"http://hellobi-image.qiniudn.com/68aAvN4TsU.jpg",
+                        image:"http://hellobi-image.qiniudn.com/68aAvN4TsU.jpg",
+                        origin_name:"36kr",
+                        origin_url:"http://36kr.com/p/5045728.html",
+                        recommended:0,
+                        status:"published",
+                        title:"应用人工智能和机器学习，医渡云专注挖掘医疗大数据",
+                        updated_at:"2017-05-17 20:37:23",
+                        view_count:151}
+                ],
                 number: 1,
                 msgTip: '',
                 texts: 1,
@@ -188,7 +211,13 @@
             }
         },
         mounted () {
-            this.$Modal.info({showHead:false,cancleText:'取消',body:'啊实多多多多打实'})
+
+
+            this.$Modal.confirm({showHead:false,showCancle:false,cancleText:'取消',body:'啊实多多多多打实',loading:true})
+
+            setTimeout(()=>{
+                this.$Modal.remove()
+            },5000)
 
         },
         beforeDestroy () {
@@ -196,6 +225,9 @@
 
         },
         methods: {
+            load(){
+                this.loading = !this.loading
+            },
             onChangeFile(val){
                 this.files = val
             },

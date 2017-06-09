@@ -2,7 +2,7 @@
  * Created by admin on 2017/3/30.
  */
 import Modal from './modal.vue'
-import Button from '../button/button.vue'
+import VButton from '../button'
 import Vue from 'vue'
 
 import { camelcaseToHyphen } from '../../utils/util'
@@ -35,15 +35,13 @@ Modal.newInstance = properties =>{
                         <div class="${prefixCls}-header-inner  ellipse-fir"  v-html="title" slot="header"></div>
                         <div class="${prefixCls}-body-inner" v-html="body" slot="body"></div>
                         <template slot="footer">
-                             <Button :styles="{background:'#ffffff',color:'red'}"  @on-click="ok"><span slot="button-inner">{{okText}}</span></Button>
-                             <Button :styles="{background:'#ffffff',color:'#ccc'}"  @on-click="cancle"  v-if="showCancle"><span slot="button-inner">{{cancleText}}</span></Button>
-
+                             <v-button :styles="{background:'#ffffff',color:'red'}"  @on-click="ok" :loading="buttonLoading"><span slot="button-inner">{{okText}}</span></v-button>
+                             <v-button :styles="{background:'#ffffff',color:'#ccc'}"  @on-click="cancle"  v-if="showCancle"><span slot="button-inner">{{cancleText}}</span></v-button>
                         </template>
-
                     </Modal>`,
         components:{
             Modal,
-            Button
+            VButton
         },
         data:Object.assign(_props,{
 
@@ -70,6 +68,7 @@ Modal.newInstance = properties =>{
             ok(){
                 if (this.loading) {
                     this.buttonLoading = true;
+                    this.$children[0].buttonLoading = true;
                 } else {
                     this.visible = false;
                     this.remove();

@@ -10,7 +10,7 @@
 
     styles                   Object                  {}             自定义样式
 
-     items                    Array                  none           slidebar菜单栏数据
+     list                    Array                  none           slidebar菜单栏数据
 
    childWidth                Number                  70            单个菜单栏宽度
 
