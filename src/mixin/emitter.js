@@ -26,7 +26,10 @@ export default {
                     name = parent.$options.name;
                 }
             }
+
+
             if (parent) {
+
                 parent.$emit.apply(parent, [eventName].concat(params));
             }
         },

@@ -12,7 +12,7 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
+        <Picker type="AreaPicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
         <v-button :disabled="false" :loading="disable" @on-click="showMessage">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
@@ -68,9 +68,7 @@
             </div>
 
         </Swipe>
-        <Action-sheet v-model="visible" :items="lists">
 
-        </Action-sheet>
         <TextBar v-model="texts" type="textarea" :maxlength="9"></TextBar>
         <span>{{texts}}</span>
         <Number v-model="number" :min="1" :max="10" :focus="true"></Number>
@@ -196,7 +194,7 @@
 
                 value: "<h1>ffasfasssa</h1>" +
                 "fasfassfaasf",
-                visible: false,
+                visible: true,
 
                 maskCloseble: true,
                 address: '',
@@ -251,8 +249,9 @@
             topMethod(){
                 console.log('asd')
             },
-            pickerSure(province, city, district){
-                this.address = `${province} ${city} ${district}`
+            pickerSure(value){
+//                this.address = `${province} ${city} ${district}`
+                console.log(value)
             },
             pickerCancle(){
                 console.log('您取消了选择')

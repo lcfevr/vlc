@@ -1,5 +1,6 @@
 .vlc-picker-wrapper {
-
+  position: relative;
+  height:100%;
   .vlc-mask {
     position: absolute;
     left: 0;
@@ -7,14 +8,20 @@
     top: 0;
     bottom: 0;
     background: @MaskColor;
+    z-index:10;
   }
 
-  .vlc-picker {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #fff;
+  .vlc-picker-content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      z-index:10;
+  }
+
+  .vlc-picker,.vlc-date-picker {
+
 
     .header {
       display: flex;
@@ -109,6 +116,8 @@
     }
 
   }
+
+
 
   .vlc-picker-slot ul.vlc-picker-slot-dragging {
     transition: none;
