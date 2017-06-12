@@ -75,4 +75,12 @@ Prompt,
 Picker,
 Swipe,
 Tab
+SlideBar,
+PullDown,
+TextBar,
+Number,
+Upload,
+ActionSheet,
+SwitchBar,
+Rater
 ```
