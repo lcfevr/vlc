@@ -12,7 +12,7 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="AreaPicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
+        <Picker type="AreaPicker"  @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
         <v-button :disabled="false" :loading="disable" @on-click="showMessage">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->

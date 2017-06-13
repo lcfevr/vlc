@@ -23,8 +23,9 @@
 
 <script>
     import CHINA_AREA from 'china-area-data'
-    import pickerSlot from './picker-slot'
-    import Emitter from '../../mixin/emitter'
+    import pickerSlot from '../picker-slot'
+    import Emitter from '../../../mixin/emitter'
+
 
     const prefixCls = 'vlc-picker';
     export default {
@@ -65,14 +66,13 @@
         },
         methods: {
             sure(){
-                this.dispatch('Picker', 'ok', [
-
-                    {code: this.province, name: this.provinceName},
-                    {code: this.city, name: this.cityName},
-                    {code: this.district, name: this.districtName}
-                ])
 
 
+                this.dispatch('Picker', 'ok', {
+                    province:{code: this.province, name: this.provinceName},
+                    city: {code: this.city, name: this.cityName},
+                    district: {code: this.district, name: this.districtName}
+                })
             },
             cancle(){
                 this.dispatch('Picker', 'fail');
@@ -107,10 +107,13 @@
                         this.districtName = current.value
                 }
 
+
+
                 this.dispatch('Picker', 'parentchange', {
-                    code: this.province,
-                    name: this.provinceName
-                }, {code: this.city, name: this.cityName}, {code: this.district, name: this.districtName})
+                    province:{code: this.province, name: this.provinceName},
+                    city: {code: this.city, name: this.cityName},
+                    district: {code: this.district, name: this.districtName}
+                })
             }
         },
         computed: {

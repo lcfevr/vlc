@@ -13,6 +13,7 @@
                                                 'level_2':index - current.index == -2,
                                                 'level_3':index - current.index <= -3}"
                 :style="{textAlign:align,height:height+'px'}">{{item.value}}
+
             </li>
             <li :style="{height:height+'px'}"></li>
             <li :style="{height:height+'px'}"></li>
@@ -38,30 +39,45 @@
         },
         watch: {
             list(value){
-                this.translateY = 0;
-            },
-            initItem(value){
-                if (!value) {
-                    this.current = Object.assign({}, this.current, {
-                        code: '',
-                        target: this.target,
-                        index: '',
-                        value: ''
-                    });
+
+                if (value.length) {
+                    let index = this.getSelectedIndex();
+
+                    this.current = Object.assign({}, this.current, value[index]);
                     this.$emit('change', this.target, this.current)
                 } else {
-                    this.scrollToItem(value)
+                    this.translateY = 0;
                 }
+
+            },
+            initItem(value){
+
+
+                    if (!value) {
+                        this.current = Object.assign({}, this.current, {
+                            code: '',
+                            target: this.target,
+                            index: '',
+                            value: ''
+                        });
+                        this.$emit('change', this.target, this.current)
+                    } else {
+                        this.scrollToItem(value)
+                    }
             }
+
         },
         mounted(){
+            console.log(this.initItem)
             if (!this.initItem) {
                 this.current = Object.assign({}, this.current, {code: '', target: this.target, index: '', value: ''});
-
                 this.$emit('change', this.target, this.current)
             } else {
+
                 this.scrollToItem(this.initItem)
             }
+
+
         },
         props: {
             styles: Object,
@@ -78,7 +94,7 @@
                 required: true
             },
             initItem: {
-                type: String,
+                type: [String, Number],
                 default: ''
             }
         },
@@ -146,20 +162,36 @@
             },
             setSelectedItem(index){
                 this.translateY = this.currentTranslateY = -index * this.height;
-                this.current = Object.assign({}, this.current, {
-                    code: this.list[index].code,
-                    value: this.list[index].value,
-                    target: this.list[index].target,
-                    index: index
-                });
+                try {
+
+                    this.current = Object.assign({}, this.current, {
+                        code: this.list[index].code,
+                        value: this.list[index].value,
+                        target: this.list[index].target,
+                        index: index
+                    });
+
+                } catch (e) {
+
+                    this.current = Object.assign({}, this.current, {
+                        code: '',
+                        value: '',
+                        target: this.target,
+                        index: ''
+                    });
+                }
+
                 this.$emit('change', this.target, this.current);
+
             },
             scrollToItem (code){
-                this.list.forEach((item) => {
+
+                this.list.forEach((item, i) => {
+
                     if (item.code == code) {
+
                         this.currentTranslateY = this.translateY;
-                        let index = this.getSelectedIndex();
-                        this.setSelectedItem(index)
+                        this.setSelectedItem(i)
                     }
                 })
             }
