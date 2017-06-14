@@ -145,7 +145,7 @@
 
                 return {
                     width: `${this.itemWidth}px`,
-                    transform: `translate3d(${this.scrollTranslateX}px,0,0)`,
+                    transform: `translate3d(${this.startIndex * this.itemWidth}px,0,0)`,
                     backgroundColor: this.scrollColor
                 }
             },
@@ -155,14 +155,11 @@
             maxIndex(){
                 return this.items.length - 1
             },
-            scrollTranslateX(){
-                return this.startIndex * this.itemWidth
-            }
+
         },
         data(){
             return {
                 translateX: 0,
-
                 scrollWidth: 0,
                 clientWidth: 0,
                 startIndex: this.index,

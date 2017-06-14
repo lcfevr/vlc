@@ -5,33 +5,35 @@
         </div>
         <div :class="['vlc-pullDown-content',drag?'drag':'']"
              :style="{ 'transform': 'translate3d(0, ' + translateY + 'px, 0)' ,'height':height}" ref="content" >
-            <slot name="content">
-                <ul class="vlc-pullDown-main">
+            <div class="vlc-pullDown-box" >
+                <slot name="content">
+                    <ul class="vlc-pullDown-main">
 
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
 
-                </ul>
-            </slot>
+                    </ul>
+                </slot>
+            </div>
 
         </div>
         <div class="vlc-pullDown-bottom" ref="bottom"  v-show="hasMore">
@@ -404,11 +406,18 @@
         margin-top: -40px
     }
 
-    .vlc-pullDown .vlc-pullDown-main {
+    .vlc-pullDown .vlc-pullDown-box {
         display: inline-block;
         width: -webkit-fill-available;
         min-height:100%;
         background: #ffffff;
+    }
+
+    .vlc-pullDown .vlc-pullDown-main {
+        display: inline-block;
+        width: -webkit-fill-available;
+        min-height:100%;
+
     }
 
     .vlc-pullDown .vlc-pullDown-main li {
