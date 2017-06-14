@@ -80,7 +80,6 @@
                 this.dispatch('Picker', 'ok',this.date)
             },
             change(target,current) {
-                console.log(current)
                 switch (target) {
 
                     case 'year':
@@ -95,9 +94,6 @@
 
 //                        !!this.monthList ? this.currentMonth = this.monthList[0].code : '';
 //                        !!this.dayList ? this.currentDay = this.dayList[0].code : '';
-
-
-
 
 
                         break;

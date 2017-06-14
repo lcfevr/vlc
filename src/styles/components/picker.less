@@ -20,7 +20,7 @@
       z-index:10;
   }
 
-  .vlc-picker,.vlc-date-picker {
+  .vlc-picker,.vlc-date-picker,.vlc-normal-picker {
 
 
     .header {
@@ -30,18 +30,15 @@
       color: @ThemeColor;
 
       .left, .right {
-        width: 44px;
+
         height: @PickerHeaderHeight;
         line-height: @PickerHeaderHeight;
         font-size: @PickerTxtSize;
-      }
-      .left {
-        padding-left: @SpaceHor;
-      }
-      .right {
-        padding-right: @SpaceHor;
+        padding:0 @SpaceHor;
         font-weight: bold;
       }
+
+
     }
 
     .main {
@@ -76,32 +73,38 @@
           color: @PickerTxtColor;
 
           &.level_1 {
-            transform: rotateY(3deg);
+            transform: rotateY(15deg);
+            transform-style: preserve-3d;
             font-size: @PickerTxtSize - 2;
             opacity: .7;
           }
           &.level_1_1 {
-            transform: rotateY(-3deg);
+            transform: rotateY(-15deg);
+            transform-style: preserve-3d;
             font-size: @PickerTxtSize - 2;
             opacity: .7;
           }
           &.level_2 {
-            transform: rotateY(5deg);
+            transform: rotateY(20deg);
+            transform-style: preserve-3d;
             font-size: @PickerTxtSize - 3;
             opacity: .5;
           }
           &.level_2_1 {
-            transform: rotateY(-5deg);
+            transform: rotateY(-20deg);
+            transform-style: preserve-3d;
             font-size: @PickerTxtSize - 3;
             opacity: .5;
           }
           &.level_3 {
-            transform: rotateY(7deg);
+            transform: rotateY(45deg);
+            transform-style: preserve-3d;
             font-size: @PickerTxtSize - 4;
             opacity: .3;
           }
           &.level_3_1 {
-            transform: rotateY(-7deg);
+            transform: rotateY(-45deg);
+            transform-style: preserve-3d;
             font-size: @PickerTxtSize - 4;
             opacity: .3;
           }

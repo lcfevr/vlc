@@ -114,8 +114,11 @@
                     city: {code: this.city, name: this.cityName},
                     district: {code: this.district, name: this.districtName}
                 })
-            }
+            },
+
         },
+
+
         computed: {
             classes(){
                 return [

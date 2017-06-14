@@ -12,7 +12,8 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="AreaPicker"  @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
+        <Picker type="NormalPicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible" :list="listss"
+                :init-arr="inita"></Picker>
         <v-button :disabled="false" :loading="disable" @on-click="showMessage">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
@@ -50,11 +51,7 @@
         </Slide-bar>
         <Tab :items="items" v-model="maskCloseble"></Tab>
 
-        <modal :mask-closable="maskCloseble" width="2.5rem" v-model="visible"
-               title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的"
-               @on-ok="ok">
-            <p slot="header">111</p>
-        </modal>
+
         <PullDown :refresh="topMethod" :load-more="topMethod" @on-change-up-status="getStatus" ref="pulldown">
 
         </PullDown>
@@ -73,18 +70,18 @@
         <span>{{texts}}</span>
         <Number v-model="number" :min="1" :max="10" :focus="true"></Number>
         <span>{{number}}</span>
-        <Upload :multiple="true"  @on-change-file="onChangeFile" ref="upload"></Upload>
+        <Upload :multiple="true" @on-change-file="onChangeFile" ref="upload"></Upload>
         <img :src="item.base64" v-for="item in files"/>
         <SwitchBar v-model="check" size="large"></SwitchBar>
         <span>{{check}}</span>
         <SwitchBar size="large"></SwitchBar>
 
 
-
         <v-button :inline="true" width="40%" type="warning" :loading="loading" @on-click="load"></v-button>
         <v-button :inline="true" width="40%" type="success"></v-button>
         <Rater v-model="rate" disabled></Rater>
         {{rate}}
+
     </div>
 </template>
 
@@ -94,28 +91,62 @@
 
         filters: {},
         directives: {},
-        components: {
-
-        },
+        components: {},
         data () {
             return {
-                loading:false,
-                rate:3.8,
-                check:false,
-                files:[
-                    {user_id:10,
-                        id:6,
-                        deleted_at:null,
-                        created_at:"2016-05-13 09:17:22",
-                        cover_photo:"http://hellobi-image.qiniudn.com/68aAvN4TsU.jpg",
-                        image:"http://hellobi-image.qiniudn.com/68aAvN4TsU.jpg",
-                        origin_name:"36kr",
-                        origin_url:"http://36kr.com/p/5045728.html",
-                        recommended:0,
-                        status:"published",
-                        title:"应用人工智能和机器学习，医渡云专注挖掘医疗大数据",
-                        updated_at:"2017-05-17 20:37:23",
-                        view_count:151}
+                inita: ['w', 'e', 'r'],
+                listss: [
+                    {
+                        target: 'a',
+                        list: [{value: 'w'}, {value: 2, code: 2}, {value: 3, code:3}, {
+                            value: 4,
+                            code: 4
+                        }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
+                            value: 8,
+                            code: 8
+                        }, {value: 9, code: 9}, {value: 0, code: 0}]
+                    },
+                    {
+                        target: 'b',
+                        list: [{value: 'e'}, {value: 2, code: 2}, {value: 3, code:3}, {
+                            value: 4,
+                            code: 4
+                        }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
+                            value: 8,
+                            code: 8
+                        }, {value: 9, code: 9}, {value: 0, code: 0}]
+                    },
+                    {
+                        target: 'c',
+                        list: [{value: 'r'}, {value: 2, code: 2}, {value: 3, code:3}, {
+                            value: 4,
+                            code: 4
+                        }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
+                            value: 8,
+                            code: 8
+                        }, {value: 9, code: 9}, {value: 0, code: 0}]
+                    }
+                ],
+
+                loading: false,
+                rate: 3.8,
+                check: false,
+                files: [
+                    {
+                        user_id: 10,
+                        id: 6,
+                        deleted_at: null,
+                        created_at: "2016-05-13 09:17:22",
+                        cover_photo: "http://hellobi-image.qiniudn.com/68aAvN4TsU.jpg",
+                        image: "http://hellobi-image.qiniudn.com/68aAvN4TsU.jpg",
+                        origin_name: "36kr",
+                        origin_url: "http://36kr.com/p/5045728.html",
+                        recommended: 0,
+                        status: "published",
+                        title: "应用人工智能和机器学习，医渡云专注挖掘医疗大数据",
+                        updated_at: "2017-05-17 20:37:23",
+                        view_count: 151
+                    }
                 ],
                 number: 1,
                 msgTip: '',
@@ -210,12 +241,12 @@
         },
         mounted () {
 
+            console.error(this.inita)
+            this.$Modal.confirm({showHead: false, showCancle: false, cancleText: '取消', body: '啊实多多多多打实', loading: true})
 
-            this.$Modal.confirm({showHead:false,showCancle:false,cancleText:'取消',body:'啊实多多多多打实',loading:true})
-
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.$Modal.remove()
-            },5000)
+            }, 5000)
 
         },
         beforeDestroy () {

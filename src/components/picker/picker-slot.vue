@@ -14,6 +14,7 @@
                                                 'level_3':index - current.index <= -3}"
                 :style="{textAlign:align,height:height+'px'}">{{item.value}}
 
+
             </li>
             <li :style="{height:height+'px'}"></li>
             <li :style="{height:height+'px'}"></li>
@@ -53,23 +54,25 @@
             initItem(value){
 
 
-                    if (!value) {
-                        this.current = Object.assign({}, this.current, {
-                            code: '',
-                            target: this.target,
-                            index: '',
-                            value: ''
-                        });
-                        this.$emit('change', this.target, this.current)
-                    } else {
-                        this.scrollToItem(value)
-                    }
+                if (!value) {
+                    this.current = Object.assign({}, this.current, {
+                        code: '',
+                        target: this.target,
+                        index: '',
+                        value: ''
+                    });
+                    this.$emit('change', this.target, this.current)
+                } else {
+                    this.scrollToItem(value)
+                }
             }
 
+
         },
+
         mounted(){
-            console.log(this.initItem)
-            if (!this.initItem) {
+
+            if (!this.initItem && this.initItem !== 0) {
                 this.current = Object.assign({}, this.current, {code: '', target: this.target, index: '', value: ''});
                 this.$emit('change', this.target, this.current)
             } else {
@@ -161,13 +164,14 @@
                 return index;
             },
             setSelectedItem(index){
+
                 this.translateY = this.currentTranslateY = -index * this.height;
                 try {
 
                     this.current = Object.assign({}, this.current, {
                         code: this.list[index].code,
                         value: this.list[index].value,
-                        target: this.list[index].target,
+                        target: this.target,
                         index: index
                     });
 

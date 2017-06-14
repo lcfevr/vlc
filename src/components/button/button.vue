@@ -2,7 +2,7 @@
     <div :class="classes" :style="wrapperStyles">
         <button :style="styles"  :class="buttonClass" :disabled="disabled" @click="emit">
             <slot name="left"><span class="loading" v-show="loading"></span></slot>
-            <slot name="button-inner"><span>确定</span></slot>
+            <slot><span>确定</span></slot>
             <slot name="right"></slot>
         </button>
     </div>
