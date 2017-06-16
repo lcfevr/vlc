@@ -12,8 +12,7 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="NormalPicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible" :list="listss"
-                :init-arr="inita"></Picker>
+        <Picker type="DatePicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible" ></Picker>
         <v-button :disabled="false" :loading="disable" @on-click="showMessage">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
@@ -44,7 +43,6 @@
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
-
             </div>
             <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow"></div>
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
@@ -82,13 +80,14 @@
         <Rater v-model="rate" disabled></Rater>
         {{rate}}
 
+        <Spinner type="blade" size="60"></Spinner>
+
     </div>
 </template>
 
 <script>
 
     export default {
-
         filters: {},
         directives: {},
         components: {},
@@ -98,7 +97,7 @@
                 listss: [
                     {
                         target: 'a',
-                        list: [{value: 'w'}, {value: 2, code: 2}, {value: 3, code:3}, {
+                        list: [{value: 'w',code:1}, {value: 2, code: 2}, {value: 3, code:3}, {
                             value: 4,
                             code: 4
                         }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
@@ -108,7 +107,7 @@
                     },
                     {
                         target: 'b',
-                        list: [{value: 'e'}, {value: 2, code: 2}, {value: 3, code:3}, {
+                        list: [{value: 'e',code:1}, {value: 2, code: 2}, {value: 3, code:3}, {
                             value: 4,
                             code: 4
                         }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
@@ -118,7 +117,7 @@
                     },
                     {
                         target: 'c',
-                        list: [{value: 'r'}, {value: 2, code: 2}, {value: 3, code:3}, {
+                        list: [{value: 'r',code:1}, {value: 2, code: 2}, {value: 3, code:3}, {
                             value: 4,
                             code: 4
                         }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
@@ -236,13 +235,14 @@
                 mode: 'javascript',
                 text: 'test',
                 disable: false,
-
             }
         },
         mounted () {
-
+            let c = 1
+            let b = 1
+            this.a({b,c})
             console.error(this.inita)
-            this.$Modal.confirm({showHead: false, showCancle: false, cancleText: '取消', body: '啊实多多多多打实', loading: true})
+            this.$Modal.confirm({showHead: false, title:'a',showCancle: false, cancleText: '取消', body: '啊实多多多多打实', loading: true})
 
             setTimeout(() => {
                 this.$Modal.remove()
@@ -254,6 +254,12 @@
 
         },
         methods: {
+            async a(a){
+                await setTimeout(()=>{
+                    console.log(a.c)
+                    console.log(a.b)
+                })
+            },
             load(){
                 this.loading = !this.loading
             },
@@ -308,7 +314,8 @@
             },
             showMessage(){
                 this.$Message.show({text: 'asdasdasdasd'})
-            }
+            },
+
 
         }
     }

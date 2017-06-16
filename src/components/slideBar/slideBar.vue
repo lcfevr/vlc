@@ -2,11 +2,11 @@
     <div :class="classes" :style="getStyles">
         <div :class="['vlc-slideBar-header',fixed ? 'fixed':'']" ref="header">
             <div :class="wrapperClasses" ref="wrapper"
-                 :style="{width:isFlex ? 'auto' : items.length * itemWidth + 'px'}">
+                 :style="{width:isFlex ? 'auto' : items.length * getItemWidth + 'px'}">
                 <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!isFlex ? 'normalChild':'']"
                      v-for="(item,key) in items"
                      @click="changeBar(key,$event)"
-                     :style="{textAlign:textAlign,width:itemWidth+'px',height:scrollHeight,lineHeight:scrollHeight}">
+                     :style="{textAlign:textAlign,width:getItemWidth+'px',height:scrollHeight,lineHeight:scrollHeight}">
                     <slot :name="'slide-bar-header-'+key">
                         <a class="content ellipse-fir">{{item.name}}</a>
                     </slot>
@@ -90,14 +90,15 @@
         },
         mounted (){
             this.clientWidth = this.$el.clientWidth;
-            if (this.itemWidth * this.items.length < this.clientWidth) this.isFlex = true;
-
-            this.itemWidth = this.isFlex ? this.clientWidth / this.items.length : this.itemWidth;
+            if (this.getItemWidth * this.items.length < this.clientWidth) this.isFlex = true;
             this.translateX = -this.startIndex * this.clientWidth;
             this.onScroll();
             this.bindEvents();
         },
         computed: {
+            getItemWidth(){
+                return this.isFlex ? this.clientWidth / this.items.length : this.childWidth;
+            },
 
             classes(){
                 return [
@@ -144,13 +145,13 @@
             getScrollStyle(){
 
                 return {
-                    width: `${this.itemWidth}px`,
-                    transform: `translate3d(${this.startIndex * this.itemWidth}px,0,0)`,
+                    width: `${this.getItemWidth}px`,
+                    transform: `translate3d(${this.startIndex * this.getItemWidth}px,0,0)`,
                     backgroundColor: this.scrollColor
                 }
             },
             wrapperWidth(){
-                return this.isFlex ? `auto` : `${this.itemWidth * this.items.length}px`
+                return this.isFlex ? `auto` : `${this.getItemWidth * this.items.length}px`
             },
             maxIndex(){
                 return this.items.length - 1
@@ -169,7 +170,6 @@
                 dragging: false,
                 distance: 0,
                 items: this.list,
-                itemWidth: this.childWidth,
                 fixed: false,
                 isFlex: this.flex
             }
@@ -177,9 +177,9 @@
 
         methods: {
             changeBar(index, event){
-
                 if (this.startIndex == index) return;
                 this.startIndex = index;
+                console.log(this.startIndex)
                 this.translateX = -this.startIndex * this.clientWidth;
                 this.$emit('on-change', index)
             },
@@ -224,7 +224,7 @@
 
                     this.translateX = this.startTranslateX - this.clientWidth
                 }
-                this.$emit('on-change', index)
+                this.$emit('on-change', this.startIndex)
             },
             onSlideRight(){
                 if (--this.startIndex < 0) {
@@ -234,7 +234,8 @@
 
                     this.translateX = this.startTranslateX + this.clientWidth
                 }
-                this.$emit('on-change', index)
+                console.log(this.startIndex)
+                this.$emit('on-change', this.startIndex)
             },
             onScroll(e){
                 this.$el.getBoundingClientRect().top <= 0 ? this.fixed = true : this.fixed = false
@@ -242,7 +243,6 @@
             onResize(){
 
                 this.clientWidth = this.$el.clientWidth;
-                this.itemWidth = this.isFlex ? this.clientWidth / this.items.length : this.itemWidth;
 
             },
             bindEvents(){
@@ -281,9 +281,7 @@
             startIndex(val){
                 this.translateX = -val * this.clientWidth;
             },
-            childWidth(val){
-                this.itemWidth = val;
-            },
+
             list(val) {
                 this.items = val;
             }

@@ -27,6 +27,7 @@ function confirm (options) {
 
     }
 
+
     instance.show(options)
 }
 
@@ -41,7 +42,7 @@ Modal.info = function (props={}){
 Modal.confirm = function (props={}) {
 
     props.showCancle = false;
-
+    props.showHead = false;
 
     return confirm(props)
 }

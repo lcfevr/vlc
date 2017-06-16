@@ -14,9 +14,9 @@
 <template>
     <div>
         <transition :name="direction">
-            <keep-alive>
-                <router-view   class="page"></router-view>
-            </keep-alive>
+
+            <router-view   class="page"></router-view>
+
         </transition>
     </div>
 </template>

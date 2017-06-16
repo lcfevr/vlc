@@ -93,6 +93,7 @@
                 buttonLoading:false
             }
         },
+
         components:{
             VButton
         },
@@ -152,6 +153,9 @@
             value(val) {
                 this.visible = val
             },
+            showHead(val){
+                this.isHead = val
+            }
 
         },
 
@@ -159,6 +163,7 @@
 
 
             document.addEventListener('keydown',this.EscClose)
+            console.log(this.isHead)
         },
         beforeDestroy(){
             document.addEventListener('keydown',this.EscClose)

@@ -15,23 +15,18 @@ Modal.newInstance = properties =>{
 
     let props = '';
 
-    Object.keys(props).forEach( prop =>{
+    Object.keys(_props).forEach( prop =>{
 
         props += ' :'+camelcaseToHyphen(prop) + '=' + prop
     })
 
-
     const div = document.createElement('div');
-
-
-
 
     document.body.appendChild(div);
 
     const modal = new Vue({
         el:div,
         template:`<Modal ${props} v-model="visible" :width="width" >
-                        
                         <div class="${prefixCls}-header-inner  ellipse-fir"  v-html="title" slot="header"></div>
                         <div class="${prefixCls}-body-inner" v-html="body" slot="body"></div>
                         <template slot="footer">
@@ -46,7 +41,7 @@ Modal.newInstance = properties =>{
         data:Object.assign(_props,{
 
             visible:false,
-            width:'220px',
+            width:'70%',
             body:'',
             title:'',
             okText:'确定',
@@ -54,6 +49,7 @@ Modal.newInstance = properties =>{
             loading:false,
             buttonLoading:false,
             showCancle:true,
+            showHead:true,
             onOk:function(){},
             onCancle:function(){},
             onRemove:function(){}
@@ -110,7 +106,9 @@ Modal.newInstance = properties =>{
                 modal.$parent.title = props.title
             }
 
-
+            if ('showHead' in props) {
+                modal.$parent.showHead = props.showHead
+            }
 
             if ('content' in props) {
                 modal.$parent.body = props.content

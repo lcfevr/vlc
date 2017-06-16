@@ -43,13 +43,17 @@
     import normalProps from './normal-picker/props'
     const AreaPicker = resolve => require(['./area-picker/area-picker.vue'], resolve);
     const DatePicker = resolve => require(['./date-picker/date-picker.vue'], resolve);
-    const NormalPicker = resolve => require(['./normal-picker/normal-picker.vue'],resolve)
+    const NormalPicker = resolve => require(['./normal-picker/normal-picker.vue'],resolve);
+    const LIST = ['DatePicker','AreaPicker','NormalPicker']
     export default {
         name: 'Picker',
         props: {
             type: {
                 type: String,
-                default: 'DatePicker'
+                default: 'DatePicker',
+                validator(val){
+                    return LIST.indexOf(val) > -1
+                }
             },
             value: {
                 type: Boolean,
@@ -65,7 +69,7 @@
         },
         created(){
             this.$on('ok', (val) => {
-                console.log(val)
+
                 this.visible = false;
                 this.$emit('sure', val)
             });

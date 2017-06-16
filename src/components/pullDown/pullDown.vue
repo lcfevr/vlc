@@ -30,6 +30,18 @@
                         <li>1</li>
                         <li>1</li>
                         <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+                        <li>1</li>
+
 
                     </ul>
                 </slot>
@@ -387,7 +399,6 @@
 
     .vlc-pullDown-content {
         overflow: scroll;
-        -webkit-overflow-scrolling : touch;
         transition: all .2s ease-in;
         will-change: transform
     }
@@ -407,6 +418,7 @@
     }
 
     .vlc-pullDown .vlc-pullDown-box {
+
         display: inline-block;
         width: -webkit-fill-available;
         min-height:100%;

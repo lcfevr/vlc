@@ -28,7 +28,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 query:{
-                    presets: ['es2015','stage-3']
+                    presets: ['es2015','stage-0']
                 },
                 loader: 'babel-loader',
                 exclude: /node_modules/
@@ -61,6 +61,8 @@ module.exports = {
             { test: /\.(html|tpl)$/, loader: 'html-loader' }
         ]
     },
+
+
 
     resolve: {
         extensions: ['.js', '.vue'],

@@ -15,6 +15,7 @@
                 :style="{textAlign:align,height:height+'px'}">{{item.value}}
 
 
+
             </li>
             <li :style="{height:height+'px'}"></li>
             <li :style="{height:height+'px'}"></li>
@@ -23,7 +24,9 @@
 </template>
 
 <script>
+    import {findComponentUpward} from '../../utils/util'
     const prefixCls = 'vlc-picker-slot';
+
     export default {
         data(){
             return {
@@ -189,11 +192,12 @@
 
             },
             scrollToItem (code){
-
+                let parent = findComponentUpward(this, 'AreaPicker');
                 this.list.forEach((item, i) => {
-
-                    if (item.code == code) {
-
+                    let currentCode = item.code;
+                    let currentValue = item.value;
+                    currentCode = !!parent ? currentCode : currentValue;
+                    if (currentCode == code) {
                         this.currentTranslateY = this.translateY;
                         this.setSelectedItem(i)
                     }

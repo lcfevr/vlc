@@ -20,8 +20,7 @@ import Upload from './components/upload'
 import ActionSheet from './components/action-sheet'
 import SwitchBar from './components/switchbar'
 import Rater from './components/rater'
-
-
+import Spinner from './components/spinner'
 
 const vlc = {
 
@@ -45,7 +44,8 @@ const vlc = {
     Upload,
     ActionSheet,
     SwitchBar,
-    Rater
+    Rater,
+    Spinner
 
 };
 

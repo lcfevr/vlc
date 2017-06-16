@@ -33,7 +33,7 @@ module.exports = merge(webpackBaseConfig, {
             // test: /\.xxx$/, // may apply this only for some modules
             options: {
                 babel:{
-                    presets: ['es2015'],
+                    presets: ['es2015','stage-0'],
                     plugins: ['transform-runtime']
                 }
             }

@@ -14,7 +14,7 @@ Prompt.newInstance = properties => {
 
     let props = '';
 
-    Object.keys(props).forEach(prop => {
+    Object.keys(_props).forEach(prop => {
 
         props += ' :' + camelcaseToHyphen(prop) + '=' + prop
     })
@@ -46,7 +46,7 @@ Prompt.newInstance = properties => {
             text:'',
             placeholderText: '请输入',
             visible: false,
-            width: '220px',
+            width: '70%',
             title: '',
             okText: '确定',
             cancleText: '取消',

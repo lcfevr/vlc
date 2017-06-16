@@ -59,6 +59,7 @@
 
                             if (current.code == this.shadowList[i].list[j].code) {
                                 this.$set(this.initItems,i,this.shadowList[i].list[j].code)
+                                break;
                             }
                         }
                     }
