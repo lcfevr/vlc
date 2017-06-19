@@ -14,13 +14,14 @@ import Swipe from './components/swipe'
 import Tab from './components/tab'
 import Prompt from './components/prompt'
 import SlideBar from './components/slideBar'
-import PullDown from './components/pullDown'
+
 import TextBar from './components/Text'
 import Upload from './components/upload'
 import ActionSheet from './components/action-sheet'
 import SwitchBar from './components/switchbar'
 import Rater from './components/rater'
 import Spinner from './components/spinner'
+import LoadMore from './components/loadMore'
 
 const vlc = {
 
@@ -38,14 +39,14 @@ const vlc = {
     Swipe,
     Tab,
     SlideBar,
-    PullDown,
     TextBar,
     Number:TextBar.Number,
     Upload,
     ActionSheet,
     SwitchBar,
     Rater,
-    Spinner
+    Spinner,
+    LoadMore
 
 };
 

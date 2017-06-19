@@ -50,9 +50,74 @@
         <Tab :items="items" v-model="maskCloseble"></Tab>
 
 
-        <PullDown :refresh="topMethod" :load-more="topMethod" @on-change-up-status="getStatus" ref="pulldown">
+        <Load-more :refresh="topMethod" ref="loadmore" :load-more="topMethod" @on-change-up-status="getStatus" >
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
+            <div style="width: 100%;height: 50px;">1</div>
 
-        </PullDown>
+        </Load-more>
 
 
         <Editor :theme="theme" :value="value"></Editor>
@@ -247,6 +312,12 @@
             setTimeout(() => {
                 this.$Modal.remove()
             }, 5000)
+
+
+            setTimeout(()=>{
+                console.log('1')
+                this.$refs.loadmore.onLoadOff()
+            },8000)
 
         },
         beforeDestroy () {

@@ -1,0 +1,42 @@
+.vlc-loadmore {
+  height:100%;
+  overflow-y:scroll ;
+  box-sizing: border-box;
+  &-top ,&-bottom{
+    position: relative;
+    height: 0;
+    line-height:40px;
+    overflow: hidden;
+    font-size: 14px;
+    transform:translateZ(0);
+
+    .vlc-loadmore-status {
+      vertical-align: middle;
+      height:40px;
+      line-height:40px;
+      text-align: center;
+      .spinner {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .vlc-loadmore-text {
+        margin-left:5px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  &-bottom {
+    height:40px;
+  }
+
+  &-content {
+    height:auto;
+    background: #ffffff;
+
+  }
+
+  &-drag {
+    transition: all .3s linear;
+  }
+}
