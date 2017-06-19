@@ -128,7 +128,7 @@
             if (this.auto && this.refresh && typeof this.refresh == 'function') {
                 this.translateY = 40;
                 this.drag = false;
-                this.direction= 'down'
+                this.direction= 'down';
                 this.upStatus = 'loading';
                 this.refresh()
             }
@@ -156,10 +156,10 @@
                     if (absY > 50 && this.downStatus === 'drop') {
                         this.downStatus = '';
                     } else if (absY <= 50 && absY > this.downDistance && this.hasMore) {
-                        console.log('a')
+
                         this.downStatus = 'drop';
                     } else if (absY <= this.downDistance) {
-                        console.log('b')
+
                         this.downStatus = 'loading';
 
                         if (this.hasMore) {
@@ -190,7 +190,7 @@
                 let distance = (this.currentY - this.startY) / this.speed;
                 let scrollTop = this.$el.scrollTop;
                 this.direction = distance > 0 ? 'down' : 'up';
-                console.log(this.direction)
+
                 if (this.currentY >= this.startY && typeof this.refresh === 'function' && scrollTop === 0 && this.direction === 'down' ) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -234,7 +234,7 @@
                 this.$el.addEventListener('touchmove', this.onTouchMove, false);
                 this.$el.addEventListener('touchend', this.onTouchEnd, false);
             },
-            unbindEvent(){
+            unbindEvents(){
                 this.$el.removeEventListener('touchstart', this.onTouchStart, false);
                 this.$el.removeEventListener('touchmove', this.onTouchMove, false);
                 this.$el.removeEventListener('touchend', this.onTouchEnd, false);
@@ -258,7 +258,7 @@
                 this.$emit('on-change-up-status', val)
             },
             downStatus(val){
-                console.log(val)
+
                 switch (val) {
                     case 'end':
                         this.downText = this.downEndText;
@@ -278,6 +278,9 @@
                 }
                 this.$emit('on-change-down-status', val)
             }
+        },
+        beforeDestroy(){
+            this.unbindEvents();
         }
 
     }

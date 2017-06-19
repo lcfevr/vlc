@@ -14,7 +14,6 @@ import Swipe from './components/swipe'
 import Tab from './components/tab'
 import Prompt from './components/prompt'
 import SlideBar from './components/slideBar'
-
 import TextBar from './components/Text'
 import Upload from './components/upload'
 import ActionSheet from './components/action-sheet'
