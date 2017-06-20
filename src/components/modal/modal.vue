@@ -8,12 +8,12 @@
 
     <transition name="vlc-ani-scale">
         <div class="v-lc-modal " :style="getWrapperStyle" v-show="visible" >
-            <div class="v-lc-modal-header" v-if="isHead"><slot name="header"><div class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
+            <div class="v-lc-modal-header" v-if="isHead"><slot name="header"><div slot="header" class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
             <div class="v-lc-modal-body"><slot name="body">{{body}}</slot></div>
             <div class="v-lc-modal-footer" v-if="!footerHide">
                 <slot name="footer">
-                    <v-button :styles="{background:'#ffffff',color:'red'}" @on-click="ok" :loading="buttonLoading">{{okText}}</v-button>
-                    <v-button :styles="{background:'#ffffff',color:'red'}" @on-click="close" v-if="cancleText">{{cancleText}}</v-button>
+                    <v-button type="primary" @on-click="close" v-if="cancleText">{{cancleText}}</v-button>
+                    <v-button type="normal" @on-click="ok" :loading="buttonLoading">{{okText}}</v-button>
                 </slot>
             </div>
         </div>
@@ -123,7 +123,7 @@
                 this.$emit('on-cancle')
             },
             mask(){
-                if (!this.maskClosable) {
+                if (!this.maskClosable && !this.buttonLoading) {
                     this.close()
                 }
 
@@ -155,7 +155,8 @@
             },
             showHead(val){
                 this.isHead = val
-            }
+            },
+
 
         },
 

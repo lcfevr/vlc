@@ -4,7 +4,7 @@
 
 import VButton from './components/button'
 import CheckBox from './components/checkBox'
-import Editor from './components/editor'
+
 import Header from './components/Header'
 import Message from './components/message'
 import Modal from './components/modal'
@@ -21,6 +21,7 @@ import SwitchBar from './components/switchbar'
 import Rater from './components/rater'
 import Spinner from './components/spinner'
 import LoadMore from './components/loadMore'
+import Popup from './components/popup'
 
 const vlc = {
 
@@ -29,7 +30,6 @@ const vlc = {
     CheckBoxGroup:CheckBox.group,
     Radio,
     RadioGroup:Radio.group,
-    Editor,
     Header,
     Message,
     Modal,
@@ -45,7 +45,8 @@ const vlc = {
     SwitchBar,
     Rater,
     Spinner,
-    LoadMore
+    LoadMore,
+    Popup
 
 };
 

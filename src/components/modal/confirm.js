@@ -30,8 +30,9 @@ Modal.newInstance = properties =>{
                         <div class="${prefixCls}-header-inner  ellipse-fir"  v-html="title" slot="header"></div>
                         <div class="${prefixCls}-body-inner" v-html="body" slot="body"></div>
                         <template slot="footer">
-                             <v-button :styles="{background:'#ffffff',color:'red'}"  @on-click="ok" :loading="buttonLoading"><span slot="button-inner">{{okText}}</span></v-button>
-                             <v-button :styles="{background:'#ffffff',color:'#ccc'}"  @on-click="cancle"  v-if="showCancle"><span slot="button-inner">{{cancleText}}</span></v-button>
+                            <v-button type="primary" :radius="false" @on-click="cancle"  v-if="showCancle">{{cancleText}}</v-button>
+                             <v-button type="normal" :radius="false" @on-click="ok" :loading="buttonLoading">{{okText}}</v-button>
+
                         </template>
                     </Modal>`,
         components:{
@@ -39,7 +40,6 @@ Modal.newInstance = properties =>{
             VButton
         },
         data:Object.assign(_props,{
-
             visible:false,
             width:'70%',
             body:'',

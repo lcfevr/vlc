@@ -5,7 +5,7 @@
             <div :class="itemClasses" v-for="(item,index) in arrayList" v-if="arrayList.length">
                 <template v-if="isMultiple">
                     <div class="vlc-swipe-multiple" v-for="(_item,$index) in item" @click="choose(_item,$index)">
-                        <slot :name="'slide-'+$index" :item="_item" :index="$index">
+                        <slot  :item="_item" :index="$index">
                             <img :src="_item.image"/>
                             <span>{{_item.spec}}</span>
                         </slot>
@@ -13,7 +13,7 @@
                 </template>
                 <template v-else>
                     <div class="vlc-swipe-single" @click="choose(item,index)">
-                        <slot :name="'slide-'+index" :item="item" :index="index">
+                        <slot :item="item" :index="index">
                             <img :src="item.image">
                             <span>{{item.spec}}</span>
                         </slot>
@@ -268,11 +268,11 @@
 
             onTouchEnd(e){
 
-                if (this.distance < 0 && Math.abs(this.distance) > this.clientWidth / 2) {
+                if (this.distance < 0 && Math.abs(this.distance) > this.clientWidth / 5) {
 
                     this.loop && this.auto ? this.onLoopSlideLeft() : this.onSlideLeft()
 
-                } else if (this.distance > 0 && Math.abs(this.distance) > this.clientWidth / 2) {
+                } else if (this.distance > 0 && Math.abs(this.distance) > this.clientWidth / 5) {
 
                     this.loop && this.auto ? this.onLoopSlideRight() : this.onSlideRight()
 

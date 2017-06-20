@@ -13,7 +13,7 @@
 
         </div>
         <Picker type="DatePicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible" ></Picker>
-        <v-button :disabled="false" :loading="disable" @on-click="showMessage">确定</v-button>
+        <v-button  :loading="disable" @on-click="popup = true">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
 
@@ -120,13 +120,17 @@
         </Load-more>
 
 
-        <Editor :theme="theme" :value="value"></Editor>
-        <Swipe :auto="true" :perpage="1" :loop="true" :list="files">
-            <div :slot="'slide-'+index" v-for="(item,index) in files">
-                <img :src="item.image"/>
-                <span>{{item.spec}}</span>
-            </div>
 
+        <Swipe :auto="true" :perpage="1" :loop="true" :list="files">
+            <template scope="props">
+
+                <div >
+                        <span>{{props.item.id}}</span>
+                        <img :src="props.item.image"/>
+                        <span v-text="props.index"></span>
+                </div>
+
+            </template>
         </Swipe>
 
         <TextBar v-model="texts" type="textarea" :maxlength="9"></TextBar>
@@ -141,11 +145,14 @@
 
 
         <v-button :inline="true" width="40%" type="warning" :loading="loading" @on-click="load"></v-button>
-        <v-button :inline="true" width="40%" type="success"></v-button>
+        <v-button :inline="true" disabled width="40%" type="success"></v-button>
         <Rater v-model="rate" disabled></Rater>
         {{rate}}
 
         <Spinner type="blade" size="60"></Spinner>
+        <Action-sheet :items="actionSheet" v-model="popup">
+
+        </Action-sheet>
 
     </div>
 </template>
@@ -158,6 +165,7 @@
         components: {},
         data () {
             return {
+                popup:false,
                 inita: ['w', 'e', 'r'],
                 listss: [
                     {
@@ -210,6 +218,21 @@
                         title: "应用人工智能和机器学习，医渡云专注挖掘医疗大数据",
                         updated_at: "2017-05-17 20:37:23",
                         view_count: 151
+                    },
+                    {
+                        user_id: 10,
+                        id: 7,
+                        deleted_at: null,
+                        created_at: "2016-05-13 09:17:22",
+                        cover_photo: "http://hellobi-image.qiniudn.com/68aAvN4TsU.jpg",
+                        image: "http://hellobi-image.qiniudn.com/68aAvN4TsU.jpg",
+                        origin_name: "36kr",
+                        origin_url: "http://36kr.com/p/5045728.html",
+                        recommended: 0,
+                        status: "published",
+                        title: "应用人工智能和机器学习，医渡云专注挖掘医疗大数据",
+                        updated_at: "2017-05-17 20:37:23",
+                        view_count: 152
                     }
                 ],
                 number: 1,
@@ -300,6 +323,11 @@
                 mode: 'javascript',
                 text: 'test',
                 disable: false,
+                actionSheet:[
+                    {text:'aaa'},
+                    {text:'bbb'},
+                    {text:'ccc'},
+                ]
             }
         },
         mounted () {
@@ -307,11 +335,8 @@
             let b = 1
             this.a({b,c})
             console.error(this.inita)
-            this.$Modal.confirm({showHead: false, title:'a',showCancle: false, cancleText: '取消', body: '啊实多多多多打实', loading: true})
+            this.$Modal.info({showHead: true, title:'提示',showCancle: false, cancleText: '取消', body: '啊实多多多多打多多多多多多实', loading: true})
 
-            setTimeout(() => {
-                this.$Modal.remove()
-            }, 5000)
 
 
             setTimeout(()=>{

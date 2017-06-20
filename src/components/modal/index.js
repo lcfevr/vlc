@@ -7,7 +7,7 @@ let modalInstance;
 
 function getModalInstance(){
     modalInstance = modalInstance || Modal.newInstance({
-            showHead:false,
+            showHead:true,
             closable:true,
             maskClosable:false,
             footerHide:false
@@ -35,7 +35,7 @@ function confirm (options) {
 Modal.info = function (props={}){
 
     props.showCancle = true;
-
+    console.log(props)
     return confirm(props)
 }
 

@@ -134,6 +134,7 @@
             }
             this.bindEvents();
         },
+
         methods:{
             onLoadOff(){
 
@@ -148,11 +149,12 @@
                 }
             },
             onScroll(e){
+
+
                 if (this.downStatus == 'loading') return;
                 let scrollTop  = this.$el.scrollTop;
-                if (this.loadMore && typeof this.loadMore == 'function' && this.direction === 'up') {
+                if (this.loadMore && typeof this.loadMore == 'function') {
                     let absY = this.$el.scrollHeight - (this.$el.offsetHeight + scrollTop);
-
                     if (absY > 50 && this.downStatus === 'drop') {
                         this.downStatus = '';
                     } else if (absY <= 50 && absY > this.downDistance && this.hasMore) {

@@ -1,21 +1,20 @@
 <template>
     <div>
-        <transition name="vlc-ani-fade">
-            <div class="mask" v-show="visible" @click="maskClose"></div>
-        </transition>
-        <transition name="vlc-ani-slide-up">
-            <div :class="classes" v-show="visible">
+        <Popup position="bottom" :mask-closable="maskClosable" v-model="visible" :styles="{background:'transparent'}">
+            <div :class="classes" >
                 <ul class="vlc-actionSheet-wrapper">
                     <li class="vlc-actionSheet-wrapper-action" v-for="(item,key) in actions" @click="emit(item,key)"><span>{{item.text}}</span></li>
                 </ul>
                 <a href="javascript:;" class="vlc-actionSheet-cancle"  @click="visible = false" v-if="cancleText">{{cancleText}}</a>
             </div>
-        </transition>
+        </Popup>
     </div>
 
 </template>
 
 <script>
+
+    import Popup from '../popup'
     const prefixCls = 'vlc-actionSheet';
 
     export default {
@@ -62,9 +61,7 @@
 
                 this.visible = false;
             },
-            maskClose(){
-                if (this.maskClosable) this.visible = false
-            }
+
 
         },
         watch:{
@@ -75,6 +72,9 @@
             visible(val){
                 this.$emit('input',val)
             }
+        },
+        components:{
+            Popup
         }
 
 

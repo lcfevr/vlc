@@ -1,7 +1,7 @@
 <template>
     <div :class="classes" :style="wrapperStyles">
         <button :style="styles"  :class="buttonClass" :disabled="disabled" @click="emit">
-            <slot name="left"><span class="loading" v-show="loading"></span></slot>
+            <slot name="left"><span class="loading" v-show="loading"><Spinner size="15" color="#eeeeee"></Spinner></span></slot>
             <slot><span>确定</span></slot>
             <slot name="right"></slot>
         </button>
@@ -9,8 +9,9 @@
 </template>
 
 <script>
-
+    import Spinner from '../spinner'
     const prefixCls = 'vlc-button';
+
     export default {
         name:'VButton',
         props: {
@@ -18,7 +19,7 @@
                 type: String,
                 default: 'normal',
                 validator: (val) => {
-                    return ['success', 'loading', 'normal', 'warning', 'danger', 'text'].indexOf(val) > -1
+                    return ['success', 'loading', 'normal','primary', 'warning', 'danger', 'text'].indexOf(val) > -1
                 }
             },
             styles: {
@@ -51,6 +52,10 @@
             loading:{
                 type:Boolean,
                 default:false
+            },
+            radius:{
+                type:Boolean,
+                default:true
             }
 
         },
@@ -88,11 +93,16 @@
                         [`${prefixCls}-warning`]: this.type == 'warning',
                         [`${prefixCls}-danger`]: this.type == 'danger',
                         [`${prefixCls}-text`]: this.type == 'text',
+                        [`${prefixCls}-primary`]: this.type == 'primary',
                         [`${prefixCls}-disabled`]: this.disabled,
-                        
+                        [`${prefixCls}-radius`]:this.radius
                     }
                 ]
             }
+        },
+
+        components:{
+            Spinner
         },
 
         methods:{

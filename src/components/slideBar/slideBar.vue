@@ -16,7 +16,8 @@
             </div>
         </div>
 
-        <div class="vlc-slideBar-container" :style="{height:height}">
+        <div class="vlc-slideB
+        ar-container" :style="{height:height}">
             <div :class="contentClasses" :style="getContainerStyle" ref="content">
                 <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]"
                      v-for="(item,index) in items">
@@ -50,7 +51,7 @@
             },
             scrollColor: {
                 type: String,
-                default: '#39f'
+                default: '#036eb8'
             },
             textAlign: {
                 type: String,

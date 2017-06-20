@@ -4,18 +4,19 @@
   top:50%;
   left:50%;
   overflow: hidden;
-  border-radius:10px;
-  box-shadow:0 0 3px 3px #555;
-  background:rgba(255,255,255,1);
+  border-radius:@BorderRadius;
+  background:@ModalBgColor;
   z-index:100;
+  color:@ModalColor;
   .v-lc-modal-header{
     text-align: center;
     padding:0 10px;
-    border-bottom: 1px solid #eee;
+    //border-bottom: 1px solid @BorderColor;
     .v-lc-modal-header-inner{
-
+      font-weight:bold;
+      font-size:20px;
       width:100%;
-      line-height:30px;
+      padding-top:20px;
     }
   }
   .v-lc-modal-body{
@@ -24,7 +25,7 @@
       text-align: center;
     }
     line-height:25px;
-    padding:20px;
+    padding:30px 20px;
     word-wrap:break-word;
     overflow-y:scroll;
   }
@@ -35,26 +36,26 @@
     flex-direction: row;
     overflow: hidden;
     .vlc-button {
-      border-top:1px solid #eeeeee;
+      border-top:1px solid @BorderColor;
     }
-    .vlc-button:nth-of-type(1){
-      border-right:1px solid #eeeeee;
-    }
+    //.vlc-button:nth-of-type(1){
+    //  border-right:1px solid @BorderColor;
+    //}
   }
   .v-lc-modal-button{
     flex:1;
     height:40px;
-    border:1px solid #eee;
+    border:1px solid @BorderColor;
     border-left: 0 none;
   }
   .v-lc-modal-button-sure{
 
     color: red;
   }
-  .v-lc-modal-button-cancle,.vlc-prompt-button-cancle{
-
-    color: #ccc;
-  }
+  //.v-lc-modal-button-cancle,.vlc-prompt-button-cancle{
+  //
+  //  color: #ccc;
+  //}
 }
 //遮罩层
 .v-lc-modal-mask{

@@ -47,7 +47,7 @@
   position: absolute;
   bottom: 0;
   height: 2px;
-  background: #39f;
+  background-color: @ThemeColor;
   transition: transform .2s ease-out;
   will-change: transform;
   z-index:3;
@@ -69,8 +69,8 @@
   line-height: 1;
 }
 
-.vlc-slideBar-wrapper .vlc-slideBar-child.active {
-
+.vlc-slideBar-wrapper .vlc-slideBar-child.active > a {
+  color: @ThemeColor;
 }
 
 .vlc-slideBar-wrapper .vlc-slideBar-child a {
@@ -121,9 +121,6 @@
 .vlc-slideBar-content {
   transition: transform .2s ease-in;
   will-change: transform;
-  position: absolute;
-  left: 0;
-  top: 0;
   height: 100%;
   display: flex;
   flex-flow: row nowrap;

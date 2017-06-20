@@ -1,14 +1,14 @@
 {
   "name": "vlc-ui",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Vue组件库",
-  "main": "dist/vlc.js",
+  "main": "dist/vlc.min.js",
   "scripts": {
     "init": "webpack --progress --config webpack.dev.config.js",
     "dev": "webpack-dev-server  --inline --hot --compress --history-api-fallback  --config webpack.dev.config.js",
     "dist:style": "gulp --gulpfile build-style.js",
     "dist:dev": "webpack --config webpack.dist.dev.config.js",
-    "dist:prod": "webpack --config webpack.dist.prod.config.js",
+    "dist:prod": "webpack -p --config webpack.dist.prod.config.js",
     "dist": "npm run dist:style && npm run dist:dev && npm run dist:prod",
     "build": "npm run dist"
   },

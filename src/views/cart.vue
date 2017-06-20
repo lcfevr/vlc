@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <PullDown :refresh="topMethod" :load-more="topMethod"></PullDown>
+
         <!--<button @click="newTip">queding</button>-->
     </div>
     <!--<modal :mask-closable="maskCloseble" width="2.5rem" :visible.sync="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">-->
@@ -13,13 +13,11 @@
 
     import Tab from '../components/tab/tab'
     import Modal from '../components/modal/modal'
-    import PullDown from '../components/pullDown/index'
-
     export default {
         components: {
             Tab,
             Modal,
-            PullDown
+
         },
         data () {
             return {

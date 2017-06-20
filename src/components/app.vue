@@ -39,9 +39,9 @@
                 if (toDepth == fromDepth) {
                     this.direction = 'vlc-ani-fade'
                 } else if(toDepth > fromDepth) {
-                    this.direction = 'vlc-ani-slide-left'
+                    this.direction = 'vlc-ani-left'
                 } else {
-                    this.direction = 'vlc-ani-slide-right';
+                    this.direction = 'vlc-ani-right';
                 }
             }
         },
