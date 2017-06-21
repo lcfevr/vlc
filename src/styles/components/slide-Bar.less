@@ -9,6 +9,7 @@
   //border-bottom: 1px solid #eee;
   //border-top: 1px solid #eee;
   .vlc-slideBar-child {
+    overflow: hidden;
 
     background-color: @SlideBackgroundCorlor;
     > a {
@@ -27,13 +28,16 @@
 
   &-header {
     overflow-x:scroll ;
+    overflow-y: hidden;
     width:100%;
-    &.fixed {
-      position: fixed;
-      top:0;
-      left:0;
-      z-index:10;
-    }
+    position: relative;
+    //&.fixed {
+    //  position: absolute;
+    //  top:0;
+    //  left:0;
+    //  z-index:10;
+    //  background: #fff;
+    //}
   }
 }
 
@@ -103,7 +107,7 @@
 
 .vlc-slideBar-slide .vlc-slideBar-child {
   display: inline-block;
-
+  margin-bottom: -3px;
 }
 
 //.vlc-slideBar-slide .vlc-slideBar-child.normalChild {

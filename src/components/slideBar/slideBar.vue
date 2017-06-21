@@ -16,8 +16,7 @@
             </div>
         </div>
 
-        <div class="vlc-slideB
-        ar-container" :style="{height:height}">
+        <div class="vlc-slideBar-container" :style="{height:height}">
             <div :class="contentClasses" :style="getContainerStyle" ref="content">
                 <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]"
                      v-for="(item,index) in items">
@@ -84,14 +83,14 @@
                 type: Boolean,
                 default: true
             },
-            isFixedHeader: {
-                type: Boolean,
-                default: false
-            }
+//            isFixedHeader: {
+//                type: Boolean,
+//                default: false
+//            }
         },
         mounted (){
             this.clientWidth = this.$el.clientWidth;
-            if (this.getItemWidth * this.items.length < this.clientWidth) this.isFlex = true;
+//            if (this.getItemWidth * this.items.length < this.clientWidth) this.isFlex = true;
             this.translateX = -this.startIndex * this.clientWidth;
             this.onScroll();
             this.bindEvents();
@@ -130,9 +129,9 @@
 
                 let customStyle = this.styles ? this.styles : {};
 
-                let fixedStyle = {paddingTop: this.fixed ? this.scrollHeight : 0}
+//                let fixedStyle = {paddingTop: this.fixed ? this.scrollHeight : 0}
 
-                Object.assign(style, customStyle, fixedStyle);
+                Object.assign(style, customStyle);
 
                 return style;
             },
@@ -253,10 +252,10 @@
                     this.$refs.content.addEventListener('touchend', this.onTouchEnd)
                 }
 
-                if (this.isFixedHeader) {
-
-                    window.addEventListener('scroll', this.onScroll)
-                }
+//                if (this.isFixedHeader) {
+//
+//                    window.addEventListener('scroll', this.onScroll)
+//                }
 
                 window.addEventListener('resize', this.onResize)
 
@@ -266,7 +265,7 @@
                 this.$refs.content.removeEventListener('touchstart', this.onTouchStart);
                 this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
                 this.$refs.content.removeEventListener('touchend', this.onTouchEnd);
-                window.removeEventListener('scroll', this.onScroll);
+//                window.removeEventListener('scroll', this.onScroll);
                 window.removeEventListener('resize', this.onResize)
 
             }

@@ -2,7 +2,7 @@
     <transition name="vlc-ani-scale">
 
         <div :class="classes">
-            <div class="vlc-message-left" v-if="showLeft"><slot name="message-left"><span>☺</span></slot></div>
+            <div class="vlc-message-left" v-if="showLeft"><slot name="message-left"><Spinner size="65" type="blade" color="#ffffff"></Spinner></slot></div>
             <p :class="wrapperClasses">{{text}}</p>
             <div class="vlc-message-right" v-if="!rightHide"><slot name="message-right"></slot></div>
         </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-
+    import Spinner from '../spinner'
     const prefixCls = 'vlc-message';
     const defaultDuration = 1;
     export default {
@@ -43,6 +43,7 @@
                 type:Boolean,
                 default:true
             },
+            //TODO
             type:{
                 type:String,
                 default:'normal',
@@ -53,16 +54,23 @@
             onClose:{
                 type:Function,
                 default:()=>{}
+            },
+            position:{
+                type:String,
+                default:'top'
             }
         },
-
+        components:{
+            Spinner
+        },
         computed:{
 
             classes(){
 
                 return [
 
-                    `${prefixCls}`
+                    `${prefixCls}`,
+                    `${prefixCls}-position-${this.position}`
                 ]
             },
             wrapperClasses(){

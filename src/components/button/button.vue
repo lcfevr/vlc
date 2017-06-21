@@ -56,6 +56,13 @@
             radius:{
                 type:Boolean,
                 default:true
+            },
+            border:{
+                type:String,
+                default(){
+                    return 'all'
+                }
+
             }
 
         },
@@ -86,6 +93,7 @@
             buttonClass(){
                 return [
                     `${prefixCls}-btn`,
+                    [`vlc-1px-${this.border}`],
                     {
                         [`${prefixCls}-success`]: this.type == 'success',
                         [`${prefixCls}-loading`]: this.type == 'loading',
@@ -95,7 +103,8 @@
                         [`${prefixCls}-text`]: this.type == 'text',
                         [`${prefixCls}-primary`]: this.type == 'primary',
                         [`${prefixCls}-disabled`]: this.disabled,
-                        [`${prefixCls}-radius`]:this.radius
+                        [`${prefixCls}-radius`]:this.radius,
+
                     }
                 ]
             }
@@ -107,7 +116,7 @@
 
         methods:{
             emit(){
-                if (this.disabled) return;
+                if (this.disabled || this.loading) return;
                 this.$emit('on-click')
             }
         }

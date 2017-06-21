@@ -6,7 +6,8 @@
                  :right-hide="message.rightHide"
                  :name="message.name"
                  :type="message.type"
-                 :text="message.text">
+                 :text="message.text"
+                 :position="message.position">
 
         </Message>
     </div>
@@ -18,6 +19,7 @@
 
     import Message from './message.vue'
 
+
     export default {
         name:'MessageGroup',
         props:{
@@ -25,8 +27,7 @@
                 type:Object,
                 default:()=>{
                     return {
-                        'top':'0',
-                        'right':'50%'
+
                     }
                 }
             }

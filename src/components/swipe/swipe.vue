@@ -243,6 +243,7 @@
             },
 
             onTouchStart(e){
+                e.preventDefault();
                 this.dragging = true;
                 this.autoSwipe = false;
                 this.startX = e.touches[0].clientX;
@@ -255,6 +256,7 @@
             },
 
             onTouchMove(e){
+                e.preventDefault();
                 this.currentX = e.touches[0].clientX;
 
 
@@ -267,7 +269,7 @@
 
 
             onTouchEnd(e){
-
+                e.preventDefault();
                 if (this.distance < 0 && Math.abs(this.distance) > this.clientWidth / 5) {
 
                     this.loop && this.auto ? this.onLoopSlideLeft() : this.onSlideLeft()

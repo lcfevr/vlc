@@ -48,78 +48,9 @@
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
         </Slide-bar>
         <Tab :items="items" v-model="maskCloseble"></Tab>
-
-
-        <Load-more :refresh="topMethod" ref="loadmore" :load-more="topMethod" @on-change-up-status="getStatus" >
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-            <div style="width: 100%;height: 50px;">1</div>
-
+        <Load-more :refresh="topMethod" ref="more" :load-more="topMethod" :has-more="hasMore" @on-change-up-status="getStatus" >
+            <div style="width: 100%;height: 50px;" v-for="item in loadmore">{{item}}</div>
         </Load-more>
-
-
 
         <Swipe :auto="true" :perpage="1" :loop="true" :list="files">
             <template scope="props">
@@ -165,6 +96,7 @@
         components: {},
         data () {
             return {
+                loadmore:[1,1,1,1],
                 popup:false,
                 inita: ['w', 'e', 'r'],
                 listss: [
@@ -327,23 +259,14 @@
                     {text:'aaa'},
                     {text:'bbb'},
                     {text:'ccc'},
-                ]
+                ],
+                hasMore:true
             }
         },
         mounted () {
-            let c = 1
-            let b = 1
-            this.a({b,c})
-            console.error(this.inita)
-            this.$Modal.info({showHead: true, title:'提示',showCancle: false, cancleText: '取消', body: '啊实多多多多打多多多多多多实', loading: true})
+//            this.$Message.loading({showLeft:false,text:'加载中...',duration:0,position:'center'})
 
-
-
-            setTimeout(()=>{
-                console.log('1')
-                this.$refs.loadmore.onLoadOff()
-            },8000)
-
+            this.$Modal.info({body:'aaaaaa'})
         },
         beforeDestroy () {
 
@@ -380,7 +303,9 @@
                 console.log(val)
             },
             topMethod(){
-                console.log('asd')
+                this.loadmore.push(...[2,2]);
+                this.$refs.more.onLoadOff();
+//                this.hasMore = true;
             },
             pickerSure(value){
 //                this.address = `${province} ${city} ${district}`

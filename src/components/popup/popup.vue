@@ -1,7 +1,7 @@
 <template>
-    <div class="vlc-popup">
+    <div class="vlc-popup" >
         <transition name="vlc-ani-fade">
-            <div class="vlc-popup-mask"  v-show="visible" @click="close" v-if="mask"></div>
+            <div class="vlc-popup-mask"   v-show="visible" @click="close" v-if="mask" @touchstart.prevent @touchmove.prevent @touchend.prevent></div>
         </transition>
         <transition :name="'vlc-ani-'+position" >
             <div  v-show="visible" :class="popupClasses" :style="contentStyle">

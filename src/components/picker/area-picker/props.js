@@ -21,6 +21,7 @@ export default {
             }
         },
         rootCode: {
+            type: [String,Number],
             default: () => '86'
         },
     },

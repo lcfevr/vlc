@@ -1,13 +1,13 @@
 <template>
     <div :class="containerClasses" @scroll="onScroll" :style="{height:height}">
-        <div class="vlc-loadmore-top" v-if="refresh" :style="{height:translateY+'px'}">
+        <div :class="topClasses" v-if="refresh" :style="{height:translateY+'px'}">
             <div class="vlc-loadmore-status" >
                 <slot name="top">
                     <span class="spinner"><spinner v-if="upStatus == 'loading'" size="15" type="snake"></spinner></span><span class="vlc-loadmore-text">{{upText}}</span>
                 </slot>
             </div>
         </div>
-        <div :class="contentClasses" :style="{'transform':'translate3d(0, ' + translateY + 'px, 0)'}">
+        <div :class="contentClasses" >
             <slot></slot>
         </div>
 
@@ -59,7 +59,7 @@
             },
             speed: {
                 type: Number,
-                default: 2
+                default: 3
             },
             downEndText: {
                 type: String,
@@ -91,6 +91,10 @@
             auto:{
                 type:Boolean,
                 default:true
+            },
+            autoFill:{
+                type:Boolean,
+                default:true
             }
         },
         data(){
@@ -107,6 +111,7 @@
                 downText:'',
                 down:false,
                 drag:false,
+                more:this.hasMore,
             }
         },
         computed:{
@@ -115,16 +120,22 @@
                     `${prefixCls}`
                 ]
             },
-            contentClasses(){
+            topClasses(){
                 return [
-                    `${prefixCls}-content`,
+                    `${prefixCls}-top`,
                     {
                         [`${prefixCls}-drag`]:!this.drag
                     }
                 ]
-            }
+            },
+            contentClasses(){
+                return [
+                    `${prefixCls}-content`,
+                ]
+            },
         },
         mounted(){
+
             if (this.auto && this.refresh && typeof this.refresh == 'function') {
                 this.translateY = 40;
                 this.drag = false;
@@ -137,16 +148,25 @@
 
         methods:{
             onLoadOff(){
-
-
                 this.translateY = 0;
-                this.upStatus = ''
+                this.upStatus = '';
+                this.downStatus = '';
+
+                if (!this.more) this.downStatus = 'end';
+
+                setTimeout(()=>{
+                    if (this.more && this.$el.offsetHeight >= this.$el.scrollHeight) {
+                        this.direction = 'up';
+                        this.downStatus = 'loading';
+                        this.loadMore();
+                    }
+                },1000)
 
 
-                if (this.direction == 'up') {
-
-                    this.downStatus = '';
-                }
+            },
+            isBottom(){
+                if (this.$el.scrollHeight > this.$el.offsetHeight) return false;
+                return true;
             },
             onScroll(e){
 
@@ -155,23 +175,25 @@
                 let scrollTop  = this.$el.scrollTop;
                 if (this.loadMore && typeof this.loadMore == 'function') {
                     let absY = this.$el.scrollHeight - (this.$el.offsetHeight + scrollTop);
+
                     if (absY > 50 && this.downStatus === 'drop') {
                         this.downStatus = '';
-                    } else if (absY <= 50 && absY > this.downDistance && this.hasMore) {
+
+                    } else if (absY <= 50 && absY > this.downDistance && this.more) {
 
                         this.downStatus = 'drop';
                     } else if (absY <= this.downDistance) {
 
                         this.downStatus = 'loading';
 
-                        if (this.hasMore) {
+                        if (this.more) {
                             this.downStatus = 'loading';
                             this.loadMore();
                         } else {
                             this.downStatus = 'end';
                             let that = this;
                             setTimeout(() => {
-                                that.done();
+                                that.onLoadOff();
                             }, 1000);
                         }
                     }
@@ -208,8 +230,7 @@
 
                     this.upStatus = this.translateY >= this.upDistance ? 'drop' : 'pull';
                     this.drag = true;
-
-
+                    this.down = this.down || this.isBottom();
                 }
 
 
@@ -279,6 +300,9 @@
 
                 }
                 this.$emit('on-change-down-status', val)
+            },
+            hasMore(val){
+                this.more = val
             }
         },
         beforeDestroy(){

@@ -1,7 +1,7 @@
 <template>
     <div>
     <transition name="vlc-ani-fade">
-        <div class="v-lc-modal-mask" v-show="visible"  @click="mask"></div>
+        <div class="v-lc-modal-mask" v-show="visible"  @click="mask" @touchstart.prevent @touchmove.prevent @touchend.prevent></div>
     </transition>
 
 
@@ -24,6 +24,7 @@
 
 <script>
     import Emitter from '../../mixin/emitter'
+    import stop from '../../directives/stop'
     import VButton from '../button'
 
     export default {

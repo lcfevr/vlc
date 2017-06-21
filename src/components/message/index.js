@@ -6,7 +6,7 @@ import MessageGroup from './confirm'
 import {random_str} from '../../utils/util'
 let defualtDuration = 1;
 let key = 1;
-let top = '20px';
+let top = '0';
 
 let MG_instance;
 
@@ -43,7 +43,8 @@ function message(props) {
         loading,
         onClose,
         styles,
-        type]
+        type,
+        position]
 
         =
 
@@ -56,7 +57,8 @@ function message(props) {
         props.loading || false,
         props.onClose || function () {},
         props.styles || {},
-        props.type || 'normal'];
+        props.type || 'normal',
+        props.position || 'center'];
 
     let instance = getNewInstance();
 
@@ -71,7 +73,8 @@ function message(props) {
         loading: loading,
         onClose: onClose,
         styles: styles,
-        type: type
+        type: type,
+        position:position
     });
 
     return (function () {
@@ -102,7 +105,8 @@ export default {
     },
     loading(options){
         options.type = 'loading';
-        options.duration = 0
+        options.duration = 0;
+        options.showLeft = true;
         return message(options)
     },
     config(options){

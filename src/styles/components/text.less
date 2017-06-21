@@ -6,25 +6,25 @@
     display: inline-block;
 
     & > input {
-      border:1px solid #eeeeee;
-      border-radius:5px;
-      height:30px;
+      border:1px solid @TextBorderColor;
+      border-radius:@BorderRadius;
+      height:@TextInputHeight;
       box-sizing: border-box;
       width:100%;
       padding-left:10px;
-      color: #666666;
+      color: @TextColor;
       transition:all .2s linear;
     }
 
     & > input:focus {
 
-      border-color:#39f;
-      box-shadow:0 0 2px #39f
+      border-color:@ThemeColor;
+      box-shadow:0 0 2px @ThemeColor
 
     }
 
     & > input::placeholder {
-      color: #e5e5e5;
+      color: @TextPlaceholderColor;
       font-family: "Microsoft Tai Le";
     }
   }
@@ -38,10 +38,10 @@
     & > textarea {
       padding:10px 5px;
       box-sizing: border-box;
-      height:70px;
-      border:1px solid #eeeeee;
-      border-radius:5px;
-      color: #666666;
+      height:@TextAreaHeight;
+      border:1px solid @TextBorderColor;
+      border-radius:@BorderRadius;
+      color: @TextColor;
       transition:border-color .2s linear;
       will-change:border-color;
       font-size:12px;
