@@ -15,6 +15,7 @@
 
     import Spinner from '../spinner'
     export default {
+        name:'Indicator',
         props:{
             value:{
                 type:Boolean,

@@ -23,6 +23,7 @@ import Spinner from './components/spinner'
 import LoadMore from './components/loadMore'
 import Popup from './components/popup'
 import Indicator from './components/Indicator'
+import Progress from './components/progress'
 
 const vlc = {
 
@@ -48,7 +49,8 @@ const vlc = {
     Spinner,
     LoadMore,
     Popup,
-    Indicator
+    Indicator,
+    Progress
 
 };
 

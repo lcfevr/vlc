@@ -45,6 +45,7 @@
 
                 showPhoto(e){
                     this.$emit('upload-loading',true);
+                    this.files = [];
                     let file = e.target.files;
                     this.fileLength = file.length;
                     let that = this;

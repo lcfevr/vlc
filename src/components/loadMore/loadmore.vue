@@ -165,6 +165,7 @@
 
             },
             isBottom(){
+                console.log(this.$el.scrollHeigt,this.$el.offsetHeight);
                 if (this.$el.scrollHeight >= this.$el.offsetHeight) return false;
                 return true;
             },
