@@ -58,4 +58,5 @@ Modal.remove = function(){
     instance.remove();
 };
 
+
 export default  Modal;

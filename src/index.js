@@ -22,6 +22,7 @@ import Rater from './components/rater'
 import Spinner from './components/spinner'
 import LoadMore from './components/loadMore'
 import Popup from './components/popup'
+import Indicator from './components/Indicator'
 
 const vlc = {
 
@@ -46,7 +47,8 @@ const vlc = {
     Rater,
     Spinner,
     LoadMore,
-    Popup
+    Popup,
+    Indicator
 
 };
 
@@ -61,6 +63,7 @@ const install = (Vue,options)=>{
     Vue.prototype.$Message = Message;
     Vue.prototype.$Modal = Modal;
     Vue.prototype.$Prompt = Prompt;
+    Vue.prototype.$Indicator = Indicator
 
 }
 

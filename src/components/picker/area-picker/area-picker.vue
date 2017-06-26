@@ -52,6 +52,10 @@
             rootCode: {
                 default: () => '86'
             },
+            valueSeparator:{
+                type:String,
+                default:'/'
+            }
         },
         data(){
             return {
@@ -71,7 +75,8 @@
                 this.dispatch('Picker', 'ok', {
                     province:{code: this.province, name: this.provinceName},
                     city: {code: this.city, name: this.cityName},
-                    district: {code: this.district, name: this.districtName}
+                    district: {code: this.district, name: this.districtName},
+                    formArea:[this.provinceName,this.cityName,this.districtName].join(this.valueSeparator)
                 })
             },
             cancle(){

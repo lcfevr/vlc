@@ -62,6 +62,9 @@
                     }
                 })
 
+            },
+            closeAll(){
+                this.messages = [];
             }
         },
         components:{

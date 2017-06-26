@@ -155,7 +155,7 @@
                 if (!this.more) this.downStatus = 'end';
 
                 setTimeout(()=>{
-                    if (this.more && this.$el.offsetHeight >= this.$el.scrollHeight) {
+                    if (this.more && this.isBottom()) {
                         this.direction = 'up';
                         this.downStatus = 'loading';
                         this.loadMore();
@@ -165,12 +165,12 @@
 
             },
             isBottom(){
-                if (this.$el.scrollHeight > this.$el.offsetHeight) return false;
+                if (this.$el.scrollHeight >= this.$el.offsetHeight) return false;
                 return true;
             },
             onScroll(e){
 
-
+                e.preventDefault()
                 if (this.downStatus == 'loading') return;
                 let scrollTop  = this.$el.scrollTop;
                 if (this.loadMore && typeof this.loadMore == 'function') {

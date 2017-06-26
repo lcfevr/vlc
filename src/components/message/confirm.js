@@ -39,7 +39,12 @@ MessageGroup.newInstance = function (props) {
         },
         component: message,
         destroy(){
-            document.body.removeChild(div)
+            message.closeAll();
+
+            setTimeout(()=>{
+                document.body.removeChild(document.getElementsByClassName('vlc-message')[0].parentElement)
+            },500)
+
         }
     }
 }

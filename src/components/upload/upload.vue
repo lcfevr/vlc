@@ -3,7 +3,7 @@
         <slot>
             <div class="vlc-upload-wrapper">图片上传</div>
         </slot>
-        <input type="file" ref="upload" :capture="capture" :accept="accept" :multiple="multiple" @change="showPhoto"/>
+        <input type="file" ref="upload" :accept="accept"  :multiple="multiple" @change="showPhoto"/>
     </div>
 </template>
 
@@ -23,10 +23,10 @@
                 type: String,
                 default: 'image/*'
             },
-            capture: {
-                type: String,
-                default: 'camera'
-            },
+//            capture: {
+//                type: String,
+//                default: ''
+//            },
             styles: {
                 type: Object,
                 default(){
@@ -37,14 +37,16 @@
             data(){
                 return {
                     files: [],
+                    fileLength:0
                 }
             },
 
             methods: {
 
                 showPhoto(e){
-
+                    this.$emit('upload-loading',true);
                     let file = e.target.files;
+                    this.fileLength = file.length;
                     let that = this;
                     let Orientation = null;
 
@@ -122,6 +124,9 @@
                             clearBase64: data.substr(data.indexOf(',') + 1)
                         };
                         _this.files.push(result)
+
+                        if (_this.files.length === _this.fileLength) _this.$emit('upload-loading',false)
+
                     };
                 },
                 rotateImg(img, direction, canvas) {

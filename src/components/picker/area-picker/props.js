@@ -24,5 +24,9 @@ export default {
             type: [String,Number],
             default: () => '86'
         },
+        valueSeparator:{
+            type:String,
+            default:'/'
+        }
     },
 }

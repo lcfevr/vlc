@@ -7,7 +7,8 @@
                                  :init-city="initCity"
                                  :init-district="initDistrict"
                                  :styles="styles"
-                                 :root-code="rootCode">
+                                 :root-code="rootCode"
+                                 :value-separator="valueSeparator">
 
                     </Area-picker>
 
@@ -40,10 +41,10 @@
     import  dateProps  from './date-picker/props'
     import normalProps from './normal-picker/props'
     import Popup from '../popup'
-    const AreaPicker = resolve => require(['./area-picker/area-picker.vue'], resolve);
-    const DatePicker = resolve => require(['./date-picker/date-picker.vue'], resolve);
-    const NormalPicker = resolve => require(['./normal-picker/normal-picker.vue'],resolve);
-    const LIST = ['DatePicker','AreaPicker','NormalPicker']
+    import AreaPicker from './area-picker/area-picker.vue';
+    import DatePicker from './date-picker/date-picker.vue';
+    import NormalPicker from './normal-picker/normal-picker.vue';
+    const LIST = ['DatePicker','AreaPicker','NormalPicker'];
     export default {
         name: 'Picker',
         props: {

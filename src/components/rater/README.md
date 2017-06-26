@@ -2,8 +2,6 @@
 
 ***全局组件:[否]***
 
-
-
 **接收prop参数：**
 
     props                     type                 default          description

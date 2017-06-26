@@ -197,7 +197,7 @@
         methods: {
 
             choose(item, index) {
-
+                console.log(item)
                 if (item.onClick && typeof item.onClick == 'function') {
 
                     item.onClick(item, index)
@@ -243,7 +243,7 @@
             },
 
             onTouchStart(e){
-                e.preventDefault();
+//                e.preventDefault();
                 this.dragging = true;
                 this.autoSwipe = false;
                 this.startX = e.touches[0].clientX;
@@ -269,7 +269,7 @@
 
 
             onTouchEnd(e){
-                e.preventDefault();
+//                e.preventDefault();
                 if (this.distance < 0 && Math.abs(this.distance) > this.clientWidth / 5) {
 
                     this.loop && this.auto ? this.onLoopSlideLeft() : this.onSlideLeft()

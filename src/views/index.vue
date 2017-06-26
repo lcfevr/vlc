@@ -12,7 +12,7 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="DatePicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible" ></Picker>
+        <Picker type="AreaPicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible" ></Picker>
         <v-button  :loading="disable" @on-click="popup = true">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
@@ -48,7 +48,7 @@
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
         </Slide-bar>
         <Tab :items="items" v-model="maskCloseble"></Tab>
-        <Load-more :refresh="topMethod" ref="more" :load-more="topMethod" :has-more="hasMore" @on-change-up-status="getStatus" >
+        <Load-more :refresh="topMethod" height="80%" ref="more" :load-more="topMethod" :has-more="hasMore" @on-change-up-status="getStatus" >
             <div style="width: 100%;height: 50px;" v-for="item in loadmore">{{item}}</div>
         </Load-more>
 
@@ -85,6 +85,8 @@
 
         </Action-sheet>
 
+
+
     </div>
 </template>
 
@@ -96,7 +98,7 @@
         components: {},
         data () {
             return {
-                loadmore:[1,1,1,1],
+                loadmore:[1,1,1],
                 popup:false,
                 inita: ['w', 'e', 'r'],
                 listss: [
@@ -245,7 +247,7 @@
                 value: "<h1>ffasfasssa</h1>" +
                 "fasfassfaasf",
                 visible: true,
-
+                indicator:true,
                 maskCloseble: true,
                 address: '',
                 data: [],
@@ -266,7 +268,8 @@
         mounted () {
 //            this.$Message.loading({showLeft:false,text:'加载中...',duration:0,position:'center'})
 
-            this.$Modal.info({body:'aaaaaa'})
+            this.$Modal.info({body:'aaaaaa'});
+            this.$Indicator.cricle();
         },
         beforeDestroy () {
 
@@ -279,6 +282,7 @@
                     console.log(a.b)
                 })
             },
+
             load(){
                 this.loading = !this.loading
             },
