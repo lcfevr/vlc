@@ -57,7 +57,6 @@
             }
         },
         mounted(){
-            console.log(this.isWeixin,this.isPcWeixin)
             if ((this.isWeixin || this.isPcWeixin) && !this.isWechat) this.visible = false
         },
         methods: {

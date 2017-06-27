@@ -82,5 +82,8 @@ Number,
 Upload,
 ActionSheet,
 SwitchBar,
-Rater
+Rater，
+Popup,
+Spinner,
+Indicator
 ```
