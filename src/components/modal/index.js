@@ -6,6 +6,7 @@ import  Modal from './confirm'
 let modalInstance;
 
 function getModalInstance(){
+    console.warn(modalInstance)
     modalInstance = modalInstance || Modal.newInstance({
             showHead:true,
             closable:true,

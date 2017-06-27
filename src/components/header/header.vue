@@ -27,11 +27,16 @@
                 type: Boolean,
                 default: true
             },
-            title: String
+            title: String,
+            wechat:{
+                type:Boolean,
+                default:false
+            }
         },
         data(){
             return {
-                visible:false
+                visible:this.value,
+                isWechat:this.wechat
             }
         },
         computed: {
@@ -52,7 +57,8 @@
             }
         },
         mounted(){
-            if (this.isWeixin || this.isPcWeixin) this.visible = false
+            console.log(this.isWeixin,this.isPcWeixin)
+            if ((this.isWeixin || this.isPcWeixin) && !this.isWechat) this.visible = false
         },
         methods: {
             back() {
@@ -65,6 +71,12 @@
             },
             visible(val){
                 this.$emit('input',val)
+            },
+            wechat(val){
+                this.isWechat = val
+            },
+            isWechat(val){
+                this.$emit('input',val);
             }
         }
     }

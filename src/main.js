@@ -20,8 +20,25 @@ import vlc from './index'
 Vue.use(vlc)
 
 
-console.log(Routers)
-console.log(vlc)
+    var log = console.log;
+    console.log = function () {
+        var args = Array.from(arguments);
+        args = args.map(arg => {
+            try {
+                return JSON.parse(JSON.stringify(arg));
+            } catch (e) {
+                return arg;
+            }
+        });
+
+        log.apply(console, args);
+    };
+
+    window.vConsole = require('./vconsole.min');
+    require('./vconsole-resources.min');
+    require('./vconsole-sources.min');
+
+
 Vue.use(VueRouter);
 // Vue.use(VueTouch);
 
@@ -32,7 +49,7 @@ Vue.use(VueRouter);
 Vue.prototype.$Config = Config;
 
 
-
+let EventBus = new Vue();
 // 路由配置
 let router = new VueRouter({
 

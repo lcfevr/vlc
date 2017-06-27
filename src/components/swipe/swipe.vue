@@ -85,7 +85,7 @@
                 startX: 0,
                 currentX: 0,
                 clientWidth: 0,
-                slideIndex: this.startIndex,
+                slideIndex: this.loop ? this.startIndex + 1 : this.startIndex,
                 distance: 0,
                 timer: null,
                 clientHeight: 0,
@@ -360,6 +360,7 @@
         },
         mounted()
         {
+
             this.clientWidth = this.$el.clientWidth;
             this.clientHeight = getComputedStyle(this.$el.querySelector('.vlc-swipe-wrapper')).height;
             if (this.auto) this.autoSlide();

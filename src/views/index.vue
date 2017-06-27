@@ -12,8 +12,8 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="AreaPicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible" ></Picker>
-        <v-button  :loading="disable" @on-click="popup = true">确定</v-button>
+        <Picker type="AreaPicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
+        <v-button :loading="disable" @on-click="popup = true">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
 
@@ -44,21 +44,24 @@
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
             </div>
-            <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow"></div>
+            <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow">
+
+            </div>
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
         </Slide-bar>
-        <Tab :items="items" v-model="maskCloseble"></Tab>
-        <Load-more :refresh="topMethod" height="80%" ref="more" :load-more="topMethod" :has-more="hasMore" @on-change-up-status="getStatus" >
+        <!--<Tab :items="items" v-model="maskCloseble"></Tab>-->
+
+        <Load-more :refresh="topMethod" height="100%" ref="more" :load-more="topMethod" :has-more="hasMore"
+                   @on-change-up-status="getStatus">
             <div style="width: 100%;height: 50px;" v-for="item in loadmore">{{item}}</div>
         </Load-more>
-
         <Swipe :auto="true" :perpage="1" :loop="true" :list="files">
             <template scope="props">
 
-                <div >
-                        <span>{{props.item.id}}</span>
-                        <img :src="props.item.image"/>
-                        <span v-text="props.index"></span>
+                <div>
+                    <span>{{props.item.id}}</span>
+                    <img :src="props.item.image"/>
+                    <span v-text="props.index"></span>
                 </div>
 
             </template>
@@ -80,13 +83,11 @@
         <Rater v-model="rate" disabled></Rater>
         {{rate}}
 
+
         <Spinner type="blade" size="60"></Spinner>
         <Action-sheet :items="actionSheet" v-model="popup">
 
         </Action-sheet>
-
-
-
     </div>
 </template>
 
@@ -98,13 +99,13 @@
         components: {},
         data () {
             return {
-                loadmore:[1,1,1],
-                popup:false,
+                loadmore: [1, 1, 1],
+                popup: false,
                 inita: ['w', 'e', 'r'],
                 listss: [
                     {
                         target: 'a',
-                        list: [{value: 'w',code:1}, {value: 2, code: 2}, {value: 3, code:3}, {
+                        list: [{value: 'w', code: 1}, {value: 2, code: 2}, {value: 3, code: 3}, {
                             value: 4,
                             code: 4
                         }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
@@ -114,7 +115,7 @@
                     },
                     {
                         target: 'b',
-                        list: [{value: 'e',code:1}, {value: 2, code: 2}, {value: 3, code:3}, {
+                        list: [{value: 'e', code: 1}, {value: 2, code: 2}, {value: 3, code: 3}, {
                             value: 4,
                             code: 4
                         }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
@@ -124,7 +125,7 @@
                     },
                     {
                         target: 'c',
-                        list: [{value: 'r',code:1}, {value: 2, code: 2}, {value: 3, code:3}, {
+                        list: [{value: 'r', code: 1}, {value: 2, code: 2}, {value: 3, code: 3}, {
                             value: 4,
                             code: 4
                         }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
@@ -247,7 +248,7 @@
                 value: "<h1>ffasfasssa</h1>" +
                 "fasfassfaasf",
                 visible: true,
-                indicator:true,
+                indicator: true,
                 maskCloseble: true,
                 address: '',
                 data: [],
@@ -257,19 +258,17 @@
                 mode: 'javascript',
                 text: 'test',
                 disable: false,
-                actionSheet:[
-                    {text:'aaa'},
-                    {text:'bbb'},
-                    {text:'ccc'},
+                actionSheet: [
+                    {text: 'aaa'},
+                    {text: 'bbb'},
+                    {text: 'ccc'},
                 ],
-                hasMore:true
+                hasMore: true
             }
         },
         mounted () {
 //            this.$Message.loading({showLeft:false,text:'加载中...',duration:0,position:'center'})
 
-            this.$Modal.info({body:'aaaaaa'});
-            this.$Indicator.cricle();
         },
         beforeDestroy () {
 
@@ -277,7 +276,7 @@
         },
         methods: {
             async a(a){
-                await setTimeout(()=>{
+                await setTimeout(() => {
                     console.log(a.c)
                     console.log(a.b)
                 })
@@ -307,7 +306,7 @@
                 console.log(val)
             },
             topMethod(){
-                this.loadmore.push(...[2,2]);
+                this.loadmore.push(...[2, 2]);
                 this.$refs.more.onLoadOff();
 //                this.hasMore = true;
             },

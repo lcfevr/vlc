@@ -12,9 +12,9 @@ Indicator.newInstance = properties => {
 
     let props = '';
 
-    Object.keys(_props).forEach( prop =>{
+    Object.keys(_props).forEach(prop => {
 
-        props += ' :'+camelcaseToHyphen(prop) + '=' + prop
+        props += ' :' + camelcaseToHyphen(prop) + '=' + prop
     })
 
     const div = document.createElement('div');
@@ -22,29 +22,35 @@ Indicator.newInstance = properties => {
     document.body.appendChild(div);
 
     let indicator = new Vue({
-        el:div,
-        template:`<Indicator ${props} v-model="visible" ></Indicator>`,
-        components:{
+        el: div,
+        template: `<Indicator ${props} v-model="visible" ></Indicator>`,
+        components: {
             Indicator
         },
-        data:Object.assign(_props,{
-            visible:false,
-            size:45,
-            type:'snake',
-            color:'#ffffff',
-            text:'加载中...',
+        data: Object.assign(_props, {
+            visible: false,
+            size: 45,
+            type: 'snake',
+            color: '#ffffff',
+            text: '加载中...',
+            onRemove:function(){}
 
         }),
-        methods:{
+        methods: {
             remove() {
                 this.$children[0].visible = false;
-                setTimeout(()=>{
+                setTimeout(() => {
                     this.destroy();
-                },300)
+                }, 300)
             },
             destroy(){
+
                 this.$destroy();
+
+                // if (!this.$el) return;
                 document.body.removeChild(this.$el);
+                console.log(this.onRemove)
+                this.onRemove()
             }
         }
     }).$children[0];
@@ -52,7 +58,10 @@ Indicator.newInstance = properties => {
 
     return {
         open(options){
+
             indicator.$parent.visible = true;
+            indicator.$parent.onRemove = options.onRemove;
+
 
             if ('size' in options) {
                 indicator.$parent.size = options.size;
@@ -74,26 +83,26 @@ Indicator.newInstance = properties => {
 
         remove(){
 
-            indicator.visble = false;
+            indicator.visible = false;
 
             indicator.$parent.remove()
 
         },
-        component:indicator
+        component: indicator
     }
 };
 
 
-function confirm(options){
-
+function confirm(options) {
+    console.warn(instance)
     instance = instance || Indicator.newInstance({
-            size:45,
-            color:'#ffffff',
-            text:'正在加载...',
-            type:'snake'
+            size: 45,
+            color: '#ffffff',
+            text: '正在加载...',
+            type: 'snake'
         });
 
-    options.onRemove = function() {
+    options.onRemove = function () {
         instance = null;
     }
 
@@ -102,44 +111,44 @@ function confirm(options){
 }
 
 
-Indicator.blade = function(props = {}) {
+Indicator.blade = function (props = {}) {
 
     props.type = 'blade';
     return confirm(props)
 }
 
 
-Indicator.snake = function(props = {}) {
+Indicator.snake = function (props = {}) {
 
     props.type = 'snake';
     return confirm(props)
 }
 
-Indicator.cricle = function(props = {}) {
+Indicator.cricle = function (props = {}) {
 
     props.type = 'fading-circle';
     return confirm(props)
 }
 
-Indicator.bounce = function(props = {}) {
+Indicator.bounce = function (props = {}) {
 
     props.type = 'double-bounce';
     return confirm(props)
 }
 
-Indicator.remove = function() {
+Indicator.remove = function () {
 
 
     if (!instance) return false;
+    console.log(instance)
+     instance = instance || Indicator.newInstance({
+            size: 45,
+            color: '#ffffff',
+            text: '正在加载...',
+            type: 'snake'
+        })
 
-    const indicatorInstance = instance || Indicator.newInstance({
-        size:45,
-        color:'#ffffff',
-        text:'正在加载...',
-        type:'snake'
-    })
-
-    indicatorInstance.remove()
+    instance.remove()
 }
 
 
