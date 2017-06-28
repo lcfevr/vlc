@@ -81,8 +81,3 @@
 
     }
 </script>
-
-<style lang="less">
-    @import "../../styles/components/actionSheet";
-
-</style>

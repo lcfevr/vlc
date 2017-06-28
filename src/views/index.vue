@@ -16,7 +16,6 @@
         <v-button :loading="disable" @on-click="popup = true">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
-
         <p>{{address}}</p>
         <v-button @click="newTip">asdasssssdaaaaaasdadd</v-button>
         <CheckBox-group v-model="data" :vertical="visible">
@@ -34,7 +33,8 @@
         <span>{{data}}</span>
         <span>{{radio}}</span>
 
-        <Slide-bar :list="items" :flex="false" index="2" :can-drag="false" height="100%" scroll-height='50px'
+
+        <Slide-bar :list="items" :flex="false" index="1" :can-drag="false" height="100%" scroll-height='50px'
                    :is-fixed-header="true">
 
             <div slot="slot-item-0" style="height:100%;flex: 1;background:red;overflow: scroll">
@@ -45,16 +45,16 @@
                 <div style="height: 40px;width: 100%;background-color: blue;"></div>
             </div>
             <div slot="slot-item-1" style="height:100%;flex: 1;background:yellow">
-
+                <Load-more :refresh="topMethod" height="100%" ref="more" :load-more="topMethod" :has-more="hasMore"
+                           @on-change-up-status="getStatus">
+                    <div style="width: 100%;height: 50px;" v-for="item in loadmore">{{item}}</div>
+                </Load-more>
             </div>
             <div slot="slot-item-2" style="height:100%;flex: 1;background:black"></div>
         </Slide-bar>
         <!--<Tab :items="items" v-model="maskCloseble"></Tab>-->
 
-        <Load-more :refresh="topMethod" height="100%" ref="more" :load-more="topMethod" :has-more="hasMore"
-                   @on-change-up-status="getStatus">
-            <div style="width: 100%;height: 50px;" v-for="item in loadmore">{{item}}</div>
-        </Load-more>
+
         <Swipe :auto="true" :perpage="1" :loop="true" :list="files">
             <template scope="props">
 
@@ -210,26 +210,7 @@
 
 
                 showAddressPicker: false,
-                items: [
-                    {
-
-                        name: "首页",
-                        icon: "&#xe662;",
-                        iconCur: "&#xe663;",
-                        path: "/index"
-                    }, {
-                        name: "商品",
-                        icon: "&#xe665;",
-
-                        iconCur: "&#xe667;",
-                        path: "/list"
-                    }, {
-                        name: "晒单",
-                        icon: "&#xe666;",
-                        iconCur: "&#xe668;",
-                        path: "/shareOrder"
-                    }
-                ],
+                items: [],
 
                 lists: [
                     {
@@ -268,6 +249,29 @@
         },
         mounted () {
 //            this.$Message.loading({showLeft:false,text:'加载中...',duration:0,position:'center'})
+           setTimeout(()=>{
+               this.items = [
+                   {
+
+                       name: "首页",
+                       icon: "&#xe662;",
+                       iconCur: "&#xe663;",
+                       path: "/index"
+                   }, {
+                       name: "商品",
+                       icon: "&#xe665;",
+
+                       iconCur: "&#xe667;",
+                       path: "/list"
+                   }, {
+                       name: "晒单",
+                       icon: "&#xe666;",
+                       iconCur: "&#xe668;",
+                       path: "/shareOrder"
+                   }
+               ]
+           },1000);
+
 
         },
         beforeDestroy () {

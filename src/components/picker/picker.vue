@@ -24,15 +24,10 @@
                     <Normal-picker v-if="type==='NormalPicker'"
                                    :list="list"
                                    :init-arr="initArr">
-
-
                     </Normal-picker>
                 </div>
         </div>
         </Popup>
-
-
-
 </template>
 
 <script>

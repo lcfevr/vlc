@@ -153,9 +153,7 @@
                 this.downStatus = '';
 
                 if (!this.more) this.downStatus = 'end';
-//                alert(this.$el.scrollHeight+' '+this.$el.offsetHeight)
                 setTimeout(()=>{
-                    console.log(this.$el.querySelector('.vlc-loadmore-bottom').offsetTop,this.$el.offsetHeight);
                     if (this.more && this.isBottom()) {
                         this.direction = 'up';
                         this.downStatus = 'loading';
@@ -166,7 +164,7 @@
 
             },
             isBottom(){
-                if (this.$el.querySelector('.vlc-loadmore-bottom').offsetTop  > this.$el.offsetHeight) return false;
+                if (this.$el.scrollHeight  > this.$el.offsetHeight) return false;
                 return true;
             },
             onScroll(e){
@@ -174,6 +172,7 @@
                 e.preventDefault()
                 if (this.downStatus == 'loading') return;
                 let scrollTop  = this.$el.scrollTop;
+
                 if (this.loadMore && typeof this.loadMore == 'function') {
                     let absY = this.$el.scrollHeight - (this.$el.offsetHeight + scrollTop);
 
@@ -215,7 +214,6 @@
                 let distance = (this.currentY - this.startY) / this.speed;
                 let scrollTop = this.$el.scrollTop;
                 this.direction = distance > 0 ? 'down' : 'up';
-                console.log(scrollTop)
                 if (this.currentY >= this.startY && typeof this.refresh === 'function' && scrollTop === 0 && this.direction === 'down' ) {
                     event.preventDefault();
                     event.stopPropagation();

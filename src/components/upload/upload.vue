@@ -124,6 +124,7 @@
                             base64: data,
                             clearBase64: data.substr(data.indexOf(',') + 1)
                         };
+                        console.log(result)
                         _this.files.push(result)
 
                         if (_this.files.length === _this.fileLength) _this.$emit('upload-loading',false)

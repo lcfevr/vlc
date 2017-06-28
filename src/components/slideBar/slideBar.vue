@@ -11,15 +11,14 @@
                         <a class="content ellipse-fir">{{item.name}}</a>
                     </slot>
                 </div>
-
-                <div class="vlc-slideBar-wrapper-absolute" :style="getScrollStyle"></div>
             </div>
-        </div>
 
+            <div class="vlc-slideBar-wrapper-absolute" :style="getScrollStyle"></div>
+        </div>
         <div class="vlc-slideBar-container" :style="{height:height}">
             <div :class="contentClasses" :style="getContainerStyle" ref="content">
                 <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]"
-                     v-for="(item,index) in items">
+                     v-for="(item,index) in items" :style="{width:clientWidth+'px'}">
                     <slot :name="'slot-item-'+index"></slot>
                 </div>
             </div>
@@ -27,9 +26,11 @@
     </div>
 </template>
 
+
 <script>
     const prefixCls = 'vlc-slideBar';
     export default {
+
         props: {
             scrollHeight: {
                 type: [String, Number],
@@ -64,6 +65,7 @@
                 type: String,
                 default: 'normal'
             },
+
             onChange: {
                 type: Function,
             },
@@ -156,7 +158,6 @@
             maxIndex(){
                 return this.items.length - 1
             },
-
         },
         data(){
             return {
@@ -234,16 +235,14 @@
 
                     this.translateX = this.startTranslateX + this.clientWidth
                 }
-                console.log(this.startIndex)
+
                 this.$emit('on-change', this.startIndex)
             },
             onScroll(e){
                 this.$el.getBoundingClientRect().top <= 0 ? this.fixed = true : this.fixed = false
             },
             onResize(){
-
                 this.clientWidth = this.$el.clientWidth;
-
             },
             bindEvents(){
                 if (this.canDrag) {
@@ -252,10 +251,7 @@
                     this.$refs.content.addEventListener('touchend', this.onTouchEnd)
                 }
 
-//                if (this.isFixedHeader) {
-//
-//                    window.addEventListener('scroll', this.onScroll)
-//                }
+
 
                 window.addEventListener('resize', this.onResize)
 
