@@ -1,6 +1,6 @@
 <template>
     <div :class="classes">
-        <input type="checkbox" v-model="currentValue" :id="name" class="vlc-switch-checkbox hidden">
+        <input type="checkbox" v-model="currentValue" :id="name" :class="inputCheckClasses">
         <label :for="name" :class="sizeClasses"></label>
     </div>
 </template>
@@ -36,6 +36,13 @@
             classes(){
                 return [
                     `${prefixCls}`
+                ]
+            },
+            inputCheckClasses(){
+                return [
+                    `${prefixCls}-checkbox`,
+                    'hidden'
+
                 ]
             },
             sizeClasses(){

@@ -1,20 +1,22 @@
 <template>
     <div :class="containerClasses" @scroll="onScroll" :style="{height:height}">
         <div :class="topClasses" v-if="refresh" :style="{height:translateY+'px'}">
-            <div class="vlc-loadmore-status" >
+            <div :class="statusClass">
                 <slot name="top">
-                    <span class="spinner"><spinner v-if="upStatus == 'loading'" size="15" type="snake"></spinner></span><span class="vlc-loadmore-text">{{upText}}</span>
+                    <span class="spinner"><spinner v-if="upStatus == 'loading'" size="15" type="snake"></spinner></span><span
+                        class="vlc-loadmore-text">{{upText}}</span>
                 </slot>
             </div>
         </div>
-        <div :class="contentClasses" >
+        <div :class="contentClasses">
             <slot></slot>
         </div>
 
-        <div class="vlc-loadmore-bottom" v-if="loadMore">
-            <div class="vlc-loadmore-status">
+        <div :class="bottomClasses" v-if="loadMore">
+            <div :class="statusClass">
                 <slot name="bottom">
-                    <span class="spinner"><spinner v-if="downStatus == 'loading'" size="15" type="snake"></spinner></span><span class="vlc-loadmore-text">{{downText}}</span>
+                    <span class="spinner"><spinner v-if="downStatus == 'loading'" size="15"
+                                                   type="snake"></spinner></span><span class="vlc-loadmore-text">{{downText}}</span>
                 </slot>
             </div>
         </div>
@@ -27,16 +29,16 @@
 
     const prefixCls = 'vlc-loadmore';
     export default {
-        name:'loadmore',
-        components:{
+        name: 'loadmore',
+        components: {
             Spinner
         },
-        props:{
-            height:{
-                type:[Number,String],
-                default:'100%'
+        props: {
+            height: {
+                type: [Number, String],
+                default: '100%'
             },
-            refresh:Function,
+            refresh: Function,
             upLoadingText: {
                 type: String,
                 default: '加载中...'
@@ -82,39 +84,39 @@
                 type: Boolean,
                 default: true
             },
-            styles:{
-                type:Object,
+            styles: {
+                type: Object,
                 default(){
                     return {}
                 }
             },
-            auto:{
-                type:Boolean,
-                default:true
+            auto: {
+                type: Boolean,
+                default: true
             },
-            autoFill:{
-                type:Boolean,
-                default:true
+            autoFill: {
+                type: Boolean,
+                default: true
             }
         },
         data(){
 
             return {
-                translateY : 0,
-                startTranslateY:0,
-                currentY:0,
-                startY:0,
-                upStatus:'',
-                downStatus:'',
-                direction:'',
-                upText:'',
-                downText:'',
-                down:false,
-                drag:false,
-                more:this.hasMore,
+                translateY: 0,
+                startTranslateY: 0,
+                currentY: 0,
+                startY: 0,
+                upStatus: '',
+                downStatus: '',
+                direction: '',
+                upText: '',
+                downText: '',
+                down: false,
+                drag: false,
+                more: this.hasMore,
             }
         },
-        computed:{
+        computed: {
             containerClasses(){
                 return [
                     `${prefixCls}`
@@ -124,8 +126,13 @@
                 return [
                     `${prefixCls}-top`,
                     {
-                        [`${prefixCls}-drag`]:!this.drag
+                        [`${prefixCls}-drag`]: !this.drag
                     }
+                ]
+            },
+            bottomClasses(){
+                return [
+                    `${prefixCls}-bottom`
                 ]
             },
             contentClasses(){
@@ -133,45 +140,50 @@
                     `${prefixCls}-content`,
                 ]
             },
+            statusClass(){
+                return [
+                    `${prefixCls}-status`
+                ]
+            }
         },
         mounted(){
 
             if (this.auto && this.refresh && typeof this.refresh == 'function') {
                 this.translateY = 40;
                 this.drag = false;
-                this.direction= 'down';
+                this.direction = 'down';
                 this.upStatus = 'loading';
                 this.refresh()
             }
             this.bindEvents();
         },
 
-        methods:{
+        methods: {
             onLoadOff(){
                 this.translateY = 0;
                 this.upStatus = '';
                 this.downStatus = '';
 
                 if (!this.more) this.downStatus = 'end';
-                setTimeout(()=>{
+                setTimeout(() => {
                     if (this.more && this.isBottom()) {
                         this.direction = 'up';
                         this.downStatus = 'loading';
                         this.loadMore();
                     }
-                },1000)
+                }, 1000)
 
 
             },
             isBottom(){
-                if (this.$el.scrollHeight  > this.$el.offsetHeight) return false;
+                if (this.$el.scrollHeight > this.$el.offsetHeight) return false;
                 return true;
             },
             onScroll(e){
 
                 e.preventDefault()
                 if (this.downStatus == 'loading') return;
-                let scrollTop  = this.$el.scrollTop;
+                let scrollTop = this.$el.scrollTop;
 
                 if (this.loadMore && typeof this.loadMore == 'function') {
                     let absY = this.$el.scrollHeight - (this.$el.offsetHeight + scrollTop);
@@ -214,10 +226,10 @@
                 let distance = (this.currentY - this.startY) / this.speed;
                 let scrollTop = this.$el.scrollTop;
                 this.direction = distance > 0 ? 'down' : 'up';
-                if (this.currentY >= this.startY && typeof this.refresh === 'function' && scrollTop === 0 && this.direction === 'down' ) {
+                if (this.currentY >= this.startY && typeof this.refresh === 'function' && scrollTop === 0 && this.direction === 'down') {
                     event.preventDefault();
                     event.stopPropagation();
-                    if (this.maxDistance > 0 ) {
+                    if (this.maxDistance > 0) {
                         this.translateY = distance <= this.maxDistance ? distance - scrollTop : this.translateY;
                     } else {
                         this.translateY = distance - scrollTop;
@@ -262,9 +274,9 @@
                 this.$el.removeEventListener('touchend', this.onTouchEnd, false);
             }
         },
-        watch:{
+        watch: {
             upStatus(val){
-                switch (val){
+                switch (val) {
                     case 'pull':
                         this.upText = this.upPullText;
                         break;
@@ -302,6 +314,7 @@
             },
             hasMore(val){
                 this.more = val
+                if (!val) this.downStatus = 'end'
             }
         },
         beforeDestroy(){

@@ -1,0 +1,46 @@
+.vlc-progress {
+  display: flex;
+  position: relative;
+  height: @ProgressHeight;
+  line-height: @ProgressHeight;
+
+  & > [slot="left"] {
+    margin-right: 5px;
+  }
+
+  & > [slot="right"] {
+    margin-left: 5px;
+  }
+
+  & > * {
+    display: flex;
+  }
+
+  &-outer {
+    flex:1;
+    position: relative;
+
+    &-runaway {
+      position: absolute;
+      left:0;
+      top:50%;
+      transform: translate(0,-50%);
+      right:0;
+      background: #ebebeb;
+      height:3px;
+    }
+
+    &-progress {
+      position: absolute;
+      display: block;
+      top:50%;
+      transform: translate(0,-50%);
+      background: @ThemeColor;
+      width:0;
+      height:3px;
+    }
+  }
+
+
+
+}

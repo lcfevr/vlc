@@ -1,12 +1,12 @@
 <template>
     <label :class="classes">
         <span :class="wrapperClasses">
-            <span class="vlc-radiobox-inner">
+            <span :class="innerClasses">
                 <input type="radio"
                        :disabled="disable"
                        :checked="model"
                        @change="change"
-                       class="vlc-radiobox-input"/>
+                       :class="inputClass"/>
             </span>
         </span>
         <slot v-show="show"><span ref="slot">{{label}}</span></slot>
@@ -48,6 +48,16 @@
                         [`${prefixCls}-disable`]: this.disable,
 
                     }
+                ]
+            },
+            innerClasses(){
+                return [
+                    `${prefixCls}-inner`
+                ]
+            },
+            inputClass(){
+                return [
+                    `${prefixCls}-input`
                 ]
             }
         },

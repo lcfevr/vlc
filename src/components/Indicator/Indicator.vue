@@ -1,8 +1,8 @@
 <template>
     <transition name="vlc-ani-fade">
-        <div class="vlc-Indicator" v-show="visible" @touchmove.prevent>
-            <div class="vlc-Indicator-container">
-                <div class="vlc-Indicator-wrapper">
+        <div :class="classes" v-show="visible" @touchmove.prevent>
+            <div :class="containerClasses">
+                <div :class="wrapperClasses">
                     <Spinner :size="size" :type="type" :color="color"></Spinner>
                     <span :style="{color:color}">{{text}}</span>
                 </div>
@@ -14,6 +14,7 @@
 <script>
 
     import Spinner from '../spinner'
+    const prefixCls = 'vlc-Indicator'
     export default {
         name:'Indicator',
         props:{
@@ -46,6 +47,23 @@
         },
         components:{
             Spinner
+        },
+        computed:{
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
+            containerClasses(){
+                return [
+                    `${prefixCls}-container`
+                ]
+            },
+            wrapperClasses(){
+                return [
+                    `${prefixCls}-wrapper`
+                ]
+            }
         },
         watch:{
             value(val){

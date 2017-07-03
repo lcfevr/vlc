@@ -1,5 +1,5 @@
 <template>
-    <div class="vlc-date-picker">
+    <div :class="classes">
         <div class="header">
             <div class="left" @click="cancle">取消</div>
             <div class="right" @click="sure">确定</div>
@@ -20,6 +20,7 @@
         30: [4, 6, 9, 11],
         31: [1, 3, 5, 7, 8, 10, 12]
     };
+    const prefixCls = 'vlc-date-picker';
     export default {
         name: 'DatePicker',
         mixins: [Emitter],
@@ -134,6 +135,11 @@
             }
         },
         computed: {
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
             yearList(){
                 let from, to = 0;
                 if (!!this.year) {

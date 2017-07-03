@@ -1,10 +1,10 @@
 <template>
 
-    <div class="vlc-number" :style="containerStyle">
-        <span :class="['vlc-number-changvalue',downDisabled? 'disabled':'']" :style="getChangeStyle" @click="change('reduce',downDisabled)">
+    <div :class="classes" :style="containerStyle">
+        <span :class="reduceClasses" :style="getChangeStyle" @click="change('reduce',downDisabled)">
             <slot name="reduce">-</slot>
         </span>
-        <label class="vlc-number-wrapper">
+        <label :class="wrapperClasses">
             <input type="number"
                    :style="inputStyle"
                    :min="min"
@@ -20,7 +20,7 @@
                    @keyup.40="change('add',upDisabled)"
             />
         </label>
-        <span :class="['vlc-number-changvalue',upDisabled? 'disabled':'']" :style="getChangeStyle" @click="change('add',upDisabled)">
+        <span :class="addtionClasses" :style="getChangeStyle" @click="change('add',upDisabled)">
             <slot name="add">+</slot>
         </span>
     </div>
@@ -29,6 +29,7 @@
 <script>
 
     import Input from '../../mixin/input'
+    const prefixCls = 'vlc-number';
     export default {
         name:'Number',
         mixins:[Input],
@@ -138,6 +139,32 @@
 
         },
         computed: {
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
+            reduceClasses(){
+                return [
+                    `${prefixCls}-changevalue`,
+                    {
+                        ['disabled']:this.downDisabled
+                    }
+                ]
+            },
+            addtionClasses(){
+                return [
+                    `${prefixCls}-changevalue`,
+                    {
+                        ['disabled']:this.upDisabled
+                    }
+                ]
+            },
+            wrapperClasses(){
+                return [
+                    `${prefixCls}-wrapper`
+                ]
+            },
 
             getChangeStyle(){
 

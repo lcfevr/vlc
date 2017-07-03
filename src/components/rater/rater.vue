@@ -1,6 +1,6 @@
 <template>
-    <div class="vlc-rater">
-        <span class="vlc-rater-star" v-for="(item,key) in max" :style="parentStyles(key)">
+    <div :class="classes">
+        <span :class="starClass" v-for="(item,key) in max" :style="parentStyles(key)">
             {{star}}
             <span :style="childStyles(key)" @click="changeValue(key)">{{star}}</span>
         </span>
@@ -9,7 +9,7 @@
 
 <script>
 
-
+    const prefixCls = 'vlc-rater';
     export default {
         props: {
             value: {
@@ -114,6 +114,18 @@
 
                 return false;
 
+            }
+        },
+        computed:{
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
+            starClass(){
+                return [
+                    `${prefixCls}-star`
+                ]
             }
         },
         watch:{

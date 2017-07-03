@@ -1,0 +1,23 @@
+.vlc-toTop {
+  position: fixed;
+  right:15px;
+  bottom:80px;
+  &-wrapper {
+    position: relative;
+    width:45px;
+    height:45px;
+    border-radius:100%;
+    background: @ThemeColor;
+    &:before {
+      position: absolute;
+      left:50%;
+      top:50%;
+      content: '';
+      border-top:2px solid #ffffff;
+      border-right:2px solid #ffffff;
+      transform:rotate(-45deg) translate3d(-15%,-60%,0);
+      height:15px;
+      width:15px;
+    }
+  }
+}

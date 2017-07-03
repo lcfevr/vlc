@@ -1,11 +1,10 @@
 <template>
-    <div>
-
+    <div class="a">
 
         <!--<button @click="newTip">queding</button>-->
     </div>
     <!--<modal :mask-closable="maskCloseble" width="2.5rem" :visible.sync="visible" title="asdasdwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwasd" body="啊阿斯达阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德阿萨德所大所大所大所多阿斯达斯的阿斯达斯的" @on-ok="ok">-->
-    <!--<p slot="header">111</p>-->
+
     <!--</modal>-->
 
 </template>
@@ -39,7 +38,7 @@
             }
         },
         mounted () {
-//            this.$Modal.confirm({title:'aaa',content:'aaaaasd',onOk:this.ok,onCancle:function(){}})
+            this.$Modal.info({title:'aaa',content:'aaaaasd',onOk:this.ok,onCancle:function(){}})
             // this.$Notice.open({desc:'asdasd',onClose:this.close,duration:4,key:'222',styles:{right:'0'}})
             //console.log('asdasd')
         },

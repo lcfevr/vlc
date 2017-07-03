@@ -2,10 +2,10 @@
     <div>
         <Popup position="bottom" :mask-closable="maskClosable" v-model="visible" :styles="{background:'transparent'}">
             <div :class="classes" >
-                <ul class="vlc-actionSheet-wrapper">
-                    <li class="vlc-actionSheet-wrapper-action" v-for="(item,key) in actions" @click="emit(item,key)"><span>{{item.text}}</span></li>
+                <ul :class="wrapperClasses">
+                    <li :class="wrapperActionClass" v-for="(item,key) in actions" @click="emit(item,key)"><span>{{item.text}}</span></li>
                 </ul>
-                <a href="javascript:;" class="vlc-actionSheet-cancle"  @click="visible = false" v-if="cancleText">{{cancleText}}</a>
+                <a href="javascript:;" :class="cancleClass"  @click="visible = false" v-if="cancleText">{{cancleText}}</a>
             </div>
         </Popup>
     </div>
@@ -46,6 +46,21 @@
             classes(){
                 return [
                     `${prefixCls}`
+                ]
+            },
+            wrapperClasses(){
+                return [
+                    `${prefixCls}-wrapper`
+                ]
+            },
+            wrapperActionClass(){
+                return [
+                    `${prefixCls}-wrapper-action`
+                ]
+            },
+            cancleClass(){
+                return [
+                    `${prefixCls}-cancle`
                 ]
             }
         },

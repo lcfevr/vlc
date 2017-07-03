@@ -83,11 +83,12 @@
         <Rater v-model="rate" disabled></Rater>
         {{rate}}
 
-
         <Spinner type="blade" size="60"></Spinner>
         <Action-sheet :items="actionSheet" v-model="popup">
 
         </Action-sheet>
+        <Progress v-model="progress"></Progress>
+        <ToTop></ToTop>
     </div>
 </template>
 
@@ -99,6 +100,7 @@
         components: {},
         data () {
             return {
+                progress:40,
                 loadmore: [1, 1, 1],
                 popup: false,
                 inita: ['w', 'e', 'r'],
@@ -249,6 +251,7 @@
         },
         mounted () {
 //            this.$Message.loading({showLeft:false,text:'加载中...',duration:0,position:'center'})
+            this.$Modal.info({showHead:true,body:'加载中...',title:'a'})
            setTimeout(()=>{
                this.items = [
                    {
@@ -271,6 +274,7 @@
                    }
                ]
            },1000);
+
 
 
         },

@@ -1,7 +1,7 @@
 <template>
         <Popup height="284px" position="bottom" v-model="visible">
-            <div class="vlc-picker-wrapper">
-                <div class="vlc-picker-content" >
+            <div :class="wrapperClass">
+                <div :class="contentClass" >
                     <Area-picker v-if="type==='AreaPicker'"
                                  :init-province="initProvince"
                                  :init-city="initCity"
@@ -40,6 +40,7 @@
     import DatePicker from './date-picker/date-picker.vue';
     import NormalPicker from './normal-picker/normal-picker.vue';
     const LIST = ['DatePicker','AreaPicker','NormalPicker'];
+    const prefixCls = 'vlc-picker';
     export default {
         name: 'Picker',
         props: {
@@ -91,6 +92,18 @@
             },
             visible(val){
                 this.$emit('input', val)
+            }
+        },
+        computed:{
+            wrapperClass(){
+                return [
+                    `${prefixCls}-wrapper`
+                ]
+            },
+            contentClass(){
+                return [
+                    `${prefixCls}-content`
+                ]
             }
         }
     }

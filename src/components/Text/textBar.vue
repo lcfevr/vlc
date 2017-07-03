@@ -1,6 +1,6 @@
 <template>
     <div :class="classes" :style="styles">
-        <label :class="['vlc-textBar-input']" :style="inputStyles" v-if="type !== 'textarea'">
+        <label :class="inputClasses" :style="inputStyles" v-if="type !== 'textarea'">
             <input
                     :type="type"
                     :autofocus="autofocus"
@@ -19,9 +19,8 @@
             />
         </label>
 
-        <label :class="['vlc-textBar-textarea']" v-else>
+        <label :class="textareaClasses" v-else>
             <textarea
-                    :class="textareaClass"
                     :type="type"
                     :autofocus="autofocus"
                     :value="currentVal"
@@ -96,7 +95,12 @@
                     `${prefixCls}`
                 ]
             },
-            textareaClass(){
+            inputClasses(){
+                return [
+                    `${prefixCls}-text`
+                ]
+            },
+            textareaClasses(){
                 return [
                     `${prefixCls}-textarea`
                 ]

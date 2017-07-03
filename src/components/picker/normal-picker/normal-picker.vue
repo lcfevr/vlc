@@ -1,5 +1,5 @@
 <template>
-    <div class="vlc-normal-picker">
+    <div :class="classes">
         <div class="header">
             <div class="left" @click="cancle">取消</div>
             <div class="right" @click="sure">确定</div>
@@ -16,6 +16,7 @@
 <script>
     import Emitter from '../../../mixin/emitter'
     import PickerSlot from '../picker-slot.vue'
+    const prefixCls = 'vlc-normal-picker'
     export default {
         name:'NormalPicker',
         props:{
@@ -69,6 +70,11 @@
             }
         },
         computed:{
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
             shadowList(){
                 let list = this.list;
                 for (let i = 0,listLength = list.length;i < listLength ;i++) {

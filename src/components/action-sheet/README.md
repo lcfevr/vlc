@@ -17,7 +17,17 @@
 
 
 
-菜单栏跟container项均可通过slot配置 配置方法如下：
+**
+    其中items为数组，数组中的每一项为Object类型
+    ```
+        {
+            text:'确定'  //文本
+            onClick:function(){} //点击后的回调
+            ...
+        }
+    ```
+
+**
 
 ```
       <Action-sheet v-model="visible" :items="items"></Action-sheet>
@@ -29,9 +39,13 @@
 
       data(){
 
-          items:[],
+          items:[
+            {
+                text:'确定'  //文本
+                onClick:function(){console.log('点击了确定')} //点击后的回调
+            }
+          ],
           visible:false,
-
 
       }
 

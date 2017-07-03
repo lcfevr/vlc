@@ -1,8 +1,8 @@
 {
   "name": "vlc-ui",
-  "version": "1.3.7",
+  "version": "1.3.9",
   "description": "Vue组件库",
-  "main": "dist/vlc.min.js",
+  "main": "dist/vlc.js",
   "scripts": {
     "init": "webpack --progress --config webpack.dev.config.js",
     "dev": "webpack-dev-server --host 192.168.0.132  --inline --hot --compress --history-api-fallback  --config webpack.dev.config.js",

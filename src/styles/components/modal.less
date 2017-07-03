@@ -1,4 +1,4 @@
-.v-lc-modal{
+.vlc-modal{
   transform: translate3d(-50%,-50%,0) scale(1);
   position:absolute;
   top:50%;
@@ -8,20 +8,20 @@
   background:@ModalBgColor;
   z-index:100;
   color:@ModalColor;
-  .v-lc-modal-header{
+  .vlc-modal-header{
     text-align: center;
     padding:0 10px;
     //border-bottom: 1px solid @BorderColor;
-    .v-lc-modal-header-inner{
+    .vlc-modal-header-inner{
       font-weight:bold;
       font-size:20px;
       width:100%;
       padding-top:20px;
     }
   }
-  .v-lc-modal-body{
+  .vlc-modal-body{
 
-    .v-lc-modal-body-inner {
+    .vlc-modal-body-inner {
       text-align: center;
     }
     line-height:25px;
@@ -29,7 +29,7 @@
     word-wrap:break-word;
     overflow-y:scroll;
   }
-  .v-lc-modal-footer{
+  .vlc-modal-footer{
     width:100%;
     display: flex;
     justify-content: center;
@@ -42,13 +42,13 @@
     //  border-right:1px solid @BorderColor;
     //}
   }
-  .v-lc-modal-button{
+  .vlc-modal-button{
     flex:1;
     height:40px;
     border:1px solid @BorderColor;
     border-left: 0 none;
   }
-  .v-lc-modal-button-sure{
+  .vlc-modal-button-sure{
 
     color: red;
   }
@@ -58,7 +58,7 @@
   //}
 }
 //遮罩层
-.v-lc-modal-mask{
+.vlc-modal-mask{
   position: fixed;
   left:0;
   top:0;

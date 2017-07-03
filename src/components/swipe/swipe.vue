@@ -4,7 +4,7 @@
         <div :class="wrapperClasses" :style="styles" ref="wrapper" >
             <div :class="itemClasses" v-for="(item,index) in arrayList" v-if="arrayList.length">
                 <template v-if="isMultiple">
-                    <div class="vlc-swipe-multiple" v-for="(_item,$index) in item" @click="choose(_item,$index)">
+                    <div :class="multipleClass" v-for="(_item,$index) in item" @click="choose(_item,$index)">
                         <slot  :item="_item" :index="$index">
                             <img :src="_item.image"/>
                             <span>{{_item.spec}}</span>
@@ -12,7 +12,7 @@
                     </div>
                 </template>
                 <template v-else>
-                    <div class="vlc-swipe-single" @click="choose(item,index)">
+                    <div :class="singleClass" @click="choose(item,index)">
                         <slot :item="item" :index="index">
                             <img :src="item.image">
                             <span>{{item.spec}}</span>
@@ -133,7 +133,16 @@
                     }
                 ]
             },
-
+            multipleClass(){
+                return [
+                    `${prefixCls}-multiple`
+                ]
+            },
+            singleClass(){
+                return [
+                    `${prefixCls}-single`
+                ]
+            },
             dotsClasses(){
                 return [
                     `${prefixCls}-dots`,

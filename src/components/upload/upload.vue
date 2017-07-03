@@ -1,7 +1,7 @@
 <template>
-    <div class="vlc-upload" :style="styles">
+    <div :class="classes" :style="styles">
         <slot>
-            <div class="vlc-upload-wrapper">图片上传</div>
+            <div :class="wrapperClasses">图片上传</div>
         </slot>
         <input type="file" ref="upload" :accept="accept"  :multiple="multiple" @change="showPhoto"/>
     </div>
@@ -12,6 +12,7 @@
     import EXIF from 'exif-js'
     import MegaPixImage from '../../lib/MegaPixImage'
     import { JPEG } from '../../utils/util'
+    const prefixCls = 'vlc-upload';
     export default {
         props: {
             multiple: {
@@ -38,6 +39,18 @@
                 return {
                     files: [],
                     fileLength:0
+                }
+            },
+            computed:{
+                classes(){
+                    return [
+                        `${prefixCls}`
+                        ]
+                },
+                wrapperClasses(){
+                    return [
+                        `${prefixCls}-wrapper`
+                    ]
                 }
             },
 

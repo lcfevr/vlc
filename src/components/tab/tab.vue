@@ -1,6 +1,6 @@
 <template>
 
-        <div class="vlc-tab" v-show="show" :style="getStyles">
+        <div :class="classes" v-show="show" :style="getStyles">
             <ul>
                 <li v-for="(item, index) in items" :key="index">
                     <template v-if="/(http|https)/i.test(item.path)">
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-
+    const prefixCls = 'vlc-tab';
     export default {
         props: {
             items: Array,
@@ -58,6 +58,11 @@
             }
         },
         computed: {
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
             getStyles() {
                 return Object.assign({}, this.styles)
             }

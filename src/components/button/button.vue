@@ -87,9 +87,6 @@
                 }
 
             },
-
-
-
             buttonClass(){
                 return [
                     `${prefixCls}-btn`,
@@ -104,6 +101,7 @@
                         [`${prefixCls}-primary`]: this.type == 'primary',
                         [`${prefixCls}-disabled`]: this.disabled,
                         [`${prefixCls}-radius`]:this.radius,
+
 
                     }
                 ]

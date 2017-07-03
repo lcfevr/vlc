@@ -7,7 +7,7 @@ import Vue from 'vue'
 
 import { camelcaseToHyphen } from '../../utils/util'
 
-const prefixCls = 'v-lc-modal';
+const prefixCls = 'vlc-modal';
 
 Modal.newInstance = properties =>{
 

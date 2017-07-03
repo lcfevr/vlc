@@ -2,9 +2,15 @@
     <transition name="vlc-ani-scale">
 
         <div :class="classes">
-            <div class="vlc-message-left" v-if="showLeft"><slot name="message-left"><Spinner size="65" type="blade" color="#ffffff"></Spinner></slot></div>
+            <div :class="leftClasses" v-if="showLeft">
+                <slot name="message-left">
+                    <Spinner size="65" type="blade" color="#ffffff"></Spinner>
+                </slot>
+            </div>
             <p :class="wrapperClasses">{{text}}</p>
-            <div class="vlc-message-right" v-if="!rightHide"><slot name="message-right"></slot></div>
+            <div :class="rightClasses" v-if="!rightHide">
+                <slot name="message-right"></slot>
+            </div>
         </div>
 
     </transition>
@@ -17,56 +23,53 @@
     export default {
 
         data (){
-            return {
-
-            }
+            return {}
         },
-        props:{
-            name:{
-                type:[String,Number],
-                required:true
+        props: {
+            name: {
+                type: [String, Number],
+                required: true
             },
-            text:{
-                type:[Number,String],
-                default:''
+            text: {
+                type: [Number, String],
+                default: ''
             },
 
-            duration:{
-                type:Number,
-                default:1.5
+            duration: {
+                type: Number,
+                default: 1.5
             },
-            showLeft:{
-                type:Boolean,
-                default:false
+            showLeft: {
+                type: Boolean,
+                default: false
             },
-            rightHide:{
-                type:Boolean,
-                default:true
+            rightHide: {
+                type: Boolean,
+                default: true
             },
             //TODO
-            type:{
-                type:String,
-                default:'normal',
-                validator:(val)=>{
-                    return ['success','loading','error','normal','warning','danger'].indexOf(val) > -1
+            type: {
+                type: String,
+                default: 'normal',
+                validator: (val) => {
+                    return ['success', 'loading', 'error', 'normal', 'warning', 'danger'].indexOf(val) > -1
                 }
             },
-            onClose:{
-                type:Function,
-                default:()=>{}
+            onClose: {
+                type: Function,
+                default: () => {
+                }
             },
-            position:{
-                type:String,
-                default:'top'
+            position: {
+                type: String,
+                default: 'top'
             }
         },
-        components:{
+        components: {
             Spinner
         },
-        computed:{
-
+        computed: {
             classes(){
-
                 return [
 
                     `${prefixCls}`,
@@ -78,13 +81,23 @@
                     `${prefixCls}-text`
                 ]
             },
+            leftClasses(){
+                return [
+                    `${prefixCls}-left`
+                ]
+            },
+            rightClasses(){
+                return [
+                    `${prefixCls}-right`
+                ]
+            }
 
         },
 
-        methods:{
+        methods: {
 
             close(){
-                console.log(this.name)
+
                 this.closeTimer();
                 this.$parent.remove(this.name);
                 this.onClose();
@@ -92,12 +105,11 @@
             },
             closeTimer(){
 
-                if(this.timer) {
+                if (this.timer) {
                     clearTimeout(this.timer);
                     this.timer = null
                 }
             },
-
 
         },
 
@@ -105,12 +117,12 @@
 
             this.closeTimer();
 
-            if (this.duration!==0) {
+            if (this.duration !== 0) {
 
 
-                this.timer = setTimeout(()=>{
+                this.timer = setTimeout(() => {
                     this.close();
-                },this.duration*1000);
+                }, this.duration * 1000);
 
             }
         },

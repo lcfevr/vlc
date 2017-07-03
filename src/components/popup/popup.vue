@@ -1,5 +1,5 @@
 <template>
-    <div class="vlc-popup" >
+    <div :class="classes" >
         <transition name="vlc-ani-fade">
             <div class="vlc-popup-mask"   v-show="visible" @click="close" v-if="mask" @touchstart.prevent @touchmove.prevent @touchend.prevent></div>
         </transition>
@@ -49,6 +49,11 @@
 
         },
         computed:{
+            classes(){
+                return [
+                    `${prefixCls}`
+                ]
+            },
             popupClasses(){
                 return [
                     `${prefixCls}-${this.position}`,

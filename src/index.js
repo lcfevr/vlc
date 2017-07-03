@@ -24,6 +24,7 @@ import LoadMore from './components/loadMore'
 import Popup from './components/popup'
 import Indicator from './components/Indicator'
 import Progress from './components/progress'
+import ToTop from './components/toTop'
 
 const vlc = {
 
@@ -50,7 +51,8 @@ const vlc = {
     LoadMore,
     Popup,
     Indicator,
-    Progress
+    Progress,
+    ToTop
 
 };
 

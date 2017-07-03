@@ -3,6 +3,7 @@
         &-enter-active, &-leave-active {
             opacity: 1;
             transition: opacity .3s ease;
+            will-change:opacity;
         }
         &-enter, &-leave-active {
             opacity: 0;
@@ -12,6 +13,7 @@
     &-bottom {
         &-enter-active, &-leave-active {
             transition: transform .3s ease-out 100ms;
+            will-change:transform;
         }
         &-enter, &-leave-active {
             transform: translate3d(0, 100%, 0);
@@ -20,7 +22,7 @@
 
     &-scale {
         &-enter-active, &-leave-active {
-            will-change: transform;
+            will-change: transform,opcity;
             transition: all .3s ease-in;
         }
         &-enter, &-leave-active {
@@ -32,6 +34,7 @@
     &-top {
         &-enter-active,&-leave-active {
             transition: transform .3s ease-out 100ms;
+            will-change:transform;
         }
 
         &-enter,&-leave-active {
@@ -42,6 +45,7 @@
     &-left {
         &-enter-active,&-leave-active {
             transition: all .3s ease;
+            will-change:transform;
         }
 
         &-enter,&-leave-active {
@@ -52,6 +56,7 @@
     &-right {
         &-enter-active,&-leave-active {
             transition: all .3s ease;
+            will-change:transform;
         }
 
         &-enter,&-leave-active {
@@ -64,6 +69,7 @@
     &-slide-up {
         &-enter-active,&-leave-active {
             transition: all .3s ease;
+            will-change:transform;
         }
 
         &-enter,&-leave-active {
@@ -76,6 +82,7 @@
     &-slide-down {
         &-enter-active,&-leave-active {
             transition: all .3s ease;
+            will-change:transform;
         }
 
         &-enter,&-leave-active {
@@ -88,11 +95,11 @@
 @keyframes rotate {
 
     0% {
-        transform: rotate(0deg);
+        transform: rotate(0deg) translateZ(0deg);
     }
 
     100% {
-        transform: rotate(360deg);
+        transform: rotate(360deg) translateZ(0deg);
     }
 }
 

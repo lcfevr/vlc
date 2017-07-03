@@ -1,16 +1,16 @@
 <template>
     <div>
     <transition name="vlc-ani-fade">
-        <div class="v-lc-modal-mask" v-show="visible"  @click="mask" @touchstart.prevent @touchmove.prevent @touchend.prevent></div>
+        <div class="vlc-modal-mask" v-show="visible"  @click="mask" @touchstart.prevent @touchmove.prevent @touchend.prevent></div>
     </transition>
 
 
 
     <transition name="vlc-ani-scale">
-        <div class="v-lc-modal " :style="getWrapperStyle" v-show="visible" >
-            <div class="v-lc-modal-header" v-if="isHead"><slot name="header"><div slot="header" class="v-lc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
-            <div class="v-lc-modal-body"><slot name="body">{{body}}</slot></div>
-            <div class="v-lc-modal-footer" v-if="!footerHide">
+        <div class="vlc-modal " :style="getWrapperStyle" v-show="visible" >
+            <div class="vlc-modal-header" v-if="isHead"><slot name="header"><div slot="header" class="vlc-modal-header-inner ellipse-fir">{{title}}</div></slot></div>
+            <div class="vlc-modal-body"><slot name="body">{{body}}</slot></div>
+            <div class="vlc-modal-footer" v-if="!footerHide">
                 <slot name="footer">
                     <v-button type="primary" @on-click="close" v-if="cancleText">{{cancleText}}</v-button>
                     <v-button type="normal" @on-click="ok" :loading="buttonLoading">{{okText}}</v-button>
@@ -24,7 +24,6 @@
 
 <script>
     import Emitter from '../../mixin/emitter'
-    import stop from '../../directives/stop'
     import VButton from '../button'
 
     export default {

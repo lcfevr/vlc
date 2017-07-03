@@ -12,21 +12,21 @@
 
      list                    Array                  none           slidebar菜单栏数据
 
-   childWidth                Number                  70            单个菜单栏宽度
+    childWidth                Number                  70            单个菜单栏宽度
 
-   scrollColor               String                 '#39f'         菜单栏底部边框颜色
+    scrollColor               String                 '#39f'         菜单栏底部边框颜色
 
-   textAlign                 String                 'center'        文本对齐的方式
+    textAlign                 String                 'center'        文本对齐的方式
 
      flex                    Boolean                  true          菜单栏等分
 
      index                 Number,String               0            初始索引
 
-   distanceIndex              Number                  1.5           滑动速度
+    distanceIndex              Number                  1.5           滑动速度
 
-   isFixedHeader             Boolean                  false         滑动时header是否吸顶
+    isFixedHeader             Boolean                  false         滑动时header是否吸顶
 
-   isDrag                   Boolean                   false         是否允许拖动
+    isDrag                   Boolean                   false         是否允许拖动
 
 
 

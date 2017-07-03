@@ -1,6 +1,6 @@
 <template>
     <div :class="classes" :style="getStyles">
-        <div :class="['vlc-slideBar-header',fixed ? 'fixed':'']" ref="header">
+        <div :class="headerClasses" ref="header">
             <div :class="wrapperClasses" ref="wrapper"
                  :style="{width:isFlex ? 'auto' : items.length * getItemWidth + 'px'}">
                 <div :class="['vlc-slideBar-child',startIndex == key ? 'active':'',!isFlex ? 'normalChild':'']"
@@ -13,9 +13,9 @@
                 </div>
             </div>
 
-            <div class="vlc-slideBar-wrapper-absolute" :style="getScrollStyle"></div>
+            <div :class="absoluteClass" :style="getScrollStyle"></div>
         </div>
-        <div class="vlc-slideBar-container" :style="{height:height}">
+        <div :class="containerClass" :style="{height:height}">
             <div :class="contentClasses" :style="getContainerStyle" ref="content">
                 <div :class="['vlc-slideBar-content-item',startIndex == index ? 'active':'' ]"
                      v-for="(item,index) in items" :style="{width:clientWidth+'px'}">
@@ -107,6 +107,14 @@
                     `${prefixCls}`
                 ]
             },
+            headerClasses(){
+                return [
+                    `${prefixCls}-header`,
+                    {
+                        ['fixed']:this.fixed
+                    }
+                ]
+            },
             wrapperClasses(){
                 return [
                     `${prefixCls}-wrapper`,
@@ -123,6 +131,17 @@
                     {
                         [`${prefixCls}-dragging`]: this.dragging
                     }
+                ]
+            },
+            absoluteClass(){
+                return [
+                    `${prefixCls}-wrapper-absolute`
+                ]
+            },
+
+            containerClass(){
+                return [
+                    `${prefixCls}-container`
                 ]
             },
 
