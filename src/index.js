@@ -4,7 +4,6 @@
 
 import VButton from './components/button'
 import CheckBox from './components/checkBox'
-
 import Header from './components/Header'
 import Message from './components/message'
 import Modal from './components/modal'
@@ -25,6 +24,9 @@ import Popup from './components/popup'
 import Indicator from './components/Indicator'
 import Progress from './components/progress'
 import ToTop from './components/toTop'
+import Cell from './components/cell'
+import CellSwipe from './components/cell-swipe'
+import Badge from './components/badge'
 
 const vlc = {
 
@@ -52,8 +54,10 @@ const vlc = {
     Popup,
     Indicator,
     Progress,
-    ToTop
-
+    ToTop,
+    Cell,
+    CellSwipe,
+    Badge
 };
 
 

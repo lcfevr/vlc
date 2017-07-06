@@ -24,9 +24,7 @@
 </template>
 
 <script>
-
     import Spinner from '../spinner'
-
     const prefixCls = 'vlc-loadmore';
     export default {
         name: 'loadmore',
@@ -100,7 +98,6 @@
             }
         },
         data(){
-
             return {
                 translateY: 0,
                 startTranslateY: 0,
@@ -147,7 +144,6 @@
             }
         },
         mounted(){
-
             if (this.auto && this.refresh && typeof this.refresh == 'function') {
                 this.translateY = 40;
                 this.drag = false;
@@ -157,13 +153,11 @@
             }
             this.bindEvents();
         },
-
         methods: {
             onLoadOff(){
                 this.translateY = 0;
                 this.upStatus = '';
                 this.downStatus = '';
-
                 if (!this.more) this.downStatus = 'end';
                 setTimeout(() => {
                     if (this.more && this.isBottom()) {
@@ -172,32 +166,23 @@
                         this.loadMore();
                     }
                 }, 1000)
-
-
             },
             isBottom(){
                 if (this.$el.scrollHeight > this.$el.offsetHeight) return false;
                 return true;
             },
             onScroll(e){
-
                 e.preventDefault()
                 if (this.downStatus == 'loading') return;
                 let scrollTop = this.$el.scrollTop;
-
                 if (this.loadMore && typeof this.loadMore == 'function') {
                     let absY = this.$el.scrollHeight - (this.$el.offsetHeight + scrollTop);
-
                     if (absY > 50 && this.downStatus === 'drop') {
                         this.downStatus = '';
-
                     } else if (absY <= 50 && absY > this.downDistance && this.more) {
-
                         this.downStatus = 'drop';
                     } else if (absY <= this.downDistance) {
-
                         this.downStatus = 'loading';
-
                         if (this.more) {
                             this.downStatus = 'loading';
                             this.loadMore();
@@ -216,10 +201,8 @@
                 this.startY = e.touches[0].clientY;
                 this.startTranslateY = this.translateY;
                 this.down = false;
-
             },
             onTouchMove(e){
-
                 let pos = this.$el.getBoundingClientRect();
                 if (this.upStatus === 'loading' || this.startY < pos.top && this.startY > pos.down) return;
                 this.currentY = e.touches[0].clientY;
@@ -234,32 +217,25 @@
                     } else {
                         this.translateY = distance - scrollTop;
                     }
-
                     if (this.translateY < 0) {
                         this.translateY = 0;
                     }
-
                     this.upStatus = this.translateY >= this.upDistance ? 'drop' : 'pull';
                     this.drag = true;
                     this.down = this.down || this.isBottom();
                 }
-
-
             },
             onTouchEnd(e){
                 if (this.upStatus === 'loading') return;
                 if (this.direction === 'down' && this.$el.scrollTop <= 0 && this.translateY >= 0) {
-
                     if (this.upStatus == 'drop') {
                         this.translateY = 40;
                         this.upStatus = 'loading';
                         this.refresh();
                     } else {
-
                         this.translateY = 0;
                     }
                 }
-
                 this.direction = '';
                 this.drag = false;
             },
@@ -280,35 +256,28 @@
                     case 'pull':
                         this.upText = this.upPullText;
                         break;
-
                     case 'drop':
                         this.upText = this.upDropText;
                         break;
-
                     case 'loading':
                         this.upText = this.upLoadingText;
                 }
-
                 this.$emit('on-change-up-status', val)
             },
             downStatus(val){
-
                 switch (val) {
                     case 'end':
                         this.downText = this.downEndText;
                         break;
-
                     case 'drop':
                         this.downText = this.downDropText;
                         break;
-
                     case 'loading':
                         this.downText = this.downLoadingText;
                         break;
                     default:
                         this.downText = '';
                         break;
-
                 }
                 this.$emit('on-change-down-status', val)
             },
@@ -320,6 +289,5 @@
         beforeDestroy(){
             this.unbindEvents();
         }
-
     }
 </script>

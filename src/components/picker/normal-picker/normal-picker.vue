@@ -16,28 +16,14 @@
 <script>
     import Emitter from '../../../mixin/emitter'
     import PickerSlot from '../picker-slot.vue'
+    import props from './props'
     const prefixCls = 'vlc-normal-picker'
     export default {
         name:'NormalPicker',
-        props:{
-            list:{
-                type:Array,
-                default(){
-                    return []
-                }
-            },
-            initArr:{
-                type:Array,
-                default(){
-                    return []
-                }
-            }
-
-        },
-        mixins:[Emitter],
+        mixins:[Emitter,props],
         data(){
             return {
-                initItems:!!this.initArr.length ? this.initArr : this.list.map((item)=>{return item.list[0].value}),
+                initItems:!!this.initArr.length ? this.initArr : this.list.map((item)=>{return item.list[0].code}),
                 normal:{}
             }
 
@@ -89,6 +75,8 @@
                                 list[i].list[j].code = list[i].list[j].value
                             }
 
+
+
                             if(!list[i].list[j].hasOwnProperty('target')) {
                                 list[i].list[j].target = list[i].target
                             }
@@ -107,8 +95,8 @@
             PickerSlot
         },
         watch:{
-            initValue(val){
-                this.initItems = val
+            initArr(val){
+                this.initItems = !!this.initArr.length ? this.initArr : this.list.map((item)=>{return item.list[0].value})
             },
         }
     }

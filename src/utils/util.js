@@ -3,64 +3,7 @@
  */
 import Config from '../config/config'
 
-export function strLength(str) {
-    var oLength = 0;
-    for (let ch of str) {
-        if (ch.codePointAt(0) > 0xFFF) {
-            oLength += 4
-        } else {
-            oLength += 2
-        }
-    }
-    return oLength;
-}
-export function getLength(str) {
-    return [...str].length;
-}
 
-export function getMultiArr(arr, ...newArr) {
-    arr.push(...newArr);
-    return arr;
-}
-export function pushArr(arr, newArr) {
-    arr.push(...newArr)
-    return arr;
-}
-export function baseImg(imgObj, callback) {
-    var reader = new FileReader();
-    reader.onload = callback()
-    reader.readAsDataURL(imgObj)
-}
-export function objToArr(obj) {
-    var arr = [];
-    Object.keys(obj).forEach(function (item) {
-        arr.push(obj[item])
-    })
-
-    return arr;
-}
-export function setPageTitle(title) {
-    document.title = title;
-
-    if (Config.isIphone && Config.isWechat) {
-        var body = document.getElementsByTagName('body')[0];
-        var iframe = document.createElement('iframe');
-        iframe.setAttribute('src', '/favicon.ico');
-
-        iframe.addEventListener('load', function () {
-            setTimeout(function () {
-                iframe.removeEventListener('load');
-                document.body.removeChild(iframe);
-            }, 0);
-        });
-        document.body.appendChild(iframe);
-    }
-
-}
-export function loadJs(url, callback) {
-
-
-}
 
 export function camelcaseToHyphen(str) {
     return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();

@@ -16,6 +16,7 @@
 
     import PickerSlot from '../picker-slot.vue'
     import Emitter from '../../../mixin/emitter'
+    import props from './props'
     const DAYS = {
         30: [4, 6, 9, 11],
         31: [1, 3, 5, 7, 8, 10, 12]
@@ -23,37 +24,8 @@
     const prefixCls = 'vlc-date-picker';
     export default {
         name: 'DatePicker',
-        mixins: [Emitter],
-        props: {
-            initYear: {
-                type: [String, Number],
-                default: new Date().getFullYear()
-            },
-            initMonth: {
-                type: [String, Number],
-                default: new Date().getMonth()+1
-            },
-            initDay: {
-                type: [String, Number],
-                default: new Date().getDate()
-            },
-            year: {
-                type: [Boolean, Array],
-                default: true
-            },
-            month: {
-                type: [Boolean, Array],
-                default: true
-            },
-            day: {
-                type: [Boolean, Array],
-                default: true
-            },
-            valueSeparator:{
-                type:String,
-                default:'/'
-            }
-        },
+        mixins: [Emitter,props],
+
         data(){
             return {
 

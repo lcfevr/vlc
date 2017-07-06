@@ -1,0 +1,78 @@
+.vlc-badge {
+  position: relative;
+  display: inline-block;
+  color: @BadgeColor;
+  text-align: center;
+  line-height:1;
+  vertical-align: middle;
+
+  &-size-normal {
+    height:@BadgeNormalHeight;
+    border-radius: @BadgeNormalHeight/2;
+    font-size: @BadgeNormalFontSize;
+    padding: @BadgeNormalPadding;
+    min-width: @BadgeNormalHeight;
+    top:-@BadgeNormalHeight/2;
+    line-height:@BadgeNormalHeight - 2;
+  }
+
+  &-size-large {
+    height:@BadgeLargeHeight;
+    border-radius: @BadgeLargeHeight/2;
+    font-size: @BadgeLargeFontSize;
+    padding: @BadgeLargePadding;
+    min-width:@BadgeLargeHeight;
+    top:-@BadgeLargeHeight/2;
+    line-height:@BadgeLargeHeight - 2;
+
+  }
+
+  &-size-small {
+    height:@BadgeSmallHeight;
+    border-radius: @BadgeSmallHeight/2;
+    font-size: @BadgeSmallFontSize;
+    padding: @BadgeSmallPadding;
+    min-width:@BadgeSmallHeight;
+    top:-@BadgeSmallHeight/2;
+    line-height:@BadgeSmallHeight - 2;
+  }
+
+  &-dot {
+    position: absolute;
+    transform-origin: 0 center;
+    top: -4px;
+    right: -8px;
+    height: 8px;
+    width: 8px;
+    min-width:0;
+    padding:0;
+    border-radius: 100%;
+  }
+  &-success {
+      background-color: @BadgeSuccessBg;
+  }
+
+  &-danger {
+    background-color: @BadgeDangerBg;
+  }
+
+  &-warning {
+    background-color: @BadgeWarningBg;
+  }
+
+  &-normal {
+    background-color: @BadgeNormalBg;
+  }
+
+  > sup {
+    position: absolute;
+    right:0;
+    text-align: center;
+    transform-origin: -10% center;
+    z-index: 10;
+    box-shadow: 0 0 0 1px #fff;
+    transform: translateX(50%);
+    border: 1px solid transparent;
+    box-sizing: border-box;
+  }
+}

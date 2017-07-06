@@ -57,7 +57,7 @@
             methods: {
 
                 showPhoto(e){
-                    this.$emit('upload-loading',true);
+                    this.$Indicator.snake({text:'上传中'});
                     this.files = [];
                     let file = e.target.files;
                     this.fileLength = file.length;
@@ -87,8 +87,6 @@
                             }
                         };
                     }
-
-
                     e.target.value = '';
 
 
@@ -137,10 +135,10 @@
                             base64: data,
                             clearBase64: data.substr(data.indexOf(',') + 1)
                         };
-                        console.log(result)
+
                         _this.files.push(result)
 
-                        if (_this.files.length === _this.fileLength) _this.$emit('upload-loading',false)
+                        if (_this.files.length === _this.fileLength) _this.$Indicator.remove()
 
                     };
                 },

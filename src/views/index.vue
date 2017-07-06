@@ -12,7 +12,7 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="AreaPicker" @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
+        <Picker type="DatePicker" :init-year="2015" @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
         <v-button :loading="disable" @on-click="popup = true">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
@@ -89,6 +89,16 @@
         </Action-sheet>
         <Progress v-model="progress"></Progress>
         <ToTop></ToTop>
+        <Cell title="标题" label="小标题" value="说明文字" has-mask></Cell>
+        <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
+        <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
+        <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
+        <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
+        <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
+        <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
+        <Badge number="10" max="99" :dot="false">
+            <div style="width: 45px;height: 45px;background-color: red"></div>
+        </Badge>
     </div>
 </template>
 
@@ -100,10 +110,55 @@
         components: {},
         data () {
             return {
+                left:[
+                    {
+                        content:'btn1',
+                        style:{
+                            backgroundColor:'#eee',
+                            color:'#fff'
+                        },
+                        handleClick:function(){
+                            console.log('btn1')
+                        }
+                    },
+                    {
+                        content:'btn2',
+                        style:{
+                            backgroundColor:'red',
+                            color:'#fff'
+                        },
+                        handleClick:function(){
+                            console.log('btn2')
+                        }
+                    }
+                ],
+                right:[
+                    {
+                        content:'btn1',
+                        style:{
+                            backgroundColor:'#eee',
+                            color:'#fff'
+                        },
+                        handleClick:function(){
+                            console.log('btn1')
+                        }
+                    },
+                    {
+                        content:'btn2',
+                        style:{
+                            backgroundColor:'red',
+                            color:'#fff'
+                        },
+                        handleClick:function(){
+                            console.log('btn2')
+                        }
+                    }
+                ],
+                badge:true,
                 progress:40,
                 loadmore: [1, 1, 1],
                 popup: false,
-                inita: ['w', 'e', 'r'],
+                inita: [9, 1, 1],
                 listss: [
                     {
                         target: 'a',
@@ -113,7 +168,7 @@
                         }, {value: 5, code: 5}, {value: 6, code: 6}, {value: 7, code: 7}, {
                             value: 8,
                             code: 8
-                        }, {value: 9, code: 9}, {value: 0, code: 0}]
+                        }, {value: 'c', code: 9}, {value: 0, code: 0}]
                     },
                     {
                         target: 'b',
@@ -154,7 +209,11 @@
                         status: "published",
                         title: "应用人工智能和机器学习，医渡云专注挖掘医疗大数据",
                         updated_at: "2017-05-17 20:37:23",
-                        view_count: 151
+                        view_count: 151,
+                        link:'https://www.baidu.com',
+                        onClick:function(){
+                            console.log(1)
+                        }
                     },
                     {
                         user_id: 10,

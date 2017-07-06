@@ -33,14 +33,16 @@ module.exports = merge(webpackBaseConfig, {
             // test: /\.xxx$/, // may apply this only for some modules
             options: {
                 babel:{
-                    presets: ['es2015','stage-0'],
+                    presets: ['es2015'],
                     plugins: ['transform-runtime']
                 }
             }
         }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false
+                warnings: false,
+                drop_debugger: true,
+                drop_console: true
             }
         })
     ]

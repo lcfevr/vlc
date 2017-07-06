@@ -7,8 +7,6 @@ import App from './components/app.vue';
 import Routers from './router';
 import Env from './config/env';
 import Config from './config/config'
-import {setPageTitle} from './utils/util'
-import Cache from './utils/cache'
 // import Modal from './components/modal/index'
 // import Prompt from './components/prompt/index'
 

@@ -1,0 +1,70 @@
+.vlc-cell {
+  box-sizing: border-box;
+  color: inherit;
+  background-color:#ffffff;
+  min-height:48px;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+
+  &-mask:before {
+    content: '';
+    position: absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    background: #000;
+    opacity: 0;
+
+  }
+
+  &:active >&-mask:before {
+    opacity: .1;
+  }
+
+  &-left {
+    position: absolute;
+    left:0;
+
+    height:100%;
+    transform: translate3d(-100%,0,0);
+  }
+
+  &-right {
+    position: absolute;
+    right:0;
+    top:0;
+    height:100%;
+    transform: translate3d(100%,0,0);
+  }
+
+  &-main {
+    display: flex;
+    align-items: center;
+    line-height:1;
+    min-height:inherit;
+    overflow: hidden;
+    padding:0 10px;
+    width:100%;
+    font-size:16px;
+    &-title {
+      flex:1;
+
+    }
+
+    &-label {
+      font-size:12px;
+      color: #999;
+      margin-top:6px;
+      display: block;
+    }
+    
+    &-value {
+      color: #999;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

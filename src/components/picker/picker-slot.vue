@@ -192,11 +192,8 @@
 
             },
             scrollToItem (code){
-                let parent = findComponentUpward(this, 'AreaPicker');
                 this.list.forEach((item, i) => {
                     let currentCode = item.code;
-                    let currentValue = item.value;
-                    currentCode = !!parent ? currentCode : currentValue;
                     if (currentCode == code) {
                         this.currentTranslateY = this.translateY;
                         this.setSelectedItem(i)

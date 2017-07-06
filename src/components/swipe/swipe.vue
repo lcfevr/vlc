@@ -4,20 +4,20 @@
         <div :class="wrapperClasses" :style="styles" ref="wrapper" >
             <div :class="itemClasses" v-for="(item,index) in arrayList" v-if="arrayList.length">
                 <template v-if="isMultiple">
-                    <div :class="multipleClass" v-for="(_item,$index) in item" @click="choose(_item,$index)">
+                    <a  :class="multipleClass" v-for="(_item,$index) in item" @click="choose(_item,$index,$event)">
                         <slot  :item="_item" :index="$index">
                             <img :src="_item.image"/>
                             <span>{{_item.spec}}</span>
                         </slot>
-                    </div>
+                    </a>
                 </template>
                 <template v-else>
-                    <div :class="singleClass" @click="choose(item,index)">
+                    <a  :class="singleClass" @click="choose(item,index,$event)">
                         <slot :item="item" :index="index">
                             <img :src="item.image">
                             <span>{{item.spec}}</span>
                         </slot>
-                    </div>
+                    </a>
                 </template>
             </div>
 
@@ -205,14 +205,20 @@
         },
         methods: {
 
-            choose(item, index) {
-                console.log(item)
+            choose(item, index,e) {
                 if (item.onClick && typeof item.onClick == 'function') {
 
                     item.onClick(item, index)
-                } else if(item.link &&　/(http|https)/i.test(item.link)){
+                } else if(item.link &&　this.$router){
 
-                    window.location.href = item.link
+                    let matchLink = this.$router.match(item.link)
+
+                    if (!!matchLink.matched.length) {
+                        e.preventDefault();
+                        this.$router.push(item.link)
+                    } else if (/(https|http)/i.test(item.link)){
+                        window.location.href = item.link
+                    }
 
                 }
             },

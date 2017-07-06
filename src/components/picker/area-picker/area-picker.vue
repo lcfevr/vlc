@@ -25,38 +25,14 @@
     import CHINA_AREA from 'china-area-data'
     import pickerSlot from '../picker-slot'
     import Emitter from '../../../mixin/emitter'
+    import props from './props'
 
 
     const prefixCls = 'vlc-picker';
     export default {
         name: 'AreaPicker',
-        mixins: [Emitter],
-        props: {
-            initProvince: {
-                type: [String, Number],
-                default: '110000'
-            },
-            initCity: {
-                type: [String, Number],
-                default: '110100'
-            },
-            initDistrict: {
-                type: [String, Number],
-                default: '110101'
-            },
-            styles: {
-                type: Object,
-                default: () => {
-                }
-            },
-            rootCode: {
-                default: () => '86'
-            },
-            valueSeparator:{
-                type:String,
-                default:'/'
-            }
-        },
+        mixins: [Emitter,props],
+
         data(){
             return {
                 province: this.initProvince,

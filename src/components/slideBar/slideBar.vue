@@ -30,7 +30,6 @@
 <script>
     const prefixCls = 'vlc-slideBar';
     export default {
-
         props: {
             scrollHeight: {
                 type: [String, Number],
@@ -65,7 +64,6 @@
                 type: String,
                 default: 'normal'
             },
-
             onChange: {
                 type: Function,
             },
@@ -101,7 +99,6 @@
             getItemWidth(){
                 return this.isFlex ? this.clientWidth / this.items.length : this.childWidth;
             },
-
             classes(){
                 return [
                     `${prefixCls}`
@@ -138,33 +135,25 @@
                     `${prefixCls}-wrapper-absolute`
                 ]
             },
-
             containerClass(){
                 return [
                     `${prefixCls}-container`
                 ]
             },
-
             getStyles(){
                 let style = {};
-
                 let customStyle = this.styles ? this.styles : {};
-
 //                let fixedStyle = {paddingTop: this.fixed ? this.scrollHeight : 0}
-
                 Object.assign(style, customStyle);
-
                 return style;
             },
             getContainerStyle(){
-
                 return {
                     width: `${this.clientWidth * this.items.length}px`,
                     transform: `translate3d(${this.translateX}px,0,0)`
                 }
             },
             getScrollStyle(){
-
                 return {
                     width: `${this.getItemWidth}px`,
                     transform: `translate3d(${this.startIndex * this.getItemWidth}px,0,0)`,
@@ -194,7 +183,6 @@
                 isFlex: this.flex
             }
         },
-
         methods: {
             changeBar(index, event){
                 if (this.startIndex == index) return;
@@ -208,9 +196,7 @@
                 this.distance = 0;
                 this.startX = e.touches[0].clientX;
                 this.dragging = true;
-
             },
-
             onTouchMove(e){
                 this.currentX = e.touches[0].clientX;
                 if (this.distanceIndex) this.distance = (this.currentX - this.startX) / this.distanceIndex;
@@ -218,30 +204,20 @@
                 this.translateX = this.startTranslateX + this.distance
             },
             onTouchEnd(e){
-
                 if (this.distance < 0 && Math.abs(this.distance) > this.clientWidth / 2) {
-
                     this.onSlideLeft()
-
                 } else if (this.distance > 0 && Math.abs(this.distance) > this.clientWidth / 2) {
-
                     this.onSlideRight()
-
                 } else {
-
                     this.translateX = this.startTranslateX
                 }
                 this.dragging = false;
-
-
             },
-
             onSlideLeft(){
                 if (++this.startIndex > this.maxIndex) {
                     this.startIndex--;
                     this.translateX = this.startTranslateX
                 } else {
-
                     this.translateX = this.startTranslateX - this.clientWidth
                 }
                 this.$emit('on-change', this.startIndex)
@@ -251,10 +227,8 @@
                     this.startIndex++;
                     this.translateX = this.startTranslateX
                 } else {
-
                     this.translateX = this.startTranslateX + this.clientWidth
                 }
-
                 this.$emit('on-change', this.startIndex)
             },
             onScroll(e){
@@ -269,20 +243,14 @@
                     this.$refs.content.addEventListener('touchmove', this.onTouchMove);
                     this.$refs.content.addEventListener('touchend', this.onTouchEnd)
                 }
-
-
-
                 window.addEventListener('resize', this.onResize)
-
             },
             unbindEvents(){
-
                 this.$refs.content.removeEventListener('touchstart', this.onTouchStart);
                 this.$refs.content.removeEventListener('touchmove', this.onTouchMove);
                 this.$refs.content.removeEventListener('touchend', this.onTouchEnd);
 //                window.removeEventListener('scroll', this.onScroll);
                 window.removeEventListener('resize', this.onResize)
-
             }
         },
         beforeDestroy(){
@@ -292,15 +260,12 @@
             index(val){
                 this.startIndex = val
             },
-
             startIndex(val){
                 this.translateX = -val * this.clientWidth;
             },
-
             list(val) {
                 this.items = val;
             }
         }
-
     }
 </script>
