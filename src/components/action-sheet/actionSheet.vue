@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Popup position="bottom" :mask-closable="maskClosable" v-model="visible" :styles="{background:'transparent'}">
+        <Popup position="bottom"   v-model="visible" :styles="{background:'transparent'}">
             <div :class="classes" >
                 <ul :class="wrapperClasses">
                     <li :class="wrapperActionClass" v-for="(item,key) in actions" @click="emit(item,key)"><span>{{item.text}}</span></li>
@@ -25,10 +25,6 @@
                 default:false
             },
             items:Array,
-            maskClosable:{
-                type:Boolean,
-                default:true
-            },
             cancleText:{
                 type:String,
                 default:'取消'
@@ -38,7 +34,8 @@
         data(){
             return {
                 actions:this.items,
-                visible:this.value
+                visible:this.value,
+                offsetHeight:'auto'
 
             }
         },
@@ -65,6 +62,9 @@
             }
         },
         mounted(){
+
+            this.offsetHeight = this.$el.querySelector('.vlc-actionSheet').offsetHeight;
+
 
         },
         methods:{

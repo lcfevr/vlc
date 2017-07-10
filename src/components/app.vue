@@ -1,8 +1,8 @@
 
 <style rel="stylesheet/less" lang="less">
     // @import '../styles/common.css';
-    @import '../styles/index';
 
+    @import '../styles/index';
     .page{
         position: relative;
         top: 0;
@@ -53,3 +53,4 @@
         },
     }
 </script>
+

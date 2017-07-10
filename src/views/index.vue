@@ -99,6 +99,7 @@
         <Badge number="10" max="99" :dot="false">
             <div style="width: 45px;height: 45px;background-color: red"></div>
         </Badge>
+        <Card>aaa</Card>
     </div>
 </template>
 

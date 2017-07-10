@@ -27,6 +27,7 @@ import ToTop from './components/toTop'
 import Cell from './components/cell'
 import CellSwipe from './components/cell-swipe'
 import Badge from './components/badge'
+import Card from './components/card'
 
 const vlc = {
 
@@ -57,9 +58,9 @@ const vlc = {
     ToTop,
     Cell,
     CellSwipe,
-    Badge
+    Badge,
+    Card
 };
-
 
 const install = (Vue,options)=>{
 

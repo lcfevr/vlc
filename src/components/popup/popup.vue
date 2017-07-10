@@ -1,7 +1,7 @@
 <template>
     <div :class="classes" >
         <transition name="vlc-ani-fade">
-            <div class="vlc-popup-mask"   v-show="visible" @click="close" v-if="mask" @touchstart.prevent @touchmove.prevent @touchend.prevent></div>
+            <div class="vlc-popup-mask"   v-show="visible" @click="close" v-if="mask"  @touchmove.prevent ></div>
         </transition>
         <transition :name="'vlc-ani-'+position" >
             <div  v-show="visible" :class="popupClasses" :style="contentStyle">
@@ -86,6 +86,7 @@
         },
         methods:{
             close(){
+                console.log(this.maskClosable)
                 if (this.maskClosable && this.showMask) this.visible = false
             }
         },

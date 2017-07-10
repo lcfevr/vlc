@@ -187,7 +187,6 @@
             changeBar(index, event){
                 if (this.startIndex == index) return;
                 this.startIndex = index;
-                console.log(this.startIndex)
                 this.translateX = -this.startIndex * this.clientWidth;
                 this.$emit('on-change', index)
             },

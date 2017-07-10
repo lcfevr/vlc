@@ -49,7 +49,6 @@ Indicator.newInstance = properties => {
 
                 // if (!this.$el) return;
                 document.body.removeChild(this.$el);
-                console.log(this.onRemove)
                 this.onRemove()
             }
         }
@@ -94,7 +93,6 @@ Indicator.newInstance = properties => {
 
 
 function confirm(options) {
-    console.warn(instance)
     instance = instance || Indicator.newInstance({
             size: 45,
             color: '#ffffff',
@@ -140,7 +138,7 @@ Indicator.remove = function () {
 
 
     if (!instance) return false;
-    console.log(instance)
+
      instance = instance || Indicator.newInstance({
             size: 45,
             color: '#ffffff',

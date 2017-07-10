@@ -9,7 +9,7 @@
                        :class="inputClass"/>
             </span>
         </span>
-        <slot v-show="show"><span ref="slot">{{label}}</span></slot>
+        <slot v-if="show"><span ref="slot">{{label}}</span></slot>
     </label>
 </template>
 
@@ -31,7 +31,8 @@
             value: {
                 type: Boolean,
                 default: false
-            }
+            },
+
         },
         computed: {
             classes(){
@@ -65,6 +66,7 @@
             return {
                 isGroup: false,
                 model: this.value,
+                show:true,
                 parent: findComponentUpward(this, 'radioBoxGroup')
             }
         },
@@ -76,7 +78,10 @@
 
             if (!this.isGroup) {
 
-                this.updateModel()
+                this.model = this.value
+                if (this.$refs.slot && this.$refs.slot.innerHtml == '') {
+                    this.show = false
+                }
 
             } else {
                 this.parent.updateModel();
@@ -84,9 +89,6 @@
 
         },
         methods: {
-            updateModel (){
-                this.model = this.value
-            },
             change(e){
                 if (this.disable)  return;
                 const checked = e.target.checked;
@@ -99,8 +101,6 @@
 
                 if (!this.isGroup) {
                     this.$emit('on-change', checked);
-                } else {
-
                 }
             }
 
@@ -109,7 +109,7 @@
         watch: {
 
             value(){
-                this.updateModel()
+                this.model = this.value
             },
 
         }
