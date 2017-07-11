@@ -67,7 +67,7 @@
             },
             downDropText: {
                 type: String,
-                default: '↑ 下拉加载数据'
+                default: '↑ 上拉加载数据'
             },
             downLoadingText: {
                 type: String,
@@ -75,7 +75,7 @@
             },
             downDistance: {
                 type: Number,
-                default: 20
+                default: 50
             },
             loadMore: Function,
             hasMore: {
@@ -177,9 +177,9 @@
                 let scrollTop = this.$el.scrollTop;
                 if (this.loadMore && typeof this.loadMore == 'function') {
                     let absY = this.$el.scrollHeight - (this.$el.offsetHeight + scrollTop);
-                    if (absY > 50 && this.downStatus === 'drop') {
+                    if (absY > this.downDistance && this.downStatus === 'drop') {
                         this.downStatus = '';
-                    } else if (absY <= 50 && absY > this.downDistance && this.more) {
+                    } else if (absY <= this.downDistance && absY > this.downDistance && this.more) {
                         this.downStatus = 'drop';
                     } else if (absY <= this.downDistance) {
                         this.downStatus = 'loading';

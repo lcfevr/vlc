@@ -35,8 +35,6 @@
             return {
                 actions:this.items,
                 visible:this.value,
-                offsetHeight:'auto'
-
             }
         },
         computed:{
@@ -61,12 +59,7 @@
                 ]
             }
         },
-        mounted(){
 
-            this.offsetHeight = this.$el.querySelector('.vlc-actionSheet').offsetHeight;
-
-
-        },
         methods:{
             emit(item,index){
 

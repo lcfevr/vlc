@@ -32,8 +32,8 @@
         props:{
             title:String,
             value:{},
-            label:'',
-            link:'',
+            label:String,
+            link:String,
             hasMask:Boolean
         },
         computed:{

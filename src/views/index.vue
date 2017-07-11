@@ -78,8 +78,8 @@
         <SwitchBar size="large"></SwitchBar>
 
 
-        <v-button :inline="true" width="40%" type="warning" :loading="loading" @on-click="load"></v-button>
-        <v-button :inline="true" disabled width="40%" type="success"></v-button>
+        <v-button :inline="true" width="40%" type="warning" :loading="loading" @click.native="load"></v-button>
+        <v-button :inline="true" disabled width="40%" type="success" :loading="loading" @click.native="load"></v-button>
         <Rater v-model="rate" disabled></Rater>
         {{rate}}
 
@@ -90,7 +90,7 @@
         <Progress v-model="progress"></Progress>
         <ToTop></ToTop>
         <Cell title="标题" label="小标题" value="说明文字" has-mask></Cell>
-        <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
+        <CellSwipe  :right="right" title="标题" has-mask ></CellSwipe>
         <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
         <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
         <CellSwipe :left="left" :right="right" title="标题" has-mask ></CellSwipe>
@@ -99,7 +99,7 @@
         <Badge number="10" max="99" :dot="false">
             <div style="width: 45px;height: 45px;background-color: red"></div>
         </Badge>
-        <Card>aaa</Card>
+        <Card></Card>
     </div>
 </template>
 
@@ -194,7 +194,7 @@
                 ],
 
                 loading: false,
-                rate: 3.8,
+                rate: 4.0,
                 check: false,
                 files: [
                     {
@@ -288,8 +288,7 @@
                     }
                 ],
 
-                value: "<h1>ffasfasssa</h1>" +
-                "fasfassfaasf",
+
                 visible: true,
                 indicator: true,
                 maskCloseble: true,
@@ -311,7 +310,7 @@
         },
         mounted () {
 //            this.$Message.loading({showLeft:false,text:'加载中...',duration:0,position:'center'})
-            this.$Modal.info({showHead:true,body:'加载中...',title:'a'})
+            this.$Modal.info({showHead:false,body:'加中...',title:'a'})
            setTimeout(()=>{
                this.items = [
                    {

@@ -122,7 +122,7 @@ Indicator.snake = function (props = {}) {
     return confirm(props)
 }
 
-Indicator.cricle = function (props = {}) {
+Indicator.circle = function (props = {}) {
 
     props.type = 'fading-circle';
     return confirm(props)

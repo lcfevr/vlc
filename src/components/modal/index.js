@@ -35,14 +35,14 @@ function confirm (options) {
 
 Modal.info = function (props={}){
 
-    props.showCancle = true;
-    console.log(props)
+    props.showCancle = false;
+    props.showHead = false;
     return confirm(props)
 }
 
 Modal.confirm = function (props={}) {
 
-    props.showCancle = false;
+    props.showCancle = true;
     props.showHead = false;
 
     return confirm(props)

@@ -95,52 +95,52 @@ Modal.newInstance = properties =>{
 
         show(props){
 
+
+
+            // if ('width' in props) {
+            //     modal.$parent.width = props.width
+            // }
+            //
+            // if ('title' in props) {
+            //     modal.$parent.title = props.title
+            // }
+            //
+            // if ('showHead' in props) {
+            //     modal.$parent.showHead = props.showHead
+            // }
+            //
+            // if ('okText' in props) {
+            //     modal.$parent.okText = props.okText
+            // }
+            //
+            // if ('cancleText' in props) {
+            //     modal.$parent.cancleText = props.cancleText
+            // }
+            //
+            //
+            // if ('onCancle' in props) {
+            //     modal.$parent.onCancle = props.onCancle
+            // }
+            //
+            // if ('onOk' in props) {
+            //     modal.$parent.onOk = props.onOk
+            // }
+            //
+            // if ('loading' in props) {
+            //     modal.$parent.loading = props.loading
+            // }
+            //
+            // if ('body' in props) {
+            //     modal.$parent.body = props.body
+            // }
+
+            Object.keys(props).forEach((item)=>{
+                modal.$parent[item] = props[item]
+            })
+
             modal.$parent.showCancle = props.showCancle;
             modal.$parent.onRemove = props.onRemove;
             modal.visible = true;
-
-            if ('width' in props) {
-                modal.$parent.width = props.width
-            }
-
-            if ('title' in props) {
-                modal.$parent.title = props.title
-            }
-
-            if ('showHead' in props) {
-                modal.$parent.showHead = props.showHead
-            }
-
-            if ('content' in props) {
-                modal.$parent.body = props.content
-            }
-
-
-            if ('okText' in props) {
-                modal.$parent.okText = props.okText
-            }
-
-            if ('cancleText' in props) {
-                modal.$parent.cancleText = props.cancleText
-            }
-
-
-            if ('onCancle' in props) {
-                modal.$parent.onCancle = props.onCancle
-            }
-
-            if ('onOk' in props) {
-                modal.$parent.onOk = props.onOk
-            }
-
-            if ('loading' in props) {
-                modal.$parent.loading = props.loading
-            }
-
-            if ('body' in props) {
-                modal.$parent.body = props.body
-            }
-
 
 
         },

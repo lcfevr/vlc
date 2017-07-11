@@ -5,7 +5,7 @@
         </div>
         <div :class="contentClass">
             <slot>
-
+                <div class="main"></div>
             </slot>
         </div>
         <div :class="footerClass">

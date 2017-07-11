@@ -1,48 +1,52 @@
-## Button组件
+# Button
 
-***全局组件:[否]***
-
-**接收prop参数：**
-
-    props                     type                 default          description
-
-    type                     String                'normal'         组件的主题颜色
-
-    styles                   Object                 {}              自定义行内样式
-
-    circle                   Boolean                false           设置组件是否为圆形
-
-    disable                  Boolean                false           是否禁用
-
-    loading                  Boolean                false           是否loading状态
-
-    inline                   Boolean                false           是否为行内组件
-
-    radius                   Boolean                true            是否有圆角
-
-    width                    String                '100%'           button宽度
-
-    height                    String                '100%'          button高度
-
-    border                    String                'all'           允许边框条数
+## 参数配置
 
 
+props|type|default|destiption
+---|---| ---|---
+type|String|'normal'('success', 'loading', 'normal','primary', 'warning', 'danger', 'text')|组件主题颜色
+styles|Object|{}|自定义行内样式
+circle|Boolean|false|设置组件是否为圆形
+disable|Boolean|false|是否禁用
+loading|Boolean|false|是否loading状态
+inline|Boolean|false|是否为行内组件
+radius|Boolean|true|是否有圆角
+width|String|'100%'|button宽度
+height|String|'100%'|button高度
+border|String|'all'|允许边框条数
+
+## slot
+
+name | description
+---|---
+left | ==button==左侧插值，当==loading==为==true==时，默认为==loading==状态
+none | ==button==显示文字，可以是==html==也可以是字符串
+right | ==button==右侧插值
 
 
-border属性接收以下值
+## event
 
-    'all' //全边框
-    'top' //上边框
-    'bottom' //下边框
-    'left' //左边框
-    'right' //右边框
-    'left-right' //左右边框
-    'top-bottom' //上下边框
-    'left-top' //左上边框
-    'left-bottom' //左下边框
-    'right-top' //右上边框
-    'right-bottom' //右下边框
+name | description
+---|---
+on-click | 点击之后触发，当按钮为==loading==状态或者==disabled==状态时，点击无效
+
+
+
+## 说明
+
+- 一个按钮
+- 点击事件也可以通过==@click.native==触发，但在==loading==状态下点击事件依旧触发
 
 
 
 
+
+
+
+## 实例
+```
+<v-button :inline="true" width="40%" type="warning" :loading="loading" @on-click="load"></v-button>
+
+<v-button :inline="true" disabled width="40%" type="success"></v-button>
+```

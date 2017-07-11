@@ -101,7 +101,7 @@
                     if(index +1 <= Number(valueArr[0])) {
                         obj.color = this.activeColor;
                     }
-                    if (!valueArr.length<2&&Number(valueArr[1])>0 && index+1 ===  Number(valueArr[0])+1) {
+                    if (!valueArr.length<2&&Number(valueArr[1])>=5 && index+1 ===  Number(valueArr[0])+1) {
 
 
                             obj.width = '50%';
