@@ -12,12 +12,12 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="DatePicker" :init-year="2015" @sure="pickerSure" @cancle="pickerCancle" v-model="visible"></Picker>
+        <Picker type="AreaPicker" v-model="visible"   @sure="pickerSure" @cancle="pickerCancle" :address-value="pcd"></Picker>
         <v-button :loading="disable" @on-click="popup = true">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
         <p>{{address}}</p>
-        <v-button @click="newTip">asdasssssdaaaaaasdadd</v-button>
+        <v-button @click.native="showMessage">asdasssssdaaaaaasdadd</v-button>
         <CheckBox-group v-model="data" :vertical="visible">
             <CheckBox label="aaa" :disable="visible"></CheckBox>
             <CheckBox label="bbb"></CheckBox>
@@ -270,7 +270,7 @@
 
                 ],
 
-
+                pcd:'河北省/唐山市/路南区',
                 showAddressPicker: false,
                 items: [],
 
@@ -311,6 +311,11 @@
         mounted () {
 //            this.$Message.loading({showLeft:false,text:'加载中...',duration:0,position:'center'})
             this.$Modal.info({showHead:false,body:'加中...',title:'a'})
+
+
+            setInterval(()=>{
+                this.progress += 8
+            },1000)
            setTimeout(()=>{
                this.items = [
                    {
@@ -404,7 +409,13 @@
                 console.log(val)
             },
             showMessage(){
-                this.$Message.show({text: 'asdasdasdasd'})
+                console.log('a')
+                this.$Message.show({text: 'asdasdasdasd',duration:0});
+                this.$Message.show({text: 'ascx',duration:0});
+
+                setTimeout(()=>{
+                    this.$Message.destroy()
+                },2000)
             },
 
 

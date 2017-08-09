@@ -57,8 +57,6 @@
             },
             onClose: {
                 type: Function,
-                default: () => {
-                }
             },
             position: {
                 type: String,

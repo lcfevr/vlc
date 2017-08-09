@@ -3,21 +3,18 @@
             <div :class="wrapperClass">
                 <div :class="contentClass" >
                     <Area-picker v-if="type==='AreaPicker'"
-                                 :init-province="initProvince"
-                                 :init-city="initCity"
-                                 :init-district="initDistrict"
                                  :styles="styles"
-                                 :root-code="rootCode"
-                                 :value-separator="valueSeparator">
+                                 :value-separator="valueSeparator"
+                                 :address-value="addressValue"
+                    >
 
                     </Area-picker>
 
                     <Date-picker v-if="type==='DatePicker'"
-                                 :init-year="initYear"
-                                 :init-month="initMonth"
-                                 :init-day="initDay"
                                  :year="year" :month="month" :day="day"
-                                 :value-separator="valueSeparator">
+                                 :value-separator="valueSeparator"
+                                 :date-value="dateValue"
+                    >
 
                     </Date-picker>
 

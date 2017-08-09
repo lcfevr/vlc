@@ -11,8 +11,8 @@
                 </div>
             </div>
             <template slot="footer">
-                <v-button :styles="{background:'#ffffff',color:'red'}"  @on-click="ok"><span slot="button-inner">{{okText}}</span></v-button>
-                <v-button :styles="{background:'#ffffff',color:'#ccc'}"  @on-click="cancle" ><span slot="button-inner">{{cancleText}}</span></v-button>
+                <v-button :styles="{background:'#ffffff',color:'red'}"  @click="ok"><span slot="button-inner">{{okText}}</span></v-button>
+                <v-button :styles="{background:'#ffffff',color:'#ccc'}"  @click="cancle" ><span slot="button-inner">{{cancleText}}</span></v-button>
             </template>
         </Modal>
 

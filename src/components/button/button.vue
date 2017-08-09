@@ -113,9 +113,9 @@
         },
 
         methods:{
-            emit(){
+            emit(e){
                 if (this.disabled || this.loading) return;
-                this.$emit('on-click')
+                this.$emit('click',e)
             }
         }
     }

@@ -56,7 +56,6 @@
             },
             initItem(value){
 
-
                 if (!value) {
                     this.current = Object.assign({}, this.current, {
                         code: '',
@@ -74,8 +73,8 @@
         },
 
         mounted(){
-
             if (!this.initItem && this.initItem !== 0) {
+
                 this.current = Object.assign({}, this.current, {code: '', target: this.target, index: '', value: ''});
                 this.$emit('change', this.target, this.current)
             } else {
@@ -170,7 +169,9 @@
 
                 this.translateY = this.currentTranslateY = -index * this.height;
                 try {
-
+                    if (this.current.code ===  this.list[index].code && this.current.value === this.list[index].value) {
+                        return
+                    }
                     this.current = Object.assign({}, this.current, {
                         code: this.list[index].code,
                         value: this.list[index].value,
@@ -187,7 +188,6 @@
                         index: ''
                     });
                 }
-
                 this.$emit('change', this.target, this.current);
 
             },

@@ -12,8 +12,8 @@
             <div class="vlc-modal-body"><slot name="body">{{body}}</slot></div>
             <div class="vlc-modal-footer" v-if="!footerHide">
                 <slot name="footer">
-                    <v-button type="primary" @on-click="close" v-if="cancleText">{{cancleText}}</v-button>
-                    <v-button type="normal" @on-click="ok" :loading="buttonLoading">{{okText}}</v-button>
+                    <v-button type="primary" @click="close" v-if="cancleText">{{cancleText}}</v-button>
+                    <v-button type="normal" @click="ok" :loading="buttonLoading">{{okText}}</v-button>
                 </slot>
             </div>
         </div>
@@ -35,10 +35,6 @@
                 type: Boolean,
                 default: false
             },
-            closable: {
-                type: Boolean,
-                default: true
-            },
             maskClosable: {
                 type: Boolean,
                 default: true
@@ -48,7 +44,7 @@
             },
             width: {
                 type: String,
-                default: '220px'
+                default: '70%'
             },
             okText: {
                 type: String,
@@ -69,18 +65,11 @@
             styles: {
                 type: Object
             },
-            className: {
-                type: String
-            },
             showHead:{
                 type:Boolean,
                 default:true
             },
             footerHide: {
-                type: Boolean,
-                default: false
-            },
-            scrollable: {
                 type: Boolean,
                 default: false
             },
@@ -141,13 +130,6 @@
                 this.$emit('on-ok')
 
             },
-            EscClose (e) {
-                if (this.visible && this.closable) {
-                    if (e.keyCode === 27) {
-                        this.close();
-                    }
-                }
-            },
         },
         watch:{
             value(val) {
@@ -156,19 +138,7 @@
             showHead(val){
                 this.isHead = val
             },
-
-
         },
 
-        mounted(){
-
-
-            document.addEventListener('keydown',this.EscClose)
-            console.log(this.isHead)
-        },
-        beforeDestroy(){
-            document.addEventListener('keydown',this.EscClose)
-
-        }
     }
 </script>

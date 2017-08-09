@@ -5,12 +5,14 @@
             <div class="right" @click="sure">确定</div>
         </div>
         <div class="main">
-            <picker-slot v-if="year" :list="yearList" :init-item="currentYear" target="year" @change="change"></picker-slot>
-            <picker-slot v-if="month" :list="monthList" :init-item="currentMonth" target="month" @change="change"></picker-slot>
-            <picker-slot v-if="day" :list="dayList" :init-item="currentDay" target="day" @change="change"></picker-slot>
+            <picker-slot v-if="year" :list="yearList" :init-item="date.year.code" target="year" @change="change"></picker-slot>
+            <picker-slot v-if="month" :list="monthList" :init-item="date.month.code" target="month" @change="change"></picker-slot>
+            <picker-slot v-if="day" :list="dayList" :init-item="date.day.code" target="day" @change="change"></picker-slot>
         </div>
     </div>
+
 </template>
+
 
 <script>
 
@@ -28,14 +30,29 @@
 
         data(){
             return {
-
-                currentYear: this.year ? this.initYear : '',
-                currentMonth: this.month ? this.initMonth : '',
-                currentDay: this.day ? this.initDay : '',
+                currentValue:this.dateValue,
+//                currentYear: this.year ? this.initYear : '',
+//                currentMonth: this.month ? this.initMonth : '',
+//                currentDay: this.day ? this.initDay : '',
                 date:{
-                    year:{},
-                    month:{},
-                    day:{},
+                    year:{
+                        code:new Date().getFullYear(),
+                        value:String(new Date().getFullYear()),
+                        target:'year',
+                        index:0
+                    },
+                    month:{
+                        code:new Date().getMonth() + 1,
+                        value:String(new Date().getMonth() + 1),
+                        target:'month',
+                        index:0
+                    },
+                    day:{
+                        code:new Date().getDate(),
+                        value:String(new Date().getDate()),
+                        target:'day',
+                        index:0
+                    },
                     formatDate:''
                 }
 
@@ -45,6 +62,28 @@
             PickerSlot
         },
         methods: {
+            initVal(){
+
+                if ((this.valueSeparator || this.valueSeparator != '') && this.currentValue && this.currentValue != '') {
+                    let [year = '',month = '',day = ''] = this.currentValue.split(this.valueSeparator)
+
+
+                    this.date.year = Object.assign({},this.date.year,{code:Number(year),value:year})
+
+
+
+                    this.date.month = Object.assign({},this.date.month,{code:Number(month),value:month})
+
+
+
+                    this.date.day = Object.assign({},this.date.day,{code:Number(day),value:day})
+
+
+                    if (!this.year) this.date.year = {}
+                    if (!this.month) this.date.month = {}
+                    if (!this.day) this.date.day = {}
+                }
+            },
             cancle(){
                 this.dispatch('Picker', 'fail');
             },
@@ -53,16 +92,16 @@
                 this.dispatch('Picker', 'ok',this.date)
             },
             change(target,current) {
+                console.log(current)
+                this.$nextTick(()=>{
                 switch (target) {
 
                     case 'year':
                         let lastYear = this.yearList.length - 1;
                         if (current.index > this.yearList.length - 1) {
-                            this.date.year = this.yearList[lastYear];
-                            this.currentYear = this.yearList[lastYear].code;
+                            this.date.year = Object.assign(this.date.year,this.yearList[lastYear]);
                         } else {
-                            this.date.year = current;
-                            this.currentYear = current.code;
+                            this.date.year = Object.assign(this.date.year,current);
                         }
 
 //                        !!this.monthList ? this.currentMonth = this.monthList[0].code : '';
@@ -75,11 +114,11 @@
                         let lastMonth = this.monthList.length -1;
 
                         if (current.index > this.monthList.length -1 ) {
-                            this.date.month = this.monthList[lastMonth];
-                            this.currentMonth = this.monthList[lastMonth].code
+                            this.date.month = Object.assign(this.date.month,this.monthList[lastMonth]);
+
                         } else {
-                            this.date.month = current;
-                            this.currentMonth = current.code;
+                            this.date.month = Object.assign(this.date.month,current);
+
                         }
 
 
@@ -91,20 +130,23 @@
                         let lastDay = this.dayList.length - 1;
 
                         if (current.index > this.dayList.length - 1) {
-                            this.date.day = this.dayList[lastDay];
-                            this.currentDay = this.dayList[lastDay].code
+                            this.date.day = Object.assign(this.date.day,this.dayList[lastDay]);
                         } else {
-                            this.date.day = current;
-                            this.currentDay = current.code;
+                            this.date.day = Object.assign(this.date.day,current);
+
                         }
 
 
                         break;
                 }
+            })
 
-                this.date.formatDate = [this.currentYear,this.currentMonth,this.currentDay].join(this.valueSeparator)
+                this.date.formatDate = [this.date.year.value,this.date.month.value,this.date.day.value].filter(x => !!x).join(this.valueSeparator)
 
             }
+        },
+        mounted(){
+            this.initVal();
         },
         computed: {
             classes(){
@@ -184,15 +226,15 @@
                     from = 1;
                     to = 31;
 
-                    if (!!this.currentMonth) {
+                    if (!!this.date.month.value) {
                         let total;
 
-                        if ( !!~DAYS[30].indexOf(this.currentMonth) ) {
+                        if ( !!~DAYS[30].indexOf(this.date.month.value) ) {
                             total = 30;
-                        } else if ( !!~DAYS[31].indexOf(this.currentMonth) ) {
+                        } else if ( !!~DAYS[31].indexOf(this.date.month.value) ) {
                             total = 31;
                         } else {
-                            let year = this.currentYear;
+                            let year = this.date.day.code;
                             if ((year%4 === 0 ) && (year%100 != 0 || year%400 === 0)) {
                                 total = 29;
                             } else {
@@ -228,6 +270,12 @@
                 }
 
                 return false;
+            }
+        },
+        watch:{
+            dateValue(val){
+                this.currentValue = val;
+                this.initVal();
             }
         }
 

@@ -3,18 +3,7 @@
  */
 export default  {
     props: {
-        initYear: {
-            type: [String, Number],
-            default: new Date().getFullYear()
-        },
-        initMonth: {
-            type: [String, Number],
-            default: new Date().getMonth()+1
-        },
-        initDay: {
-            type: [String, Number],
-            default: new Date().getDate()
-        },
+        dateValue:String,
         year: {
             type: [Boolean, Array],
             default: true

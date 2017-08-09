@@ -9,11 +9,13 @@
 
         <div class="main">
 
-            <picker-slot :list="provinces" :init-item="province" :target="'province'" @change="change"></picker-slot>
+            <picker-slot :list="provinces" :init-item="province.code" :target="province.target"
+                         @change="change"></picker-slot>
 
-            <picker-slot :list="citys" :init-item="city" :target="'city'" @change="change"></picker-slot>
+            <picker-slot :list="citys" :init-item="city.code" :target="city.target" @change="change"></picker-slot>
 
-            <picker-slot :list="districts" :init-item="district" :target="'district'" @change="change"></picker-slot>
+            <picker-slot :list="districts" :init-item="district.code" :target="district.target"
+                         @change="change"></picker-slot>
 
         </div>
     </div>
@@ -27,79 +29,158 @@
     import Emitter from '../../../mixin/emitter'
     import props from './props'
 
-
     const prefixCls = 'vlc-picker';
+    const rootCode = '86'
     export default {
         name: 'AreaPicker',
-        mixins: [Emitter,props],
+        mixins: [Emitter, props],
 
         data(){
-            return {
-                province: this.initProvince,
-                provinceName: '北京市',
-                city: this.initCity,
-                cityName: '市辖区',
-                district: this.initDistrict,
-                districtName: '东城区',
 
+            return {
+                currentValue: this.addressValue,
+                province: {
+                    value: '北京市',
+                    code: '110000',
+                    target: 'province',
+                    index: 0
+                },
+
+                city: {
+                    value: '市辖区',
+                    code: '110100',
+                    target: 'city',
+                    index: 0
+                },
+
+                district: {
+                    value: '东城区',
+                    code: '110101',
+                    target: 'district',
+                    index: 0
+                },
             }
         },
+        mounted(){
+            this.initVal();
+        },
+
         methods: {
+            initVal(){
+
+                if ((this.valueSeparator || this.valueSeparator != '') && this.currentValue && this.currentValue != '') {
+
+                    let [provinceName, cityName, districtName] = this.currentValue.split(this.valueSeparator)
+
+
+                    if (provinceName || cityName || districtName) {
+                        let provinces = CHINA_AREA[rootCode]
+                        if (!!provinces && provinces != undefined)
+                        Object.keys(provinces).forEach((item)=>{
+                            if (!isNaN(provinceName) && !!provinceName) {
+                                if (provinceName == item) {
+                                    this.province.value = provinces[item];
+                                    this.province.code = item;
+                                }
+                            } else {
+                                if (provinceName == provinces[item]) {
+                                    this.province.value = provinces[item];
+                                    this.province.code = item;
+                                }
+                            }
+                        })
+
+
+                        let citys = CHINA_AREA[this.province.code];
+                        if (!!citys && citys != undefined)
+                        Object.keys(citys).forEach((item)=>{
+                            if (!isNaN(cityName) && !!cityName) {
+                                if (cityName == item) {
+                                    this.city.value = citys[item];
+                                    this.city.code = item;
+                                }
+                            } else {
+                                if (cityName == citys[item]) {
+                                    this.city.value = citys[item];
+                                    this.city.code = item;
+                                }
+                            }
+                        })
+
+
+                        let districts = CHINA_AREA[this.city.code];
+                        if(!!districts && districts != undefined)
+                        Object.keys(districts).forEach((item)=>{
+                            if (!isNaN(districtName) && !!districtName) {
+                                if (districtName == item) {
+                                    this.district.value = districts[item];
+                                    this.district.code = item;
+                                }
+                            } else {
+                                if (districtName == citys[item]) {
+                                    this.district.value = districts[item];
+                                    this.district.code = item;
+                                }
+                            }
+                        })
+
+                    }
+                }
+
+            },
             sure(){
 
-
                 this.dispatch('Picker', 'ok', {
-                    province:{code: this.province, name: this.provinceName},
-                    city: {code: this.city, name: this.cityName},
-                    district: {code: this.district, name: this.districtName},
-                    formArea:[this.provinceName,this.cityName,this.districtName].join(this.valueSeparator)
+                    province: {code: this.province.code, name: this.province.value},
+                    city: {code: this.city.code, name: this.city.value},
+                    district: {code: this.district.code, name: this.district.value},
+                    formArea: [this.province.value, this.city.value, this.district.value].join(this.valueSeparator)
                 })
             },
             cancle(){
                 this.dispatch('Picker', 'fail');
             },
-            _filter(id, target){
-
-                let result = [];
-
-
-                let items = CHINA_AREA[id];
-                for (let code in items) {
-                    if (!items.hasOwnProperty(code)) return;
-                    result.push({code: code, value: items[code], target: target})
-                }
-
-                return result;
-            },
-            change(target, current){
+            _filter(target, val = {}){
                 switch (target) {
-                    case 'province' :
-                        this.province = current.code;
-                        !!this.citys.length ? this.city = this.citys[0].code : this.city = '';
-                        this.provinceName = current.value;
+                    case 'province':
+                        let provinces = CHINA_AREA[rootCode];
+                        if (!provinces && provinces == undefined)  return [];
+
+                        return Object.keys(provinces).map((item) => {
+                            return {code:item,value:provinces[item],target:target}
+                        });
                         break;
                     case 'city':
-                        this.city = current.code;
-                        !!this.districts.length ? this.district = this.districts[0].code : this.district = '';
-                        this.cityName = current.value;
-                        break;
                     case 'district':
-                        this.district = current.code;
-                        this.districtName = current.value
+                        let list = CHINA_AREA[val.code];
+                        if (!list && list == undefined)  return [];
+
+                        return Object.keys(list).map((item) => {
+                            return {code:item,value:list[item],target:target}
+                        })
+                        break;
                 }
+            },
+            change(target, current){
 
-
-
-                this.dispatch('Picker', 'parentchange', {
-                    province:{code: this.province, name: this.provinceName},
-                    city: {code: this.city, name: this.cityName},
-                    district: {code: this.district, name: this.districtName}
+                this.$nextTick(() => {
+                    this[target] = Object.assign({}, this[target], current);
                 })
+                this.dispatch('Picker', 'parentchange', {
+                    province: {code: this.province.code, name: this.province.value},
+                    city: {code: this.city.code, name: this.city.value},
+                    district: {code: this.district.code, name: this.district.value},
+                })
+            },
+        },
+
+        watch: {
+            addressValue(val){
+                this.currentValue = val
+                this.initVal()
             },
 
         },
-
-
         computed: {
             classes(){
                 return [
@@ -107,13 +188,15 @@
                 ]
             },
             provinces(){
-                return this._filter(this.rootCode, 'province')
+
+                return this._filter('province')
             },
             citys(){
-                return this._filter(this.province, 'city')
+                return this._filter('city', this.province)
             },
             districts(){
-                return this._filter(this.city, 'district')
+
+                return this._filter('district', this.city)
             }
         },
         components: {

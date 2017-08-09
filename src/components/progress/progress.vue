@@ -32,6 +32,12 @@
             },
 
         },
+        data(){
+            return {
+                width:this.value
+            }
+
+        },
         computed:{
             classes(){
                 return [
@@ -57,7 +63,12 @@
                 return {height:this.barHeight+'px'}
             },
             progressStyle(){
-                return {height:this.barHeight+'px',width:this.value+'%'}
+                return {height:this.barHeight+'px',width:this.width+'%'}
+            }
+        },
+        watch:{
+            value(val){
+               this.width =  val >= 100 ?  100 : val
             }
         }
 

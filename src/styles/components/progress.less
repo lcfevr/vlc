@@ -20,25 +20,29 @@
     flex:1;
     position: relative;
 
-    &-runaway {
-      position: absolute;
-      left:0;
-      top:50%;
-      transform: translate(0,-50%);
-      right:0;
-      background: #ebebeb;
-      height:3px;
-    }
 
-    &-progress {
-      position: absolute;
-      display: block;
-      top:50%;
-      transform: translate(0,-50%);
-      background: @ThemeColor;
-      width:0;
-      height:3px;
-    }
+  }
+
+  &-runaway {
+    position: absolute;
+    left:0;
+    top:50%;
+    transform: translate(0,-50%);
+    right:0;
+    background: #ebebeb;
+    height:3px;
+  }
+
+  &-progress {
+    position: absolute;
+    display: block;
+    top:50%;
+    transform: translate(0,-50%);
+    background: -webkit-linear-gradient(left,#ffffff,@ThemeColor);
+    width:0;
+    height:3px;
+    transition:width 150ms ease-out;
+    will-change: width;
   }
 
 

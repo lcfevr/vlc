@@ -122,12 +122,9 @@ export default {
         }
     },
     destroy(){
-
-        let instance = getNewInstance();
-
-        MG_instance = null;
-
-        instance.destroy()
+        if (!MG_instance) return false;
+        MG_instance = getNewInstance();
+        MG_instance.destroy()
     }
 }
 

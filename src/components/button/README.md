@@ -29,7 +29,7 @@ right | ==button==右侧插值
 
 name | description
 ---|---
-on-click | 点击之后触发，当按钮为==loading==状态或者==disabled==状态时，点击无效
+click | 点击之后触发，当按钮为==loading==状态或者==disabled==状态时，点击无效
 
 
 
@@ -46,7 +46,7 @@ on-click | 点击之后触发，当按钮为==loading==状态或者==disabled==�
 
 ## 实例
 ```
-<v-button :inline="true" width="40%" type="warning" :loading="loading" @on-click="load"></v-button>
+<v-button :inline="true" width="40%" type="warning" :loading="loading" click="load"></v-button>
 
 <v-button :inline="true" disabled width="40%" type="success"></v-button>
 ```

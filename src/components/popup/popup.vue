@@ -6,7 +6,6 @@
         <transition :name="'vlc-ani-'+position" >
             <div  v-show="visible" :class="popupClasses" :style="contentStyle">
                 <slot></slot>
-
             </div>
         </transition>
     </div>
@@ -86,7 +85,6 @@
         },
         methods:{
             close(){
-                console.log(this.maskClosable)
                 if (this.maskClosable && this.showMask) this.visible = false
             }
         },

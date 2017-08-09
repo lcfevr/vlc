@@ -1,10 +1,10 @@
 /**
  * Created by lcfevr on 16/7/18.
  */
-import Env from './env';
+
 
 let config = {
-    env: Env,
+    env: process.env.NODE_ENV,
     PROJECT:'VLC',
     VERSION:'1.0',
     doc_title:'',

@@ -30,9 +30,8 @@ Modal.newInstance = properties =>{
                         <div class="${prefixCls}-header-inner  ellipse-fir"  v-html="title" slot="header"></div>
                         <div class="${prefixCls}-body-inner" v-html="body" slot="body"></div>
                         <template slot="footer">
-                            <v-button type="primary" :radius="false" @on-click="cancle"  v-if="showCancle">{{cancleText}}</v-button>
-                             <v-button type="normal" :radius="false" @on-click="ok" :loading="buttonLoading">{{okText}}</v-button>
-
+                            <v-button type="primary" :radius="false" @click="cancle"  v-if="showCancle">{{cancleText}}</v-button>
+                             <v-button type="normal" :radius="false" @click="ok" :loading="buttonLoading">{{okText}}</v-button>
                         </template>
                     </Modal>`,
         components:{
@@ -62,6 +61,7 @@ Modal.newInstance = properties =>{
 
             },
             ok(){
+                console.log('asd')
                 if (this.loading) {
                     this.buttonLoading = true;
                     this.$children[0].buttonLoading = true;

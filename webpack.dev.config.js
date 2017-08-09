@@ -13,6 +13,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 
+process.env.NODE_ENV = '"development"'
 module.exports = merge(webpackBaseConfig, {
     // 入口
     entry: {
@@ -34,7 +35,9 @@ module.exports = merge(webpackBaseConfig, {
     },
     plugins: [
 
-
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': process.env.NODE_ENV,
+        }),
         new ExtractTextPlugin({ filename: '[name].css', disable: true, allChunks: true }),
         new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
         new webpack.LoaderOptionsPlugin({
@@ -55,7 +58,3 @@ module.exports = merge(webpackBaseConfig, {
     ]
 });
 
-fs.open('./src/config/env.js', 'w', function (err, fd) {
-    var buf = 'export default "development";';
-    fs.write(fd,buf,0,buf.length,0,function(err,written,buffer){});
-});
