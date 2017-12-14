@@ -1,8 +1,8 @@
 <template>
     <div :class="classes" v-if="visible">
         <header>
-            <div class="left" >
-                <slot name="left"><div @click="back">返回</div></slot>
+            <div class="left" @click="back">
+                <slot name="left"><div>返回</div></slot>
             </div>
             <div class="title vlc-nowrap">{{title}}</div>
             <div class="right">
@@ -61,7 +61,7 @@
         },
         methods: {
             back() {
-                window.history.back();
+                this.$router ? this.$router.back() : window.history.back();
             }
         },
         watch:{

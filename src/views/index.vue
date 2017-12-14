@@ -12,7 +12,7 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="AreaPicker" v-model="visible"   @sure="pickerSure" @cancle="pickerCancle" :address-value="pcd"></Picker>
+        <Picker type="NormalPicker" @normal-change="normalChange" v-model="visible"   @sure="pickerSure" @cancle="pickerCancle" :init-arr="inita" :list="listss"></Picker>
         <v-button :loading="disable" @on-click="popup = true">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
@@ -347,6 +347,10 @@
 
         },
         methods: {
+
+            normalChange(val){
+                console.log(val)
+            },
             async a(a){
                 await setTimeout(() => {
                     console.log(a.c)

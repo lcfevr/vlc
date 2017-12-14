@@ -53,6 +53,8 @@
                 }
                this.normal = Object.assign({},this.normal,{[target]:current})
 
+
+                this.dispatch('Picker','scroll',current)
             }
         },
         computed:{

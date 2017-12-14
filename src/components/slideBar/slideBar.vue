@@ -37,7 +37,7 @@
             },
             height: {
                 type: [String, Number],
-                default: '235px'
+                default: '100%'
             },
             styles: {
                 type: Object,
@@ -90,7 +90,6 @@
         },
         mounted (){
             this.clientWidth = this.$el.clientWidth;
-//            if (this.getItemWidth * this.items.length < this.clientWidth) this.isFlex = true;
             this.translateX = -this.startIndex * this.clientWidth;
             this.onScroll();
             this.bindEvents();

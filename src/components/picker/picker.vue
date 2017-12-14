@@ -1,30 +1,30 @@
 <template>
-        <Popup height="284px" position="bottom" v-model="visible">
-            <div :class="wrapperClass">
-                <div :class="contentClass" >
-                    <Area-picker v-if="type==='AreaPicker'"
-                                 :styles="styles"
-                                 :value-separator="valueSeparator"
-                                 :address-value="addressValue"
-                    >
+    <Popup height="284px" position="bottom" v-model="visible">
+        <div :class="wrapperClass">
+            <div :class="contentClass">
+                <Area-picker v-if="type==='AreaPicker'"
+                             :styles="styles"
+                             :value-separator="valueSeparator"
+                             :address-value="addressValue"
+                >
 
-                    </Area-picker>
+                </Area-picker>
 
-                    <Date-picker v-if="type==='DatePicker'"
-                                 :year="year" :month="month" :day="day"
-                                 :value-separator="valueSeparator"
-                                 :date-value="dateValue"
-                    >
+                <Date-picker v-if="type==='DatePicker'"
+                             :year="year" :month="month" :day="day"
+                             :value-separator="valueSeparator"
+                             :date-value="dateValue"
+                >
 
-                    </Date-picker>
+                </Date-picker>
 
-                    <Normal-picker v-if="type==='NormalPicker'"
-                                   :list="list"
-                                   :init-arr="initArr">
-                    </Normal-picker>
-                </div>
+                <Normal-picker v-if="type==='NormalPicker'"
+                               :list="list"
+                               :init-arr="initArr">
+                </Normal-picker>
+            </div>
         </div>
-        </Popup>
+    </Popup>
 </template>
 
 <script>
@@ -36,7 +36,7 @@
     import AreaPicker from './area-picker/area-picker.vue';
     import DatePicker from './date-picker/date-picker.vue';
     import NormalPicker from './normal-picker/normal-picker.vue';
-    const LIST = ['DatePicker','AreaPicker','NormalPicker'];
+    const LIST = ['DatePicker', 'AreaPicker', 'NormalPicker'];
     const prefixCls = 'vlc-picker';
     export default {
         name: 'Picker',
@@ -53,7 +53,7 @@
                 default: false
             }
         },
-        mixins: [areaProps, dateProps,normalProps],
+        mixins: [areaProps, dateProps, normalProps],
         data(){
             return {
                 visible: this.value,
@@ -71,6 +71,10 @@
             this.$on('fail', () => {
                 this.visible = false;
                 this.$emit('cancle')
+            })
+
+            this.$on('scroll', (val) => {
+                this.$emit('normal-change',val)
             })
         },
         mounted(){
@@ -91,7 +95,7 @@
                 this.$emit('input', val)
             }
         },
-        computed:{
+        computed: {
             wrapperClass(){
                 return [
                     `${prefixCls}-wrapper`
