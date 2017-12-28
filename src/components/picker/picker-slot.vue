@@ -46,7 +46,8 @@
 
                 if (value.length) {
                     let index = this.getSelectedIndex();
-
+                    if (!value.length > index - 1) index = 0
+                    console.warn(value[index])
                     this.current = Object.assign({}, this.current, value[index]);
                     this.$emit('change', this.target, this.current)
                 } else {

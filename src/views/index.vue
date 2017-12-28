@@ -12,7 +12,7 @@
             <div><i class="vlc-icono-back"></i></div>
 
         </div>
-        <Picker type="NormalPicker" @normal-change="normalChange" v-model="visible"   @sure="pickerSure" @cancle="pickerCancle" :init-arr="inita" :list="listss"></Picker>
+        <Picker type="AreaPicker" @normal-change="normalChange" v-model="visible"  @sure="pickerSure" @cancle="pickerCancle" ></Picker>
         <v-button :loading="disable" @on-click="popup = true">确定</v-button>
         <h1>111111111111</h1>
         <!--<tab></tab>-->
@@ -271,6 +271,7 @@
                 ],
 
                 pcd:'河北省/唐山市/路南区',
+                dates:'2017/07/08',
                 showAddressPicker: false,
                 items: [],
 

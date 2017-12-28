@@ -37,24 +37,26 @@
                 this.dispatch('Picker', 'ok',this.normal);
             },
             change(target,current){
+                this.$nextTick(()=>{
+                    for(let i = 0;i < this.shadowList.length;i++) {
 
-                for(let i = 0;i < this.shadowList.length;i++) {
+                        if(this.shadowList[i].target == target) {
 
-                    if(this.shadowList[i].target == target) {
+                            for (let j = 0;i<this.shadowList[i].length;j++) {
 
-                        for (let j = 0;i<this.shadowList[i].length;j++) {
-
-                            if (current.code == this.shadowList[i].list[j].code) {
-                                this.$set(this.initItems,i,this.shadowList[i].list[j].code)
-                                break;
+                                if (current.code == this.shadowList[i].list[j].code) {
+                                    this.$set(this.initItems,i,this.shadowList[i].list[j].code)
+                                    break;
+                                }
                             }
                         }
                     }
-                }
-               this.normal = Object.assign({},this.normal,{[target]:current})
+                    this.normal = Object.assign({},this.normal,{[target]:current})
 
 
-                this.dispatch('Picker','scroll',current)
+                    this.dispatch('Picker','scroll',current)
+                })
+
             }
         },
         computed:{

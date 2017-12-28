@@ -134,7 +134,7 @@
                     province: {code: this.province.code, name: this.province.value},
                     city: {code: this.city.code, name: this.city.value},
                     district: {code: this.district.code, name: this.district.value},
-                    formArea: [this.province.value, this.city.value, this.district.value].join(this.valueSeparator)
+                    formArea: [this.province.value, this.city.value, this.district.value].filter(x => !!x).join(this.valueSeparator)
                 })
             },
             cancle(){
@@ -146,17 +146,29 @@
                         let provinces = CHINA_AREA[rootCode];
                         if (!provinces && provinces == undefined)  return [];
 
-                        return Object.keys(provinces).map((item) => {
-                            return {code:item,value:provinces[item],target:target}
+                        return Object.keys(provinces).map((item, index) => {
+                            return {code:item,value:provinces[item],target:target,index:index}
                         });
                         break;
                     case 'city':
                     case 'district':
+                        console.log(val)
+                        console.log(target)
                         let list = CHINA_AREA[val.code];
-                        if (!list && list == undefined)  return [];
+                        if (!list && list == undefined && target)  {
+                            this[target] = {
+                                value: '',
+                                code: '',
+                                target: target,
+                                index:''
+                            };
 
-                        return Object.keys(list).map((item) => {
-                            return {code:item,value:list[item],target:target}
+                            return []
+                        };
+
+
+                        return Object.keys(list).map((item, index) => {
+                            return {code:item,value:list[item],target:target,index:index}
                         })
                         break;
                 }
@@ -165,12 +177,16 @@
 
                 this.$nextTick(() => {
                     this[target] = Object.assign({}, this[target], current);
+
+                    this.dispatch('Picker', 'parentchange', {
+                        province: {code: this.province.code, name: this.province.value},
+                        city: {code: this.city.code, name: this.city.value},
+                        district: {code: this.district.code, name: this.district.value},
+                    })
                 })
-                this.dispatch('Picker', 'parentchange', {
-                    province: {code: this.province.code, name: this.province.value},
-                    city: {code: this.city.code, name: this.city.value},
-                    district: {code: this.district.code, name: this.district.value},
-                })
+
+
+
             },
         },
 
@@ -178,6 +194,7 @@
             addressValue(val){
                 this.currentValue = val
                 this.initVal()
+
             },
 
         },

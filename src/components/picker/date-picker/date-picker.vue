@@ -88,11 +88,10 @@
                 this.dispatch('Picker', 'fail');
             },
             sure(){
-
+                console.log(this.date)
                 this.dispatch('Picker', 'ok',this.date)
             },
             change(target,current) {
-                console.log(current)
                 this.$nextTick(()=>{
                 switch (target) {
 
@@ -103,7 +102,7 @@
                         } else {
                             this.date.year = Object.assign(this.date.year,current);
                         }
-
+                        console.log(this.date.year)
 //                        !!this.monthList ? this.currentMonth = this.monthList[0].code : '';
 //                        !!this.dayList ? this.currentDay = this.dayList[0].code : '';
 
@@ -139,9 +138,14 @@
 
                         break;
                 }
-            })
 
-                this.date.formatDate = [this.date.year.value,this.date.month.value,this.date.day.value].filter(x => !!x).join(this.valueSeparator)
+
+                    console.log(this.date.year.value)
+                    this.date.formatDate = [this.date.year.value,this.date.month.value,this.date.day.value].filter(x => !!x).join(this.valueSeparator)
+
+                })
+
+
 
             }
         },
