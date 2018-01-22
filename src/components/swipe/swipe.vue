@@ -209,16 +209,21 @@
                 if (item.onClick && typeof item.onClick == 'function') {
 
                     item.onClick(item, index)
-                } else if(item.link &&　this.$router){
+                } else if(item.link){
 
-                    let matchLink = this.$router.match(item.link)
+                    if (/(https|http)/i.test(item.link)){
 
-                    if (!!matchLink.matched.length) {
-                        e.preventDefault();
-                        this.$router.push(item.link)
-                    } else if (/(https|http)/i.test(item.link)){
                         window.location.href = item.link
+                    } else if(this.$router){
+                        let matchLink = this.$router.match(item.link)
+
+                        if (!!matchLink.matched.length) {
+
+                            e.preventDefault();
+                            this.$router.push(item.link)
+                        }
                     }
+
 
                 }
             },

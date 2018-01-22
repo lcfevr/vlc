@@ -18,14 +18,27 @@
     }
 
     .left, .right {
-        width: @HeaderIconWidth;
         height: 100%;
         font-size: @FontSizeSmall;
         display: flex;
         align-items: center;
+
     }
     .left {
         padding-left: @SpaceHor;
+        .arrow {
+            width:8px;
+            height:8px;
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            transform: rotate(-45deg);
+            display: inline-block;
+        }
+
+        .text {
+            display: inline-block;
+        }
+
     }
     .right {
         padding-right: @SpaceHor;

@@ -2,7 +2,7 @@
     <div :class="classes" v-if="visible">
         <header>
             <div class="left" @click="back">
-                <slot name="left"><div>返回</div></slot>
+                <slot name="left"><span class="arrow"></span><span class="text">返回</span></slot>
             </div>
             <div class="title vlc-nowrap">{{title}}</div>
             <div class="right">

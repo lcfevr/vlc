@@ -2,7 +2,8 @@
 <style rel="stylesheet/less" lang="less">
     // @import '../styles/common.css';
 
-    @import '../styles/index';
+    @import '../../src/styles/index';
+
     .page{
         position: relative;
         top: 0;
