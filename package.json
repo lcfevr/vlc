@@ -5,7 +5,7 @@
   "main": "dist/vlc.js",
   "scripts": {
     "init": "webpack --progress --config webpack.dev.config.js",
-    "dev": "webpack-dev-server --host 192.168.0.125  --inline --hot --compress --history-api-fallback  --config webpack.dev.config.js",
+    "dev": "webpack-dev-server   --inline --hot --compress --history-api-fallback  --config webpack.dev.config.js",
     "build:style": "gulp --gulpfile build-style.js",
     "build:dev": "webpack --config webpack.dist.dev.config.js",
     "build:prod": "webpack -p --config webpack.dist.prod.config.js",

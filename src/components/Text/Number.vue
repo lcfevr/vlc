@@ -1,10 +1,10 @@
 <template>
 
     <div :class="classes" :style="containerStyle">
-        <span :class="reduceClasses" :style="getChangeStyle" @click="change('reduce',downDisabled)">
+        <div :class="reduceClasses" :style="getChangeStyle" @click="change('reduce',downDisabled)">
             <slot name="reduce">-</slot>
-        </span>
-        <label :class="wrapperClasses">
+        </div>
+        <div :class="wrapperClasses">
             <input type="number"
                    :style="inputStyle"
                    :min="min"
@@ -19,10 +19,10 @@
                    @keyup.38="change('reduce',downDisabled)"
                    @keyup.40="change('add',upDisabled)"
             />
-        </label>
-        <span :class="addtionClasses" :style="getChangeStyle" @click="change('add',upDisabled)">
+        </div>
+        <div :class="addtionClasses" :style="getChangeStyle" @click="change('add',upDisabled)">
             <slot name="add">+</slot>
-        </span>
+        </div>
     </div>
 </template>
 
@@ -50,11 +50,11 @@
 
             width:{
                 type:Number,
-                default:50
+                default:60
             },
             height: {
                 type: Number,
-                default: 20
+                default: 35
             },
             numberStyle:{
                 type:Object,
@@ -147,6 +147,7 @@
             reduceClasses(){
                 return [
                     `${prefixCls}-changevalue`,
+                    'left',
                     {
                         ['disabled']:this.downDisabled
                     }
@@ -155,6 +156,7 @@
             addtionClasses(){
                 return [
                     `${prefixCls}-changevalue`,
+                    'right',
                     {
                         ['disabled']:this.upDisabled
                     }
@@ -171,14 +173,17 @@
                 return {
                     width: `${this.height}px`,
                     height: `${this.height}px`,
+                    lineHeight:`${this.height}px`,
                 }
             },
             inputStyle(){
                 return Object.assign({},this.numberStyle,{
                     width:`${this.width}px`,
-                    height:`${this.height}px`
+                    height:`${this.height}px`,
+
                 })
             }
+
         },
 
         watch: {
