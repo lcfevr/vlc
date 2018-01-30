@@ -11,9 +11,17 @@
         right: 0;
         bottom: 0;
     }
+
+    html,body {
+        height: 100%;
+    }
+
+    #app {
+        height: 100%;
+    }
 </style>
 <template>
-    <div>
+    <div id="app">
         <transition :name="direction">
 
             <router-view   class="page"></router-view>
