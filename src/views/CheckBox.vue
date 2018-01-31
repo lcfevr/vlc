@@ -13,7 +13,7 @@
         <p>单个checkbox</p>
         <div class="item"><CheckBox label="苹果" v-model="checked" ></CheckBox></div>
         <div class="item">checked:{{checked}}</div>
-        <p>checkbox组合</p>
+        <p>禁用的checkbox</p>
         <div class="item"><CheckBox label="玩具" disable></CheckBox></div>
     </div>
 </template>

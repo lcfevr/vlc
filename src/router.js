@@ -4,6 +4,10 @@
 
 
 const routers = [
+    {
+        path:'/',
+        redirect:'/guide'
+    },
 
     {
         path:'/guide',

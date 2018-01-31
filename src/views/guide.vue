@@ -1,6 +1,6 @@
 <template>
     <div class="guide">
-        <Cell :title="v.title" :label="v.label"  :link="v.link" v-for="v in componentList" has-mask>
+        <Cell :title="v.title" :label="v.label"  :link="v.link" v-for="v in componentList" has-mask :key="v.title">
 
         </Cell>
     </div>
