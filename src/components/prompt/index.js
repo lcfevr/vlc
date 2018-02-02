@@ -25,7 +25,7 @@ function confirm (options) {
 
         promptInstance = null;
     }
-
+    console.log(options)
     instance.show(options);
 }
 

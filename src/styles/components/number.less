@@ -1,30 +1,56 @@
 .vlc-number {
 
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color:#4a4a4a;
+
+
   & input {
     box-sizing:border-box;
-    border: 1px  solid #eeeeee;
+    border:.5px solid #c0c4cc;
     text-align: center;
     transition:border-color .2s linear;
     will-change:border-color;
+    background:#ffffff;
   }
 
   & input:focus {
-    border-color:#39f
+    border-color:@ThemeColor
   }
   & .disabled{
-    background: #eeeeee;
-    color: #ffffff;
-    border-color: transparent;
+
+    color:#c0c4cc;
+
 
   }
   &-changevalue {
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
     display: inline-block;
     text-align: center;
-    box-sizing: border-box;
-    border:1px solid #555555;
-    border-radius:3px;
-    vertical-align: middle;
+    border:.5px solid #c0c4cc;
+    background:#e1e2ea;
+
+
+
+
+  }
+
+  &-changevalue.left {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    border-right: 0;
+
+  }
+
+  &-changevalue.right {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    border-left: 0;
 
   }
 }

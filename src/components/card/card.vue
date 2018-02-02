@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes">
+    <div :class="classes" :style="{width:width}">
         <div :class="headerClass">
             <slot name="header"></slot>
         </div>

@@ -21,3 +21,28 @@
 
 
 
+**接收prop参数：**
+
+```
+         <Upload :multiple="true" @on-change-file="onChangeFile" ref="upload"></Upload>
+          <img :src="item.base64" v-for="item in files"/>
+
+         export default {
+            data(){
+                return {
+                    files:null
+                }
+            }
+            methods:{
+                onChangeFile(img){
+                    this.files = img
+                }
+            }
+         }
+
+```
+
+
+
+
+

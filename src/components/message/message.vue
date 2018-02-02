@@ -57,6 +57,9 @@
             },
             onClose: {
                 type: Function,
+                default:function(){
+
+                }
             },
             position: {
                 type: String,

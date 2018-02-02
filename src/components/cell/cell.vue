@@ -39,6 +39,7 @@
         computed:{
             toLink(){
                 if (this.link && this.$router) {
+
                    let matchLink =  this.$router.match(this.link)
                     if (!matchLink.matched.length) return this.link
 

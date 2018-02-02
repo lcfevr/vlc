@@ -1,0 +1,159 @@
+<template>
+    <div class="guide">
+        <Cell :title="v.title" :label="v.label"  :link="v.link" v-for="v in componentList" has-mask :key="v.title">
+
+        </Cell>
+    </div>
+</template>
+
+<script>
+
+    export default {
+        name: "guide",
+        data(){
+            return {
+                componentList:[
+                    {
+                        title:'ActionSheet',
+                        label:'操作列表',
+                        link:'/ActionSheet'
+                    },
+                    {
+                        title:'Badge',
+                        label:'消息气泡',
+                        link:'/Badge'
+                    },
+                    {
+                        title:'Button',
+                        label:'按钮',
+                        link:'/Button'
+                    },
+                    {
+                        title:'Card',
+                        label:'卡片',
+                        link:'/Card'
+                    },
+                    {
+                        title:'Cell',
+                        label:'单元格',
+                        link:'/Cell'
+                    },
+                    {
+                        title:'CellSwipe',
+                        label:'滑动单元格',
+                        link:'/CellSwipe'
+                    },
+                    {
+                        title:'CheckBox',
+                        label:'多选',
+                        link:'/CheckBox'
+                    },
+                    {
+                        title:'Header',
+                        label:'导航栏',
+                        link:'/Header'
+                    },
+                    {
+                        title:'Indicator',
+                        label:'加载框',
+                        link:'/Indicator'
+                    },
+                    {
+                        title:'LoadMore',
+                        label:'上拉加载/下拉刷新',
+                        link:'/LoadMore'
+                    },
+                    {
+                        title:'Message',
+                        label:'消息弹出框',
+                        link:'/Message'
+                    },
+                    {
+                        title:'Modal',
+                        label:'弹窗',
+                        link:'/Modal'
+                    },
+                    {
+                        title:'Picker',
+                        label:'选择器',
+                        link:'/Picker'
+                    },
+                    {
+                        title:'Popup',
+                        label:'拉起列表',
+                        link:'/Popup'
+                    },
+                    {
+                        title:'Progress',
+                        label:'进度条',
+                        link:'/Progress'
+                    },
+                    {
+                        title:'Prompt',
+                        label:'交互式弹窗',
+                        link:'/Prompt'
+                    },
+                    {
+                        title:'RadioBox',
+                        label:'单选按钮',
+                        link:'/RadioBox'
+                    },
+                    {
+                        title:'Rater',
+                        label:'评分',
+                        link:'/Rater'
+                    },
+                    {
+                        title:'SlideBar',
+                        label:'选项卡',
+                        link:'/SlideBar'
+                    },
+                    {
+                        title:'Spinner',
+                        label:'加载动画',
+                        link:'/Spinner'
+                    },
+                    {
+                        title:'Swipe',
+                        label:'轮播',
+                        link:'/Swipe'
+                    },
+                    {
+                        title:'SwitchBar',
+                        label:'开关',
+                        link:'/SwitchBar'
+                    },
+                    {
+                        title:'Tab',
+                        label:'菜单栏',
+                        link:'/Tab'
+                    },
+                    {
+                        title:'Text',
+                        label:'输入框',
+                        link:'/Text'
+                    },
+                    {
+                        title:'ToTop',
+                        label:'回到顶部',
+                        link:'/ToTop'
+                    },
+                    {
+                        title:'Upload',
+                        label:'图片上传',
+                        link:'/Upload'
+                    },
+
+                ]
+            }
+        },
+
+    }
+</script>
+
+<style lang="less" scoped>
+    .guide {
+        width: 100%;
+        position: relative;
+    }
+</style>
