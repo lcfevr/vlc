@@ -15,7 +15,7 @@
         props:{
             distance:{
                 type:Number,
-                default:300
+                default:200
             },
             bottom:{
                 type:[Number,String],
@@ -37,6 +37,7 @@
         },
         methods:{
             toTop(){
+
                 scrollTop(window,document.body.scrollTop,0,this.duration)
             },
             scroll(){

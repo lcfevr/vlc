@@ -1,7 +1,7 @@
 <template>
     <div :class="classes" :style="wrapperStyles">
         <button :style="styles"  :class="buttonClass" :disabled="disabled" @click="emit">
-            <slot name="left"><span class="loading" v-show="loading"><Spinner size="15" color="#eeeeee"></Spinner></span></slot>
+            <slot name="left"><span class="loading" v-show="loading"><Spinner type="blade" size="15" color="#ffffff"></Spinner></span></slot>
             <slot><span>确定</span></slot>
             <slot name="right"></slot>
         </button>

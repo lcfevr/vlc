@@ -88,6 +88,7 @@ export let JPEG = {
 }
 
 export function scrollTop(el, from = 0, to, duration = 500) {
+
     if (!window.requestAnimationFrame) {
         window.requestAnimationFrame = (
             window.webkitRequestAnimationFrame ||

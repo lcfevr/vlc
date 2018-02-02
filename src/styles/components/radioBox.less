@@ -37,20 +37,20 @@
   top: 0;
   left: 0;
   border: 1px solid #d7dde4;
-  border-radius: 50%;
+  border-radius: 100%;
   background-color: #fff;
   transition: border-color .2s ease-in-out,background-color .2s ease-in-out;
 }
 
 
 
-.vlc-radiobox-inner:after{
+.vlc-radiobox-inner:before{
   position: absolute;
-  width: 8px;
-  height: 8px;
-  left: 3px;
-  top: 3px;
-  border-radius: 6px;
+  width: 14px;
+  height: 14px;
+  left: 0px;
+  top: 0px;
+  border-radius: 50%;
   display: table;
   border-top: 0;
   border-left: 0;
@@ -61,18 +61,37 @@
   transform: scale(0);
 }
 
-.vlc-radiobox-checked .vlc-radiobox-inner:after {
+.vlc-radiobox-inner:after{
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  left: 4px;
+  top: 4px;
+  border-radius: 50%;
+  display: table;
+  border-top: 0;
+  border-left: 0;
+  content: " ";
+  background-color: #ffffff;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  transform: scale(0) ;
+}
+
+.vlc-radiobox-checked .vlc-radiobox-inner:after ,.vlc-radiobox-checked .vlc-radiobox-inner:before{
   opacity: 1;
   transform: scale(1);
   transition: all .2s ease-in-out;
+  box-shadow:0 0 1px 1px @ThemeColor
 }
 
-.vlc-radiobox-disable.vlc-radiobox-checked .vlc-radiobox-inner:after{
+
+.vlc-radiobox-disable.vlc-radiobox-checked .vlc-radiobox-inner:after,.vlc-radiobox-disable.vlc-radiobox-checked .vlc-radiobox-inner:before{
   background-color: #f3f3f3;
   cursor: not-allowed;
 }
 
-.vlc-radiobox-disable .vlc-radiobox-inner:after{
+.vlc-radiobox-disable .vlc-radiobox-inner:after,.vlc-radiobox-disable .vlc-radiobox-inner:before{
   background-color: #f3f3f3;
   cursor: not-allowed;
 }
@@ -97,9 +116,7 @@
   cursor: not-allowed;
 }
 
-.vlc-radiobox-checked .vlc-radiobox-inner {
-  border-color: #555;
-}
+
 
 
 .vlc-radiobox-input{

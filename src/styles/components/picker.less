@@ -28,21 +28,32 @@
       justify-content: space-between;
       background: @PickerHeaderBgColor;
       color: @ThemeColor;
+      
+      .title {
+        height: @PickerHeaderHeight;
+        line-height: @PickerHeaderHeight;
+        font-weight: bold;
+        color: #454545;
+        font-size:15px;
+      }
 
       .left, .right {
 
         height: @PickerHeaderHeight;
         line-height: @PickerHeaderHeight;
-        font-size: @PickerTxtSize;
+        font-size: 14px;
         padding:0 @SpaceHor;
         font-weight: bold;
+      }
+      
+      .left {
+        color: #c0c4cc;
       }
 
 
     }
 
     .main {
-      background: linear-gradient(0deg, rgba(95, 95, 95, 0.1) 0, rgba(255, 255, 255, 0.4) 60%, rgba(255, 255, 255, 0.4) 70%, rgba(80, 80, 80, 0.1) 100%);
       height: @PickerHeight;
       display: flex;
       justify-content: center;

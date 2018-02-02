@@ -4,6 +4,7 @@
     <div :class="classes">
         <div class="header">
             <div class="left" @click="cancle">取消</div>
+            <div class="title">请选择区域</div>
             <div class="right" @click="sure">确定</div>
         </div>
 
@@ -152,8 +153,6 @@
                         break;
                     case 'city':
                     case 'district':
-                        console.log(val)
-                        console.log(target)
                         let list = CHINA_AREA[val.code];
                         if (!list && list == undefined && target)  {
                             this[target] = {
