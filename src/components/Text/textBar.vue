@@ -97,7 +97,7 @@
             },
             inputClasses(){
                 return [
-                    `${prefixCls}-text`
+                    `${prefixCls}-input`
                 ]
             },
             textareaClasses(){

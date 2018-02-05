@@ -38,7 +38,7 @@
         methods:{
             toTop(){
 
-                scrollTop(window,document.body.scrollTop,0,this.duration)
+                scrollTop(window,window.pageYOffset,0,this.duration)
             },
             scroll(){
                 this.back = window.pageYOffset > this.distance

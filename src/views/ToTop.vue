@@ -1,5 +1,7 @@
 <template>
-    <div></div>
+    <div class="ToTop">
+        <ToTop></ToTop>
+    </div>
 </template>
 
 <script>
@@ -8,6 +10,8 @@
     }
 </script>
 
-<style scoped>
-
+<style  lang="less" scoped>
+    .ToTop {
+        height:200%;
+    }
 </style>
