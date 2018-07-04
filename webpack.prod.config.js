@@ -24,8 +24,8 @@ module.exports = merge(webpackBaseConfig, {
     output: {
         path:path.join(__dirname, './dist-prod'),
         publicPath: '',
-        filename: '[name].js',
-        chunkFilename: '[name].chunk.js'
+        filename: '[name].[hash].js',
+        chunkFilename: '[name].chunk.[hash].js'
     },
     resolve: {
         alias: {
@@ -39,7 +39,7 @@ module.exports = merge(webpackBaseConfig, {
             'process.env.NODE_ENV': process.env.NODE_ENV,
         }),
         // new ExtractTextPlugin({ filename: '[name].css', disable: true, allChunks: true }),
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.js' }),
+        new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendor.bundle.[hash].js' }),
         new webpack.LoaderOptionsPlugin({
             // test: /\.xxx$/, // may apply this only for some modules
             options: {
