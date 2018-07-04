@@ -1,7 +1,7 @@
 /**
  * Created by admin on 2017/6/22.
  */
-import Indicator from './Indicator'
+import Indicator from './Indicator.vue'
 import {camelcaseToHyphen} from '../../utils/util'
 import Vue from 'vue'
 let instance;
