@@ -4,7 +4,7 @@
 
 import VButton from './components/button'
 import CheckBox from './components/checkBox'
-import Header from './components/Header'
+import VlcHeader from './components/Header'
 import Message from './components/message'
 import Modal from './components/modal'
 import Picker from './components/picker'
@@ -36,7 +36,7 @@ const vlc = {
     CheckBoxGroup:CheckBox.group,
     Radio,
     RadioGroup:Radio.group,
-    Header,
+    VlcHeader,
     Message,
     Modal,
     Prompt,
